@@ -1,6 +1,6 @@
 import type { Attribution, Bundle, Inference, Passage } from "@epistemic-git/protocol";
 import { attributionClass, attributionLabel, challengesFor, locatorText, pct, truncate } from "../../domain.js";
-import { Badge, SectionLabel } from "../primitives.js";
+import { Badge, SectionLabel, pressable } from "../primitives.js";
 import type { BadgeTone } from "../primitives.js";
 import type { Look } from "./types.js";
 
@@ -102,7 +102,7 @@ function InferenceDetail({
   const conclusion = look.claims.get(inf.conclusion);
   const challenges = challengesFor(bundle, inf.id);
   const claimLink = (id: string) => (
-    <div className="quote clickable" onClick={() => onSelect(id)}>
+    <div className="quote clickable" onClick={() => onSelect(id)} {...pressable(() => onSelect(id))}>
       {truncate(look.claims.get(id)?.statement ?? id, 120)}
       <span className="subtle mono"> · support {pct(support.get(id) ?? 0)}</span>
     </div>

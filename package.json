@@ -21,7 +21,7 @@
     "author:covid": "tsx cases/covid.ts",
     "dev": "npm run dev -w @epistemic-git/tool",
     "build:tool": "npm run build -w @epistemic-git/tool",
-    "smoke:tool": "tsx --tsconfig apps/tool/tsconfig.json apps/tool/scripts/smoke.ts",
+    "smoke:tool": "vitest run apps/tool/test/smoke.test.tsx",
     "extract": "tsx packages/pipeline/src/cli.ts extract",
     "mcp": "tsx packages/mcp-server/src/server.ts",
     "eval:adversarial": "tsx eval/adversarial/suite.ts"

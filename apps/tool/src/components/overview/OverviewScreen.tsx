@@ -1,28 +1,34 @@
 import { useMemo } from "react";
-import { bundles, mergePairs } from "../../data.js";
+import { useCases } from "../../cases/store.js";
 import { pct, truncate } from "../../domain.js";
 import { attributionMix, auditActivity, overviewKpis, supportByCase } from "../../stats.js";
 import type { AuditItem } from "../../stats.js";
 import {
-  AlertIcon, CheckIcon, FileTextIcon, FolderIcon, LinkIcon, MessageIcon, PlusIcon, QuarantineIcon, ZapIcon,
+  AlertIcon, CheckIcon, DownloadIcon, FileTextIcon, FolderIcon, LinkIcon, MessageIcon, PlusIcon, QuarantineIcon, ZapIcon,
 } from "../icons.js";
-import { Avatar, Badge, IconTile, Pill } from "../primitives.js";
+import { Avatar, Badge, IconTile, Pill, pressable } from "../primitives.js";
 
 export function OverviewScreen({
-  query, onOpenCase, onOpenRunPanel,
+  query, onOpenCase, onOpenImport, onOpenRunPanel,
 }: {
   query: string;
   onOpenCase: (caseId: string, selectId?: string) => void;
+  onOpenImport: () => void;
   onOpenRunPanel?: () => void;
 }) {
-  const kpis = useMemo(() => overviewKpis(bundles), []);
-  const cases = useMemo(() => supportByCase(bundles, new Set(Object.keys(mergePairs))), []);
-  const mix = useMemo(() => attributionMix(bundles), []);
-  const activity = useMemo(() => auditActivity(bundles, 4), []);
+  const { cases: registry } = useCases();
+  const kpis = useMemo(() => overviewKpis(registry), [registry]);
+  const mergeableIds = useMemo(
+    () => new Set(Object.values(registry).filter((c) => c.mergePairs?.length).map((c) => c.id)),
+    [registry],
+  );
+  const cases = useMemo(() => supportByCase(registry, mergeableIds), [registry, mergeableIds]);
+  const mix = useMemo(() => attributionMix(registry), [registry]);
+  const activity = useMemo(() => auditActivity(registry, 4), [registry]);
 
   const q = query.trim().toLowerCase();
   const visibleCases = q
-    ? cases.filter((c) => c.label.toLowerCase().includes(q) || bundles[c.id]!.bundle.question.toLowerCase().includes(q))
+    ? cases.filter((c) => c.label.toLowerCase().includes(q) || registry[c.id]!.bundle.question.toLowerCase().includes(q))
     : cases;
   const best = cases.reduce((a, b) => (b.support > a.support ? b : a), cases[0]!);
 
@@ -35,6 +41,9 @@ export function OverviewScreen({
         </div>
         <div className="spacer" />
         <div className="actions">
+          <button className="btn-outline" onClick={onOpenImport}>
+            <DownloadIcon size={18} style={{ transform: "rotate(180deg)" }} /> Import ledger
+          </button>
           {onOpenRunPanel && (
             <button className="btn-outline" onClick={onOpenRunPanel}>
               <ZapIcon size={18} /> Run pipeline
@@ -50,7 +59,7 @@ export function OverviewScreen({
         <div className="kpi-card">
           <div className="top">
             <IconTile><FolderIcon size={21} /></IconTile>
-            <Pill tone="amber">{Object.keys(mergePairs).length} mergeable</Pill>
+            <Pill tone="amber">{mergeableIds.size} mergeable</Pill>
           </div>
           <div className="val">{kpis.cases}</div>
           <div className="lbl">Case ledgers</div>
@@ -96,7 +105,7 @@ export function OverviewScreen({
           </div>
           <div className="barchart">
             {cases.map((c) => (
-              <div key={c.id} className="bar-col" onClick={() => onOpenCase(c.id)} title={`Open ${c.label}`}>
+              <div key={c.id} className="bar-col" onClick={() => onOpenCase(c.id)} {...pressable(() => onOpenCase(c.id))} title={`Open ${c.label}`} aria-label={`Open ${c.label} — support ${pct(c.support)}`}>
                 <span className="bar-val">{pct(c.support)}</span>
                 <div className={`bar-fill${c.id === best.id ? " hot" : ""}`} style={{ height: `${Math.max(4, c.support * 100)}%` }} />
               </div>
@@ -127,7 +136,7 @@ export function OverviewScreen({
             <span>CASE</span><span>SUPPORT</span><span>STATUS</span><span style={{ textAlign: "right" }}>CLAIMS</span>
           </div>
           {visibleCases.map((c) => (
-            <div key={c.id} className="trow" style={{ gridTemplateColumns: "1.7fr 0.8fr 1.2fr 0.7fr" }} onClick={() => onOpenCase(c.id)}>
+            <div key={c.id} className="trow" style={{ gridTemplateColumns: "1.7fr 0.8fr 1.2fr 0.7fr" }} onClick={() => onOpenCase(c.id)} {...pressable(() => onOpenCase(c.id))} aria-label={`Open ${c.label}`}>
               <div className="name">
                 <Avatar label={c.label} size={34} tile />
                 <span className="nm">{c.label}</span>
@@ -204,7 +213,7 @@ function ActivityRow({ item, last, onOpen }: { item: AuditItem; last: boolean; o
     : item.kind === "contradiction" ? { bg: "var(--pink-bg)", icon: <LinkIcon size={15} color="#db2777" /> }
     : { bg: "var(--surface-2)", icon: <QuarantineIcon size={16} color="#737373" /> };
   return (
-    <div className="tl-item link" onClick={() => onOpen(item.caseId, item.targetId)}>
+    <div className="tl-item link" onClick={() => onOpen(item.caseId, item.targetId)} {...pressable(() => onOpen(item.caseId, item.targetId))} aria-label={`Open ${item.caseLabel}: ${item.actor}`}>
       <div className="tl-rail">
         <span className="tl-circle" style={{ background: circle.bg }}>{circle.icon}</span>
         {!last && <div className="tl-line" />}

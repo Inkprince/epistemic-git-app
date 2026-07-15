@@ -1,6 +1,7 @@
 import type { Bundle } from "@epistemic-git/protocol";
 import type { CruxRanking, PerspectiveDiff } from "@epistemic-git/analysis";
 import { overlaysById, pct, truncate } from "../../domain.js";
+import { pressable } from "../primitives.js";
 import { shortLabel } from "./LeftPanel.js";
 
 export function PerspectivesTab({
@@ -43,7 +44,7 @@ export function PerspectivesTab({
       </div>
 
       {diff.contributions.slice(0, 6).map((c) => (
-        <div className="contrib-row" key={c.claimId} onClick={() => onSelect(c.claimId)}>
+        <div className="contrib-row" key={c.claimId} onClick={() => onSelect(c.claimId)} {...pressable(() => onSelect(c.claimId))} aria-label={`Inspect: ${truncate(c.statement, 50)}`}>
           <div className="top">
             <span className="st">{truncate(c.statement, 72)}</span>
             <span className="pct">{pct(Math.abs(c.shareOfGap))}</span>

@@ -2,9 +2,9 @@ import type {
   Attribution, Bundle, Challenge, Claim, Inference, Overlay, Passage, Source,
 } from "@epistemic-git/protocol";
 
-/** The primary conclusion of a bundle = its (first) derived claim. */
-export function primaryConclusion(bundle: Bundle): Claim {
-  return bundle.claims.find((c) => c.derived) ?? bundle.claims[bundle.claims.length - 1]!;
+/** The primary conclusion of a bundle = its (first) derived claim; null for an empty bundle. */
+export function primaryConclusion(bundle: Bundle): Claim | null {
+  return bundle.claims.find((c) => c.derived) ?? bundle.claims[bundle.claims.length - 1] ?? null;
 }
 
 export function claimsById(bundle: Bundle): Map<string, Claim> {

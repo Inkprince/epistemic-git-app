@@ -21,11 +21,13 @@ export function supportByCase(
   return Object.entries(bundles).map(([id, { label, bundle }]) => {
     const conclusion = primaryConclusion(bundle);
     const overlayId = bundle.overlays[0]?.id;
-    const field = computeSupport(bundle, { ...(overlayId ? { overlayId } : {}), respectCorrelation: true });
+    const field = conclusion
+      ? computeSupport(bundle, { ...(overlayId ? { overlayId } : {}), respectCorrelation: true })
+      : undefined;
     return {
       id,
       label,
-      support: field.support.get(conclusion.id) ?? 0,
+      support: (conclusion && field?.support.get(conclusion.id)) || 0,
       claims: bundle.claims.length,
       overlays: bundle.overlays.length,
       mergeable: mergeableIds.has(id),

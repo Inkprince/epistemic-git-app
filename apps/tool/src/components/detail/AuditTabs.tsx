@@ -1,20 +1,27 @@
 import type { Bundle, Match } from "@epistemic-git/protocol";
 import { truncate } from "../../domain.js";
-import { Badge, MarkCircle } from "../primitives.js";
+import { Badge, MarkCircle, pressable } from "../primitives.js";
 import type { Look } from "./types.js";
 
-export function ChallengesTab({ bundle, onSelect }: { bundle: Bundle; onSelect: (id: string) => void }) {
+const matchesQuery = (q: string, ...fields: (string | undefined)[]): boolean =>
+  !q || fields.some((f) => f?.toLowerCase().includes(q));
+
+export function ChallengesTab({ bundle, query = "", onSelect }: { bundle: Bundle; query?: string; onSelect: (id: string) => void }) {
+  const q = query.trim().toLowerCase();
+  const visible = bundle.challenges.filter((c) => matchesQuery(q, c.rationale, c.challengeType, c.status));
   return (
     <>
       <div className="content-head"><div className="t">Adversarial challenges</div></div>
+      {q && <p className="note" style={{ margin: "-12px 0 14px" }}>{visible.length} of {bundle.challenges.length} match “{query.trim()}”.</p>}
       <div className="task-list">
-        {bundle.challenges.map((c) => {
+        {visible.map((c) => {
           const clickable = c.target.kind === "claim" || c.target.kind === "inference";
           return (
             <div
               key={c.id}
               className={`task-card${clickable ? " clickable" : ""}`}
               onClick={() => clickable && onSelect(c.target.id)}
+              {...(clickable ? pressable(() => onSelect(c.target.id)) : {})}
             >
               <span className="mark"><MarkCircle kind="pink" /></span>
               <div className="main">
@@ -33,14 +40,18 @@ export function ChallengesTab({ bundle, onSelect }: { bundle: Bundle; onSelect: 
   );
 }
 
-export function RelationsTab({ bundle, look, onSelect }: { bundle: Bundle; look: Look; onSelect: (id: string) => void }) {
+export function RelationsTab({ bundle, look, query = "", onSelect }: { bundle: Bundle; look: Look; query?: string; onSelect: (id: string) => void }) {
+  const q = query.trim().toLowerCase();
+  const visibleMatches = bundle.matches.filter((m) =>
+    matchesQuery(q, m.rationale, m.type, look.claims.get(m.from)?.statement, look.claims.get(m.to)?.statement));
   return (
     <>
       {bundle.matches.length > 0 && (
         <>
           <div className="content-head"><div className="t">Claim relations</div></div>
+          {q && <p className="note" style={{ margin: "-12px 0 14px" }}>{visibleMatches.length} of {bundle.matches.length} match “{query.trim()}”.</p>}
           <div className="task-list">
-            {bundle.matches.map((m) => <MatchCard key={m.id} m={m} look={look} onSelect={onSelect} />)}
+            {visibleMatches.map((m) => <MatchCard key={m.id} m={m} look={look} onSelect={onSelect} />)}
           </div>
         </>
       )}
@@ -80,9 +91,9 @@ function MatchCard({ m, look, onSelect }: { m: Match; look: Look; onSelect: (id:
       <div className="main">
         <div className="title">{m.rationale}</div>
         <div className="desc">
-          <a className="premise-link" onClick={() => onSelect(m.from)}>{truncate(look.claims.get(m.from)?.statement ?? m.from, 44)}</a>
+          <a className="premise-link" onClick={() => onSelect(m.from)} {...pressable(() => onSelect(m.from))}>{truncate(look.claims.get(m.from)?.statement ?? m.from, 44)}</a>
           {"  ↔  "}
-          <a className="premise-link" onClick={() => onSelect(m.to)}>{truncate(look.claims.get(m.to)?.statement ?? m.to, 44)}</a>
+          <a className="premise-link" onClick={() => onSelect(m.to)} {...pressable(() => onSelect(m.to))}>{truncate(look.claims.get(m.to)?.statement ?? m.to, 44)}</a>
         </div>
         <div className="foot"><Badge tone={tone}>{m.type}</Badge></div>
       </div>
@@ -90,12 +101,15 @@ function MatchCard({ m, look, onSelect }: { m: Match; look: Look; onSelect: (id:
   );
 }
 
-export function QuarantineTab({ bundle }: { bundle: Bundle }) {
+export function QuarantineTab({ bundle, query = "" }: { bundle: Bundle; query?: string }) {
+  const qq = query.trim().toLowerCase();
+  const visible = bundle.quarantine.filter((x) => matchesQuery(qq, x.statement, x.reason, x.attemptedPassageText));
   return (
     <>
       <div className="content-head"><div className="t">Quarantine — refused for lack of a verbatim source</div></div>
+      {qq && <p className="note" style={{ margin: "-12px 0 14px" }}>{visible.length} of {bundle.quarantine.length} match “{query.trim()}”.</p>}
       <div className="task-list">
-        {bundle.quarantine.map((q) => (
+        {visible.map((q) => (
           <div className="task-card done" key={q.id}>
             <span className="mark"><MarkCircle kind="open" /></span>
             <div className="main">

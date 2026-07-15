@@ -1,6 +1,7 @@
 import type { Bundle } from "@epistemic-git/protocol";
 import { useEffect, useRef, useState } from "react";
 import { XIcon } from "./icons.js";
+import { Modal } from "./Modal.js";
 
 const SAMPLE_TEXT = `Regular consumption of nuts has been associated with a reduced risk of cardiovascular disease in several large prospective cohort studies. In the Nurses' Health Study, women who ate nuts five or more times per week had a 35% lower risk of coronary heart disease than women who rarely ate nuts. A 2013 randomized controlled trial (PREDIMED) found that a Mediterranean diet supplemented with mixed nuts reduced the incidence of major cardiovascular events by approximately 28% compared with a control diet. However, observational findings may be confounded: nut consumers in these cohorts tended to exercise more, smoke less, and have higher incomes. Critics also note that the PREDIMED trial was partially re-analysed in 2018 after irregularities in randomization at some sites, although the corrected analysis reported similar effect sizes. Nuts are energy-dense, and some researchers caution that recommendations should account for total caloric intake.`;
 
@@ -30,13 +31,7 @@ export function RunPanelModal({ onClose, onResult }: { onClose: () => void; onRe
 
   useEffect(() => {
     textRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      abortRef.current?.abort();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => abortRef.current?.abort();
   }, []);
 
   useEffect(() => {
@@ -90,8 +85,7 @@ export function RunPanelModal({ onClose, onResult }: { onClose: () => void; onRe
   const chars = text.trim().length;
 
   return (
-    <div className="modal-overlay" onClick={busy ? undefined : onClose}>
-      <div className="modal-card" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Run the pipeline on your own source">
+    <Modal onClose={onClose} ariaLabel="Run the pipeline on your own source" closeOnOverlay={!busy}>
         <div className="head">
           <div className="t">Run the pipeline</div>
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
@@ -139,7 +133,6 @@ export function RunPanelModal({ onClose, onResult }: { onClose: () => void; onRe
             </p>
           )}
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

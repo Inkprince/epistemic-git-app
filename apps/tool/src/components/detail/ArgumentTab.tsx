@@ -1,9 +1,12 @@
 import type { Bundle, Claim } from "@epistemic-git/protocol";
 import type { SupportPath } from "@epistemic-git/analysis";
+import { Suspense, lazy } from "react";
 import { pct, truncate } from "../../domain.js";
-import { GraphView } from "../../GraphView.js";
 import { ZapIcon } from "../icons.js";
-import { Badge, MarkCircle, SectionLabel } from "../primitives.js";
+
+// Cytoscape (~350 KB) loads only when an argument map is actually shown.
+const GraphView = lazy(() => import("../../GraphView.js").then((m) => ({ default: m.GraphView })));
+import { Badge, MarkCircle, SectionLabel, pressable } from "../primitives.js";
 import type { Look } from "./types.js";
 
 export function ArgumentTab({
@@ -34,7 +37,7 @@ export function ArgumentTab({
   return (
     <>
       <div className="conclusion-card">
-        <div className="statement" onClick={() => onSelect(conclusion.id)}>{conclusion.statement}</div>
+        <div className="statement" onClick={() => onSelect(conclusion.id)} {...pressable(() => onSelect(conclusion.id))} aria-label="Inspect the conclusion">{conclusion.statement}</div>
         <div className="gauge">
           <span className="val" style={{ color: "var(--green-text)" }}>{pct(concSupport)}</span>
           <span className="lbl">{gaugeLabel}</span>
@@ -58,10 +61,12 @@ export function ArgumentTab({
       )}
 
       <SectionLabel>Argument map — coloured by live support · click any node or edge for details</SectionLabel>
-      <GraphView
-        bundle={bundle} support={support} selected={selected} distrust={distrust}
-        onSelect={onGraphSelect} onInspect={onSelect} onToggleDistrust={onToggleDistrust}
-      />
+      <Suspense fallback={<div className="graph-wrap"><div className="graph-box" aria-label="Loading argument graph…" /></div>}>
+        <GraphView
+          bundle={bundle} support={support} selected={selected} distrust={distrust}
+          onSelect={onGraphSelect} onInspect={onSelect} onToggleDistrust={onToggleDistrust}
+        />
+      </Suspense>
 
       <div className="content-head" style={{ marginTop: 24 }}>
         <div className="t">Supporting argument lines</div>
@@ -92,6 +97,7 @@ function LineCard({ path, attack, look, onSelect }: { path: SupportPath; attack?
     <div
       className={`task-card clickable${!path.active && !attack ? " done dim" : ""}`}
       onClick={() => onSelect(path.inferenceId)}
+      {...pressable(() => onSelect(path.inferenceId))}
       title="Inspect this inference"
     >
       <span className="mark"><MarkCircle kind={mark} /></span>
@@ -102,7 +108,11 @@ function LineCard({ path, attack, look, onSelect }: { path: SupportPath; attack?
           {path.premises.map((pid, i) => (
             <span key={pid}>
               {i > 0 ? ", " : ""}
-              <a className="premise-link" onClick={(e) => { e.stopPropagation(); onSelect(pid); }}>
+              <a
+                className="premise-link"
+                onClick={(e) => { e.stopPropagation(); onSelect(pid); }}
+                {...pressable(() => onSelect(pid))}
+              >
                 {truncate(look.claims.get(pid)?.statement ?? pid, 48)}
               </a>
             </span>

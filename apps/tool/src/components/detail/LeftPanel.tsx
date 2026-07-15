@@ -1,20 +1,22 @@
 import type { Bundle } from "@epistemic-git/protocol";
 import { overlaysById, truncate } from "../../domain.js";
 import { CpuIcon, FileTextIcon, LinkIcon, UsersIcon } from "../icons.js";
-import { InfoRow, SectionLabel } from "../primitives.js";
+import { InfoRow, SectionLabel, pressable } from "../primitives.js";
+import { HistoryPanel } from "./HistoryPanel.js";
 import { InspectPanel } from "./InspectPanel.js";
 import type { Look } from "./types.js";
 
-export type LeftTab = "evidence" | "inspect";
+export type LeftTab = "evidence" | "inspect" | "history";
 
 export function LeftPanel({
-  bundle, look, support, query,
+  caseId, bundle, look, support, query,
   leftTab, onLeftTab,
   overlayId, onOverlay,
   respectCorrelation, onRespectCorrelation,
   distrust, onToggleDistrust, onSetDistrust,
   selected, onSelect,
 }: {
+  caseId: string;
   bundle: Bundle;
   look: Look;
   support: ReadonlyMap<string, number>;
@@ -42,11 +44,14 @@ export function LeftPanel({
       <div className="tab-row">
         <button className={`tab${leftTab === "evidence" ? " active" : ""}`} onClick={() => onLeftTab("evidence")}>Evidence</button>
         <button className={`tab${leftTab === "inspect" ? " active" : ""}`} onClick={() => onLeftTab("inspect")}>Inspect</button>
+        <button className={`tab${leftTab === "history" ? " active" : ""}`} onClick={() => onLeftTab("history")}>History</button>
       </div>
       <div className="body scrl">
-        {leftTab === "inspect" ? (
+        {leftTab === "history" && <HistoryPanel caseId={caseId} currentBundle={bundle} />}
+        {leftTab === "inspect" && (
           <InspectPanel selectedId={selected} support={support} look={look} bundle={bundle} onSelect={onSelect} />
-        ) : (
+        )}
+        {leftTab === "evidence" && (
           <>
             <div className="control-group">
               <SectionLabel>Perspective</SectionLabel>
@@ -77,6 +82,8 @@ export function LeftPanel({
                   key={c.id}
                   className={`claim-row ${selected === c.id ? "selected" : ""} ${distrust.includes(c.id) ? "distrusted" : ""}`}
                   onClick={() => onSelect(c.id)}
+                  {...pressable(() => onSelect(c.id))}
+                  aria-label={`Inspect claim: ${c.statement.slice(0, 60)}`}
                 >
                   <input
                     type="checkbox" checked={distrust.includes(c.id)}
@@ -87,11 +94,6 @@ export function LeftPanel({
                 </div>
               ))}
               {q && <p className="note">{evidence.length} of {bundle.claims.filter((c) => !c.derived).length} claims match “{query.trim()}”.</p>}
-              {distrust.length > 0 && (
-                <button className="chip-btn" style={{ marginTop: 10 }} onClick={() => onSetDistrust(() => [])}>
-                  Reset {distrust.length} distrusted
-                </button>
-              )}
             </div>
 
             {bundle.sources.length > 1 && (

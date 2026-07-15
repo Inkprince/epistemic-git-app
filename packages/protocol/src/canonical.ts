@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { sha256Hex } from "./sha256.js";
 
 /**
  * Deterministic content addressing.
@@ -35,9 +35,9 @@ function sortValue(value: unknown): unknown {
   return value;
 }
 
-/** SHA-256 hex digest of the canonical form of `value`. */
+/** SHA-256 hex digest of the canonical form of `value`. Pure JS — identical in Node and browser. */
 export function hashContent(value: unknown): string {
-  return createHash("sha256").update(canonicalize(value)).digest("hex");
+  return sha256Hex(canonicalize(value));
 }
 
 /**

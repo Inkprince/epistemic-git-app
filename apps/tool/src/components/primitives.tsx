@@ -1,5 +1,18 @@
-import type { ReactNode } from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 import { CheckIcon } from "./icons.js";
+
+/** Make a clickable non-button element keyboard-operable (Enter/Space) and focusable. */
+export const pressable = (fn: () => void) => ({
+  role: "button" as const,
+  tabIndex: 0,
+  onKeyDown: (e: KeyboardEvent) => {
+    // Only when the row itself is focused — inner controls (checkboxes, links) keep their own keys.
+    if (e.target === e.currentTarget && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      fn();
+    }
+  },
+});
 
 export type BadgeTone = "green" | "purple" | "amber" | "pink" | "neutral" | "yellow";
 

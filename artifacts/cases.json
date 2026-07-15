@@ -1,0 +1,27 @@
+﻿{
+    "version":  1,
+    "cases":  [
+                  {
+                      "id":  "lhc",
+                      "label":  "LHC black holes",
+                      "file":  "lhc.json",
+                      "mergePairs":  [
+                                         {
+                                             "id":  "lhc-addendum",
+                                             "label":  "investigator B â€” 2024 neutron-star re-derivation",
+                                             "file":  "lhc-addendum.json"
+                                         }
+                                     ]
+                  },
+                  {
+                      "id":  "covid",
+                      "label":  "COVID origins",
+                      "file":  "covid.json"
+                  },
+                  {
+                      "id":  "eggs",
+                      "label":  "Eggs \u0026 heart health",
+                      "file":  "eggs.json"
+                  }
+              ]
+}

@@ -79,6 +79,12 @@ export const ScaleIcon = (p: P) => (
   <S strokeWidth={1.7} {...p}><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" /><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" /><path d="M7 21h10" /><path d="M12 3v18" /><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" /></S>
 );
 export const ArrowUpIcon = (p: P) => <S strokeWidth={2.4} size={13} {...p}><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></S>;
+export const MenuIcon = (p: P) => (
+  <S strokeWidth={2} {...p}><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></S>
+);
+export const HelpIcon = (p: P) => (
+  <S strokeWidth={1.8} {...p}><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" /></S>
+);
 export const RotateIcon = (p: P) => (
   <S strokeWidth={1.8} {...p}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></S>
 );

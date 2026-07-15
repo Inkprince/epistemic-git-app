@@ -11,3 +11,4 @@ export * from "./support.js";
 export * from "./perspective.js";
 export * from "./correlation.js";
 export * from "./merge.js";
+export * from "./diff.js";

@@ -1,0 +1,100 @@
+import { bundleDigest, validateBundle } from "@epistemic-git/protocol";
+import type { Bundle, ValidationIssue } from "@epistemic-git/protocol";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
+import { appendEvent } from "./history.js";
+import { idbDelete, idbGetAllEntries, idbPut } from "./idb.js";
+import { loadCommittedCases } from "./manifest.js";
+import type { CaseEntry } from "./types.js";
+
+export type ImportResult =
+  | { ok: true; id: string; alreadyImported: boolean; warnings: ValidationIssue[] }
+  | { ok: false; issues: ValidationIssue[] };
+
+interface CasesApi {
+  /** Committed cases first (manifest order), then imported (import order). */
+  cases: Record<string, CaseEntry>;
+  /** True once IndexedDB hydration of imported cases has completed. */
+  ready: boolean;
+  importBundle(raw: unknown, label?: string): ImportResult;
+  removeImported(id: string): void;
+  renameImported(id: string, label: string): void;
+}
+
+const CasesContext = createContext<CasesApi | null>(null);
+
+interface StoredImport {
+  label: string;
+  bundle: Bundle;
+  digest: string;
+}
+
+/**
+ * The app's case registry. Committed cases load synchronously (bundled at build time) so first
+ * paint and SSR need no async work; user-imported bundles hydrate from IndexedDB and persist
+ * across reloads. Every imported bundle passed full validateBundle in the browser first.
+ */
+export function CasesProvider({ children }: { children: ReactNode }) {
+  const committed = useMemo(loadCommittedCases, []);
+  const [imported, setImported] = useState<CaseEntry[]>([]);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    idbGetAllEntries<StoredImport>("imports")
+      .then((entries) => {
+        if (cancelled) return;
+        setImported(entries.map(([id, v]) => ({
+          id, label: v.label, origin: "imported" as const, bundle: v.bundle, digest: v.digest,
+        })));
+        setReady(true);
+      })
+      .catch(() => setReady(true));
+    return () => { cancelled = true; };
+  }, []);
+
+  const api = useMemo<CasesApi>(() => {
+    const cases: Record<string, CaseEntry> = {};
+    for (const c of committed) cases[c.id] = c;
+    for (const c of imported) cases[c.id] = c;
+
+    return {
+      cases,
+      ready,
+      importBundle(raw, label) {
+        const check = validateBundle(raw);
+        const errors = check.issues.filter((i) => i.severity === "error");
+        if (!check.ok || errors.length) return { ok: false, issues: errors.length ? errors : check.issues };
+        const bundle = raw as Bundle;
+        const digest = bundleDigest(bundle);
+        const id = `imp-${digest.slice(0, 8)}`;
+        if (cases[id]) return { ok: true, id, alreadyImported: true, warnings: [] };
+        const finalLabel = (label ?? "").trim() || bundle.title || "Imported bundle";
+        const entry: CaseEntry = { id, label: finalLabel, origin: "imported", bundle, digest };
+        setImported((prev) => (prev.some((c) => c.id === id) ? prev : [...prev, entry]));
+        void idbPut<StoredImport>("imports", id, { label: finalLabel, bundle, digest });
+        appendEvent({ caseId: id, kind: "imported", digest, parents: [], note: finalLabel });
+        return { ok: true, id, alreadyImported: false, warnings: check.issues.filter((i) => i.severity === "warning") };
+      },
+      removeImported(id) {
+        setImported((prev) => prev.filter((c) => c.id !== id));
+        void idbDelete("imports", id);
+      },
+      renameImported(id, label) {
+        const next = label.trim();
+        if (!next) return;
+        setImported((prev) => prev.map((c) => (c.id === id ? { ...c, label: next } : c)));
+        const entry = imported.find((c) => c.id === id);
+        if (entry) void idbPut<StoredImport>("imports", id, { label: next, bundle: entry.bundle, digest: entry.digest });
+      },
+    };
+  }, [committed, imported, ready]);
+
+  return <CasesContext.Provider value={api}>{children}</CasesContext.Provider>;
+}
+
+export function useCases(): CasesApi {
+  const ctx = useContext(CasesContext);
+  if (!ctx) throw new Error("useCases must be used inside <CasesProvider>");
+  return ctx;
+}

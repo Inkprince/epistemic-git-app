@@ -7,6 +7,7 @@
  */
 
 export * from "./schema.js";
+export * from "./sha256.js";
 export * from "./canonical.js";
 export * from "./ids.js";
 export * from "./builder.js";
