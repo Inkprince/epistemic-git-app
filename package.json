@@ -1,0 +1,35 @@
+{
+  "name": "epistemic-git",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Epistemic Git — a portable, versioned, mergeable evidence ledger. Share the evidence substrate without being forced to share conclusions.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "npm run build --workspaces --if-present",
+    "author:lhc": "tsx cases/lhc.ts",
+    "demo:lhc": "tsx scripts/demo-lhc.ts",
+    "author:covid": "tsx cases/covid.ts",
+    "dev": "npm run dev -w @epistemic-git/tool",
+    "build:tool": "npm run build -w @epistemic-git/tool",
+    "smoke:tool": "tsx --tsconfig apps/tool/tsconfig.json apps/tool/scripts/smoke.ts",
+    "extract": "tsx packages/pipeline/src/cli.ts extract",
+    "mcp": "tsx packages/mcp-server/src/server.ts",
+    "eval:adversarial": "tsx eval/adversarial/suite.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

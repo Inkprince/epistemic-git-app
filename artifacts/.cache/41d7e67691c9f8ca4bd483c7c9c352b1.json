@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Eggs increase cardiovascular risk.\",\"claimType\":\"empirical\",\"quote\":\"Eggs increase cardiovascular risk.\",\"entailment\":\"The source explicitly states that eggs increase cardiovascular risk, directly supporting the claim.\",\"population\":\"\",\"intervention\":\"eggs\",\"comparator\":\"\",\"outcome\":\"cardiovascular risk\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"},{\"statement\":\"Consuming more than one egg per day was associated with increased cardiovascular risk specifically among participants with type 2 diabetes.\",\"claimType\":\"empirical\",\"quote\":\"Consuming more than one egg per day was associated with increased cardiovascular risk specifically among participants with type 2 diabetes.\",\"entailment\":\"The source reports an association between consuming >1 egg daily and higher cardiovascular risk in people with type 2 diabetes, which underlies the claim.\",\"population\":\"participants with type 2 diabetes\",\"intervention\":\"consuming more than one egg per day\",\"comparator\":\"\",\"outcome\":\"increased cardiovascular risk\",\"timeframe\":\"\",\"quantifiers\":\"more than one egg per day\",\"modality\":\"associational\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 732,
+    "completionTokens": 370
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"\",\"inferences\":[{\"type\":\"evidence-for\",\"premiseIndexes\":[1],\"conclusionIndex\":0,\"warrant\":\"Evidence from a subgroup (type‑2‑diabetes participants) that shows increased risk can be taken as supporting the broader claim that eggs raise cardiovascular risk\",\"strength\":\"moderate\",\"defeaters\":[\"The effect may be limited to diabetics and not apply to the general population\",\"Potential confounding variables specific to the diabetic subgroup\",\"Other studies showing no association\"]},{\"type\":\"supports\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"A direct empirical finding that eggs increase cardiovascular risk serves as a premise for the overall conclusion that eggs are a cardiovascular risk factor\",\"strength\":\"moderate\",\"defeaters\":[\"Contradictory empirical evidence\",\"Methodological flaws in the study reporting the risk\"]},{\"type\":\"evidence-for\",\"premiseIndexes\":[1],\"conclusionIndex\":-1,\"warrant\":\"The observed association in diabetics provides additional empirical support for the overall claim that eggs increase cardiovascular risk\",\"strength\":\"moderate\",\"defeaters\":[\"The association may be specific to diabetics and not generalizable\",\"Uncontrolled confounders in the diabetic subgroup study\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 753,
+    "completionTokens": 889
+  }
+}

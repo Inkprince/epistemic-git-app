@@ -1,0 +1,3 @@
+Proximity Ascertainment Bias in Early Covid Case Locations (M. B. Weissman, 2024).
+
+A comparison of the distances to the Huanan Seafood Market of early Covid cases with known links to the market versus cases without known links shows results apparently incompatible with a location model lacking proximity ascertainment bias. The sign of the difference instead agrees with a model in which such ascertainment bias is large. In the presence of such bias inferences based on the clustering of case locations become unreliable.

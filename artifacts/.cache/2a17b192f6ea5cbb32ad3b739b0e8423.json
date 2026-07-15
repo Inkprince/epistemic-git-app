@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"Effective health practices include a balanced diet and regular handwashing, while ingesting bleach is not a valid cure for viral infections.\",\"inferences\":[{\"type\":\"supports\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"Empirical studies show that a balanced diet improves physiological function and reduces disease risk, so it supports overall health.\",\"strength\":\"moderate\",\"defeaters\":[\"If large-scale research demonstrates no correlation between diet quality and health outcomes\"]},{\"type\":\"supports\",\"premiseIndexes\":[2],\"conclusionIndex\":-1,\"warrant\":\"Hand hygiene has been repeatedly shown to lower transmission of infectious agents, thereby contributing to overall health.\",\"strength\":\"strong\",\"defeaters\":[\"If new evidence indicates handwashing does not significantly affect infection rates\"]},{\"type\":\"contradicts\",\"premiseIndexes\":[1],\"conclusionIndex\":-1,\"warrant\":\"The claim that drinking bleach cures every viral infection is contradicted by toxicology and clinical evidence showing bleach is harmful and ineffective as a treatment.\",\"strength\":\"strong\",\"defeaters\":[\"If rigorously controlled clinical trials prove bleach safely cures viral infections\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 754,
+    "completionTokens": 676
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@epistemic-git/mcp-server",
+  "version": "0.1.0",
+  "description": "A read-only MCP server exposing an Epistemic Git bundle for downstream-model interrogation: trace provenance, list challenges, decompose disagreement, rank cruxes. All answers are deterministic analysis — no LLM inside.",
+  "type": "module",
+  "main": "./src/server.ts",
+  "bin": { "egit-mcp": "./src/server.ts" },
+  "exports": {
+    ".": "./src/server.ts",
+    "./queries": "./src/queries.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --build"
+  },
+  "dependencies": {
+    "@epistemic-git/analysis": "0.1.0",
+    "@epistemic-git/protocol": "0.1.0",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.1"
+  }
+}

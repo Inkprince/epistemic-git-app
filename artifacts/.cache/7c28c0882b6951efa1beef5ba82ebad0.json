@@ -1,0 +1,9 @@
+{
+  "text": "{\"challenges\":[{\"challengeType\":\"scope-drift\",\"targetKind\":\"inference\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"The cited evidence concerns only participants with type‑2 diabetes; extending it to a claim about eggs and cardiovascular risk for the general population exceeds the scope of the original data.\",\"suggestedRemedy\":\"Limit the claim to the diabetic subgroup or provide additional evidence from a representative sample of the overall population.\"},{\"challengeType\":\"omitted-qualification\",\"targetKind\":\"claim\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"The source is an observational study that cannot establish causality and may be subject to residual confounding, yet the claim presents the association as a definitive increase in risk.\",\"suggestedRemedy\":\"Add a qualifier noting that the relationship is associative, not proven causal, and acknowledge potential confounding factors.\"},{\"challengeType\":\"invalid-inference\",\"targetKind\":\"inference\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"Using a subgroup finding to support a broader claim commits a hasty‑generalization fallacy; the evidence does not logically justify the universal statement about eggs raising cardiovascular risk.\",\"suggestedRemedy\":\"Revise the inference to reflect that the evidence supports increased risk only within the type‑2‑diabetes subgroup, or supply corroborating data from non‑diabetic cohorts.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 831,
+    "completionTokens": 873
+  }
+}

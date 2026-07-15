@@ -1,0 +1,21 @@
+{
+  "name": "@epistemic-git/pipeline",
+  "version": "0.1.0",
+  "description": "The extraction pipeline: turns messy source text into a quote-grounded, attributed evidence ledger. Stage contracts ARE the methodology spec. LLM calls happen only here.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "bin": { "egit": "./src/cli.ts" },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --build"
+  },
+  "dependencies": {
+    "@epistemic-git/analysis": "0.1.0",
+    "@epistemic-git/llm": "0.1.0",
+    "@epistemic-git/protocol": "0.1.0",
+    "zod": "^3.24.1"
+  }
+}

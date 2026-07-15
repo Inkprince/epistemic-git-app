@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"A balanced diet supports health.\",\"claimType\":\"empirical\",\"quote\":\"A balanced diet supports health.\",\"entailment\":\"The quoted sentence directly asserts that a balanced diet supports health.\",\"population\":\"\",\"intervention\":\"balanced diet\",\"comparator\":\"\",\"outcome\":\"health\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"},{\"statement\":\"Drinking bleach cures every viral infection.\",\"claimType\":\"empirical\",\"quote\":\"drinking bleach cures every viral infection\",\"entailment\":\"The quoted phrase states that drinking bleach cures every viral infection.\",\"population\":\"\",\"intervention\":\"drinking bleach\",\"comparator\":\"\",\"outcome\":\"cure of viral infection\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"},{\"statement\":\"Regular handwashing reduces transmission of many infections.\",\"claimType\":\"empirical\",\"quote\":\"Regular handwashing reduces transmission of many infections.\",\"entailment\":\"The quoted sentence directly claims that regular handwashing reduces transmission of many infections.\",\"population\":\"\",\"intervention\":\"regular handwashing\",\"comparator\":\"\",\"outcome\":\"transmission of many infections\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 729,
+    "completionTokens": 523
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 reports an observational association between coffee intake and lower depression rates, while Claim 1 asserts a causal preventive effect; they refer to the same exposure and outcome but differ in causal scope.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":2,\"rationale\":\"Claim 0 describes an observational cohort result, whereas Claim 2 comments on the absence of a randomized trial; the latter concerns study design, not the exposure‑outcome relationship.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":2,\"rationale\":\"Claim 1 makes a causal claim about coffee preventing depression, while Claim 2 states that no randomized trial was conducted; the statements address different aspects (causality vs evidence base).\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":3,\"rationale\":\"Claim 0 links coffee consumption to depression rates, whereas Claim 3 links coffee consumption to higher exercise levels; they involve the same exposure but different outcomes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":3,\"rationale\":\"Claim 1 asserts coffee prevents depression, while Claim 3 notes that higher coffee consumers also exercise more; the claims concern different outcomes (depression vs exercise).\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":3,\"rationale\":\"Claim 2 concerns the lack of a randomized trial, whereas Claim 3 describes an observational association between coffee intake and exercise; they address distinct aspects of the research.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 620,
+    "completionTokens": 1004
+  }
+}

@@ -1,0 +1,757 @@
+{
+  "$ref": "#/definitions/EpistemicGitBundle",
+  "definitions": {
+    "EpistemicGitBundle": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "eg/0.1"
+        },
+        "id": {
+          "type": "string"
+        },
+        "case": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "createdWith": {
+          "type": "object",
+          "properties": {
+            "pipelineVersion": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "hand-authored",
+                "cached",
+                "live"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "paper",
+                  "preprint",
+                  "blog",
+                  "news",
+                  "video",
+                  "transcript",
+                  "dataset",
+                  "report",
+                  "forum",
+                  "tweet",
+                  "book",
+                  "interview",
+                  "other"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "publishedDate": {
+                "type": "string"
+              },
+              "retrievedDate": {
+                "type": "string"
+              },
+              "contentHash": {
+                "type": "string"
+              },
+              "reliability": {
+                "type": "object",
+                "properties": {
+                  "fundingConflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": []
+                  },
+                  "priorRetractions": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "peerReviewStatus": {
+                    "type": "string",
+                    "enum": [
+                      "peer-reviewed",
+                      "preprint",
+                      "editorial",
+                      "self-published",
+                      "unknown"
+                    ]
+                  },
+                  "knownStance": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "adversarialFlags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "relatedSources": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sourceId": {
+                      "type": "string"
+                    },
+                    "relation": {
+                      "type": "string",
+                      "enum": [
+                        "cites",
+                        "derived-from",
+                        "same-dataset",
+                        "same-authors",
+                        "corrects",
+                        "corrected-by",
+                        "republishes"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "sourceId",
+                    "relation"
+                  ],
+                  "additionalProperties": false
+                },
+                "default": []
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "title"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "passages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sourceId": {
+                "type": "string"
+              },
+              "locator": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "char"
+                      },
+                      "start": {
+                        "type": "integer"
+                      },
+                      "end": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "start",
+                      "end"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "page"
+                      },
+                      "page": {
+                        "type": "integer"
+                      },
+                      "endPage": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "timestamp"
+                      },
+                      "startMs": {
+                        "type": "integer"
+                      },
+                      "endMs": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "startMs"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "section"
+                      },
+                      "path": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "path"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "verbatimText": {
+                "type": "string"
+              },
+              "contextBefore": {
+                "type": "string"
+              },
+              "contextAfter": {
+                "type": "string"
+              },
+              "sourceContentHash": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "sourceId",
+              "locator",
+              "verbatimText"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "claimType": {
+                "type": "string",
+                "enum": [
+                  "empirical",
+                  "methodological",
+                  "definitional",
+                  "value",
+                  "predictive"
+                ]
+              },
+              "structure": {
+                "type": "object",
+                "properties": {
+                  "population": {
+                    "type": "string"
+                  },
+                  "intervention": {
+                    "type": "string"
+                  },
+                  "comparator": {
+                    "type": "string"
+                  },
+                  "outcome": {
+                    "type": "string"
+                  },
+                  "timeframe": {
+                    "type": "string"
+                  },
+                  "modality": {
+                    "type": "string",
+                    "enum": [
+                      "causal",
+                      "associational",
+                      "definitional",
+                      "normative",
+                      "predictive",
+                      "descriptive"
+                    ]
+                  },
+                  "quantifiers": {
+                    "type": "string"
+                  },
+                  "magnitude": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "assumptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "caveats": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "passages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "derived": {
+                "type": "boolean",
+                "default": false
+              },
+              "attribution": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "source",
+                      "analyst-llm",
+                      "human"
+                    ]
+                  },
+                  "ref": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              "extractionAgreement": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "claimType",
+              "attribution"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "inferences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "supports",
+                  "contradicts",
+                  "rebuts",
+                  "undercuts",
+                  "presupposes",
+                  "explains",
+                  "evidence-for"
+                ]
+              },
+              "premises": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              },
+              "conclusion": {
+                "type": "string"
+              },
+              "warrant": {
+                "type": "string"
+              },
+              "assumptions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "defeaters": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "strength": {
+                "type": "string",
+                "enum": [
+                  "strong",
+                  "moderate",
+                  "weak",
+                  "speculative"
+                ]
+              },
+              "attribution": {
+                "$ref": "#/definitions/EpistemicGitBundle/properties/claims/items/properties/attribution"
+              },
+              "provenancePassageId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "premises",
+              "conclusion",
+              "warrant",
+              "strength",
+              "attribution"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "challenges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "challengeType": {
+                "type": "string",
+                "enum": [
+                  "source-does-not-support",
+                  "scope-drift",
+                  "quantifier-drift",
+                  "omitted-qualification",
+                  "correlated-evidence",
+                  "circular-citation",
+                  "confounding",
+                  "selection-bias",
+                  "construct-mismatch",
+                  "temporal-supersession",
+                  "missing-alternative",
+                  "invalid-inference",
+                  "rhetorical-not-evidential",
+                  "missing-source"
+                ]
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "claim",
+                      "inference",
+                      "passage",
+                      "source",
+                      "topic"
+                    ]
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "id"
+                ],
+                "additionalProperties": false
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "raisedBy": {
+                "$ref": "#/definitions/EpistemicGitBundle/properties/claims/items/properties/attribution"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "accepted",
+                  "rejected",
+                  "mitigated"
+                ],
+                "default": "open"
+              },
+              "suggestedRemedy": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "challengeType",
+              "target",
+              "rationale",
+              "raisedBy"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "correlationGroups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "memberKind": {
+                "type": "string",
+                "enum": [
+                  "claim",
+                  "source"
+                ]
+              },
+              "members": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 2
+              },
+              "sharedOrigin": {
+                "type": "string",
+                "enum": [
+                  "dataset",
+                  "author",
+                  "institution",
+                  "funder",
+                  "methodology",
+                  "instrument"
+                ]
+              },
+              "rationale": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "memberKind",
+              "members",
+              "sharedOrigin",
+              "rationale"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "overlays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "analyst": {
+                "$ref": "#/definitions/EpistemicGitBundle/properties/claims/items/properties/attribution"
+              },
+              "admits": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "priorStance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "label",
+              "analyst"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "assessments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "overlayId": {
+                "type": "string"
+              },
+              "target": {
+                "$ref": "#/definitions/EpistemicGitBundle/properties/challenges/items/properties/target"
+              },
+              "stance": {
+                "type": "string",
+                "enum": [
+                  "accept",
+                  "reject",
+                  "uncertain",
+                  "irrelevant"
+                ]
+              },
+              "credence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "logOdds": {
+                "type": "number"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "rationale": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "overlayId",
+              "target",
+              "stance"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "quarantine": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string",
+                "enum": [
+                  "no-supporting-passage",
+                  "passage-does-not-entail",
+                  "unverifiable-source",
+                  "duplicate",
+                  "out-of-scope"
+                ]
+              },
+              "attemptedPassageText": {
+                "type": "string"
+              },
+              "attribution": {
+                "$ref": "#/definitions/EpistemicGitBundle/properties/claims/items/properties/attribution"
+              }
+            },
+            "required": [
+              "id",
+              "statement",
+              "reason",
+              "attribution"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "case",
+        "title",
+        "question"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

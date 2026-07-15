@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 concerns diet and general health while claim 1 concerns drinking bleach as a cure for viral infections; they address different interventions and scopes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":2,\"rationale\":\"Claim 0 is about balanced diet supporting health, whereas claim 2 is about handwashing reducing infection transmission; they involve distinct preventive measures.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":2,\"rationale\":\"Claim 1 proposes bleach ingestion as a cure, while claim 2 promotes handwashing to lower transmission; the claims target different actions and outcomes.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 600,
+    "completionTokens": 514
+  }
+}

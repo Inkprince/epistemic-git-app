@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_3a6b04e029c616ca",
+  "case": "lhc",
+  "title": "LHC micro black holes: is the collider safe?",
+  "question": "Could high-energy collisions at the LHC produce a microscopic black hole that endangers Earth?",
+  "createdWith": {
+    "mode": "hand-authored"
+  },
+  "sources": [
+    {
+      "id": "src_c1c8a591235ccc9c",
+      "type": "paper",
+      "title": "Independent re-derivation of LHC black-hole safety bounds from 2024 neutron-star data",
+      "authors": [
+        "Independent Team"
+      ],
+      "adversarialFlags": [],
+      "relatedSources": [],
+      "publishedDate": "2024-05-01",
+      "reliability": {
+        "peerReviewStatus": "preprint"
+      }
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_cac5dbe656fc1c05",
+      "sourceId": "src_c1c8a591235ccc9c",
+      "locator": {
+        "kind": "page",
+        "page": 1
+      },
+      "verbatimText": "Updated neutron-star cooling observations further constrain the accretion rate of any hypothetical stable black hole, independently reinforcing the conclusion that LHC collisions are safe."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_8e497b5640b067dc",
+      "statement": "2024 neutron-star observations further constrain stable black-hole accretion, independently reinforcing LHC safety.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_cac5dbe656fc1c05"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_c1c8a591235ccc9c"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive",
+        "outcome": "tighter accretion bound"
+      }
+    },
+    {
+      "id": "cl_d4b8762a26cce42e",
+      "statement": "LHC collisions pose no credible danger of producing a black hole that could threaten Earth.",
+      "claimType": "predictive",
+      "passages": [],
+      "derived": true,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "human",
+        "ref": "reference-author"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "predictive",
+        "outcome": "no credible planetary risk"
+      }
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_1b1acea75fd93cc2",
+      "type": "supports",
+      "premises": [
+        "cl_8e497b5640b067dc"
+      ],
+      "conclusion": "cl_d4b8762a26cce42e",
+      "warrant": "An independent, tighter empirical bound on accretion reinforces the safety conclusion.",
+      "strength": "moderate",
+      "attribution": {
+        "kind": "source",
+        "ref": "src_c1c8a591235ccc9c"
+      },
+      "assumptions": [],
+      "defeaters": []
+    }
+  ],
+  "challenges": [],
+  "correlationGroups": [],
+  "matches": [],
+  "overlays": [
+    {
+      "id": "ovl_561ab900e611a228",
+      "label": "Concerned skeptic",
+      "analyst": {
+        "kind": "human",
+        "ref": "skeptic"
+      },
+      "description": "Distrusts the unobserved Hawking-radiation premise and worries the empirical bound may not cover at-rest capture."
+    }
+  ],
+  "assessments": [
+    {
+      "id": "asm_d9921a8cf22c0ab7",
+      "overlayId": "ovl_561ab900e611a228",
+      "target": {
+        "kind": "claim",
+        "id": "cl_d4b8762a26cce42e"
+      },
+      "stance": "uncertain",
+      "credence": 0.5,
+      "weight": 1,
+      "rationale": "Revised downward: unconvinced the new neutron-star bound closes the at-rest capture gap."
+    }
+  ],
+  "quarantine": []
+}

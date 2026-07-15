@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+.DS_Store
+coverage/
+# NOTE: artifacts/ and artifacts/.cache/ are INTENTIONALLY committed (dual-mode: the demo works with no API key).

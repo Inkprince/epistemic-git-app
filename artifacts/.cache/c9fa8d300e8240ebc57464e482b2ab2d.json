@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":1,\"toIndex\":0,\"rationale\":\"Claim 1 adds the condition that the association applies to both caffeinated and decaffeinated coffee, making it a specific case of the broader effect described in Claim 0.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":0,\"rationale\":\"Claim 2 describes characteristics of coffee drinkers (non‑smoking, physical activity) whereas Claim 0 reports a mortality risk reduction; they address different aspects of the same cohort and can both be true.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":3,\"toIndex\":0,\"rationale\":\"Claim 3 concerns methodological uncertainty (possible residual confounding) while Claim 0 states an observed risk reduction; the statements pertain to different scopes and are not mutually exclusive.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":4,\"toIndex\":0,\"rationale\":\"Claim 4 reports a Mendelian randomization finding of no causal effect, whereas Claim 0 reports an observational association of lower mortality risk; the causal versus associative scopes differ, allowing both to coexist.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 670,
+    "completionTokens": 1563
+  }
+}

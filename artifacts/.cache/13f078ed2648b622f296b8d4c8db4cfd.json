@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":1,\"toIndex\":0,\"rationale\":\"Claim 1 reports a specific cohort of women in the Nurses' Health Study, whereas claim 0 refers to several large prospective cohorts in general.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":0,\"rationale\":\"Claim 2 is a randomized trial of a Mediterranean diet with nuts, while claim 0 describes observational associations across cohorts; both can be true but address different study designs.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":3,\"toIndex\":2,\"rationale\":\"Claim 3 comments on the methodological re‑analysis of the PREDIMED trial, not on the effect size itself, so it is compatible with the risk‑reduction result in claim 2 but concerns a different aspect.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":5,\"toIndex\":4,\"rationale\":\"Claim 5 advises accounting for total calories when recommending nuts, which relates to the fact stated in claim 4 that nuts are energy‑dense; the scopes differ (recommendation vs property).\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 745,
+    "completionTokens": 1111
+  }
+}

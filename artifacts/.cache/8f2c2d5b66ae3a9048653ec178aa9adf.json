@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"equivalent\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Both claims report the same association (higher egg intake → higher LDL) using the identical 2019 NHANES dataset, so they are equivalent.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":2,\"rationale\":\"Claim 2 discusses the combined confirmation from the two studies, a broader evidential claim, while Claim 0 reports a specific dataset finding; thus they are compatible but pertain to different scopes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":2,\"rationale\":\"Claim 2 refers to the joint confirmation of the effect, whereas Claim 1 is a specific re‑analysis result; they can both be true but address different scopes of evidence.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 644,
+    "completionTokens": 749
+  }
+}

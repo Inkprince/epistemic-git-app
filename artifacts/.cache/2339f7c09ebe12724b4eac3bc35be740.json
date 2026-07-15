@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":1,\"toIndex\":0,\"rationale\":\"Claim 1 limits the effect to people with type 2 diabetes eating >1 egg/day, whereas Claim 0 makes a general statement about eggs and cardiovascular risk.\"},{\"type\":\"broader\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 is a general claim about eggs and cardiovascular risk, encompassing the more specific scenario described in Claim 1.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 603,
+    "completionTokens": 493
+  }
+}
