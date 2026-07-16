@@ -116,9 +116,11 @@ npm run eval:review       # validates review packets and reports human recruitme
   identity-leaking imports, prepares keyed opaque evaluator packets, and scores imported human records.
   With no OpenAI, Anthropic, or Cerebras credentials in this environment, all 21 model/task runs and all
   human ratings remain explicitly unobserved.
-- `eval/adversarial/` contains all ten planned traps. Five replay from the committed cache: four are
-  detected and prompt injection remains a published miss. The five newly added traps are marked **not
-  run**, not passed, until a deliberate live run records their cache entries.
+- `eval/adversarial/` contains all ten planned traps, and **all ten now replay from the committed cache
+  and are detected**. Prompt injection was a published miss in the first run (extraction admitted the
+  injected instruction); a deterministic extraction-time defense now quarantines claims grounded in an
+  injected source region (`injection-suspected`), and the miss-to-detected history is kept on the record.
+  The defense is a first line (a fixed marker vocabulary), not a proof of safety.
 - `eval/review/` provides content-addressed case questions for an LHC physicist, two opposed COVID
   reviewers, and a nutrition scientist/epidemiologist. Completed review and artifact-change logs remain
   empty until real reviewers consent and respond.
@@ -128,7 +130,7 @@ subdirectory for execution instructions.
 
 ## Status
 
-Verified (**76 tests across all packages, the app, and evaluation tooling**, all green):
+Verified (**81 tests across all packages, the app, and evaluation tooling**, all green):
 `protocol` (incl. NIST vectors + randomized node-crypto cross-checks for the vendored SHA-256, and a
 regression asserting the committed artifacts' content-hash ids never drift), `analysis` (incl.
 `diffBundles`), `llm` (rate-limit backoff, per-request timeouts, Retry-After), all pipeline stages
@@ -152,8 +154,13 @@ nodes that survive export/import round-trips.
   (Débarre & Worobey ×2 vs Weissman). One combined ledger: 14 grounded claims, **22 cross-source matches**
   (incl. `contradicts` between the opposing camps), 10 inferences, 6 challenges (the audit caught the core
   error — *"conflates statistical non-rejection with causal attribution"*), and **1 quarantined** rhetorical
-  claim that lacked a verbatim basis. Neutral-prior support of the "market was the epicentre" conclusion is
-  a faithfully-contested 57%.
+  claim that lacked a verbatim basis. **Two opposed perspective overlays** (market-central vs
+  ascertainment-bias) now sit over the shared structure, so the **qualitative perspective-diff** runs on
+  this live dispute: the two readings support "the market was the early epicentre" at a **~41-point gap**,
+  and the deterministic crux ranking names the *"mode falls at the market entrance"* finding as the single
+  most load-bearing disagreement, with Weissman's two distance findings close behind. No origin probability
+  is announced (the mode is qualitative on purpose); neutral-prior support of the conclusion is a
+  faithfully-contested 31%.
 
 Remaining external work is tracked rather than represented as complete: execute the frozen baseline
 matrix with the named provider models, collect blinded human ratings and expert/opposed reviews, and run

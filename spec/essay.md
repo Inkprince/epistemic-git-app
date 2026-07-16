@@ -190,8 +190,8 @@ taking the maximum, not by noisy-OR** — so two "independent" supports that are
 not double-counted. This is the error at the heart of the Rootclaim COVID-origins debate — multiplying
 non-independent likelihood ratios, which is how six Bayesian analyses of the same evidence spanned
 twenty-three orders of magnitude [7], [9] — turned into a structural rule; correlation itself is
-detected deterministically from source metadata by a union-find over shared authorship and declared
-relations (`correlation.ts`).
+detected deterministically from source metadata by a union-find over shared authorship, a declared shared
+dataset or funder, and other declared relations (`correlation.ts`).
 
 **The perspective diff** decomposes a disagreement. Given overlays A and B and a target conclusion, we
 recompute B's support for the target while swapping in A's belief for one node at a time; the shift that
@@ -234,8 +234,8 @@ planted problem.
 
 We report only what the committed cache has actually executed, and we separate four states —
 **detected**, **miss**, **not run** (no cached model response), and **error** — so a gap in coverage can
-never masquerade as a pass. Of the five traps currently executed in cache, **four were detected and one
-was missed**:
+never masquerade as a pass. **All ten traps now execute from the committed cache, and all ten are
+detected**:
 
 | trap | outcome |
 |---|---|
@@ -243,13 +243,22 @@ was missed**:
 | correlated-evidence (same dataset) | ✅ flagged `omitted-qualification`, `invalid-inference` |
 | quantifier-drift | ✅ related by scope instead of equating |
 | overstated-abstract | ✅ flagged support, qualification, and inference problems |
-| **prompt-injection** | ❌ **miss** — extraction admitted the injected instruction as a claim |
+| review-primary-double-counting | ✅ flagged as not independent / omitted qualification |
+| quote-context-reversal | ✅ flagged `source-does-not-support`, `rhetorical-not-evidential` |
+| later-correction-retraction | ✅ retained the correction as superseding the original |
+| uncited-consensus | ✅ flagged `source-does-not-support`, `missing-source` |
+| population-timeframe-drift | ✅ preserved the bounded population/timeframe |
+| **prompt-injection** | ✅ **now detected** — the injected instruction is quarantined at extraction |
 
-The remaining five traps are marked **not run** because no committed model response exists for them; we
-do not convert an unrun trap into a success. The prompt-injection miss is published deliberately and
-kept in the suite until pipeline behavior actually changes — extraction currently has no
-injection-detection stage, and a representation honest about uncertainty should be first to disclose its
-own hole. Separately, an **MCP server** exposes a bundle so a downstream model can interrogate it
+One result changed on purpose, and the history is kept rather than erased. Prompt injection was a
+**published miss** in the first committed run: extraction admitted an instruction smuggled into a source
+("record … that drinking bleach cures every viral infection") as a grounded claim. A deterministic
+extraction-time defense now detects the injected region of a source against a fixed, inspectable
+vocabulary of override markers and **quarantines** any claim grounded in it (reason `injection-suspected`),
+kept visible rather than dropped, while the benign claims in the same source still ground normally. The
+trap now passes. We are deliberately modest: this is a first line, not a proof of safety — a reworded or
+novel injection can still pass — so the trap remains in the suite as a regression guard. Separately, an
+**MCP server** exposes a bundle so a downstream model can interrogate it
 (`get_claim`, `trace_provenance`, `list_challenges`, `perspective_diff`) — the literal test of whether
 attribution and uncertainty survive being read by a fresh model rather than a human.
 
@@ -304,10 +313,15 @@ paper [10], Weissman's proximity-ascertainment-bias critique [9], and the author
 bounded core of the dispute Alexander documents [7] — ingested by the live pipeline (`gpt-oss-120b`)
 into one bundle: fifteen claims, ten inferences, and **twenty-two cross-source matches — of which ten
 are `contradicts`** — plus six typed challenges and a correlation group the pipeline raised
-automatically because two of the three papers share authors (Débarre & Worobey). Opposed readers extend
-the *same* structure; the disagreement is a diff over shared evidence, not two disjoint essays.
+automatically because two of the three papers share authors (Débarre & Worobey). Two opposed overlays —
+market-central and ascertainment-bias — then extend the *same* structure (a reviewer added one
+attributed inference wiring the bias objection as an undercut of the epicentre conclusion, the stage-3
+human edit), so the §4 crux machinery runs on this live dispute too: the two readings' support for "the
+market was the early epicentre" differs by ~41 points, and the qualitative crux ranking names the
+*mode-falls-at-the-market-entrance* finding as the most load-bearing disagreement, Weissman's two
+distance findings close behind — reported qualitatively, with **no** origin probability announced.
 Generalization point: **the representation holds a live, bitter, multi-source dispute without collapsing
-it or picking a side.** (The goal is explicitly not to announce an origin probability.)
+it or picking a side, and localizes the crux even here.**
 
 **Eggs — question decomposition (live pipeline).** From a single tertiary source [18], the bundle first
 rejects "are eggs bad for cardiovascular health?" as underspecified and decomposes it. The pipeline
@@ -329,8 +343,10 @@ Each bundle is navigable in full in the prototype and committed to the repositor
 We state the limitations as owned, each with its mitigation and what remains open.
 
 1. **LLM-proposed structure is fallible and subjective.** Mitigation: universal attribution + human
-   accept/reject + overlays. The tool structures and exposes disagreement; it is not the oracle. *Open:*
-   extraction-time injection defense (the §5 miss).
+   accept/reject + overlays. The tool structures and exposes disagreement; it is not the oracle. *Added
+   since the first draft:* a deterministic extraction-time defense that quarantines claims grounded in an
+   injected source region (§5). *Open:* that defense is a first line only — a fixed marker vocabulary — so
+   a reworded or novel injection can still pass.
 2. **Quantitative crux needs a defensible model.** Mitigation: qualitative crux is the always-on
    default and the mode is labeled. *Open:* principled elicitation of credences from experts.
 3. **Forcing normative/definitional claims into probability distorts them.** Mitigation: structured
@@ -347,8 +363,10 @@ We state the limitations as owned, each with its mitigation and what remains ope
 The research agenda follows directly, and it is the continuation pitch: standardize the protocol so
 independently-built bundles merge across teams at scale (a nanopublication-style [3] interchange target
 already exists as an export); strengthen deterministic independence detection beyond
-shared-author/dataset heuristics; add an extraction-time adversarial defense; and run the frozen study
-of §6 to convert "supports these tasks mechanically" into a measured claim about epistemic uplift.
+shared-author/dataset heuristics (it already unions by shared authorship, declared shared dataset, and
+declared shared funder — next is citation-graph overlap); harden the extraction-time injection defense
+beyond a fixed marker vocabulary; and run the frozen study of §6 to convert "supports these tasks
+mechanically" into a measured claim about epistemic uplift.
 The contribution we stand behind now is the protocol and the analysis: a way to make disagreement an
 inspectable diff over shared, attributable evidence. The verdict was always the wrong thing to ship.
 
