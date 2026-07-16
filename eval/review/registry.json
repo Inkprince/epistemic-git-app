@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "expert-review-registry/1.0",
+  "status": "pending-human-review",
+  "artifactSnapshotDate": "2026-07-16",
+  "packets": [
+    {
+      "id": "lhc-physics",
+      "caseId": "lhc",
+      "artifactPath": "artifacts/lhc.json",
+      "bundleId": "bnd_3a6b04e029c616ca",
+      "formPath": "eval/review/forms/lhc-physics.md",
+      "requiredReviewerStance": "independent collider, gravitation, astroparticle, or black-hole physicist",
+      "minimumCompletedReviews": 1,
+      "targetIds": [
+        "cl_af4d09691174a254",
+        "cl_e2221e0ea1653d31",
+        "cl_fc0d90d9a7217da7",
+        "cl_d4b8762a26cce42e"
+      ]
+    },
+    {
+      "id": "covid-zoonosis",
+      "caseId": "covid",
+      "artifactPath": "artifacts/covid.json",
+      "bundleId": "bnd_92bb67ab806d35ef",
+      "formPath": "eval/review/forms/covid-opposed.md",
+      "requiredReviewerStance": "reviewer who regards market-origin or zoonotic interpretations as comparatively strong",
+      "minimumCompletedReviews": 1,
+      "targetIds": [
+        "cl_0fd237cc33f4766f",
+        "cl_a1132300611645f0",
+        "cl_40fcfd4ef1511ad1",
+        "cl_f49817a45b664e75"
+      ]
+    },
+    {
+      "id": "covid-lab-origin",
+      "caseId": "covid",
+      "artifactPath": "artifacts/covid.json",
+      "bundleId": "bnd_92bb67ab806d35ef",
+      "formPath": "eval/review/forms/covid-opposed.md",
+      "requiredReviewerStance": "reviewer who regards lab-origin or ascertainment-bias objections as comparatively strong",
+      "minimumCompletedReviews": 1,
+      "targetIds": [
+        "cl_0fd237cc33f4766f",
+        "cl_a1132300611645f0",
+        "cl_40fcfd4ef1511ad1",
+        "cl_f49817a45b664e75"
+      ]
+    },
+    {
+      "id": "eggs-epidemiology",
+      "caseId": "eggs",
+      "artifactPath": "artifacts/eggs.json",
+      "bundleId": "bnd_a9164971b6cfc742",
+      "formPath": "eval/review/forms/eggs-epidemiology.md",
+      "requiredReviewerStance": "nutrition scientist or epidemiologist with dietary exposure/outcome expertise",
+      "minimumCompletedReviews": 1,
+      "targetIds": [
+        "cl_4f6c750a4dbdbec1",
+        "cl_4153f160a1cd5cd0",
+        "cl_834af275120e524c",
+        "cl_70df06a93a29fc02",
+        "cl_dc58cea98ff719fa"
+      ]
+    }
+  ],
+  "userStudy": {
+    "status": "pending-human-evaluation",
+    "protocolPath": "eval/baseline/README.md",
+    "recordSchemaPath": "eval/baseline/schemas/evaluations.schema.json",
+    "emptyRecordPath": "eval/baseline/fixtures/evaluations.empty.json",
+    "agreementMethod": "chance-corrected pairwise agreement for binary judgments",
+    "minimumRatersPerResponse": 2
+  }
+}

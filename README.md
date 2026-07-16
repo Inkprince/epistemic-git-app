@@ -38,6 +38,9 @@ The pre-built case bundles in `artifacts/` let everything run offline. The extra
 | `apps/tool` | The interrogable ledger explorer (Vite + React), running the analysis engine **and the full protocol validator in the browser** (content addressing uses a vendored isomorphic SHA-256). Two-screen dashboard (Overview + Case Detail) with: a **visual argument graph** (Cytoscape, lazy-loaded, nodes coloured by live support, click-popovers), live support gauge, distrust-any-claim/source recompute, perspective-diff with the top crux, provenance inspection, **matches / challenges / quarantine** tabs (always present, with empty-state explainers), and the Git verbs: **Import** any exported bundle (validated client-side, persisted in IndexedDB), **Merge…** any two loaded ledgers (conflicts rendered side-by-side, never auto-resolved), **branches** (named scenarios: perspective + distrust set, shareable via URL), a per-case **History** log with content-addressed **bundle diff**, **perspective authoring** (real content-hash `Overlay`/`Assessment` nodes built in the browser), full **deep links** (`#/case/lhc?tab=…&sel=…&s=…`), and dev-only `/api/build` (pipeline on pasted text) + `/api/commit` (persist a bundle as a committed case). Mobile drawer nav, keyboard-operable rows, focus-trapped modals. |
 | `artifacts/cases.json` | The case manifest — committing a bundle (UI or by hand) registers it here; the app discovers cases from it at build time. |
 | `artifacts/{lhc,covid,eggs}.jsonl` | The three case bundles (`.json` twins are the browser copies; `lhc-addendum` is the merge-demo companion). |
+| `eval/baseline` | Frozen three-arm baseline study: seven blinded tasks, neutral artifact contract, private arm mapping, accuracy/citation/support/time/crux/update scoring, and chance-corrected inter-rater agreement. External runs and human ratings are still pending. |
+| `eval/adversarial` | Ten planted traps with full production-pipeline execution, deterministic detection checks, bundle validation, and honest detected/miss/not-run/error reporting. |
+| `eval/review` | Grounded physicist, opposed COVID, and nutrition/epidemiology review packets; consent/conflict protocol; record schemas; and criticism-to-artifact change tracking. Human reviews are still pending. |
 | `cases/lhc.ts`, `cases/covid.ts` | Authoring sources. `npm run author:lhc` / `author:covid` regenerate them. |
 | `scripts/demo-lhc.ts` | The proof walkthrough rendered above. |
 
@@ -98,9 +101,34 @@ cache miss and records the result, so a demo stays reproducible regardless. Veri
 real run extracted 5 quote-grounded claims, reconstructed a 5-inference argument with a calibrated
 conclusion, and generated 5 node-specific adversarial challenges — all replaying from cache with no key.
 
+## Evaluation package
+
+The executable study design now exists, but the repository does **not** claim epistemic uplift yet:
+
+```bash
+npm run eval:adversarial  # cached replay; publishes misses and unavailable cache entries
+npm run eval:baseline     # readiness check; exits 2 until all 21 external runs are imported
+npm run eval:review       # validates review packets and reports human recruitment status
+```
+
+- `eval/baseline/config/` freezes the three systems, exact model IDs/settings, prompts, seven tasks,
+  rubrics, blinding policy, and requested metrics. The CLI renders private run packets, rejects partial or
+  identity-leaking imports, prepares keyed opaque evaluator packets, and scores imported human records.
+  With no OpenAI, Anthropic, or Cerebras credentials in this environment, all 21 model/task runs and all
+  human ratings remain explicitly unobserved.
+- `eval/adversarial/` contains all ten planned traps. Five replay from the committed cache: four are
+  detected and prompt injection remains a published miss. The five newly added traps are marked **not
+  run**, not passed, until a deliberate live run records their cache entries.
+- `eval/review/` provides content-addressed case questions for an LHC physicist, two opposed COVID
+  reviewers, and a nutrition scientist/epidemiologist. Completed review and artifact-change logs remain
+  empty until real reviewers consent and respond.
+
+See [`eval/results.md`](eval/results.md) for the current evidence-status ledger and each evaluation
+subdirectory for execution instructions.
+
 ## Status
 
-Verified (**66 tests across all 5 packages + the app**, all green, run in CI on every push/PR):
+Verified (**76 tests across all packages, the app, and evaluation tooling**, all green):
 `protocol` (incl. NIST vectors + randomized node-crypto cross-checks for the vendored SHA-256, and a
 regression asserting the committed artifacts' content-hash ids never drift), `analysis` (incl.
 `diffBundles`), `llm` (rate-limit backoff, per-request timeouts, Retry-After), all pipeline stages
@@ -127,5 +155,7 @@ nodes that survive export/import round-trips.
   claim that lacked a verbatim basis. Neutral-prior support of the "market was the epicentre" conclusion is
   a faithfully-contested 57%.
 
-Remaining (listed, not started): a blinded/baseline evaluation study, the submission website
-(`apps/site`), and surfacing `eval/results.md` inside the product.
+Remaining external work is tracked rather than represented as complete: execute the frozen baseline
+matrix with the named provider models, collect blinded human ratings and expert/opposed reviews, and run
+the five uncached adversarial traps live. Per the current scope, the essay, video, and submission website
+remain deferred.

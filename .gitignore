@@ -5,4 +5,6 @@ dist/
 .env.local
 .DS_Store
 coverage/
+# Generated baseline runs contain private arm mappings and may contain participant data.
+eval/baseline/runs/
 # NOTE: artifacts/ and artifacts/.cache/ are INTENTIONALLY committed (dual-mode: the demo works with no API key).

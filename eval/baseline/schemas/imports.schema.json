@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "baseline-imports/1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "studyId", "runs"],
+  "properties": {
+    "schemaVersion": { "const": "baseline-imports/1.0" },
+    "studyId": { "type": "string" },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["systemId", "taskId", "artifactPath", "modelId", "startedAt", "completedAt", "operator"],
+        "properties": {
+          "systemId": { "type": "string" },
+          "taskId": { "type": "string" },
+          "artifactPath": { "type": "string", "minLength": 1 },
+          "modelId": { "type": "string", "minLength": 1 },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "completedAt": { "type": "string", "format": "date-time" },
+          "operator": { "type": "string", "minLength": 1 },
+          "providerRunId": { "type": ["string", "null"] },
+          "notes": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

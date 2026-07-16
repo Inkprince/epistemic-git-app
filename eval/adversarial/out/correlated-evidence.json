@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_a94a2fd4f335aa0f",
+  "case": "trap-correlated-evidence",
+  "title": "Two findings from the same dataset presented as independent confirmation",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_6f474f475b438d13",
+      "type": "other",
+      "title": "Two findings from the same dataset presented as independent confirmation",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_310083a7b4c4e7b3",
+      "sourceId": "src_6f474f475b438d13",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 96
+      },
+      "verbatimText": "Study A analyzed the 2019 NHANES dataset and found higher egg intake associated with higher LDL."
+    },
+    {
+      "id": "psg_dc4376d6dec3a0a6",
+      "sourceId": "src_6f474f475b438d13",
+      "locator": {
+        "kind": "char",
+        "start": 97,
+        "end": 248
+      },
+      "verbatimText": "Study B, a separate paper by the same authors re-analyzing the very same 2019 NHANES dataset, again found higher egg intake associated with higher LDL."
+    },
+    {
+      "id": "psg_3c1760f5b7b80eef",
+      "sourceId": "src_6f474f475b438d13",
+      "locator": {
+        "kind": "char",
+        "start": 249,
+        "end": 316
+      },
+      "verbatimText": "Together these two independent studies strongly confirm the effect."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_891c977d58f9b738",
+      "statement": "Study A analyzed the 2019 NHANES dataset and found higher egg intake associated with higher LDL.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_310083a7b4c4e7b3"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_6f474f475b438d13"
+      },
+      "tags": [],
+      "structure": {
+        "population": "2019 NHANES dataset",
+        "intervention": "higher egg intake",
+        "outcome": "higher LDL",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_a3acb25daac8ea93",
+      "statement": "Study B, a separate paper by the same authors re-analyzing the very same 2019 NHANES dataset, again found higher egg intake associated with higher LDL.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_dc4376d6dec3a0a6"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_6f474f475b438d13"
+      },
+      "tags": [],
+      "structure": {
+        "population": "2019 NHANES dataset",
+        "intervention": "higher egg intake",
+        "outcome": "higher LDL",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_5039446df7dac549",
+      "statement": "Together these two independent studies strongly confirm the effect.",
+      "claimType": "value",
+      "passages": [
+        "psg_3c1760f5b7b80eef"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_6f474f475b438d13"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "normative"
+      }
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_296fbb9cd3580628",
+      "type": "supports",
+      "premises": [
+        "cl_891c977d58f9b738",
+        "cl_a3acb25daac8ea93"
+      ],
+      "conclusion": "cl_5039446df7dac549",
+      "warrant": "When multiple independent studies report the same association, the cumulative evidence increases confidence that the effect is real.",
+      "assumptions": [],
+      "defeaters": [
+        "If the studies share the same data source and authors, they may not be truly independent",
+        "If either study has methodological flaws or biases that could explain the association",
+        "If there are unaccounted confounding variables affecting LDL levels"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_4cb9a1f650e5443c",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_5039446df7dac549"
+      },
+      "rationale": "The claim states that the two studies are \"independent,\" yet both analyses use the identical 2019 NHANES dataset and are authored by the same researchers, a material qualification that the source does not provide and that materially limits the independence of the evidence.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a qualifier noting that the studies share the same data and authors, or replace the word \"independent\" with a more accurate description such as \"separate analyses of the same dataset\"."
+    },
+    {
+      "id": "chl_c5092e62960c556a",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_296fbb9cd3580628"
+      },
+      "rationale": "The inference relies on the premise that multiple independent studies increase confidence in an effect. Because the premise of independence is false for the cited studies, the logical step that the cumulative evidence strengthens confidence is not warranted.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Revise the inference to reflect that the studies are not independent, or provide truly independent corroborating evidence before invoking the cumulative‑evidence argument."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_5d1fa4cebefb4411",
+      "type": "equivalent",
+      "from": "cl_891c977d58f9b738",
+      "to": "cl_a3acb25daac8ea93",
+      "rationale": "Both claims report the same association (higher egg intake → higher LDL) using the identical 2019 NHANES dataset, so they are equivalent.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_080351f7fdb41c28",
+      "type": "compatible-different-scope",
+      "from": "cl_891c977d58f9b738",
+      "to": "cl_5039446df7dac549",
+      "rationale": "Claim 2 discusses the combined confirmation from the two studies, a broader evidential claim, while Claim 0 reports a specific dataset finding; thus they are compatible but pertain to different scopes.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_c1ca75d5fc300f8f",
+      "type": "compatible-different-scope",
+      "from": "cl_a3acb25daac8ea93",
+      "to": "cl_5039446df7dac549",
+      "rationale": "Claim 2 refers to the joint confirmation of the effect, whereas Claim 1 is a specific re‑analysis result; they can both be true but address different scopes of evidence.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

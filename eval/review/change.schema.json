@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epistemic-git.local/schemas/expert-review-changes-1.0.json",
+  "title": "Review-driven artifact changes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "changes"],
+  "properties": {
+    "schemaVersion": { "const": "expert-review-changes/1.0" },
+    "status": { "enum": ["no-human-criticism-received", "criticism-under-review", "changes-documented"] },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "reviewIds", "decision", "decisionRationale", "affectedTargetIds", "beforeBundleId", "afterBundleId", "commitOrDiffRef", "summary", "decidedAt"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "reviewIds": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "decision": { "enum": ["accepted", "partially-accepted", "declined", "deferred"] },
+          "decisionRationale": { "type": "string", "minLength": 1 },
+          "affectedTargetIds": { "type": "array", "items": { "type": "string" } },
+          "beforeBundleId": { "type": "string" },
+          "afterBundleId": { "type": ["string", "null"] },
+          "commitOrDiffRef": { "type": ["string", "null"] },
+          "summary": { "type": "string", "minLength": 1 },
+          "decidedAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

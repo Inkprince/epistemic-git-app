@@ -1,0 +1,29 @@
+{
+  "id": "REPLACE_WITH_OPAQUE_REVIEW_ID",
+  "packetId": "lhc-physics",
+  "status": "completed",
+  "artifactBundleId": "bnd_3a6b04e029c616ca",
+  "artifactSha256": "REPLACE_WITH_64_HEX_SHA256",
+  "startedAt": "2026-07-16T00:00:00.000Z",
+  "completedAt": "2026-07-16T00:30:00.000Z",
+  "reviewer": {
+    "publicLabel": "Anonymous reviewer A",
+    "qualification": "REPLACE_WITH_RELEVANT_EXPERTISE",
+    "declaredStance": "REPLACE_WITH_PRIOR_POSITION_OR_NEUTRAL",
+    "conflicts": [],
+    "consentToPublishRedactedRecord": false
+  },
+  "judgments": [
+    {
+      "targetId": "cl_fc0d90d9a7217da7",
+      "verdict": "revise",
+      "severity": "major",
+      "rationale": "REPLACE_WITH_SPECIFIC_REASONING",
+      "sourceOrPassage": "REPLACE_WITH_CITATION_OR_NULL",
+      "proposedRemedy": "REPLACE_WITH_ACTION_OR_NULL"
+    }
+  ],
+  "missingEvidence": [],
+  "overallAssessment": "REPLACE_WITH_CALIBRATED_ASSESSMENT",
+  "administratorNotes": null
+}

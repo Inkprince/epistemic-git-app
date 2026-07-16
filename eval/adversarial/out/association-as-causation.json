@@ -1,0 +1,339 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_16b856f785b78bfe",
+  "case": "trap-association-as-causation",
+  "title": "Observational association framed as causation",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_7d0dde64084bb67d",
+      "type": "other",
+      "title": "Observational association framed as causation",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_0cf631e366f8b2d9",
+      "sourceId": "src_7d0dde64084bb67d",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 87
+      },
+      "verbatimText": "In an observational cohort, people who drank more coffee had lower rates of depression."
+    },
+    {
+      "id": "psg_3398ee0f0c33248c",
+      "sourceId": "src_7d0dde64084bb67d",
+      "locator": {
+        "kind": "char",
+        "start": 88,
+        "end": 146
+      },
+      "verbatimText": "The data show that coffee consumption prevents depression."
+    },
+    {
+      "id": "psg_fd98a4f1190ac1fa",
+      "sourceId": "src_7d0dde64084bb67d",
+      "locator": {
+        "kind": "char",
+        "start": 147,
+        "end": 181
+      },
+      "verbatimText": "No randomized trial was conducted;"
+    },
+    {
+      "id": "psg_d1446bef6b34620b",
+      "sourceId": "src_7d0dde64084bb67d",
+      "locator": {
+        "kind": "char",
+        "start": 182,
+        "end": 236
+      },
+      "verbatimText": "participants who drank more coffee also exercised more"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_c2ad5c1c640dacdc",
+      "statement": "In an observational cohort, people who drank more coffee had lower rates of depression.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_0cf631e366f8b2d9"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7d0dde64084bb67d"
+      },
+      "tags": [],
+      "structure": {
+        "population": "people",
+        "intervention": "drank more coffee",
+        "outcome": "lower rates of depression",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_4f898865ab5b9030",
+      "statement": "The data show that coffee consumption prevents depression.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_3398ee0f0c33248c"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7d0dde64084bb67d"
+      },
+      "tags": [],
+      "structure": {
+        "population": "people who drank coffee",
+        "intervention": "coffee consumption",
+        "outcome": "prevents depression",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_5f9f97539c99d6e5",
+      "statement": "No randomized trial was conducted.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_fd98a4f1190ac1fa"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7d0dde64084bb67d"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_b0d39626b72e8093",
+      "statement": "participants who drank more coffee also exercised more",
+      "claimType": "empirical",
+      "passages": [
+        "psg_d1446bef6b34620b"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7d0dde64084bb67d"
+      },
+      "tags": [],
+      "structure": {
+        "population": "participants who drank more coffee",
+        "intervention": "exercised more",
+        "modality": "associational"
+      }
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_33354ec480c64ce2",
+      "type": "evidence-for",
+      "premises": [
+        "cl_c2ad5c1c640dacdc"
+      ],
+      "conclusion": "cl_4f898865ab5b9030",
+      "warrant": "Observational correlation between higher coffee intake and lower depression rates is taken as preliminary evidence for a protective effect of coffee.",
+      "assumptions": [],
+      "defeaters": [
+        "Potential confounding variables such as exercise or diet",
+        "Reverse causation (people less prone to depression may drink more coffee)",
+        "Measurement error in coffee consumption or depression assessment"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_17e4e490eb6a266f",
+      "type": "undercuts",
+      "premises": [
+        "cl_5f9f97539c99d6e5"
+      ],
+      "conclusion": "cl_4f898865ab5b9030",
+      "warrant": "Causal claims about prevention require evidence from randomized controlled trials; the absence of such a trial weakens the inference that coffee prevents depression.",
+      "assumptions": [],
+      "defeaters": [
+        "If the observational study employed rigorous statistical controls that approximate randomization",
+        "If other high-quality quasi‑experimental designs are presented"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_0efb304d632d0dd0",
+      "type": "undercuts",
+      "premises": [
+        "cl_b0d39626b72e8093"
+      ],
+      "conclusion": "cl_4f898865ab5b9030",
+      "warrant": "The observed association may be explained by a confounding factor—exercise—which is linked both to higher coffee consumption and lower depression, thereby reducing confidence in a direct causal link between coffee and depression prevention.",
+      "assumptions": [],
+      "defeaters": [
+        "If the analysis statistically adjusts for exercise and the coffee‑depression link remains"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_aa5241d8051fc804",
+      "challengeType": "source-does-not-support",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4f898865ab5b9030"
+      },
+      "rationale": "The source is an observational cohort study, which can only reveal associations, not causal prevention. Claim[1] asserts that coffee consumption prevents depression, a causal claim that the evidence does not support.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Rephrase the claim to reflect association only, e.g., \"higher coffee consumption is associated with lower rates of depression\"."
+    },
+    {
+      "id": "chl_4a575697a6a8e7e9",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_33354ec480c64ce2"
+      },
+      "rationale": "Inference[0] treats the observed correlation as preliminary evidence for a protective effect, but correlation alone does not establish causality; the inference overstates what the data can justify.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Qualify the inference by noting that the correlation is consistent with, but does not prove, a protective effect, and that further experimental work is needed."
+    },
+    {
+      "id": "chl_17272cf0ca07b9ce",
+      "challengeType": "missing-source",
+      "target": {
+        "kind": "topic",
+        "id": "potential confounders such as socioeconomic status, diet, sleep patterns, and other lifestyle factors"
+      },
+      "rationale": "The analysis only mentions exercise as a confounding factor, omitting other plausible confounders that could explain the coffee‑depression association, leaving the argument incomplete.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Incorporate evidence or discussion of these additional confounders, or acknowledge their absence as a limitation."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_5fb1741b900e09c3",
+      "type": "compatible-different-scope",
+      "from": "cl_c2ad5c1c640dacdc",
+      "to": "cl_4f898865ab5b9030",
+      "rationale": "Claim 0 reports an observational association between coffee intake and lower depression rates, while Claim 1 asserts a causal preventive effect; they refer to the same exposure and outcome but differ in causal scope.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_b4d546a571666018",
+      "type": "compatible-different-scope",
+      "from": "cl_c2ad5c1c640dacdc",
+      "to": "cl_5f9f97539c99d6e5",
+      "rationale": "Claim 0 describes an observational cohort result, whereas Claim 2 comments on the absence of a randomized trial; the latter concerns study design, not the exposure‑outcome relationship.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_366dbcbaed6f6a68",
+      "type": "compatible-different-scope",
+      "from": "cl_4f898865ab5b9030",
+      "to": "cl_5f9f97539c99d6e5",
+      "rationale": "Claim 1 makes a causal claim about coffee preventing depression, while Claim 2 states that no randomized trial was conducted; the statements address different aspects (causality vs evidence base).",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_82f2002e2c5eb36f",
+      "type": "compatible-different-scope",
+      "from": "cl_c2ad5c1c640dacdc",
+      "to": "cl_b0d39626b72e8093",
+      "rationale": "Claim 0 links coffee consumption to depression rates, whereas Claim 3 links coffee consumption to higher exercise levels; they involve the same exposure but different outcomes.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_2b66d9ee5a0a37a9",
+      "type": "compatible-different-scope",
+      "from": "cl_4f898865ab5b9030",
+      "to": "cl_b0d39626b72e8093",
+      "rationale": "Claim 1 asserts coffee prevents depression, while Claim 3 notes that higher coffee consumers also exercise more; the claims concern different outcomes (depression vs exercise).",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_373d0b53971c1f5f",
+      "type": "compatible-different-scope",
+      "from": "cl_5f9f97539c99d6e5",
+      "to": "cl_b0d39626b72e8093",
+      "rationale": "Claim 2 concerns the lack of a randomized trial, whereas Claim 3 describes an observational association between coffee intake and exercise; they address distinct aspects of the research.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": [
+    {
+      "id": "qr_869d1e034afe6b27",
+      "statement": "participants who drank more coffee also had higher incomes",
+      "reason": "passage-does-not-entail",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "attemptedPassageText": "participants who drank more coffee also had higher incomes"
+    }
+  ]
+}

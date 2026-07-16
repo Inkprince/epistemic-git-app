@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "baseline-evaluations/1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "studyId", "responses", "ratings"],
+  "properties": {
+    "schemaVersion": { "const": "baseline-evaluations/1.0" },
+    "studyId": { "type": "string" },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "participantId", "artifactId", "taskId", "startedAt", "completedAt", "durationMs", "answerText", "claims", "citations"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "participantId": { "type": "string", "minLength": 1 },
+          "artifactId": { "type": "string", "minLength": 1 },
+          "taskId": { "type": "string", "minLength": 1 },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "completedAt": { "type": "string", "format": "date-time" },
+          "durationMs": { "type": "integer", "minimum": 1 },
+          "answerText": { "type": "string", "minLength": 1 },
+          "claims": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "text"],
+              "properties": { "id": { "type": "string" }, "text": { "type": "string" } }
+            }
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "claimId", "reference"],
+              "properties": {
+                "id": { "type": "string" },
+                "claimId": { "type": "string" },
+                "reference": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ratings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["responseId", "raterId", "accuracy", "citationCorrectness", "claimSupport", "cruxIdentified", "notes"],
+        "properties": {
+          "responseId": { "type": "string" },
+          "raterId": { "type": "string" },
+          "accuracy": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["criterionId", "met"],
+              "properties": { "criterionId": { "type": "string" }, "met": { "type": "boolean" } }
+            }
+          },
+          "citationCorrectness": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["citationId", "correct"],
+              "properties": { "citationId": { "type": "string" }, "correct": { "type": "boolean" } }
+            }
+          },
+          "claimSupport": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["claimId", "supported"],
+              "properties": { "claimId": { "type": "string" }, "supported": { "type": "boolean" } }
+            }
+          },
+          "cruxIdentified": { "type": ["boolean", "null"] },
+          "notes": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

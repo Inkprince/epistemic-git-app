@@ -1,0 +1,379 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_442787eca6ca6254",
+  "case": "trap-overstated-abstract",
+  "title": "Hedged source, overstated headline claim",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_f984d7096aa2911b",
+      "type": "other",
+      "title": "Hedged source, overstated headline claim",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_a8b8e82076f04ea0",
+      "sourceId": "src_f984d7096aa2911b",
+      "locator": {
+        "kind": "char",
+        "start": 10,
+        "end": 53
+      },
+      "verbatimText": "New study proves vitamin D prevents cancer."
+    },
+    {
+      "id": "psg_3021018cc91ef71c",
+      "sourceId": "src_f984d7096aa2911b",
+      "locator": {
+        "kind": "char",
+        "start": 104,
+        "end": 200
+      },
+      "verbatimText": "higher vitamin D levels were weakly and non-significantly associated with lower cancer incidence"
+    },
+    {
+      "id": "psg_5e170ca53dd699b4",
+      "sourceId": "src_f984d7096aa2911b",
+      "locator": {
+        "kind": "char",
+        "start": 222,
+        "end": 253
+      },
+      "verbatimText": "the result may be due to chance"
+    },
+    {
+      "id": "psg_0c4490927bcad64f",
+      "sourceId": "src_f984d7096aa2911b",
+      "locator": {
+        "kind": "char",
+        "start": 258,
+        "end": 300
+      },
+      "verbatimText": "requires confirmation in randomized trials"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_9b245ed23e240a01",
+      "statement": "New study proves vitamin D prevents cancer.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_a8b8e82076f04ea0"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_f984d7096aa2911b"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "vitamin D",
+        "outcome": "cancer",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_ce1edf5d8d4a8606",
+      "statement": "Higher vitamin D levels were weakly and non‑significantly associated with lower cancer incidence.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_3021018cc91ef71c"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_f984d7096aa2911b"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "higher vitamin D levels",
+        "outcome": "lower cancer incidence",
+        "quantifiers": "weakly and non‑significantly",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_536668840670abc6",
+      "statement": "The result may be due to chance.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_5e170ca53dd699b4"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_f984d7096aa2911b"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "conditional"
+      }
+    },
+    {
+      "id": "cl_6f1e136fb8a97d8a",
+      "statement": "The finding requires confirmation in randomized trials.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_0c4490927bcad64f"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_f984d7096aa2911b"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_a50570ddade2d963",
+      "statement": "The evidence does not establish that vitamin D prevents cancer; the claim remains unproven.",
+      "claimType": "predictive",
+      "assumptions": [],
+      "caveats": [],
+      "passages": [],
+      "derived": true,
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "tags": []
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_ce092c9268db74fc",
+      "type": "undercuts",
+      "premises": [
+        "cl_ce1edf5d8d4a8606"
+      ],
+      "conclusion": "cl_9b245ed23e240a01",
+      "warrant": "A claim of proof requires statistically significant, robust evidence; a weak, non‑significant association cannot substantiate a proof claim.",
+      "assumptions": [],
+      "defeaters": [
+        "If the study had a very large sample size and still yielded a non‑significant trend, the association might still be considered meaningful."
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_f33422e0f9eee80e",
+      "type": "undercuts",
+      "premises": [
+        "cl_536668840670abc6"
+      ],
+      "conclusion": "cl_9b245ed23e240a01",
+      "warrant": "If an observed effect could plausibly be due to random variation, it cannot be taken as definitive proof.",
+      "assumptions": [],
+      "defeaters": [
+        "If the reported p‑value is well below conventional thresholds (e.g., p<0.01), the chance explanation is less plausible."
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_d03a316e87f9a86a",
+      "type": "undercuts",
+      "premises": [
+        "cl_6f1e136fb8a97d8a"
+      ],
+      "conclusion": "cl_9b245ed23e240a01",
+      "warrant": "Observational findings require confirmation by randomized controlled trials before they can be regarded as conclusive evidence.",
+      "assumptions": [],
+      "defeaters": [
+        "If the observational study employed exceptionally rigorous controls and replication, it might be deemed sufficient without RCT confirmation."
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_04d9d75c7847cdc8",
+      "type": "supports",
+      "premises": [
+        "cl_ce1edf5d8d4a8606"
+      ],
+      "conclusion": "cl_536668840670abc6",
+      "warrant": "A weak, non‑significant association suggests the observed effect may be attributable to random chance.",
+      "assumptions": [],
+      "defeaters": [
+        "If the study had high statistical power, a non‑significant result could still indicate a true effect."
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_c21089b0c181162d",
+      "type": "supports",
+      "premises": [
+        "cl_9b245ed23e240a01",
+        "cl_ce1edf5d8d4a8606",
+        "cl_536668840670abc6",
+        "cl_6f1e136fb8a97d8a"
+      ],
+      "conclusion": "cl_a50570ddade2d963",
+      "warrant": "When a claim of proof is contradicted by weak evidence, a plausible chance explanation, and a methodological call for further trials, the logical overall conclusion is that the effect remains unproven.",
+      "assumptions": [],
+      "defeaters": [
+        "If subsequent randomized trials demonstrate a strong, statistically significant protective effect of vitamin D on cancer, the overall conclusion would be overturned."
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_23e59e6303d6f6e4",
+      "challengeType": "source-does-not-support",
+      "target": {
+        "kind": "claim",
+        "id": "cl_9b245ed23e240a01"
+      },
+      "rationale": "The source reports only a weak, non‑significant association between vitamin D levels and cancer incidence; it does not provide evidence that vitamin D prevents cancer, so the claim that the study \"proves\" prevention is unsupported.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Revise claim to reflect the observational nature and lack of statistical significance, e.g., \"The study suggests a possible association…\""
+    },
+    {
+      "id": "chl_1e952ad5b10257e4",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_536668840670abc6"
+      },
+      "rationale": "The source presents the association with a p‑value above conventional thresholds but does not explicitly state that the result may be due to chance; adding this qualification introduces a caveat not present in the original wording.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite the exact language from the source or qualify the statement with \"consistent with chance\" only if the source says so."
+    },
+    {
+      "id": "chl_eea4a23b8e3b2573",
+      "challengeType": "missing-alternative",
+      "target": {
+        "kind": "claim",
+        "id": "cl_ce1edf5d8d4a8606"
+      },
+      "rationale": "The claim of a weak association does not address potential confounding factors (e.g., lifestyle, socioeconomic status) that could explain the observed relationship, leaving a plausible alternative explanation unconsidered.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Include discussion of major confounders identified in the study or cite additional analyses that adjust for them."
+    },
+    {
+      "id": "chl_3cca595dcccbb02c",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_ce092c9268db74fc"
+      },
+      "rationale": "The inference that \"proof requires statistically significant, robust evidence\" imposes a philosophical standard of proof not derived from the source; the source merely reports statistical results without defining a proof threshold, making the inference unsupported.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Reframe the inference to reflect the source's own language about evidence strength rather than asserting a universal proof criterion."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_111f394505eb9b74",
+      "type": "contradicts",
+      "from": "cl_9b245ed23e240a01",
+      "to": "cl_ce1edf5d8d4a8606",
+      "rationale": "Claim 0 asserts a proven preventive effect, while Claim 1 reports only a weak, non‑significant association, making the two statements mutually exclusive as stated.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_e849dd60552b9f4c",
+      "type": "contradicts",
+      "from": "cl_9b245ed23e240a01",
+      "to": "cl_6f1e136fb8a97d8a",
+      "rationale": "Claim 0 says vitamin D prevention is proven, whereas Claim 3 says the finding still requires confirmation in randomized trials, directly opposing each other.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_c6d475f9f1e92da6",
+      "type": "compatible-different-scope",
+      "from": "cl_ce1edf5d8d4a8606",
+      "to": "cl_536668840670abc6",
+      "rationale": "Claim 1 describes an observed weak, non‑significant association; Claim 2 comments on the statistical uncertainty of that result, so both can be true but address different aspects.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_fe4f704dc7866bdb",
+      "type": "compatible-different-scope",
+      "from": "cl_ce1edf5d8d4a8606",
+      "to": "cl_6f1e136fb8a97d8a",
+      "rationale": "Claim 1 reports an observational association, while Claim 3 calls for confirmation in RCTs; they are compatible but concern different scopes of evidence.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_a7f7099864eb5193",
+      "type": "compatible-different-scope",
+      "from": "cl_536668840670abc6",
+      "to": "cl_6f1e136fb8a97d8a",
+      "rationale": "Claim 2 suggests the result may be due to chance, and Claim 3 recommends further trials; both address uncertainty but focus on different explanations.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

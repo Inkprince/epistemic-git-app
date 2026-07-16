@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "baseline-study/1.0",
+  "studyId": "epistemic-uplift-baseline-v1",
+  "frozenAt": "2026-07-16T00:00:00.000Z",
+  "commonPrompt": "prompts/common-artifact.v1.md",
+  "tasks": "config/tasks.json",
+  "minimumRatersPerResponse": 2,
+  "systems": [
+    {
+      "id": "deep-research",
+      "administratorLabel": "Deep-research baseline",
+      "modelId": "o3-deep-research-2025-06-26",
+      "provider": "OpenAI",
+      "armPrompt": "prompts/deep-research.v1.md",
+      "configuration": {
+        "interface": "Responses API deep research",
+        "temperature": null,
+        "webSearch": true,
+        "maxToolCalls": 100,
+        "reasoningEffort": "provider-default"
+      },
+      "externalRunRequired": true
+    },
+    {
+      "id": "careful-claude-code",
+      "administratorLabel": "Careful Claude Code baseline",
+      "modelId": "claude-opus-4-20250514",
+      "provider": "Anthropic",
+      "armPrompt": "prompts/careful-claude-code.v1.md",
+      "configuration": {
+        "interface": "API tool-use loop emulating a careful Claude Code investigation",
+        "temperature": 0,
+        "maxTurns": 24,
+        "tools": ["read supplied files", "fetch supplied URLs", "web search"],
+        "parallelToolUse": false
+      },
+      "externalRunRequired": true
+    },
+    {
+      "id": "epistemic-git",
+      "administratorLabel": "Epistemic Git",
+      "modelId": "gpt-oss-120b",
+      "provider": "Cerebras",
+      "armPrompt": "prompts/epistemic-git.v1.md",
+      "configuration": {
+        "interface": "Epistemic Git extract-match-infer-audit-correlate pipeline",
+        "pipelinePromptVersion": "eg/1",
+        "temperature": "provider-default",
+        "maxRetries": 5,
+        "requestTimeoutMs": 120000,
+        "cachePolicy": "content-hash cache permitted only when model and prompt hashes match"
+      },
+      "externalRunRequired": true
+    }
+  ],
+  "blinding": {
+    "artifactIdPrefix": "ART",
+    "identityLeakTerms": [
+      "OpenAI",
+      "ChatGPT",
+      "Anthropic",
+      "Claude",
+      "Gemini",
+      "Deep Research",
+      "Epistemic Git",
+      "Cerebras",
+      "gpt-oss"
+    ],
+    "packetRule": "Evaluator packets contain only opaque artifact IDs, task text, and normalized artifacts. Private mappings and run metadata must never be given to evaluators."
+  },
+  "metrics": [
+    "answerAccuracy",
+    "citationCorrectness",
+    "unsupportedClaimRate",
+    "timeToAnswerMs",
+    "cruxIdentification",
+    "updateTimeMs",
+    "interRaterAgreement"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "REPLACE_WITH_CHANGE_ID",
+  "reviewIds": ["REPLACE_WITH_REVIEW_ID"],
+  "decision": "accepted",
+  "decisionRationale": "REPLACE_WITH_REASON",
+  "affectedTargetIds": ["REPLACE_WITH_CONTENT_ADDRESSED_ID"],
+  "beforeBundleId": "REPLACE_WITH_BUNDLE_ID",
+  "afterBundleId": "REPLACE_WITH_NEW_BUNDLE_ID_OR_NULL",
+  "commitOrDiffRef": "REPLACE_WITH_HISTORY_OR_DIFF_REFERENCE_OR_NULL",
+  "summary": "REPLACE_WITH_ARTIFACT_CHANGE_OR_EXPLICIT_NO_CHANGE",
+  "decidedAt": "2026-07-16T00:00:00.000Z"
+}

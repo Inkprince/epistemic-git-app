@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "baseline-freeze/1.0",
+  "algorithm": "sha256",
+  "frozenAt": "2026-07-16T00:00:00.000Z",
+  "files": {
+    "config/study.json": "216748906ceb29a58708cf79a0b8b8c20cf52b9f0d0a8c3e6b695ef34b841e90",
+    "config/tasks.json": "d3bd9331b630b6b6d0f195bde580e3a4bb1b512238ae08538a15aa8d9ecdf60f",
+    "prompts/common-artifact.v1.md": "c42a4ebe557db2e34a6499a66489385c9e1df612c5a8eb86712f23c1a7c603fe",
+    "prompts/deep-research.v1.md": "c1bd2b47a5949b46671b28c4dc679b837cfe2179d58924ce5c1a6ed8a6b9e7ef",
+    "prompts/careful-claude-code.v1.md": "25f3beb134b693f99718b78e2c22b2adbe8198d4b609e426cabc36ef07227811",
+    "prompts/epistemic-git.v1.md": "a285581ea520423c58fcdbc15a9d975e1ecd020672c7a827d32d8fbea44aac9a",
+    "schemas/artifact.schema.json": "f168c5e480994fb084037153e2b3e39ab55a32e3720802718b17922ab2fa6faa",
+    "schemas/imports.schema.json": "96133b6cf1ca99d1052c5129909c8b436f9e37725c5788a16d88ac00cef62d43",
+    "schemas/evaluations.schema.json": "5404ddb6baf3cc961be6a227f9cbcb3b7702b37c14f55c5757dedb1474b5a218",
+    "EVALUATOR.md": "e06f31abeb40518159529c43fbb487fca052bc9baae487adede12456279e9e8a"
+  }
+}

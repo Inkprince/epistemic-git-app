@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_2ff75e40827c54b9",
+  "case": "trap-quantifier-drift",
+  "title": "Near-identical claims differing only in scope/quantifier (must not be flattened)",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_592a0875b60986f9",
+      "type": "other",
+      "title": "Near-identical claims differing only in scope/quantifier (must not be flattened)",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_7abc30ca36d708bf",
+      "sourceId": "src_592a0875b60986f9",
+      "locator": {
+        "kind": "char",
+        "start": 11,
+        "end": 45
+      },
+      "verbatimText": "Eggs increase cardiovascular risk."
+    },
+    {
+      "id": "psg_671dcd52ab911189",
+      "sourceId": "src_592a0875b60986f9",
+      "locator": {
+        "kind": "char",
+        "start": 57,
+        "end": 196
+      },
+      "verbatimText": "Consuming more than one egg per day was associated with increased cardiovascular risk specifically among participants with type 2 diabetes."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_8544a3a16ca08cf9",
+      "statement": "Eggs increase cardiovascular risk.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_7abc30ca36d708bf"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_592a0875b60986f9"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "eggs",
+        "outcome": "cardiovascular risk",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_ce84413e8c6f1ac6",
+      "statement": "Consuming more than one egg per day was associated with increased cardiovascular risk specifically among participants with type 2 diabetes.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_671dcd52ab911189"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_592a0875b60986f9"
+      },
+      "tags": [],
+      "structure": {
+        "population": "participants with type 2 diabetes",
+        "intervention": "consuming more than one egg per day",
+        "outcome": "increased cardiovascular risk",
+        "quantifiers": "more than one egg per day",
+        "modality": "associational"
+      }
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_a3f1d1ad74c8b41c",
+      "type": "evidence-for",
+      "premises": [
+        "cl_ce84413e8c6f1ac6"
+      ],
+      "conclusion": "cl_8544a3a16ca08cf9",
+      "warrant": "Evidence from a subgroup (type‑2‑diabetes participants) that shows increased risk can be taken as supporting the broader claim that eggs raise cardiovascular risk",
+      "assumptions": [],
+      "defeaters": [
+        "The effect may be limited to diabetics and not apply to the general population",
+        "Potential confounding variables specific to the diabetic subgroup",
+        "Other studies showing no association"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_b6ddba719cf95a06",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "inference",
+        "id": "inf_a3f1d1ad74c8b41c"
+      },
+      "rationale": "The cited evidence concerns only participants with type‑2 diabetes; extending it to a claim about eggs and cardiovascular risk for the general population exceeds the scope of the original data.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Limit the claim to the diabetic subgroup or provide additional evidence from a representative sample of the overall population."
+    },
+    {
+      "id": "chl_de1d4f98b059d4a4",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_8544a3a16ca08cf9"
+      },
+      "rationale": "The source is an observational study that cannot establish causality and may be subject to residual confounding, yet the claim presents the association as a definitive increase in risk.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a qualifier noting that the relationship is associative, not proven causal, and acknowledge potential confounding factors."
+    },
+    {
+      "id": "chl_25ab68f49ec5fc4a",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_a3f1d1ad74c8b41c"
+      },
+      "rationale": "Using a subgroup finding to support a broader claim commits a hasty‑generalization fallacy; the evidence does not logically justify the universal statement about eggs raising cardiovascular risk.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Revise the inference to reflect that the evidence supports increased risk only within the type‑2‑diabetes subgroup, or supply corroborating data from non‑diabetic cohorts."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_e9162466a2c0ef6b",
+      "type": "narrower",
+      "from": "cl_ce84413e8c6f1ac6",
+      "to": "cl_8544a3a16ca08cf9",
+      "rationale": "Claim 1 limits the effect to people with type 2 diabetes eating >1 egg/day, whereas Claim 0 makes a general statement about eggs and cardiovascular risk.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_b410442c6ce92eb5",
+      "type": "broader",
+      "from": "cl_8544a3a16ca08cf9",
+      "to": "cl_ce84413e8c6f1ac6",
+      "rationale": "Claim 0 is a general claim about eggs and cardiovascular risk, encompassing the more specific scenario described in Claim 1.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

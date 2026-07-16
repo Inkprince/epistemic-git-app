@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "baseline-tasks/1.0",
+  "tasks": [
+    {
+      "id": "strongest-evidence-lhc",
+      "taskType": "strongest-evidence",
+      "case": "lhc-safety",
+      "researchQuestion": "What is the strongest evidence bearing on whether hypothetical microscopic black holes produced at the LHC could endanger Earth?",
+      "evaluatorQuestion": "Using only this artifact, identify the strongest evidence for its conclusion and explain why it is stronger than the main alternative line of support.",
+      "expectedAnalysisField": "strongestEvidence",
+      "allowedSources": [
+        {
+          "id": "LHC-LSAG-2008",
+          "title": "Review of the Safety of LHC Collisions",
+          "uri": "https://doi.org/10.1088/0954-3899/35/11/115004",
+          "phase": "initial"
+        },
+        {
+          "id": "LHC-GM-2008",
+          "title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+          "uri": "https://arxiv.org/abs/0806.3381",
+          "phase": "initial"
+        },
+        {
+          "id": "LHC-HAWKING-1975",
+          "title": "Particle creation by black holes",
+          "uri": "https://doi.org/10.1007/BF02345020",
+          "phase": "initial"
+        }
+      ],
+      "rubric": {
+        "basis": "The frozen LHC source set contrasts a theoretical evaporation argument with an empirical astronomical-survival bound.",
+        "accuracyCriteria": [
+          { "id": "SE1", "description": "Identifies survival of white dwarfs/neutron stars under higher-energy natural collisions as the strongest evidence." },
+          { "id": "SE2", "description": "Explains that this evidence bounds even stable-black-hole scenarios rather than assuming Hawking evaporation." },
+          { "id": "SE3", "description": "Does not claim ordinary cosmic-ray impacts on Earth alone settle the at-rest capture disanalogy." }
+        ],
+        "cruxCriteria": []
+      }
+    },
+    {
+      "id": "load-bearing-crux-lhc",
+      "taskType": "load-bearing-assumption",
+      "case": "lhc-safety",
+      "researchQuestion": "Which assumption is most load-bearing in the empirical LHC safety argument if Hawking radiation is not assumed?",
+      "evaluatorQuestion": "Using only this artifact, state the most load-bearing assumption or crux, and describe what finding would most change the conclusion.",
+      "expectedAnalysisField": "loadBearingAssumption",
+      "allowedSources": [
+        {
+          "id": "LHC-LSAG-2008",
+          "title": "Review of the Safety of LHC Collisions",
+          "uri": "https://doi.org/10.1088/0954-3899/35/11/115004",
+          "phase": "initial"
+        },
+        {
+          "id": "LHC-GM-2008",
+          "title": "Astrophysical implications of hypothetical stable TeV-scale black holes",
+          "uri": "https://arxiv.org/abs/0806.3381",
+          "phase": "initial"
+        }
+      ],
+      "rubric": {
+        "basis": "The empirical line depends on dense stellar remnants capturing relevant natural black holes and translating their survival into an accretion bound.",
+        "accuracyCriteria": [
+          { "id": "CR1", "description": "Locates the crux in applicability of stellar-remnant capture/survival to dangerous LHC-producible stable black holes." },
+          { "id": "CR2", "description": "Names a discriminating update, such as evidence that the relevant natural black holes evade capture or accrete differently." }
+        ],
+        "cruxCriteria": ["CR1"]
+      }
+    },
+    {
+      "id": "citation-independence-covid",
+      "taskType": "citation-independence",
+      "case": "covid-market",
+      "researchQuestion": "Are the cited arguments about Huanan-market centrality independent evidence?",
+      "evaluatorQuestion": "Using only this artifact, determine which cited sources are not independent and give the concrete dependency; do not equate separate documents with independent evidence.",
+      "expectedAnalysisField": "citationIndependence",
+      "allowedSources": [
+        {
+          "id": "COVID-CENTRALITY-2024",
+          "title": "Confirmation of the centrality of the Huanan market among early COVID-19 cases",
+          "uri": "artifacts/sources/covid/debarre-worobey-centrality.txt",
+          "phase": "initial"
+        },
+        {
+          "id": "COVID-BIAS-2024",
+          "title": "Proximity Ascertainment Bias in Early Covid Case Locations",
+          "uri": "artifacts/sources/covid/weissman-ascertainment-bias.txt",
+          "phase": "initial"
+        },
+        {
+          "id": "COVID-REPLY-2024",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
+          "phase": "initial"
+        }
+      ],
+      "rubric": {
+        "basis": "The centrality paper and reply share Florence Débarre and Michael Worobey; the reply also directly responds to Weissman.",
+        "accuracyCriteria": [
+          { "id": "CI1", "description": "Marks the Débarre/Worobey centrality paper and their reply as non-independent because they share authors/argument lineage." },
+          { "id": "CI2", "description": "Treats Weissman's paper as a conflicting perspective, not independent confirmation of the market-centrality claim." },
+          { "id": "CI3", "description": "Does not infer independence solely from distinct publication titles or URLs." }
+        ],
+        "cruxCriteria": []
+      }
+    },
+    {
+      "id": "passage-support-covid",
+      "taskType": "passage-support",
+      "case": "covid-market",
+      "researchQuestion": "What exact passage supports the claim that the observed distance pattern does not itself demonstrate major proximity ascertainment bias?",
+      "evaluatorQuestion": "Using only this artifact, quote the passage that most directly supports the target claim and identify its source. Explain whether the passage fully or only partially supports the claim.",
+      "expectedAnalysisField": "passageSupport",
+      "allowedSources": [
+        {
+          "id": "COVID-REPLY-2024",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
+          "phase": "initial"
+        }
+      ],
+      "rubric": {
+        "basis": "The supplied abstract explicitly says the conclusion rests on a flawed premise and offers infection location plus stochasticity as alternatives.",
+        "accuracyCriteria": [
+          { "id": "PS1", "description": "Quotes the reply's sentence beginning 'Here we show that Weissman's conclusion is based on a flawed premise' or the immediately following alternative-explanation sentence." },
+          { "id": "PS2", "description": "Attributes the quote to the Débarre and Worobey reply." },
+          { "id": "PS3", "description": "Notes that the abstract asserts an analysis/result but does not, in the supplied excerpt, expose the underlying data or full derivation." }
+        ],
+        "cruxCriteria": []
+      }
+    },
+    {
+      "id": "perspective-disagreement-covid",
+      "taskType": "perspective-disagreement",
+      "case": "covid-market",
+      "researchQuestion": "Why do Weissman and Débarre/Worobey disagree about proximity ascertainment bias in early case locations?",
+      "evaluatorQuestion": "Using only this artifact, explain the substantive source of disagreement between the two perspectives rather than merely restating their conclusions.",
+      "expectedAnalysisField": "perspectiveDisagreement",
+      "allowedSources": [
+        {
+          "id": "COVID-BIAS-2024",
+          "title": "Proximity Ascertainment Bias in Early Covid Case Locations",
+          "uri": "artifacts/sources/covid/weissman-ascertainment-bias.txt",
+          "phase": "initial"
+        },
+        {
+          "id": "COVID-REPLY-2024",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
+          "phase": "initial"
+        }
+      ],
+      "rubric": {
+        "basis": "One side treats the linked/unlinked distance pattern as evidence of large ascertainment bias; the other says that inference assumes residential location is the relevant infection-location model and neglects stochasticity.",
+        "accuracyCriteria": [
+          { "id": "PD1", "description": "Identifies disagreement about what data-generating process explains the linked/unlinked distance pattern." },
+          { "id": "PD2", "description": "States Weissman's interpretation: the sign/pattern supports large proximity ascertainment bias and weakens clustering inference." },
+          { "id": "PD3", "description": "States the reply's alternatives: infection need not occur in residential neighbourhoods and stochasticity can produce the pattern without bias." }
+        ],
+        "cruxCriteria": []
+      }
+    },
+    {
+      "id": "conflicting-source-update-covid",
+      "taskType": "conflicting-source-update",
+      "case": "covid-market",
+      "researchQuestion": "How should confidence in an inference from early-case spatial clustering change after adding Weissman's conflicting ascertainment-bias analysis?",
+      "evaluatorQuestion": "A conflicting source has just been added. Using only this artifact, update the earlier conclusion, state what changed and what did not, and identify the next evidence that would resolve the conflict. Work from the moment the artifact is shown; elapsed time is the update-time metric.",
+      "expectedAnalysisField": "conflictingSourceUpdate",
+      "allowedSources": [
+        {
+          "id": "COVID-CENTRALITY-2024",
+          "title": "Confirmation of the centrality of the Huanan market among early COVID-19 cases",
+          "uri": "artifacts/sources/covid/debarre-worobey-centrality.txt",
+          "phase": "initial"
+        },
+        {
+          "id": "COVID-BIAS-2024",
+          "title": "Proximity Ascertainment Bias in Early Covid Case Locations",
+          "uri": "artifacts/sources/covid/weissman-ascertainment-bias.txt",
+          "phase": "conflicting-update"
+        },
+        {
+          "id": "COVID-REPLY-2024",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
+          "phase": "conflicting-update"
+        }
+      ],
+      "rubric": {
+        "basis": "The conflicting source directly attacks reliability of the clustering inference, while the reply supplies competing explanations; neither abstract alone resolves the broader origin question.",
+        "accuracyCriteria": [
+          { "id": "UP1", "description": "Reduces or qualifies confidence specifically in inference from spatial clustering rather than claiming the entire origin question is settled." },
+          { "id": "UP2", "description": "Represents both the ascertainment-bias argument and the reply's alternative explanations." },
+          { "id": "UP3", "description": "Identifies discriminating evidence or analysis about case ascertainment/infection-location sampling rather than requesting generic more research." }
+        ],
+        "cruxCriteria": []
+      }
+    },
+    {
+      "id": "source-overclaim-eggs",
+      "taskType": "source-overclaim",
+      "case": "eggs-cardiovascular-health",
+      "researchQuestion": "Where could the conclusion that moderate egg consumption does not significantly increase cardiovascular-disease risk exceed the supplied evidence summary?",
+      "evaluatorQuestion": "Using only this artifact, identify every material way its overall egg/cardiovascular conclusion exceeds or compresses the source, preserving dose, population, comparator, design, endpoint, and uncertainty.",
+      "expectedAnalysisField": "sourceOverclaim",
+      "allowedSources": [
+        {
+          "id": "EGGS-WIKIPEDIA-2026-07-14",
+          "title": "Egg as food — health and nutrition (Wikipedia excerpt, retrieved 2026-07-14)",
+          "uri": "artifacts/sources/eggs-wikipedia.txt",
+          "phase": "initial"
+        }
+      ],
+      "rubric": {
+        "basis": "The supplied tertiary summary reports mixed findings across observational mortality associations, coronary-disease reviews, an RCT biomarker meta-analysis, and 2020 reviews; it does not expose populations, substitution comparators, estimates, or primary-study methods.",
+        "accuracyCriteria": [
+          { "id": "SO1", "description": "Preserves the bounded phrase 'moderate daily' and does not silently generalize it to undefined intake, every population, or every dietary substitution." },
+          { "id": "SO2", "description": "Distinguishes clinical cardiovascular outcomes from LDL/total-cholesterol biomarkers and association from causation." },
+          { "id": "SO3", "description": "Flags that a single tertiary excerpt with mixed findings and no estimates, populations, comparators, follow-up, or primary-study methods cannot establish a broad no-risk conclusion." },
+          { "id": "SO4", "description": "Does not rewrite 'shows no increased risk' as proof of no meaningful effect or as a statistically demonstrated null without the underlying confidence intervals and methods." }
+        ],
+        "cruxCriteria": []
+      }
+    }
+  ]
+}
