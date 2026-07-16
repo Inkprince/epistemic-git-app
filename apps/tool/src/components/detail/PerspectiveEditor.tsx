@@ -75,9 +75,8 @@ export function PerspectiveEditor({
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
-          A perspective is a late-binding trust layer: the evidence stays fixed, your stances sit on top.
-          It gets a real content-addressed id, computes live support, exports with the bundle, and
-          survives re-import anywhere.
+          A perspective is your take on the evidence. The claims stay fixed; you just mark which ones
+          you trust. It computes live Support and travels with the ledger when you export.
         </p>
         <div className="run-panel" style={{ marginTop: 14 }}>
           <input placeholder="Perspective name (e.g. “Skeptical methodologist”)" value={label} onChange={(e) => setLabel(e.target.value)} maxLength={60} />

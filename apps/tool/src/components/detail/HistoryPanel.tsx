@@ -48,7 +48,7 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
     void Promise.all(picked.map((d) => snapshotGet(d))).then(([a, b]) => {
       if (cancelled) return;
       if (!a || !b) {
-        setDiffError("One of these snapshots is no longer cached locally (snapshots keep the 20 most recent).");
+        setDiffError("One of these snapshots is no longer cached (only the 20 most recent are kept).");
         return;
       }
       setDiff({ a, b, report: diffBundles(a, b) });
@@ -61,9 +61,8 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
       <div>
         <SectionLabel>History</SectionLabel>
         <p className="note" style={{ marginTop: 0 }}>
-          No lineage events yet for this case in this browser. Merging a ledger, importing one,
-          running the pipeline, or committing a case records an event here — a local commit log
-          of how this ledger evolved.
+          No history yet for this case in this browser. Importing, merging, running the pipeline, or
+          committing records an event here — a local commit log of how this ledger grew.
         </p>
       </div>
     );

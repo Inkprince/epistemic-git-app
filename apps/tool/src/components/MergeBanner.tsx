@@ -25,8 +25,8 @@ export function MergedBanner({
     <div className="banner" style={{ flexWrap: "wrap" }}>
       <MarkCircle kind="green" />
       <span className="txt">
-        Merged. <strong>+{sumCounts(report.added)}</strong> new nodes · <strong>{sumCounts(report.coalesced)}</strong> coalesced ·{" "}
-        <strong>{n}</strong> conflict{n === 1 ? "" : "s"} preserved
+        Merged. <strong>+{sumCounts(report.added)}</strong> added · <strong>{sumCounts(report.coalesced)}</strong> already shared ·{" "}
+        <strong>{n}</strong> conflict{n === 1 ? "" : "s"} kept
         {report.conclusionsAffected.map((c) => (
           <span key={c.claimId}> · conclusion <strong>{pct(c.supportBefore)} → {pct(c.supportAfter)}</strong></span>
         ))}

@@ -36,8 +36,8 @@ export function PerspectivesTab({
         <span
           className="chip"
           title={diff.mode === "quantitative"
-            ? "Both perspectives supply explicit credences — these are calibrated probabilities."
-            : "No probabilistic model supplied — percentages are relative structural weight, not calibrated probabilities."}
+            ? "Both perspectives gave explicit credences, so these are calibrated probabilities."
+            : "No probabilities were given — these are relative weights, not calibrated odds."}
         >
           {diff.mode === "quantitative" ? "quantitative" : "qualitative — relative weights"}
         </span>
@@ -58,7 +58,7 @@ export function PerspectivesTab({
 
       {diff.topCrux && (
         <div className="crux-card">
-          <div className="lbl">Top crux — resolve this to move the needle most</div>
+          <div className="lbl">Top crux — settle this to close the most disagreement</div>
           <div className="st">{diff.topCrux.statement}</div>
           <div className="voi">value of information ≈ {pct(voi[0]?.valueOfInformation ?? 0)} of the gap</div>
         </div>

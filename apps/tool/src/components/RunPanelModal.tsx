@@ -91,8 +91,8 @@ export function RunPanelModal({ onClose, onResult }: { onClose: () => void; onRe
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
-          Paste any source text — the extract → match → infer → audit pipeline builds a live evidence
-          ledger from it. Every admitted claim is grounded in a verbatim quote; ungroundable claims are quarantined.
+          Paste any source text and the extract → match → infer → audit pipeline builds a live evidence
+          ledger from it. Every claim it admits is backed by an exact quote; the ones it can't back are quarantined.
         </p>
         <div className="run-panel">
           <textarea

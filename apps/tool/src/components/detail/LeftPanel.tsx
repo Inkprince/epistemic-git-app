@@ -67,7 +67,7 @@ export function LeftPanel({
                   <p className="note">{overlayId ? overlaysMap.get(overlayId)?.description : ""}</p>
                 </>
               ) : (
-                <p className="note">This bundle carries no perspectives yet — showing structural support under neutral priors. Assessments are a late-binding overlay anyone can add.</p>
+                <p className="note">No perspectives yet, so you're seeing Support under neutral priors. A perspective sets which claims to trust — anyone can add one.</p>
               )}
               <label className="toggle-row">
                 <input type="checkbox" checked={respectCorrelation} onChange={(e) => onRespectCorrelation(e.target.checked)} />
@@ -98,7 +98,7 @@ export function LeftPanel({
 
             {bundle.sources.length > 1 && (
               <div className="control-group">
-                <SectionLabel>Sources — distrust cascades</SectionLabel>
+                <SectionLabel>Sources — distrusting one drops all its claims</SectionLabel>
                 {bundle.sources.map((s) => {
                   const claimIds = bundle.claims.filter((c) => c.attribution.kind === "source" && c.attribution.ref === s.id).map((c) => c.id);
                   const allDistrusted = claimIds.length > 0 && claimIds.every((id) => distrust.includes(id));
@@ -119,7 +119,7 @@ export function LeftPanel({
             <div className="panel-rule" />
             <SectionLabel>Case info</SectionLabel>
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <InfoRow icon={<UsersIcon size={19} />} k="Perspectives" v={overlays.length > 0 ? `${overlays.length} overlays` : "None yet"} />
+              <InfoRow icon={<UsersIcon size={19} />} k="Perspectives" v={overlays.length > 0 ? `${overlays.length} perspectives` : "None yet"} />
               <InfoRow icon={<FileTextIcon size={19} />} k="Sources" v={`${bundle.sources.length} · ${bundle.passages.length} passages`} />
               <InfoRow icon={<LinkIcon size={19} />} k="Claim relations" v={`${bundle.matches.length} matches`} />
               <InfoRow icon={<CpuIcon size={19} />} k="Provenance" v={generated ? "Pipeline-generated" : "Hand-authored"} />

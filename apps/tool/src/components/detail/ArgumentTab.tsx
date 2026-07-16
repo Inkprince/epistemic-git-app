@@ -73,7 +73,7 @@ export function ArgumentTab({
       </div>
       <div className="task-list">
         {explanation.positive.map((p) => <LineCard key={p.inferenceId} path={p} look={look} onSelect={onSelect} />)}
-        {explanation.positive.length === 0 && <p className="subtle">No positive support under the current settings.</p>}
+        {explanation.positive.length === 0 && <p className="subtle">Nothing supports the conclusion under these settings.</p>}
       </div>
 
       {explanation.attacks.length > 0 && (

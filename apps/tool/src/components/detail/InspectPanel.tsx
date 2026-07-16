@@ -54,7 +54,7 @@ export function InspectPanel({
       )}
 
       <SectionLabel>Traced to {passages.length} passage{passages.length === 1 ? "" : "s"}</SectionLabel>
-      {passages.length === 0 && <p className="subtle">Derived claim — grounded in inference, not a direct quote.</p>}
+      {passages.length === 0 && <p className="subtle">Derived claim — it rests on an inference, not a direct quote.</p>}
       {passages.map((p) => {
         const src = look.sources.get(p.sourceId);
         return (

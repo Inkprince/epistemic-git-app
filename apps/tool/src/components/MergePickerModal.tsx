@@ -49,8 +49,8 @@ export function MergePickerModal({
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
-          Content-addressed union: identical claims coalesce, new evidence lands, and genuine
-          disagreements are preserved as explicit conflicts — nothing is overwritten or lost.
+          Merging combines two ledgers: identical claims join up, new evidence is added, and real
+          disagreements are kept as conflicts — nothing is overwritten or lost.
         </p>
         <div className="merge-list">
           {sources.length === 0 && (
@@ -77,7 +77,7 @@ export function MergePickerModal({
                       />
                       <span style={{ fontSize: 12.5 }}>
                         This ledger asks “{s.bundle.question.length > 70 ? s.bundle.question.slice(0, 69) + "…" : s.bundle.question}” —
-                        merge anyway (nodes union; conclusions may not be comparable).
+                        merge anyway (the claims still combine, but the conclusions may not be comparable).
                       </span>
                     </label>
                   )}

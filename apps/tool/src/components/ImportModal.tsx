@@ -52,8 +52,8 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
         </div>
         <p className="subtle" style={{ margin: 0 }}>
           Open an exported bundle (<span className="mono">.json</span> or <span className="mono">.jsonl</span>).
-          It is validated end-to-end in your browser — schema, provenance, and content-hash integrity —
-          before anything is added. Nothing leaves your machine.
+          Your browser checks it end-to-end — schema, provenance, and content-hash integrity — before
+          anything is added. Nothing leaves your machine.
         </p>
         <div
           className={`dropzone${dragOver ? " over" : ""}`}

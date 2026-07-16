@@ -60,7 +60,7 @@ export function CaseDetailScreen(props: CaseDetailProps) {
         <EmptyState
           icon={<FileTextIcon size={24} />}
           title="This ledger has no claims yet"
-          body="An evidence ledger starts from claims grounded in verbatim passages. Import a bundle that carries evidence, or run the pipeline on a source text to build one."
+          body="An evidence ledger starts with claims backed by exact quotes. Import a bundle that carries evidence, or run the pipeline on a source to build one."
           cta={<button className="btn-outline" onClick={props.onBack}>Back to overview</button>}
         />
       </div>
@@ -306,7 +306,7 @@ function CaseDetailInner({
       )}
 
       <div className="scenario-row">
-        <span className="sc-label" title="A branch is a saved belief-state: perspective + distrust set + correlation toggle. The ledger itself never changes — you branch interpretations, not data.">
+        <span className="sc-label" title="A branch is a saved belief-state: a perspective, a distrust set, and the correlation toggle. The ledger never changes — you branch interpretations, not data.">
           <GitBranchIcon size={15} /> Branches
         </span>
         {scenarios.map((s) => (
@@ -385,7 +385,7 @@ function CaseDetailInner({
                 bundle={bundle} look={look} support={support} distrust={distrust}
                 selected={selected} onSelect={select} onGraphSelect={setSelected} onToggleDistrust={toggleDistrust}
                 conclusion={conclusion} concSupport={concSupport} delta={delta}
-                gaugeLabel={overlayId ? `support under “${shortLabel(overlaysMap.get(overlayId)?.label ?? "")}”` : "structural support (neutral priors)"}
+                gaugeLabel={overlayId ? `support under “${shortLabel(overlaysMap.get(overlayId)?.label ?? "")}”` : "Support (no perspective applied)"}
                 explanation={explanation}
                 {...(meta?.tryThis ? { tryThis: meta.tryThis } : {})}
                 {...(presetId && meta?.presetLabel
@@ -411,9 +411,9 @@ function CaseDetailInner({
                 title={overlays.length === 0 ? "No perspectives on this ledger yet" : "Comparison needs two perspectives"}
                 body={
                   <>
-                    A perspective is a late-binding trust layer: the evidence stays fixed while each
-                    viewpoint weighs it differently. {overlays.length === 1
-                      ? `“${shortLabel(overlays[0]!.label)}” exists — add a second to decompose the disagreement and find the crux.`
+                    A perspective is your take on the evidence: the claims stay fixed, and you choose
+                    which ones to trust. {overlays.length === 1
+                      ? `“${shortLabel(overlays[0]!.label)}” is here — add a second to see exactly where they disagree and find the crux.`
                       : "Anyone can add one — the ledger itself never changes."}
                   </>
                 }
@@ -429,21 +429,21 @@ function CaseDetailInner({
               : <EmptyState
                   icon={<AlertIcon size={24} />}
                   title="No adversarial challenges recorded"
-                  body="Challenges are typed objections — invalid inference, scope drift, correlated evidence — raised against specific nodes. The pipeline's audit stage generates them automatically; hand-authored ledgers carry the ones their authors raised."
+                  body="Challenges are specific objections — invalid inference, scope drift, correlated evidence — each aimed at one node. The pipeline's audit step raises them automatically; hand-built ledgers carry the ones their authors raised."
                 />)}
             {activeTab === "relations" && (bundle.matches.length + bundle.correlationGroups.length
               ? <RelationsTab bundle={bundle} look={look} query={query} onSelect={select} />
               : <EmptyState
                   icon={<LinkIcon size={24} />}
                   title="No claim relations recorded"
-                  body="Relations link claims across sources — equivalent, contradicts, refines — and correlation groups flag evidence that shares an origin and must not be double-counted. Merge in another ledger on the same question to see relations appear."
+                  body="Relations link claims across sources — equivalent, contradicts, refines — and correlation groups flag evidence that shares an origin, so it isn't counted twice. Merge in another ledger on the same question to see them appear."
                 />)}
             {activeTab === "quarantine" && (bundle.quarantine.length
               ? <QuarantineTab bundle={bundle} query={query} />
               : <EmptyState
                   icon={<QuarantineIcon size={24} />}
                   title="Nothing quarantined"
-                  body="Every claim in this ledger is grounded in a verbatim source passage. When the pipeline can't locate a proposed claim's quote in the source bytes, the claim is refused and parked here with its receipts — never silently admitted."
+                  body="Every claim here is backed by an exact quote from a source. When the pipeline can't find a proposed claim's quote in the source text, it refuses the claim and parks it here with the receipts — never letting it in quietly."
                 />)}
           </div>
         </section>

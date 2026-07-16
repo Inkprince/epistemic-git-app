@@ -95,7 +95,9 @@ function liveRunner(): Plugin {
           }
 
           const manifestPath = resolve(artifactsDir, "cases.json");
-          const manifest = JSON.parse(await readFile(manifestPath, "utf8")) as {
+          // Strip a UTF-8 BOM — Node's "utf8" read keeps it, and JSON.parse chokes on it.
+          // (PowerShell/Notepad edits of cases.json prepend one.)
+          const manifest = JSON.parse((await readFile(manifestPath, "utf8")).replace(/^﻿/, "")) as {
             version: number;
             cases: { id: string; label: string; file: string }[];
           };

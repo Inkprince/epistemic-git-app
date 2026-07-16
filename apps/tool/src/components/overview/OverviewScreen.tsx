@@ -37,7 +37,7 @@ export function OverviewScreen({
       <div className="page-head">
         <div>
           <div className="title">Evidence ledgers</div>
-          <div className="sub">Interrogable case studies — every claim traced to a verbatim passage, every conclusion recomputable.</div>
+          <div className="sub">Real case studies where every claim traces back to an exact quote. Distrust any piece of evidence and watch the conclusion recompute.</div>
         </div>
         <div className="spacer" />
         <div className="actions">
@@ -83,7 +83,7 @@ export function OverviewScreen({
         <div className="kpi-card">
           <div className="top">
             <IconTile><QuarantineIcon size={21} /></IconTile>
-            <Pill tone="neutral">no verbatim source</Pill>
+            <Pill tone="neutral">no source quote</Pill>
           </div>
           <div className="val">{kpis.quarantined}</div>
           <div className="lbl">Claims quarantined</div>
@@ -95,7 +95,7 @@ export function OverviewScreen({
           <div className="head">
             <div>
               <div className="t">Conclusion support by case</div>
-              <div className="s">Under each case's default perspective · click a bar to open the case</div>
+              <div className="s">Each case's Support under its default perspective · click a bar to open it</div>
             </div>
             <div className="spacer" />
             <div className="legend">
@@ -120,7 +120,7 @@ export function OverviewScreen({
           <div className="head">
             <div>
               <div className="t">Claim attribution</div>
-              <div className="s">Where every tracked claim comes from</div>
+              <div className="s">Who each claim came from</div>
             </div>
           </div>
           <AttributionDonut mix={mix} />
