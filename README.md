@@ -20,6 +20,7 @@ npm install
 npm run dev          # launch the ledger explorer (opens the LHC case) — no API key needed
 npm run demo:lhc     # deterministic proof-of-thesis walkthrough on the LHC case (console)
 npm run demo:covid   # the same crux machinery on the CONTESTED COVID case (qualitative)
+npm run demo:eggs    # and on the everyday nutrition case — crux = the all-cause-mortality weighting
 npm run demo:merge   # compounding at scale: two independent investigations merge into one ledger
 npm test             # protocol + analysis unit/integration tests
 npm run smoke:tool   # headless render check of the explorer
