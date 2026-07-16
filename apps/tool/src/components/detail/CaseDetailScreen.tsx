@@ -30,10 +30,10 @@ const CASE_META: Record<string, { tryThis: string; presetLabel?: string; presetM
     presetMatch: /hawking radiation/i,
   },
   covid: {
-    tryThis: "Three real, contested papers in one ledger. Explore the cross-source contradictions between the market-origin and ascertainment-bias camps, and the audit challenge that catches ‘centrality ≠ causation’.",
+    tryThis: "A live, contested dispute. Open the Perspectives tab and diff the market-central vs ascertainment-bias readings of ‘the market was the early epicentre’: the crux the tool names is the technical mode-at-the-market finding, not the shouting match. Reported qualitatively — no origin probability.",
   },
   eggs: {
-    tryThis: "Real mixed evidence. See the ‘contradicts’ relation between the reduced-risk and increased-mortality findings, and the correlated-evidence challenge flagging two non-independent reviews.",
+    tryThis: "Everyday, messy evidence. Open the Perspectives tab and diff the ‘eggs are safe in moderation’ vs ‘eggs raise risk’ readings: the named crux is how much weight the all-cause-mortality association carries. Also see the ‘contradicts’ relation between the reduced-risk and increased-mortality findings.",
   },
 };
 
