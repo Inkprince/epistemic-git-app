@@ -13,7 +13,7 @@ import type { Bundle } from "@epistemic-git/protocol";
 export interface CorrelationCandidate {
   memberKind: "claim";
   members: string[];
-  sharedOrigin: "author" | "dataset" | "publication" | "institution";
+  sharedOrigin: "author" | "dataset" | "publication" | "institution" | "funder";
   rationale: string;
 }
 
@@ -51,6 +51,25 @@ export function detectCorrelation(bundle: Bundle): CorrelationCandidate[] {
     }
   }
 
+  // shared funding — a declared common funder is a non-independence risk even when authorship and
+  // dataset differ (co-funded work shares incentives and often infrastructure). Kept explicit: we
+  // only union on funders the sources themselves declared, never inferred.
+  const funderLinked = new Set<string>();
+  const fundersOf = new Map(
+    bundle.sources.map((s) => [s.id, new Set((s.reliability?.fundingConflicts ?? []).map((f) => f.toLowerCase().trim()).filter(Boolean))]),
+  );
+  for (let i = 0; i < bundle.sources.length; i++) {
+    for (let j = i + 1; j < bundle.sources.length; j++) {
+      const a = fundersOf.get(bundle.sources[i]!.id)!;
+      const b = fundersOf.get(bundle.sources[j]!.id)!;
+      if ([...a].some((x) => b.has(x))) {
+        union(bundle.sources[i]!.id, bundle.sources[j]!.id);
+        funderLinked.add(bundle.sources[i]!.id);
+        funderLinked.add(bundle.sources[j]!.id);
+      }
+    }
+  }
+
   // group sources by root, then collect their source-grounded claims
   const groups = new Map<string, string[]>();
   for (const id of sourceIds) {
@@ -66,12 +85,16 @@ export function detectCorrelation(bundle: Bundle): CorrelationCandidate[] {
 
     const sharedDataset = groupSources.some((s) => datasetLinked.has(s));
     const commonAuthors = intersectAuthors(groupSources.map((s) => authorsOf.get(s)!));
+    const commonFunders = intersectAuthors(groupSources.map((s) => fundersOf.get(s)!));
+    const sharedFunder = !sharedDataset && !commonAuthors.length && groupSources.some((s) => funderLinked.has(s));
     const titles = groupSources.map((s) => bundle.sources.find((x) => x.id === s)?.title ?? s);
-    const sharedOrigin = sharedDataset ? "dataset" : commonAuthors.length ? "author" : "publication";
+    const sharedOrigin = sharedDataset ? "dataset" : commonAuthors.length ? "author" : sharedFunder ? "funder" : "publication";
     const rationale = sharedDataset
       ? `Claims drawn from sources sharing the same dataset — not independent evidence.`
       : commonAuthors.length
       ? `Claims from ${groupSources.length} sources by overlapping authors (${commonAuthors.join(", ")}) — not independent evidence: ${titles.map((t) => `"${truncate(t, 40)}"`).join("; ")}.`
+      : sharedFunder
+      ? `Claims from ${groupSources.length} sources sharing a declared funder${commonFunders.length ? ` (${commonFunders.join(", ")})` : ""} — a common funding source is a non-independence risk.`
       : `Claims from linked sources — treat as correlated, not independent.`;
 
     candidates.push({ memberKind: "claim", members: claims.map((c) => c.id), sharedOrigin, rationale });

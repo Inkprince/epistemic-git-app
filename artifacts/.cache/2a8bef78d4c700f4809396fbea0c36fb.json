@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\": [{\"statement\": \"Drug X significantly reduced 30-day mortality.\", \"claimType\": \"empirical\", \"quote\": \"The 2018 paper reported that Drug X significantly reduced 30-day mortality.\", \"entailment\": \"The quoted sentence directly states that Drug X caused a significant reduction in mortality within 30 days.\", \"population\": \"\", \"intervention\": \"Drug X\", \"comparator\": \"\", \"outcome\": \"30-day mortality\", \"timeframe\": \"30 days\", \"quantifiers\": \"significantly\", \"modality\": \"causal\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 702,
+    "completionTokens": 217
+  }
+}

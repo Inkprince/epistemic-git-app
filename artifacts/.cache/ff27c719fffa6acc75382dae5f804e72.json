@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"Intervention Z is harmless\",\"inferences\":[{\"type\":\"supports\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"If scientists unanimously agree that an intervention is harmless, then it is reasonable to conclude the intervention is harmless.\",\"strength\":\"strong\",\"defeaters\":[\"The claim of unanimous agreement is false\",\"The scientists cited are not qualified or relevant to the intervention\"]},{\"type\":\"undercuts\",\"premiseIndexes\":[1],\"conclusionIndex\":0,\"warrant\":\"A claim that provides no citation, survey, review, or named scientific body lacks evidential support, thereby weakening its credibility.\",\"strength\":\"moderate\",\"defeaters\":[\"Independent, credible evidence supporting the claim exists elsewhere\",\"The lack of citation is due to confidentiality or proprietary constraints rather than lack of evidence\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 755,
+    "completionTokens": 623
+  }
+}

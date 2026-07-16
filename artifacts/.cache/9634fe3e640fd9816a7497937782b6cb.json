@@ -1,0 +1,9 @@
+{
+  "text": "{\"challenges\":[{\"challengeType\":\"invalid-inference\",\"targetKind\":\"claim\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"Inference [0] only reports an association between a balanced diet and health indicators, which does not establish a causal relationship, yet Claim [0] asserts that a balanced diet \\\"supports\\\" health, implying causation.\",\"suggestedRemedy\":\"Add longitudinal or intervention studies that demonstrate a causal effect of diet on health outcomes.\"},{\"challengeType\":\"omitted-qualification\",\"targetKind\":\"claim\",\"targetIndex\":1,\"topic\":\"\",\"rationale\":\"The source for Inference [1] likely pertains to handwashing in specific settings (e.g., healthcare facilities) or against particular pathogens, but Claim [1] generalizes the effect to \\\"many infections\\\" without qualifying the context.\",\"suggestedRemedy\":\"Include qualifiers about the settings or pathogens studied, or cite broader evidence covering a wider range of infections.\"},{\"challengeType\":\"missing-source\",\"targetKind\":\"topic\",\"targetIndex\":2,\"topic\":\"empirical evidence linking preventive health behaviors to health outcomes\",\"rationale\":\"Claim [2] is presented without any cited source or supporting inference, leaving the statement unsupported.\",\"suggestedRemedy\":\"Provide a systematic review or meta‑analysis that documents the impact of preventive health behaviors on health outcomes.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 831,
+    "completionTokens": 1077
+  }
+}

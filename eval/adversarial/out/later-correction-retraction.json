@@ -1,0 +1,407 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_4ad982309bb9793c",
+  "case": "trap-later-correction-retraction",
+  "title": "Later correction supersedes an earlier positive result",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_092ca21dd17072cd",
+      "type": "other",
+      "title": "2018 Drug X paper",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    },
+    {
+      "id": "src_4b6dd31e328dce9d",
+      "type": "other",
+      "title": "2021 correction to the Drug X paper",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_ea88fff0ec17b733",
+      "sourceId": "src_092ca21dd17072cd",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 75
+      },
+      "verbatimText": "The 2018 paper reported that Drug X significantly reduced 30-day mortality."
+    },
+    {
+      "id": "psg_451bb5cece19179a",
+      "sourceId": "src_4b6dd31e328dce9d",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 87
+      },
+      "verbatimText": "In 2021 the journal issued a correction after finding a coding error in the 2018 paper."
+    },
+    {
+      "id": "psg_cad5287f1dfda9be",
+      "sourceId": "src_4b6dd31e328dce9d",
+      "locator": {
+        "kind": "char",
+        "start": 88,
+        "end": 176
+      },
+      "verbatimText": "The corrected analysis found no statistically significant reduction in 30-day mortality,"
+    },
+    {
+      "id": "psg_dad61dc9588328e4",
+      "sourceId": "src_4b6dd31e328dce9d",
+      "locator": {
+        "kind": "char",
+        "start": 181,
+        "end": 246
+      },
+      "verbatimText": "the original positive conclusion should no longer be relied upon."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_47c23eca902b0381",
+      "statement": "Drug X significantly reduced 30-day mortality.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_ea88fff0ec17b733"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_092ca21dd17072cd"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "Drug X",
+        "outcome": "30-day mortality",
+        "timeframe": "30 days",
+        "quantifiers": "significantly",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_94154ad52b95c5c9",
+      "statement": "In 2021 the journal issued a correction after finding a coding error in the 2018 paper.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_451bb5cece19179a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_4b6dd31e328dce9d"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_de3469b810edd5ba",
+      "statement": "The corrected analysis found no statistically significant reduction in 30-day mortality.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_cad5287f1dfda9be"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_4b6dd31e328dce9d"
+      },
+      "tags": [],
+      "structure": {
+        "outcome": "mortality",
+        "timeframe": "30-day",
+        "quantifiers": "no statistically significant reduction",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_53b4ae046965532c",
+      "statement": "The original positive conclusion should no longer be relied upon.",
+      "claimType": "value",
+      "passages": [
+        "psg_dad61dc9588328e4"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_4b6dd31e328dce9d"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_2e8b8f19f6f7917a",
+      "statement": "Drug X does not have a proven benefit for 30‑day mortality",
+      "claimType": "predictive",
+      "assumptions": [],
+      "caveats": [],
+      "passages": [],
+      "derived": true,
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "tags": []
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_e24c391ef8fd0f68",
+      "type": "supports",
+      "premises": [
+        "cl_94154ad52b95c5c9"
+      ],
+      "conclusion": "cl_de3469b810edd5ba",
+      "warrant": "A journal correction that reports a coding error provides an updated analysis that supersedes the original results",
+      "assumptions": [],
+      "defeaters": [
+        "The correction does not actually change the statistical outcome",
+        "The coding error is unrelated to the mortality analysis"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_5a4f14a53a8d6f82",
+      "type": "contradicts",
+      "premises": [
+        "cl_de3469b810edd5ba"
+      ],
+      "conclusion": "cl_47c23eca902b0381",
+      "warrant": "If a corrected analysis finds no statistically significant effect, it directly opposes a claim of a significant reduction",
+      "assumptions": [],
+      "defeaters": [
+        "The original study used different significance thresholds",
+        "The corrected analysis suffers from its own methodological flaws"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_e5af8edb503fb4c8",
+      "type": "undercuts",
+      "premises": [
+        "cl_94154ad52b95c5c9"
+      ],
+      "conclusion": "cl_47c23eca902b0381",
+      "warrant": "A discovered coding error undermines confidence in the original empirical finding",
+      "assumptions": [],
+      "defeaters": [
+        "The error does not affect the key outcome variable",
+        "The original result is corroborated by independent studies"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_2a8accd14c9e0d07",
+      "type": "supports",
+      "premises": [
+        "cl_de3469b810edd5ba"
+      ],
+      "conclusion": "cl_53b4ae046965532c",
+      "warrant": "When evidence no longer shows a significant effect, the prior positive conclusion should be regarded as unreliable",
+      "assumptions": [],
+      "defeaters": [
+        "Other independent evidence still supports the original conclusion",
+        "The lack of significance is due to insufficient sample size rather than lack of effect"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_a2a2e5022674f064",
+      "type": "explains",
+      "premises": [
+        "cl_47c23eca902b0381",
+        "cl_de3469b810edd5ba"
+      ],
+      "conclusion": "cl_2e8b8f19f6f7917a",
+      "warrant": "Conflicting empirical findings (significant reduction vs. no significant reduction) lead to the overall assessment that the drug's benefit is unproven",
+      "assumptions": [],
+      "defeaters": [
+        "New high‑quality trials demonstrate a clear benefit",
+        "Meta‑analysis resolves the conflict in favor of efficacy"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_94a94081656781d5",
+      "challengeType": "source-does-not-support",
+      "target": {
+        "kind": "claim",
+        "id": "cl_47c23eca902b0381"
+      },
+      "rationale": "Claim [0] that Drug X significantly reduced 30‑day mortality rests on the original 2018 paper, but the journal’s 2021 correction identifies a coding error that invalidates that analysis; the source therefore no longer supports the claim.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Remove or qualify the claim as retracted pending corrected analysis."
+    },
+    {
+      "id": "chl_3dd1f907884f1be1",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "claim",
+        "id": "cl_2e8b8f19f6f7917a"
+      },
+      "rationale": "Claim [4] that Drug X does not have a proven benefit extrapolates from a single non‑significant result, which only shows lack of statistical significance, not proof of no benefit; the claim overreaches the evidence’s scope.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Rephrase to \"no statistically significant benefit demonstrated\" or provide additional evidence."
+    },
+    {
+      "id": "chl_0c7210b748a4c07d",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "inference",
+        "id": "inf_e24c391ef8fd0f68"
+      },
+      "rationale": "Inference [0] assumes the correction fully supersedes the original results, but the correction may still have limitations (e.g., sample size, residual confounding) that are not acknowledged.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a qualification noting remaining uncertainties in the corrected analysis."
+    },
+    {
+      "id": "chl_a568170a96994b4d",
+      "challengeType": "missing-alternative",
+      "target": {
+        "kind": "inference",
+        "id": "inf_5a4f14a53a8d6f82"
+      },
+      "rationale": "Inference [1] dismisses the original claim solely on the basis of the corrected analysis, ignoring other independent studies that might support a benefit, thus presenting an incomplete argument.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite additional relevant studies or acknowledge the possibility of alternative evidence."
+    },
+    {
+      "id": "chl_91f5b5bf76ddd3f6",
+      "challengeType": "missing-alternative",
+      "target": {
+        "kind": "claim",
+        "id": "cl_2e8b8f19f6f7917a"
+      },
+      "rationale": "Claim [4] overlooks other potential evidence (e.g., meta‑analyses, subgroup findings) that could establish a benefit, making the assessment one‑sided.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Include discussion of other relevant research or qualify the claim as \"based on current evidence\"."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_23d9e09af2b13dec",
+      "type": "contradicts",
+      "from": "cl_47c23eca902b0381",
+      "to": "cl_de3469b810edd5ba",
+      "rationale": "Claim 0 asserts a significant reduction in 30‑day mortality, while claim 2 reports no statistically significant reduction for the same outcome.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_e9612ab4045b5020",
+      "type": "compatible-different-scope",
+      "from": "cl_47c23eca902b0381",
+      "to": "cl_53b4ae046965532c",
+      "rationale": "Claim 0 concerns the drug's effect; claim 3 concerns the reliability of that conclusion, which is a different scope.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_faf3433daddcff86",
+      "type": "compatible-different-scope",
+      "from": "cl_94154ad52b95c5c9",
+      "to": "cl_de3469b810edd5ba",
+      "rationale": "Claim 1 describes the issuance of a correction; claim 2 reports the corrected analysis result—different aspects of the same study.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_5b7ad3dc46ff3993",
+      "type": "compatible-different-scope",
+      "from": "cl_94154ad52b95c5c9",
+      "to": "cl_53b4ae046965532c",
+      "rationale": "Claim 1 is about the correction process; claim 3 is about the trustworthiness of the original conclusion, distinct scopes.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_c4edd88bbe1b4368",
+      "type": "compatible-different-scope",
+      "from": "cl_de3469b810edd5ba",
+      "to": "cl_53b4ae046965532c",
+      "rationale": "Claim 2 gives the corrected result; claim 3 comments on the original conclusion's reliability, which are different scopes.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

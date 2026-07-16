@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\": []}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 590,
+    "completionTokens": 91
+  }
+}

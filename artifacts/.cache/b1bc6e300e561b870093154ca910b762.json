@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"In 2021 the journal issued a correction after finding a coding error in the 2018 paper.\",\"claimType\":\"empirical\",\"quote\":\"In 2021 the journal issued a correction after finding a coding error in the 2018 paper.\",\"entailment\":\"The quoted sentence directly states that the journal issued a correction in 2021 because it discovered a coding error in the earlier paper.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"The corrected analysis found no statistically significant reduction in 30-day mortality.\",\"claimType\":\"empirical\",\"quote\":\"The corrected analysis found no statistically significant reduction in 30-day mortality,\",\"entailment\":\"The quote reports the result of the re‑analysis, indicating that mortality within 30 days was not significantly reduced.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"mortality\",\"timeframe\":\"30-day\",\"quantifiers\":\"no statistically significant reduction\",\"modality\":\"descriptive\"},{\"statement\":\"The original positive conclusion should no longer be relied upon.\",\"claimType\":\"value\",\"quote\":\"the original positive conclusion should no longer be relied upon.\",\"entailment\":\"The sentence advises that the earlier favorable conclusion is no longer trustworthy.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"normative\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 736,
+    "completionTokens": 527
+  }
+}

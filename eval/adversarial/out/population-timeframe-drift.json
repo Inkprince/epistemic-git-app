@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_240630ce6d7ec3f4",
+  "case": "trap-population-timeframe-drift",
+  "title": "Specific population and timeframe broadened to everyone forever",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_2965c2870bdfe9a1",
+      "type": "other",
+      "title": "Specific population and timeframe broadened to everyone forever",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_ccf14ff57404e251",
+      "sourceId": "src_2965c2870bdfe9a1",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 135
+      },
+      "verbatimText": "An eight-week trial in 42 adults aged 65 to 75 found that the supervised balance program reduced falls during the eight-week follow-up."
+    },
+    {
+      "id": "psg_dfe8c5fcdf33056d",
+      "sourceId": "src_2965c2870bdfe9a1",
+      "locator": {
+        "kind": "char",
+        "start": 136,
+        "end": 228
+      },
+      "verbatimText": "The article concludes that the program prevents falls permanently for everyone of every age."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_111da3744a271fa3",
+      "statement": "An eight-week trial in 42 adults aged 65 to 75 found that the supervised balance program reduced falls during the eight-week follow-up.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_ccf14ff57404e251"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2965c2870bdfe9a1"
+      },
+      "tags": [],
+      "structure": {
+        "population": "42 adults aged 65 to 75",
+        "intervention": "supervised balance program",
+        "outcome": "reduced falls",
+        "timeframe": "eight-week follow-up",
+        "quantifiers": "eight-week trial",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_b3920b34a0ed4dfd",
+      "statement": "The article concludes that the program prevents falls permanently for everyone of every age.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_dfe8c5fcdf33056d"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2965c2870bdfe9a1"
+      },
+      "tags": [],
+      "structure": {
+        "population": "everyone of every age",
+        "intervention": "the program",
+        "outcome": "prevents falls permanently",
+        "timeframe": "forever",
+        "modality": "causal"
+      }
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_eeb94fe74b01d415",
+      "type": "evidence-for",
+      "premises": [
+        "cl_111da3744a271fa3"
+      ],
+      "conclusion": "cl_b3920b34a0ed4dfd",
+      "warrant": "Empirical results from a controlled trial can be used as evidence to support claims about a program's effectiveness.",
+      "assumptions": [],
+      "defeaters": [
+        "The trial involved only 42 participants",
+        "The age range was limited to 65‑75",
+        "The follow‑up period was only eight weeks"
+      ],
+      "strength": "weak",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_7c2493c6deb315fc",
+      "type": "undercuts",
+      "premises": [
+        "cl_111da3744a271fa3"
+      ],
+      "conclusion": "cl_b3920b34a0ed4dfd",
+      "warrant": "When evidence is limited in scope (sample size, age range, duration), it weakens broader claims that extend beyond that scope.",
+      "assumptions": [],
+      "defeaters": [
+        "If additional data showed similar effects in broader populations and longer periods",
+        "If the claim is qualified to reflect the limited scope"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_f3e92955a9c470dd",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "claim",
+        "id": "cl_b3920b34a0ed4dfd"
+      },
+      "rationale": "The source reports results from an eight‑week trial with 42 participants aged 65‑75. Claim [1] extrapolates that the program \"prevents falls permanently for everyone of every age,\" which goes far beyond the sample size, age range, and follow‑up period of the study.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Restrict the claim to the studied population and timeframe, or cite additional longitudinal, age‑diverse evidence that supports a permanent, universal effect."
+    },
+    {
+      "id": "chl_a28867fcc3ddfb80",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_111da3744a271fa3"
+      },
+      "rationale": "The original study likely reports statistical significance, confidence intervals, or acknowledges limited power. Claim [0] states the program \"reduced falls\" without noting whether the reduction was statistically significant or the magnitude of effect, thereby dropping a material caveat present in the source.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add the study's statistical results (e.g., p‑value, effect size) and any noted limitations, such as small sample size or borderline significance."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_779dc3f2a6461596",
+      "type": "narrower",
+      "from": "cl_111da3744a271fa3",
+      "to": "cl_b3920b34a0ed4dfd",
+      "rationale": "Claim 0 is limited to a specific 8‑week trial with adults aged 65‑75, whereas Claim 1 asserts permanent fall prevention for everyone of every age, making the former a strictly more specific case of the latter.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

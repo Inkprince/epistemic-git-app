@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 is limited to a specific 8‑week trial with adults aged 65‑75, whereas Claim 1 asserts permanent fall prevention for everyone of every age, making the former a strictly more specific case of the latter.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 619,
+    "completionTokens": 262
+  }
+}

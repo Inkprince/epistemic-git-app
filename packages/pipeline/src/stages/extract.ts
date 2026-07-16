@@ -29,6 +29,80 @@ export function chunkText(text: string, size: number, overlap: number): string[]
 }
 
 /**
+ * A first-line, DETERMINISTIC defense against instructions smuggled into a source ("prompt
+ * injection"). We do not ask the model to police itself — instead we mark the character regions of
+ * the source that carry known injection markers, and refuse to admit any claim whose supporting
+ * passage falls inside such a region. The claim is quarantined (reason `injection-suspected`), kept
+ * visible on the record, never silently dropped.
+ *
+ * This is intentionally a fixed, inspectable vocabulary of markers, not a complete solution: it
+ * catches the classic overrides ("ignore previous instructions", "SYSTEM OVERRIDE", …) and their
+ * enclosed payload, and it is honest about being a heuristic — a paraphrased or novel injection can
+ * still slip past it. It exists so that the extraction stage has *a* structural line of defense that
+ * a reader can audit, rather than trusting the model's goodwill.
+ */
+const INJECTION_OPEN_MARKERS: readonly RegExp[] = [
+  /system\s+override/i,
+  /\b(?:ignore|disregard|forget|override)\b[^.!?\n]*\b(?:prior|previous|above|preceding|earlier|all|these|the following)\b[^.!?\n]*\binstruction/i,
+  /\bnew\s+instructions?\s*:/i,
+  /\bignore\s+everything\s+(?:above|before|prior)/i,
+  /\byou\s+are\s+now\b/i,
+  /\bact\s+as\s+(?:if|though|a\b|an\b)/i,
+  /\boverride\s*:/i,
+];
+const INJECTION_CLOSE_MARKERS: readonly RegExp[] = [/end\s+of\s+override/i, /end\s+override/i];
+
+/** Split text into sentence spans, keeping each terminator with its sentence and tracking offsets. */
+function sentenceSpans(text: string): Array<{ start: number; end: number }> {
+  const spans: Array<{ start: number; end: number }> = [];
+  const re = /[^.!?\n]*(?:[.!?\n]+|$)/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    if (m[0].length === 0) { re.lastIndex++; continue; }
+    if (m[0].trim().length > 0) spans.push({ start: m.index, end: m.index + m[0].length });
+    if (re.lastIndex === text.length) break;
+  }
+  return spans;
+}
+
+/**
+ * Return the character ranges of `text` that carry a prompt-injection marker and its payload. A
+ * sentence holding an open-marker is tainted; if a close-marker ("end of override") follows, the
+ * taint extends through the sentence that closes it (so the whole injected block is covered).
+ * Overlapping ranges are merged.
+ */
+export function detectInjectionSpans(text: string): Array<{ start: number; end: number }> {
+  const sentences = sentenceSpans(text);
+  const tainted: Array<{ start: number; end: number }> = [];
+  for (let i = 0; i < sentences.length; i++) {
+    const s = sentences[i]!;
+    const segment = text.slice(s.start, s.end);
+    if (!INJECTION_OPEN_MARKERS.some((re) => re.test(segment))) continue;
+    let end = s.end;
+    for (let j = i; j < sentences.length; j++) {
+      const seg = text.slice(sentences[j]!.start, sentences[j]!.end);
+      if (INJECTION_CLOSE_MARKERS.some((re) => re.test(seg))) { end = sentences[j]!.end; break; }
+    }
+    tainted.push({ start: s.start, end });
+  }
+  tainted.sort((a, b) => a.start - b.start);
+  const merged: Array<{ start: number; end: number }> = [];
+  for (const span of tainted) {
+    const last = merged[merged.length - 1];
+    if (last && span.start <= last.end) last.end = Math.max(last.end, span.end);
+    else merged.push({ ...span });
+  }
+  return merged;
+}
+
+function overlapsInjection(
+  spans: readonly { start: number; end: number }[],
+  loc: { start: number; end: number },
+): boolean {
+  return spans.some((span) => loc.start < span.end && loc.end > span.start);
+}
+
+/**
  * Locate a proposed quote inside the source text. Exact substring first; if that fails, a tolerant
  * pass treats whitespace runs and typographic quote/dash variants as interchangeable — models often
  * normalize those even when quoting faithfully. Either way the admitted passage is ALWAYS the
@@ -91,6 +165,9 @@ export async function extractInto(
     }
   }
 
+  // Regions of the source carrying smuggled instructions — computed once, deterministically.
+  const injectionSpans = detectInjectionSpans(input.text);
+
   let grounded = 0;
   let quarantined = 0;
 
@@ -104,6 +181,19 @@ export async function extractInto(
         reason: quote.length === 0 ? "no-supporting-passage" : "passage-does-not-entail",
         attribution: { kind: "analyst-llm", ref: client.model },
         ...(quote.length > 0 ? { attemptedPassageText: quote } : {}),
+      });
+      quarantined++;
+      continue;
+    }
+
+    // The quote is genuinely in the source, but the source region is a smuggled instruction, not
+    // evidence. Keep it visible in quarantine rather than admitting it as a grounded claim.
+    if (overlapsInjection(injectionSpans, loc)) {
+      builder.quarantineClaim({
+        statement: c.statement,
+        reason: "injection-suspected",
+        attribution: { kind: "analyst-llm", ref: client.model },
+        attemptedPassageText: input.text.slice(loc.start, loc.end),
       });
       quarantined++;
       continue;

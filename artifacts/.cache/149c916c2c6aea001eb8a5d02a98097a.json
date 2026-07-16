@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":5,\"rationale\":\"Claim 0 reports a specific complaint alleging a breach, while claim 5 describes the general neutrality rule and possible sanctions; they refer to the same subject but different scopes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 alleges a breach of political neutrality, whereas claim 1 states Infantino did not interfere with the decision‑making; the statements can both be true and address different aspects of the same incident.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":5,\"rationale\":\"Claim 1 is a specific statement about non‑interference, while claim 5 outlines the broader neutrality obligations; they are compatible but concern different scopes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":4,\"toIndex\":3,\"rationale\":\"Claim 4 asserts the autonomy of FIFA's judicial committees, whereas claim 3 states that a red card or suspension cannot be appealed; both can be true but address different procedural aspects.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":4,\"toIndex\":1,\"rationale\":\"Claim 4 describes the independence of judicial committees, and claim 1 notes Infantino’s personal non‑interference; the autonomy claim supports the possibility of non‑interference, making them compatible but distinct in scope.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 733,
+    "completionTokens": 1297
+  }
+}
