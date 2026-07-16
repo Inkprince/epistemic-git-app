@@ -32,3 +32,19 @@ question decomposition needed before answering "Are eggs healthy?": population, 
 outcome, timeframe, diabetes status, dietary pattern, design, and biomarker versus clinical endpoint.
 Explicitly answer **eggs instead of what?** and list primary sources needed to replace the tertiary-source
 basis.
+
+## Perspective representation
+
+The bundle carries two opposed reader-perspectives over the same claims. Open the Perspectives tab
+(`#/case/eggs?tab=perspectives`) and diff `Eggs-safe-in-moderation reading` (`ovl_e4de5601bcb88ebd`)
+against `Eggs-raise-risk reading` (`ovl_3e8de70024e3560b`).
+
+- Do the two overlays' accept / reject / uncertain assessments (and weights) fairly state the two
+  defensible readings of this literature, or is either a straw man? Name every node you would re-weight.
+- The tool reports the load-bearing disagreement as **how much weight the all-cause-mortality association
+  carries**, and stays qualitative (no dietary-risk probability). Does that match where the real
+  epidemiological disagreement sits? If not, which node carries it?
+- Are the design and endpoint distinctions right — is the RCT LDL finding correctly treated as a biomarker
+  signal rather than a clinical outcome, and the observational reviews correctly flagged for confounding?
+- Could you keep both overlays intact, adjust or add your own, and reach your considered view — without
+  deleting the other reading? If not, what blocks it?
