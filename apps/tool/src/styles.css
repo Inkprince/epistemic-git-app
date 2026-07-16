@@ -67,12 +67,12 @@ a:hover { color: var(--ink-2); }
 /* ── App shell ─────────────────────────────────────────────────────────── */
 .shell {
   height: 100vh;
-  max-width: 1512px; margin: 0 auto;
-  padding: clamp(24px, 5vh, 64px) clamp(14px, 4vw, 60px) 0 clamp(14px, 4vw, 64px);
+  max-width: none; margin: 0;
+  padding: 0;
 }
 .app-card {
-  height: 100%; background: var(--surface);
-  border-radius: 18px 18px 0 0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  height: 100%; width: 100%; background: var(--surface);
+  border-radius: 0; box-shadow: none;
   display: flex; overflow: hidden;
 }
 

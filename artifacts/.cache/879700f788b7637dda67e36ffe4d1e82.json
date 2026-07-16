@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"Infantino has breached political neutrality and may be corrupt.\",\"inferences\":[{\"type\":\"evidence-for\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"A formal complaint alleging rule violations provides evidence that the accused may have engaged in misconduct.\",\"strength\":\"moderate\",\"defeaters\":[\"If the complaint is proven unfounded\",\"If an independent investigation clears Infantino\"]},{\"type\":\"rebuts\",\"premiseIndexes\":[1],\"conclusionIndex\":0,\"warrant\":\"A direct statement of non‑interference contradicts the implication that Infantino breached neutrality.\",\"strength\":\"moderate\",\"defeaters\":[\"If other evidence shows he did influence the decision\",\"If his statement is deemed unreliable\"]},{\"type\":\"undercuts\",\"premiseIndexes\":[4],\"conclusionIndex\":0,\"warrant\":\"The autonomy of FIFA's judicial committees limits the president's capacity to intervene in disciplinary matters.\",\"strength\":\"weak\",\"defeaters\":[\"If committees are shown to be subject to presidential influence\",\"If autonomy is only formal\"]},{\"type\":\"explains\",\"premiseIndexes\":[5],\"conclusionIndex\":-1,\"warrant\":\"IOC rules state that members who violate political neutrality can be expelled, explaining the seriousness of the alleged breach.\",\"strength\":\"strong\",\"defeaters\":[\"If IOC chooses not to enforce the rule\",\"If the alleged breach does not meet the threshold for expulsion\"]},{\"type\":\"presupposes\",\"premiseIndexes\":[3],\"conclusionIndex\":4,\"warrant\":\"The principle that disciplinary decisions cannot be appealed assumes the independence of the adjudicating body.\",\"strength\":\"weak\",\"defeaters\":[\"If appeals mechanisms exist in practice\",\"If the rule is overridden by higher authority\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 903,
+    "completionTokens": 1523
+  }
+}
