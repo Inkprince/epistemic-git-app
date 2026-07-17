@@ -12,3 +12,6 @@ export * from "./stages/match.js";
 export * from "./stages/infer.js";
 export * from "./stages/audit.js";
 export * from "./stages/correlate.js";
+export * from "./scrape.js";
+export * from "./fetch-source.js";
+export * from "./discover.js";

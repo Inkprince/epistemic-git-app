@@ -4,17 +4,17 @@ import { Modal } from "./Modal.js";
 const GLOSSARY: [string, string][] = [
   ["Claim", "A single statement pulled from a source and backed by an exact quote. Claims are the building blocks of the argument."],
   ["Passage", "The exact quote a claim is traced to, down to the character — with where it lives (character range, page, or timestamp)."],
-  ["Inference", "One reasoning step: premises → conclusion. It carries a warrant (why the step holds), a strength, and defeaters (what would break it)."],
+  ["Inference", "One reasoning step: premises → conclusion. Each one says why the step holds, how strong it is, and what would break it."],
   ["Support", "The conclusion's live score. Your browser recomputes it from how much each claim is trusted, flowing through the inferences, minus rebuttals — no AI in the loop."],
   ["Perspective", "One person's take on the evidence. The claims stay fixed — a perspective just sets which ones it trusts. Anyone can add one."],
   ["Assessment", "A perspective's stance on a single claim or inference: accept, reject, uncertain, or irrelevant (optionally weighted)."],
-  ["Branch", "A saved belief-state: a perspective, a distrust set, and the correlation toggle. You branch interpretations, not data — and the link carries it."],
+  ["Branch", "A saved setup: a perspective, the claims you distrust, and the correlation toggle. You branch interpretations, not data — and the link carries it."],
   ["Distrust", "Turn off a claim and watch the conclusion recompute. The flagship demo: distrust Hawking radiation on the LHC case."],
   ["Challenge", "A specific objection — invalid inference, scope drift, correlated evidence — aimed at one node in the argument."],
   ["Relation (match)", "A link between claims across sources: equivalent, contradicts, refines, and so on."],
   ["Correlation group", "Claims that share an origin, so they can't be counted as independent evidence."],
   ["Quarantine", "Claims the pipeline refused because it couldn't find their quote in the source text — parked here with the receipts, never let in quietly."],
-  ["Merge", "Combine two ledgers: identical claims join up, new evidence is added, and real disagreements are kept as conflicts — nothing is overwritten or lost."],
+  ["Merge", "Combine two cases: identical claims join up, new evidence is added, and real disagreements are kept as conflicts — nothing is overwritten or lost."],
   ["Value of information", "How much of the disagreement between two perspectives would clear up if a single crux claim were settled."],
 ];
 

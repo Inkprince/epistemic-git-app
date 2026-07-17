@@ -91,8 +91,8 @@ export function RunPanelModal({ onClose, onResult }: { onClose: () => void; onRe
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
-          Paste any source text and the extract → match → infer → audit pipeline builds a live evidence
-          ledger from it. Every claim it admits is backed by an exact quote; the ones it can't back are quarantined.
+          Paste any source text and the extract → match → infer → audit pipeline builds a live case
+          from it. Every claim it admits is backed by an exact quote; the ones it can't back are quarantined.
         </p>
         <div className="run-panel">
           <textarea
@@ -113,7 +113,7 @@ export function RunPanelModal({ onClose, onResult }: { onClose: () => void; onRe
             )}
           </div>
           <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} disabled={busy} />
-          <input placeholder="Question (optional — what should the ledger answer?)" value={question} onChange={(e) => setQuestion(e.target.value)} disabled={busy} />
+          <input placeholder="Question (optional — what should the case answer?)" value={question} onChange={(e) => setQuestion(e.target.value)} disabled={busy} />
           <div style={{ display: "flex", gap: 10 }}>
             <button className="btn-primary" style={{ flex: 1, justifyContent: "center" }} disabled={busy || !text.trim()} onClick={run}>
               {busy ? `Running extract → match → infer → audit… ${elapsed}s` : "Run pipeline"}

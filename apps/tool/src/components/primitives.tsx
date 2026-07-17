@@ -1,5 +1,5 @@
 import type { KeyboardEvent, ReactNode } from "react";
-import { CheckIcon } from "./icons.js";
+import { CheckIcon, ExternalLinkIcon } from "./icons.js";
 
 /** Make a clickable non-button element keyboard-operable (Enter/Space) and focusable. */
 export const pressable = (fn: () => void) => ({
@@ -52,6 +52,28 @@ export function Avatar({ label, size = 34, tile, title }: { label: string; size?
 
 export function SectionLabel({ children }: { children: ReactNode }) {
   return <h3 className="section-label">{children}</h3>;
+}
+
+/**
+ * A source rendered by name. When the source carries a `url`, the name links out to the
+ * original document (new tab); otherwise it is plain text. Follow the provenance, don't just read it.
+ */
+export function SourceLink({ title, url, className }: { title?: string; url?: string; className?: string }) {
+  const label = title ?? "Unknown source";
+  if (!url) return <span className={className}>{label}</span>;
+  return (
+    <a
+      className={`source-link${className ? ` ${className}` : ""}`}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`Open source: ${url}`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {label}
+      <ExternalLinkIcon size={12} />
+    </a>
+  );
 }
 
 /** The spec's task-card completion mark: green check circle / open circle / tinted variants. */

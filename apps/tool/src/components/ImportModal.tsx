@@ -32,7 +32,7 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
       const label = file.name.replace(/\.(bundle\.)?jsonl?$/i, "").replace(/[-_]/g, " ");
       const result = importBundle(raw, label);
       if (!result.ok) {
-        setError({ msg: "This file is not a valid evidence ledger — refused (nothing was imported).", issues: result.issues.slice(0, 6) });
+        setError({ msg: "This file is not a valid case — refused (nothing was imported).", issues: result.issues.slice(0, 6) });
         return;
       }
       onImported(result.id);
@@ -45,14 +45,14 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
   }
 
   return (
-    <Modal onClose={onClose} ariaLabel="Import a bundle">
+    <Modal onClose={onClose} ariaLabel="Import a case">
         <div className="head">
-          <div className="t">Import a ledger</div>
+          <div className="t">Import a case</div>
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
-          Open an exported bundle (<span className="mono">.json</span> or <span className="mono">.jsonl</span>).
-          Your browser checks it end-to-end — schema, provenance, and content-hash integrity — before
+          Open an exported case (<span className="mono">.json</span> or <span className="mono">.jsonl</span>).
+          Your browser checks it end-to-end — structure, sources, and a tamper-check — before
           anything is added. Nothing leaves your machine.
         </p>
         <div
@@ -69,10 +69,10 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
           role="button"
           tabIndex={0}
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") inputRef.current?.click(); }}
-          aria-label="Choose or drop a bundle file"
+          aria-label="Choose or drop a case file"
         >
           <FileTextIcon size={26} />
-          <div className="dz-title">{busy ? "Validating…" : "Drop a bundle here"}</div>
+          <div className="dz-title">{busy ? "Validating…" : "Drop a case file here"}</div>
           <div className="dz-sub">or click to choose a file</div>
           <input
             ref={inputRef}

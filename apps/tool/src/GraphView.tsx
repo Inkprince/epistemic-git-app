@@ -258,7 +258,7 @@ export function GraphView({
                   </button>
                 )}
                 <button className="chip-btn" onClick={() => { setPopup(null); (onInspect ?? onSelect)(popup.id); }}>
-                  Full provenance →
+                  See where it came from →
                 </button>
               </div>
             </>

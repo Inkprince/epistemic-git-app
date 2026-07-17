@@ -78,7 +78,7 @@ export function Sidebar({
         <div className="rule" />
         <button className="nav-item" onClick={onOpenImport}>
           <DownloadIcon size={20} style={{ transform: "rotate(180deg)" }} />
-          <span className="lbl">Import ledger</span>
+          <span className="lbl">Import case</span>
         </button>
         {onOpenRunPanel && (
           <button className="nav-item" onClick={onOpenRunPanel}>

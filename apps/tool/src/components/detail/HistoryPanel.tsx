@@ -62,7 +62,7 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
         <SectionLabel>History</SectionLabel>
         <p className="note" style={{ marginTop: 0 }}>
           No history yet for this case in this browser. Importing, merging, running the pipeline, or
-          committing records an event here — a local commit log of how this ledger grew.
+          committing records an event here — a local commit log of how this case grew.
         </p>
       </div>
     );
@@ -170,7 +170,7 @@ function DiffView({ diff, a, b }: { diff: BundleDiff; a: Bundle; b: Bundle }) {
   return (
     <div className="diff-list">
       <p className="subtle" style={{ margin: "0 0 8px" }}>
-        <GitBranchIcon size={13} /> {diff.totalAdded} added · {diff.totalRemoved} removed (by content-hash identity)
+        <GitBranchIcon size={13} /> {diff.totalAdded} added · {diff.totalRemoved} removed (matched by content)
       </p>
       {rows(diff.added, "+")}
       {rows(diff.removed, "−")}

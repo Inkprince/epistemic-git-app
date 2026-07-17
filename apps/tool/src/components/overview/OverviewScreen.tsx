@@ -36,13 +36,13 @@ export function OverviewScreen({
     <div className="scrl" style={{ overflowY: "auto", flex: 1 }}>
       <div className="page-head">
         <div>
-          <div className="title">Evidence ledgers</div>
+          <div className="title">Cases</div>
           <div className="sub">Real case studies where every claim traces back to an exact quote. Distrust any piece of evidence and watch the conclusion recompute.</div>
         </div>
         <div className="spacer" />
         <div className="actions">
           <button className="btn-outline" onClick={onOpenImport}>
-            <DownloadIcon size={18} style={{ transform: "rotate(180deg)" }} /> Import ledger
+            <DownloadIcon size={18} style={{ transform: "rotate(180deg)" }} /> Import case
           </button>
           {onOpenRunPanel && (
             <button className="btn-outline" onClick={onOpenRunPanel}>
@@ -62,7 +62,7 @@ export function OverviewScreen({
             <Pill tone="amber">{mergeableIds.size} mergeable</Pill>
           </div>
           <div className="val">{kpis.cases}</div>
-          <div className="lbl">Case ledgers</div>
+          <div className="lbl">Cases</div>
         </div>
         <div className="kpi-card">
           <div className="top">
@@ -78,7 +78,7 @@ export function OverviewScreen({
             <Pill tone="pink"><span className="dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "currentColor" }} /> {kpis.openChallenges} open</Pill>
           </div>
           <div className="val">{kpis.challenges}</div>
-          <div className="lbl">Adversarial challenges</div>
+          <div className="lbl">Challenges</div>
         </div>
         <div className="kpi-card">
           <div className="top">
@@ -119,7 +119,7 @@ export function OverviewScreen({
         <div className="panel-card">
           <div className="head">
             <div>
-              <div className="t">Claim attribution</div>
+              <div className="t">Where each claim came from</div>
               <div className="s">Who each claim came from</div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export function OverviewScreen({
       <div className="bottom-row">
         <div className="panel-card data-table">
           <div className="head" style={{ marginBottom: 6 }}>
-            <div className="t">Case ledgers</div>
+            <div className="t">Cases</div>
           </div>
           <div className="thead" style={{ gridTemplateColumns: "1.7fr 0.8fr 1.2fr 0.7fr" }}>
             <span>CASE</span><span>SUPPORT</span><span>STATUS</span><span style={{ textAlign: "right" }}>CLAIMS</span>
@@ -157,7 +157,7 @@ export function OverviewScreen({
 
         <div className="panel-card">
           <div className="head" style={{ marginBottom: 22 }}>
-            <div className="t">Adversarial audit trail</div>
+            <div className="t">Audit trail</div>
           </div>
           <div className="timeline">
             {activity.map((a, i) => (

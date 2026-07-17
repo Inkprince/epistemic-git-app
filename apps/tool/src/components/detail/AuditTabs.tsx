@@ -11,7 +11,7 @@ export function ChallengesTab({ bundle, query = "", onSelect }: { bundle: Bundle
   const visible = bundle.challenges.filter((c) => matchesQuery(q, c.rationale, c.challengeType, c.status));
   return (
     <>
-      <div className="content-head"><div className="t">Adversarial challenges</div></div>
+      <div className="content-head"><div className="t">Challenges</div></div>
       {q && <p className="note" style={{ margin: "-12px 0 14px" }}>{visible.length} of {bundle.challenges.length} match “{query.trim()}”.</p>}
       <div className="task-list">
         {visible.map((c) => {

@@ -12,7 +12,7 @@ import { App } from "../src/App.js";
 describe("app smoke render", () => {
   it("renders the overview with real data", () => {
     const html = renderToString(createElement(App));
-    for (const s of ["Evidence ledgers", "Conclusion support by case", "Claim attribution", "Adversarial audit trail", "Case ledgers", "Import ledger"]) {
+    for (const s of ["Cases", "Conclusion support by case", "Where each claim came from", "Audit trail", "Import case"]) {
       expect(html, `overview missing "${s}"`).toContain(s);
     }
   });

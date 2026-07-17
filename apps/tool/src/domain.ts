@@ -27,6 +27,33 @@ export function challengesFor(bundle: Bundle, target: string): Challenge[] {
   return bundle.challenges.filter((c) => c.target.id === target);
 }
 
+/**
+ * The source-grounded claims that (transitively) support `claimId` through the inference structure.
+ * A derived conclusion has no quote of its own; its provenance is this chain down to premises that DO
+ * carry verbatim passages. Breadth-first over inference premises, deduped, cycle-safe.
+ */
+export function groundingPremises(bundle: Bundle, claimId: string): Claim[] {
+  const byId = new Map(bundle.claims.map((c) => [c.id, c]));
+  const seen = new Set<string>([claimId]);
+  const queue = [claimId];
+  const grounded: Claim[] = [];
+  while (queue.length) {
+    const id = queue.shift()!;
+    for (const inf of bundle.inferences) {
+      if (inf.conclusion !== id) continue;
+      for (const pid of inf.premises) {
+        if (seen.has(pid)) continue;
+        seen.add(pid);
+        const c = byId.get(pid);
+        if (!c) continue;
+        if (c.passages.length > 0) grounded.push(c);
+        queue.push(pid); // keep walking up through any intermediate derived claims
+      }
+    }
+  }
+  return grounded;
+}
+
 export function attributionClass(a: Attribution): "src" | "llm" | "human" {
   return a.kind === "source" ? "src" : a.kind === "analyst-llm" ? "llm" : "human";
 }

@@ -32,14 +32,14 @@ export function PerspectivesTab({
         <span className="gap-stat">gap {pct(Math.abs(diff.gap))}</span>
       </div>
       <div className="subtle" style={{ marginBottom: 10 }}>
-        {pct(diff.supportA)} vs {pct(diff.supportB)} — decomposed by node{" "}
+        {pct(diff.supportA)} vs {pct(diff.supportB)} — broken down by claim{" "}
         <span
           className="chip"
           title={diff.mode === "quantitative"
-            ? "Both perspectives gave explicit credences, so these are calibrated probabilities."
-            : "No probabilities were given — these are relative weights, not calibrated odds."}
+            ? "Both perspectives gave explicit confidence numbers, so these are calibrated probabilities."
+            : "No numbers were given — these are rough relative weights, not calibrated odds."}
         >
-          {diff.mode === "quantitative" ? "quantitative" : "qualitative — relative weights"}
+          {diff.mode === "quantitative" ? "with stated numbers" : "rough weights (no numbers given)"}
         </span>
       </div>
 
@@ -60,7 +60,7 @@ export function PerspectivesTab({
         <div className="crux-card">
           <div className="lbl">Top crux — settle this to close the most disagreement</div>
           <div className="st">{diff.topCrux.statement}</div>
-          <div className="voi">value of information ≈ {pct(voi[0]?.valueOfInformation ?? 0)} of the gap</div>
+          <div className="voi">settling it would close ≈ {pct(voi[0]?.valueOfInformation ?? 0)} of the gap</div>
         </div>
       )}
     </>
