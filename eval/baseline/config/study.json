@@ -1,7 +1,8 @@
 {
   "schemaVersion": "baseline-study/1.0",
-  "studyId": "epistemic-uplift-baseline-v1",
+  "studyId": "epistemic-uplift-baseline-v2",
   "frozenAt": "2026-07-16T00:00:00.000Z",
+  "versionNote": "v2 re-freezes the two baseline arms to the models actually available to run the study. The original v1 pinned OpenAI o3-deep-research and Anthropic claude-opus-4-20250514, neither runnable in this environment. v2 runs BOTH baseline arms through the Claude Code environment that FLF names as the benchmark ('a smart person using off-the-shelf deep research / top-of-range Claude Code'), model claude-opus-4-8: the deep-research arm via the Claude Code deep-research skill with web search, and the careful arm via a Claude Code tool-use investigation. This makes the comparison against the literal baseline the judges use. The Epistemic Git arm is unchanged (Cerebras gpt-oss-120b). Per the study's own rule, this is a new frozen version, not an edit of v1.",
   "commonPrompt": "prompts/common-artifact.v1.md",
   "tasks": "config/tasks.json",
   "minimumRatersPerResponse": 2,
@@ -9,11 +10,11 @@
     {
       "id": "deep-research",
       "administratorLabel": "Deep-research baseline",
-      "modelId": "o3-deep-research-2025-06-26",
-      "provider": "OpenAI",
+      "modelId": "claude-opus-4-8",
+      "provider": "Anthropic (Claude Code deep-research skill, this environment)",
       "armPrompt": "prompts/deep-research.v1.md",
       "configuration": {
-        "interface": "Responses API deep research",
+        "interface": "Claude Code deep-research skill",
         "temperature": null,
         "webSearch": true,
         "maxToolCalls": 100,
@@ -24,8 +25,8 @@
     {
       "id": "careful-claude-code",
       "administratorLabel": "Careful Claude Code baseline",
-      "modelId": "claude-opus-4-20250514",
-      "provider": "Anthropic",
+      "modelId": "claude-opus-4-8",
+      "provider": "Anthropic (Claude Code tool-use investigation, this environment)",
       "armPrompt": "prompts/careful-claude-code.v1.md",
       "configuration": {
         "interface": "API tool-use loop emulating a careful Claude Code investigation",

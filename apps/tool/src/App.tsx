@@ -14,9 +14,10 @@ import { OverviewScreen } from "./components/overview/OverviewScreen.js";
 import { RunPanelModal } from "./components/RunPanelModal.js";
 import { Sidebar } from "./components/Sidebar.js";
 import { TopBar } from "./components/TopBar.js";
+import type { SearchHit } from "./components/TopBar.js";
 import { formatHash, idRef, parseHash } from "./routing.js";
 import type { CaseParams, Route } from "./routing.js";
-import { overviewKpis } from "./stats.js";
+import { overviewKpis, supportByCase } from "./stats.js";
 
 export type { Route } from "./routing.js";
 
@@ -119,6 +120,18 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
   }, [route, ready, cases]);
 
   const totals = useMemo(() => overviewKpis(cases), [cases]);
+
+  // On the overview, matching cases pop out under the search box so results are one glance away, not a scroll away.
+  const searchHits = useMemo<SearchHit[]>(() => {
+    const q = query.trim().toLowerCase();
+    if (route.screen !== "overview" || !q) return [];
+    const mergeableIds = new Set(
+      Object.values(cases).filter((c) => c.mergePairs?.length).map((c) => c.id),
+    );
+    return supportByCase(cases, mergeableIds)
+      .map((c) => ({ ...c, question: cases[c.id]!.bundle.question }))
+      .filter((c) => c.label.toLowerCase().includes(q) || c.question.toLowerCase().includes(q));
+  }, [route.screen, query, cases]);
   const counts = bundle
     ? [
         { label: "claims", value: bundle.claims.length },
@@ -170,10 +183,13 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           <TopBar
             query={query}
             onQuery={setQuery}
-            placeholder={route.screen === "case" ? "Search this ledger…" : "Search cases…"}
+            placeholder={route.screen === "case" ? "Search this case…" : "Search cases…"}
             counts={counts}
             onOpenNav={() => setMobileNavOpen(true)}
             onOpenHelp={() => setHelpOpen(true)}
+            {...(route.screen === "overview"
+              ? { results: searchHits, onPickResult: (id: string) => navigate({ screen: "case", caseId: id }) }
+              : {})}
           />
           {route.screen === "overview" && (
             <OverviewScreen

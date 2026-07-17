@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 describes a promotional excerpt, while Claim 1 describes the original report; they refer to different sources.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":2,\"rationale\":\"Claim 0 concerns a promotional excerpt, whereas Claim 2 concerns the effect of removing words from the report’s sentence; they address different contexts.\"},{\"type\":\"narrower\",\"fromIndex\":1,\"toIndex\":2,\"rationale\":\"Claim 1 provides the exact sentence, while Claim 2 makes a broader statement about meaning reversal when the opening and closing words are removed.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 642,
+    "completionTokens": 1332
+  }
+}

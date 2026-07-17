@@ -42,7 +42,7 @@ export function PerspectiveEditor({
     if (!cleanLabel) { setError("Give the perspective a name."); return; }
     if (stanceCount === 0) { setError("Take a stance on at least one claim."); return; }
     if (bundle.overlays.some((o) => o.label.trim().toLowerCase() === cleanLabel.toLowerCase())) {
-      setError("A perspective with that name already exists on this ledger.");
+      setError("A perspective with that name already exists on this case.");
       return;
     }
     const analystRef = { kind: "human" as const, ref: cleanAnalyst };
@@ -76,12 +76,12 @@ export function PerspectiveEditor({
         </div>
         <p className="subtle" style={{ margin: 0 }}>
           A perspective is your take on the evidence. The claims stay fixed; you just mark which ones
-          you trust. It computes live Support and travels with the ledger when you export.
+          you trust. It computes live Support and travels with the case when you export.
         </p>
         <div className="run-panel" style={{ marginTop: 14 }}>
           <input placeholder="Perspective name (e.g. “Skeptical methodologist”)" value={label} onChange={(e) => setLabel(e.target.value)} maxLength={60} />
           <input placeholder="One-line description (optional)" value={description} onChange={(e) => setDescription(e.target.value)} maxLength={160} />
-          <input placeholder="Your name (attribution; optional)" value={analyst} onChange={(e) => setAnalyst(e.target.value)} maxLength={60} />
+          <input placeholder="Your name (optional)" value={analyst} onChange={(e) => setAnalyst(e.target.value)} maxLength={60} />
         </div>
         <div style={{ margin: "16px 0 6px" }} className="section-label">Stances — {stanceCount} of {claims.length} claims</div>
         <div className="pe-claims scrl">

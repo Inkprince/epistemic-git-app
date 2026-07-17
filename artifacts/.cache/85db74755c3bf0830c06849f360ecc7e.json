@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\": [{\"statement\": \"Supplement Q reduced headache days over eight weeks in a trial of 80 adults.\", \"claimType\": \"empirical\", \"quote\": \"The 2020 Smith randomized trial of 80 adults reported that supplement Q reduced headache days over eight weeks.\", \"entailment\": \"The quoted sentence directly states that the trial observed a reduction in headache days after eight weeks of supplement Q use.\", \"population\": \"80 adults\", \"intervention\": \"supplement Q\", \"comparator\": \"\", \"outcome\": \"reduced headache days\", \"timeframe\": \"eight weeks\", \"quantifiers\": \"\", \"modality\": \"causal\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 708,
+    "completionTokens": 269
+  }
+}

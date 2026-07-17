@@ -12,10 +12,10 @@
       "id": "src_2f288b1906f9f225",
       "type": "other",
       "title": "Egg as food — health and nutrition (Wikipedia, retrieved 2026-07-14)",
+      "url": "https://en.wikipedia.org/wiki/Egg_as_food",
       "authors": [],
       "adversarialFlags": [],
-      "relatedSources": [],
-      "url": "https://en.wikipedia.org/wiki/Egg_as_food"
+      "relatedSources": []
     }
   ],
   "passages": [
@@ -28,66 +28,6 @@
         "end": 76
       },
       "verbatimText": "Egg yolks and whole eggs contain significant amounts of protein and choline."
-    },
-    {
-      "id": "psg_e4c275c754a76c44",
-      "sourceId": "src_2f288b1906f9f225",
-      "locator": {
-        "kind": "char",
-        "start": 77,
-        "end": 166
-      },
-      "verbatimText": "A medium/large chicken egg provides approximately 70 kilocalories and 6 grams of protein."
-    },
-    {
-      "id": "psg_ca65a8ba55c35fe6",
-      "sourceId": "src_2f288b1906f9f225",
-      "locator": {
-        "kind": "char",
-        "start": 199,
-        "end": 253
-      },
-      "verbatimText": "more than half the calories in eggs come from yolk fat"
-    },
-    {
-      "id": "psg_dbf1ca827e004501",
-      "sourceId": "src_2f288b1906f9f225",
-      "locator": {
-        "kind": "char",
-        "start": 255,
-        "end": 437
-      },
-      "verbatimText": "A 50-gram egg contains roughly five grams of fat, with saturated fat comprising 33 percent, monounsaturated fat 38 percent, polyunsaturated fat 20 percent, and cholesterol 4 percent."
-    },
-    {
-      "id": "psg_f1cf1018ac68a6bd",
-      "sourceId": "src_2f288b1906f9f225",
-      "locator": {
-        "kind": "char",
-        "start": 438,
-        "end": 525
-      },
-      "verbatimText": "The egg white consists primarily of water and protein with minimal cholesterol and fat."
-    },
-    {
-      "id": "psg_e3f781c6099c33cc",
-      "sourceId": "src_2f288b1906f9f225",
-      "locator": {
-        "kind": "char",
-        "start": 594,
-        "end": 690
-      },
-      "verbatimText": "Some research indicates dietary cholesterol raises the total-to-HDL cholesterol ratio negatively"
-    },
-    {
-      "id": "psg_d811fc837a8317bc",
-      "sourceId": "src_2f288b1906f9f225",
-      "locator": {
-        "kind": "char",
-        "start": 698,
-        "end": 806
-      },
-      "verbatimText": "other studies show that consuming up to one egg daily does not increase heart disease risk in healthy people"
     },
     {
       "id": "psg_41aeb9de3748acae",
@@ -110,6 +50,46 @@
       "verbatimText": "another analysis found associations with increased all-cause mortality and cardiovascular disease mortality"
     },
     {
+      "id": "psg_c58a46bb611a6d50",
+      "sourceId": "src_2f288b1906f9f225",
+      "locator": {
+        "kind": "char",
+        "start": 1211,
+        "end": 1333
+      },
+      "verbatimText": "More recent reviews from 2020 concluded that moderate daily egg consumption shows no increased cardiovascular disease risk"
+    },
+    {
+      "id": "psg_ca65a8ba55c35fe6",
+      "sourceId": "src_2f288b1906f9f225",
+      "locator": {
+        "kind": "char",
+        "start": 199,
+        "end": 253
+      },
+      "verbatimText": "more than half the calories in eggs come from yolk fat"
+    },
+    {
+      "id": "psg_d811fc837a8317bc",
+      "sourceId": "src_2f288b1906f9f225",
+      "locator": {
+        "kind": "char",
+        "start": 698,
+        "end": 806
+      },
+      "verbatimText": "other studies show that consuming up to one egg daily does not increase heart disease risk in healthy people"
+    },
+    {
+      "id": "psg_dbf1ca827e004501",
+      "sourceId": "src_2f288b1906f9f225",
+      "locator": {
+        "kind": "char",
+        "start": 255,
+        "end": 437
+      },
+      "verbatimText": "A 50-gram egg contains roughly five grams of fat, with saturated fat comprising 33 percent, monounsaturated fat 38 percent, polyunsaturated fat 20 percent, and cholesterol 4 percent."
+    },
+    {
       "id": "psg_e3094d045e122a72",
       "sourceId": "src_2f288b1906f9f225",
       "locator": {
@@ -120,249 +100,226 @@
       "verbatimText": "A 2018 meta-analysis of randomized trials showed eggs increase total and LDL cholesterol compared to no egg consumption"
     },
     {
-      "id": "psg_c58a46bb611a6d50",
+      "id": "psg_e3f781c6099c33cc",
       "sourceId": "src_2f288b1906f9f225",
       "locator": {
         "kind": "char",
-        "start": 1211,
-        "end": 1333
+        "start": 594,
+        "end": 690
       },
-      "verbatimText": "More recent reviews from 2020 concluded that moderate daily egg consumption shows no increased cardiovascular disease risk"
+      "verbatimText": "Some research indicates dietary cholesterol raises the total-to-HDL cholesterol ratio negatively"
+    },
+    {
+      "id": "psg_e4c275c754a76c44",
+      "sourceId": "src_2f288b1906f9f225",
+      "locator": {
+        "kind": "char",
+        "start": 77,
+        "end": 166
+      },
+      "verbatimText": "A medium/large chicken egg provides approximately 70 kilocalories and 6 grams of protein."
+    },
+    {
+      "id": "psg_f1cf1018ac68a6bd",
+      "sourceId": "src_2f288b1906f9f225",
+      "locator": {
+        "kind": "char",
+        "start": 438,
+        "end": 525
+      },
+      "verbatimText": "The egg white consists primarily of water and protein with minimal cholesterol and fat."
     }
   ],
   "claims": [
     {
-      "id": "cl_f82b5130d1bb491b",
-      "statement": "Egg yolks and whole eggs contain significant amounts of protein and choline.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_29452f773442756d"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
-      "structure": {
-        "outcome": "protein and choline content",
-        "modality": "descriptive"
-      }
-    },
-    {
-      "id": "cl_63a40d4fc09a4d12",
-      "statement": "A medium/large chicken egg provides approximately 70 kilocalories and 6 grams of protein.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_e4c275c754a76c44"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
-      "structure": {
-        "outcome": "kilocalories and protein amount",
-        "modality": "descriptive"
-      }
-    },
-    {
-      "id": "cl_a305331b53e6d343",
-      "statement": "More than half the calories in eggs come from yolk fat.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_ca65a8ba55c35fe6"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
-      "structure": {
-        "outcome": "calorie source proportion",
-        "quantifiers": "more than half",
-        "modality": "descriptive"
-      }
-    },
-    {
-      "id": "cl_3cb3196ddbf198a4",
-      "statement": "A 50-gram egg contains roughly five grams of fat, with saturated fat comprising 33 percent, monounsaturated fat 38 percent, polyunsaturated fat 20 percent, and cholesterol 4 percent.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_dbf1ca827e004501"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
-      "structure": {
-        "outcome": "fat and cholesterol composition",
-        "quantifiers": "roughly five grams; 33 percent; 38 percent; 20 percent; 4 percent",
-        "modality": "descriptive"
-      }
-    },
-    {
       "id": "cl_198cbce0274e2683",
       "statement": "The egg white consists primarily of water and protein with minimal cholesterol and fat.",
       "claimType": "empirical",
+      "structure": {
+        "outcome": "composition of egg white",
+        "modality": "descriptive"
+      },
+      "assumptions": [],
+      "caveats": [],
       "passages": [
         "psg_f1cf1018ac68a6bd"
       ],
       "derived": false,
-      "assumptions": [],
-      "caveats": [],
       "attribution": {
         "kind": "source",
         "ref": "src_2f288b1906f9f225"
       },
-      "tags": [],
-      "structure": {
-        "outcome": "composition of egg white",
-        "modality": "descriptive"
-      }
+      "tags": []
     },
     {
       "id": "cl_2349d48cda285104",
       "statement": "Some research indicates dietary cholesterol raises the total-to-HDL cholesterol ratio negatively.",
       "claimType": "empirical",
-      "passages": [
-        "psg_e3f781c6099c33cc"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
       "structure": {
         "intervention": "dietary cholesterol",
         "outcome": "total-to-HDL cholesterol ratio",
         "modality": "associational"
-      }
-    },
-    {
-      "id": "cl_4f6c750a4dbdbec1",
-      "statement": "Other studies show that consuming up to one egg daily does not increase heart disease risk in healthy people.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_d811fc837a8317bc"
-      ],
-      "derived": false,
+      },
       "assumptions": [],
       "caveats": [],
+      "passages": [
+        "psg_e3f781c6099c33cc"
+      ],
+      "derived": false,
       "attribution": {
         "kind": "source",
         "ref": "src_2f288b1906f9f225"
       },
-      "tags": [],
+      "tags": []
+    },
+    {
+      "id": "cl_3cb3196ddbf198a4",
+      "statement": "A 50-gram egg contains roughly five grams of fat, with saturated fat comprising 33 percent, monounsaturated fat 38 percent, polyunsaturated fat 20 percent, and cholesterol 4 percent.",
+      "claimType": "empirical",
       "structure": {
-        "population": "healthy people",
-        "intervention": "consuming up to one egg daily",
-        "outcome": "heart disease risk",
-        "quantifiers": "up to one egg daily",
-        "modality": "associational"
-      }
+        "outcome": "fat and cholesterol composition",
+        "modality": "descriptive",
+        "quantifiers": "roughly five grams; 33 percent; 38 percent; 20 percent; 4 percent"
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_dbf1ca827e004501"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
     },
     {
       "id": "cl_4153f160a1cd5cd0",
       "statement": "One systematic review found that higher egg consumption correlated with reduced coronary artery disease risk.",
       "claimType": "empirical",
-      "passages": [
-        "psg_41aeb9de3748acae"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
       "structure": {
         "intervention": "higher egg consumption",
         "outcome": "coronary artery disease risk",
         "modality": "associational"
-      }
-    },
-    {
-      "id": "cl_834af275120e524c",
-      "statement": "Another analysis found associations with increased all-cause mortality and cardiovascular disease mortality.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_af7e872dcde2e6f6"
-      ],
-      "derived": false,
+      },
       "assumptions": [],
       "caveats": [],
+      "passages": [
+        "psg_41aeb9de3748acae"
+      ],
+      "derived": false,
       "attribution": {
         "kind": "source",
         "ref": "src_2f288b1906f9f225"
       },
-      "tags": [],
+      "tags": []
+    },
+    {
+      "id": "cl_4f6c750a4dbdbec1",
+      "statement": "Other studies show that consuming up to one egg daily does not increase heart disease risk in healthy people.",
+      "claimType": "empirical",
       "structure": {
-        "outcome": "all-cause mortality and cardiovascular disease mortality",
-        "modality": "associational"
-      }
+        "population": "healthy people",
+        "intervention": "consuming up to one egg daily",
+        "outcome": "heart disease risk",
+        "modality": "associational",
+        "quantifiers": "up to one egg daily"
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_d811fc837a8317bc"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
+    },
+    {
+      "id": "cl_63a40d4fc09a4d12",
+      "statement": "A medium/large chicken egg provides approximately 70 kilocalories and 6 grams of protein.",
+      "claimType": "empirical",
+      "structure": {
+        "outcome": "kilocalories and protein amount",
+        "modality": "descriptive"
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_e4c275c754a76c44"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
     },
     {
       "id": "cl_70df06a93a29fc02",
       "statement": "A 2018 meta-analysis of randomized trials showed eggs increase total and LDL cholesterol compared to no egg consumption.",
       "claimType": "empirical",
-      "passages": [
-        "psg_e3094d045e122a72"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_2f288b1906f9f225"
-      },
-      "tags": [],
       "structure": {
         "intervention": "egg consumption",
         "comparator": "no egg consumption",
         "outcome": "total and LDL cholesterol",
         "timeframe": "2018",
         "modality": "causal"
-      }
-    },
-    {
-      "id": "cl_fae8e4c6871eeed6",
-      "statement": "More recent reviews from 2020 concluded that moderate daily egg consumption shows no increased cardiovascular disease risk.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_c58a46bb611a6d50"
-      ],
-      "derived": false,
+      },
       "assumptions": [],
       "caveats": [],
+      "passages": [
+        "psg_e3094d045e122a72"
+      ],
+      "derived": false,
       "attribution": {
         "kind": "source",
         "ref": "src_2f288b1906f9f225"
       },
-      "tags": [],
+      "tags": []
+    },
+    {
+      "id": "cl_834af275120e524c",
+      "statement": "Another analysis found associations with increased all-cause mortality and cardiovascular disease mortality.",
+      "claimType": "empirical",
       "structure": {
-        "intervention": "moderate daily egg consumption",
-        "outcome": "cardiovascular disease risk",
-        "timeframe": "2020",
-        "quantifiers": "moderate daily",
+        "outcome": "all-cause mortality and cardiovascular disease mortality",
         "modality": "associational"
-      }
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_af7e872dcde2e6f6"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
+    },
+    {
+      "id": "cl_a305331b53e6d343",
+      "statement": "More than half the calories in eggs come from yolk fat.",
+      "claimType": "empirical",
+      "structure": {
+        "outcome": "calorie source proportion",
+        "modality": "descriptive",
+        "quantifiers": "more than half"
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_ca65a8ba55c35fe6"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
     },
     {
       "id": "cl_dc58cea98ff719fa",
@@ -377,9 +334,88 @@
         "ref": "gpt-oss-120b"
       },
       "tags": []
+    },
+    {
+      "id": "cl_f82b5130d1bb491b",
+      "statement": "Egg yolks and whole eggs contain significant amounts of protein and choline.",
+      "claimType": "empirical",
+      "structure": {
+        "outcome": "protein and choline content",
+        "modality": "descriptive"
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_29452f773442756d"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
+    },
+    {
+      "id": "cl_fae8e4c6871eeed6",
+      "statement": "More recent reviews from 2020 concluded that moderate daily egg consumption shows no increased cardiovascular disease risk.",
+      "claimType": "empirical",
+      "structure": {
+        "intervention": "moderate daily egg consumption",
+        "outcome": "cardiovascular disease risk",
+        "timeframe": "2020",
+        "modality": "associational",
+        "quantifiers": "moderate daily"
+      },
+      "assumptions": [],
+      "caveats": [],
+      "passages": [
+        "psg_c58a46bb611a6d50"
+      ],
+      "derived": false,
+      "attribution": {
+        "kind": "source",
+        "ref": "src_2f288b1906f9f225"
+      },
+      "tags": []
     }
   ],
   "inferences": [
+    {
+      "id": "inf_129efe92ba3c40a9",
+      "type": "supports",
+      "premises": [
+        "cl_4153f160a1cd5cd0"
+      ],
+      "conclusion": "cl_dc58cea98ff719fa",
+      "warrant": "Epidemiological data linking higher egg intake with lower coronary‑artery‑disease incidence suggest eggs are not detrimental to cardiovascular health.",
+      "assumptions": [],
+      "defeaters": [
+        "Potential confounding dietary or lifestyle factors"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_27af4ff56bb5991f",
+      "type": "rebuts",
+      "premises": [
+        "cl_4f6c750a4dbdbec1"
+      ],
+      "conclusion": "cl_2349d48cda285104",
+      "warrant": "Observational evidence indicates that consuming up to one egg per day does not translate into higher heart‑disease incidence, challenging the claim that egg‑derived cholesterol is harmful.",
+      "assumptions": [],
+      "defeaters": [
+        "If the study population is not representative or the follow‑up period is too short"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
     {
       "id": "inf_71d7ce3926ed90f6",
       "type": "supports",
@@ -417,60 +453,6 @@
       }
     },
     {
-      "id": "inf_27af4ff56bb5991f",
-      "type": "rebuts",
-      "premises": [
-        "cl_4f6c750a4dbdbec1"
-      ],
-      "conclusion": "cl_2349d48cda285104",
-      "warrant": "Observational evidence indicates that consuming up to one egg per day does not translate into higher heart‑disease incidence, challenging the claim that egg‑derived cholesterol is harmful.",
-      "assumptions": [],
-      "defeaters": [
-        "If the study population is not representative or the follow‑up period is too short"
-      ],
-      "strength": "moderate",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "inf_129efe92ba3c40a9",
-      "type": "supports",
-      "premises": [
-        "cl_4153f160a1cd5cd0"
-      ],
-      "conclusion": "cl_dc58cea98ff719fa",
-      "warrant": "Epidemiological data linking higher egg intake with lower coronary‑artery‑disease incidence suggest eggs are not detrimental to cardiovascular health.",
-      "assumptions": [],
-      "defeaters": [
-        "Potential confounding dietary or lifestyle factors"
-      ],
-      "strength": "moderate",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "inf_e71ebf776336d345",
-      "type": "contradicts",
-      "premises": [
-        "cl_834af275120e524c"
-      ],
-      "conclusion": "cl_dc58cea98ff719fa",
-      "warrant": "Analyses showing increased all‑cause and cardiovascular mortality with higher egg consumption oppose the protective association reported in other studies.",
-      "assumptions": [],
-      "defeaters": [
-        "Heterogeneity among studies and lack of causal inference"
-      ],
-      "strength": "moderate",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
       "id": "inf_9cc3b3aa4da00a1e",
       "type": "supports",
       "premises": [
@@ -481,6 +463,24 @@
       "assumptions": [],
       "defeaters": [
         "If newer studies after 2020 overturn these findings"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_c641c3c2f8eb4186",
+      "type": "presupposes",
+      "premises": [
+        "cl_2349d48cda285104"
+      ],
+      "conclusion": "cl_dc58cea98ff719fa",
+      "warrant": "The claim that dietary cholesterol raises the total‑to‑HDL ratio assumes that a higher ratio is detrimental to cardiovascular health.",
+      "assumptions": [],
+      "defeaters": [
+        "If the total‑to‑HDL ratio is not a reliable predictor of cardiovascular outcomes"
       ],
       "strength": "strong",
       "attribution": {
@@ -507,18 +507,18 @@
       }
     },
     {
-      "id": "inf_c641c3c2f8eb4186",
-      "type": "presupposes",
+      "id": "inf_e71ebf776336d345",
+      "type": "contradicts",
       "premises": [
-        "cl_2349d48cda285104"
+        "cl_834af275120e524c"
       ],
       "conclusion": "cl_dc58cea98ff719fa",
-      "warrant": "The claim that dietary cholesterol raises the total‑to‑HDL ratio assumes that a higher ratio is detrimental to cardiovascular health.",
+      "warrant": "Analyses showing increased all‑cause and cardiovascular mortality with higher egg consumption oppose the protective association reported in other studies.",
       "assumptions": [],
       "defeaters": [
-        "If the total‑to‑HDL ratio is not a reliable predictor of cardiovascular outcomes"
+        "Heterogeneity among studies and lack of causal inference"
       ],
-      "strength": "strong",
+      "strength": "moderate",
       "attribution": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
@@ -526,36 +526,6 @@
     }
   ],
   "challenges": [
-    {
-      "id": "chl_7dd09f3d06f3a4ca",
-      "challengeType": "scope-drift",
-      "target": {
-        "kind": "claim",
-        "id": "cl_4f6c750a4dbdbec1"
-      },
-      "rationale": "Claim [6] is based on studies of \"healthy people\" only, yet Inference [2] applies the finding to the general population, overgeneralizing the evidence.",
-      "raisedBy": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      },
-      "status": "open",
-      "suggestedRemedy": "Limit the claim to healthy adults or provide additional evidence covering broader populations."
-    },
-    {
-      "id": "chl_52f9c733409b7b21",
-      "challengeType": "invalid-inference",
-      "target": {
-        "kind": "inference",
-        "id": "inf_998383f3cd1dccd0"
-      },
-      "rationale": "Inference [1] assumes that raising LDL cholesterol automatically raises the total‑to‑HDL ratio and that this ratio is inherently adverse, but the cited meta‑analysis [9] only reports LDL changes, not ratio changes or clinical outcomes.",
-      "raisedBy": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      },
-      "status": "open",
-      "suggestedRemedy": "Cite studies that directly link LDL changes to total‑to‑HDL ratio alterations and to cardiovascular events, or revise the inference to reflect the limited scope of the evidence."
-    },
     {
       "id": "chl_370f3b0b08f243f1",
       "challengeType": "correlated-evidence",
@@ -587,6 +557,36 @@
       "suggestedRemedy": "Provide analyses that control for major confounders, or acknowledge the limitation that causality cannot be inferred."
     },
     {
+      "id": "chl_52f9c733409b7b21",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_998383f3cd1dccd0"
+      },
+      "rationale": "Inference [1] assumes that raising LDL cholesterol automatically raises the total‑to‑HDL ratio and that this ratio is inherently adverse, but the cited meta‑analysis [9] only reports LDL changes, not ratio changes or clinical outcomes.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite studies that directly link LDL changes to total‑to‑HDL ratio alterations and to cardiovascular events, or revise the inference to reflect the limited scope of the evidence."
+    },
+    {
+      "id": "chl_7dd09f3d06f3a4ca",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4f6c750a4dbdbec1"
+      },
+      "rationale": "Claim [6] is based on studies of \"healthy people\" only, yet Inference [2] applies the finding to the general population, overgeneralizing the evidence.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Limit the claim to healthy adults or provide additional evidence covering broader populations."
+    },
+    {
       "id": "chl_e5601a1edc336e64",
       "challengeType": "omitted-qualification",
       "target": {
@@ -605,22 +605,11 @@
   "correlationGroups": [],
   "matches": [
     {
-      "id": "mt_652a60f6f3c0cd70",
-      "type": "narrower",
-      "from": "cl_63a40d4fc09a4d12",
-      "to": "cl_f82b5130d1bb491b",
-      "rationale": "Claim 1 gives a specific protein amount for a whole egg, which is a concrete instance of the general statement in claim 0 that eggs contain significant protein.",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "mt_3c7610d40d2f1213",
+      "id": "mt_0a50ddcf0ecaab47",
       "type": "compatible-different-scope",
-      "from": "cl_198cbce0274e2683",
-      "to": "cl_f82b5130d1bb491b",
-      "rationale": "Claim 4 describes the composition of egg white, while claim 0 refers to yolk and whole egg protein/choline; they address different egg parts.",
+      "from": "cl_2349d48cda285104",
+      "to": "cl_70df06a93a29fc02",
+      "rationale": "Claim 5 reports that dietary cholesterol raises the total‑to‑HDL cholesterol ratio, while claim 9 reports that eggs raise total and LDL cholesterol; the outcomes measured differ.",
       "attribution": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
@@ -638,22 +627,55 @@
       }
     },
     {
-      "id": "mt_0a50ddcf0ecaab47",
-      "type": "compatible-different-scope",
-      "from": "cl_2349d48cda285104",
-      "to": "cl_70df06a93a29fc02",
-      "rationale": "Claim 5 reports that dietary cholesterol raises the total‑to‑HDL cholesterol ratio, while claim 9 reports that eggs raise total and LDL cholesterol; the outcomes measured differ.",
+      "id": "mt_1ac17f4fea0c0c3f",
+      "type": "possibly-equivalent",
+      "from": "cl_4f6c750a4dbdbec1",
+      "to": "cl_fae8e4c6871eeed6",
+      "rationale": "Both claims state that moderate egg consumption does not increase cardiovascular disease risk; claim 6 limits the population to healthy people, creating a slight scope difference.",
       "attribution": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
       }
     },
     {
-      "id": "mt_1ac17f4fea0c0c3f",
-      "type": "possibly-equivalent",
+      "id": "mt_3c7610d40d2f1213",
+      "type": "compatible-different-scope",
+      "from": "cl_198cbce0274e2683",
+      "to": "cl_f82b5130d1bb491b",
+      "rationale": "Claim 4 describes the composition of egg white, while claim 0 refers to yolk and whole egg protein/choline; they address different egg parts.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_652a60f6f3c0cd70",
+      "type": "narrower",
+      "from": "cl_63a40d4fc09a4d12",
+      "to": "cl_f82b5130d1bb491b",
+      "rationale": "Claim 1 gives a specific protein amount for a whole egg, which is a concrete instance of the general statement in claim 0 that eggs contain significant protein.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_908bfcd375447fde",
+      "type": "compatible-different-scope",
       "from": "cl_4f6c750a4dbdbec1",
+      "to": "cl_4153f160a1cd5cd0",
+      "rationale": "Claim 6 says egg consumption does not increase heart disease risk, while claim 7 reports a reduction in coronary artery disease risk; both are risk‑related but refer to different specific outcomes.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_b84462f65b9a25c8",
+      "type": "compatible-different-scope",
+      "from": "cl_2349d48cda285104",
       "to": "cl_fae8e4c6871eeed6",
-      "rationale": "Both claims state that moderate egg consumption does not increase cardiovascular disease risk; claim 6 limits the population to healthy people, creating a slight scope difference.",
+      "rationale": "Claim 5 concerns the cholesterol ratio effect of dietary cholesterol, whereas claim 10 addresses overall cardiovascular disease risk; they pertain to different outcome domains.",
       "attribution": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
@@ -680,31 +702,141 @@
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
       }
-    },
-    {
-      "id": "mt_b84462f65b9a25c8",
-      "type": "compatible-different-scope",
-      "from": "cl_2349d48cda285104",
-      "to": "cl_fae8e4c6871eeed6",
-      "rationale": "Claim 5 concerns the cholesterol ratio effect of dietary cholesterol, whereas claim 10 addresses overall cardiovascular disease risk; they pertain to different outcome domains.",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "mt_908bfcd375447fde",
-      "type": "compatible-different-scope",
-      "from": "cl_4f6c750a4dbdbec1",
-      "to": "cl_4153f160a1cd5cd0",
-      "rationale": "Claim 6 says egg consumption does not increase heart disease risk, while claim 7 reports a reduction in coronary artery disease risk; both are risk‑related but refer to different specific outcomes.",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
     }
   ],
-  "overlays": [],
-  "assessments": [],
+  "overlays": [
+    {
+      "id": "ovl_e4de5601bcb88ebd",
+      "label": "Eggs-safe-in-moderation reading",
+      "description": "Weights the reassuring cohort and 2020 review evidence: moderate egg intake shows no clear cardiovascular harm, and the LDL signal is a biomarker, not a clinical endpoint.",
+      "analyst": {
+        "kind": "human",
+        "ref": "eggs-safe-reading"
+      },
+      "priorStance": "Moderate egg consumption does not meaningfully raise cardiovascular risk."
+    },
+    {
+      "id": "ovl_3e8de70024e3560b",
+      "label": "Eggs-raise-risk reading",
+      "description": "Weights the trial evidence that eggs raise LDL and the mortality association: dietary cholesterol has a mechanism, and the reassuring reviews are confounded observational syntheses.",
+      "analyst": {
+        "kind": "human",
+        "ref": "eggs-risk-reading"
+      },
+      "priorStance": "Egg consumption plausibly raises cardiovascular risk and should not be treated as neutral."
+    }
+  ],
+  "assessments": [
+    {
+      "id": "asm_a3fbcad4e755b109",
+      "overlayId": "ovl_e4de5601bcb88ebd",
+      "target": {
+        "kind": "claim",
+        "id": "cl_fae8e4c6871eeed6"
+      },
+      "stance": "accept",
+      "weight": 0.85,
+      "rationale": "The 2020 reviews are the most current synthesis and find no clear harm at moderate intake."
+    },
+    {
+      "id": "asm_9caa42adc016418a",
+      "overlayId": "ovl_e4de5601bcb88ebd",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4153f160a1cd5cd0"
+      },
+      "stance": "accept",
+      "weight": 0.7,
+      "rationale": "Higher egg consumption did not track with worse outcomes in this review."
+    },
+    {
+      "id": "asm_6e929d0bcff6a8e0",
+      "overlayId": "ovl_e4de5601bcb88ebd",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4f6c750a4dbdbec1"
+      },
+      "stance": "accept",
+      "weight": 0.8,
+      "rationale": "Up to one egg a day shows no increased risk."
+    },
+    {
+      "id": "asm_760107d32f8b7727",
+      "overlayId": "ovl_e4de5601bcb88ebd",
+      "target": {
+        "kind": "claim",
+        "id": "cl_834af275120e524c"
+      },
+      "stance": "uncertain",
+      "weight": 0.4,
+      "rationale": "An all-cause-mortality association is confounded and not cardiovascular-specific."
+    },
+    {
+      "id": "asm_9e3e3e5dac0dd633",
+      "overlayId": "ovl_e4de5601bcb88ebd",
+      "target": {
+        "kind": "claim",
+        "id": "cl_70df06a93a29fc02"
+      },
+      "stance": "uncertain",
+      "weight": 0.5,
+      "rationale": "Raised LDL is a surrogate marker, not a demonstrated clinical harm."
+    },
+    {
+      "id": "asm_4ffc95c80e514fb2",
+      "overlayId": "ovl_3e8de70024e3560b",
+      "target": {
+        "kind": "claim",
+        "id": "cl_70df06a93a29fc02"
+      },
+      "stance": "accept",
+      "weight": 0.85,
+      "rationale": "Randomized trials are the strongest design here and show eggs raise LDL versus no eggs."
+    },
+    {
+      "id": "asm_e00d8d2c3166f333",
+      "overlayId": "ovl_3e8de70024e3560b",
+      "target": {
+        "kind": "claim",
+        "id": "cl_834af275120e524c"
+      },
+      "stance": "accept",
+      "weight": 0.8,
+      "rationale": "The all-cause-mortality association is a real signal the reviews explain away."
+    },
+    {
+      "id": "asm_43174114520a60fc",
+      "overlayId": "ovl_3e8de70024e3560b",
+      "target": {
+        "kind": "claim",
+        "id": "cl_fae8e4c6871eeed6"
+      },
+      "stance": "uncertain",
+      "weight": 0.4,
+      "rationale": "Observational reviews are confounded by healthy-user effects."
+    },
+    {
+      "id": "asm_fa4308302483fec2",
+      "overlayId": "ovl_3e8de70024e3560b",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4153f160a1cd5cd0"
+      },
+      "stance": "uncertain",
+      "weight": 0.45,
+      "rationale": "Correlational and sensitive to dietary-pattern confounding."
+    },
+    {
+      "id": "asm_bdf5d5297a8208a5",
+      "overlayId": "ovl_3e8de70024e3560b",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4f6c750a4dbdbec1"
+      },
+      "stance": "uncertain",
+      "weight": 0.4,
+      "rationale": "A null at one egg/day does not clear higher intakes."
+    }
+  ],
   "quarantine": []
 }

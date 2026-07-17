@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"contradicts\",\"fromIndex\":0,\"toIndex\":2,\"rationale\":\"Claim 0 asserts a significant reduction in 30‑day mortality, while claim 2 reports no statistically significant reduction for the same outcome.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":3,\"rationale\":\"Claim 0 concerns the drug's effect; claim 3 concerns the reliability of that conclusion, which is a different scope.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":2,\"rationale\":\"Claim 1 describes the issuance of a correction; claim 2 reports the corrected analysis result—different aspects of the same study.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":1,\"toIndex\":3,\"rationale\":\"Claim 1 is about the correction process; claim 3 is about the trustworthiness of the original conclusion, distinct scopes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":3,\"rationale\":\"Claim 2 gives the corrected result; claim 3 comments on the original conclusion's reliability, which are different scopes.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 636,
+    "completionTokens": 1304
+  }
+}

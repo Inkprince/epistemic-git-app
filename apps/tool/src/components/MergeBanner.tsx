@@ -75,7 +75,7 @@ function ConflictPanel({ conflicts, bundle, onSelect }: { conflicts: MergeConfli
   const fmt = (v: unknown): string => {
     if (v && typeof v === "object") {
       const { stance, credence } = v as { stance?: string; credence?: number };
-      return [stance, credence !== undefined ? `credence ${pct(credence)}` : undefined].filter(Boolean).join(", ") || JSON.stringify(v);
+      return [stance, credence !== undefined ? `confidence ${pct(credence)}` : undefined].filter(Boolean).join(", ") || JSON.stringify(v);
     }
     return String(v);
   };

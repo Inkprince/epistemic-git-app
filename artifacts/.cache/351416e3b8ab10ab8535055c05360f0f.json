@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"The 2022 Jones systematic review found supplement Q reduced headache days.\",\"claimType\":\"empirical\",\"quote\":\"The 2022 Jones systematic review found supplement Q reduced headache days.\",\"entailment\":\"The quoted sentence directly states that the systematic review observed a reduction in headache days due to supplement Q.\",\"population\":\"\",\"intervention\":\"supplement Q\",\"comparator\":\"\",\"outcome\":\"headache days\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"},{\"statement\":\"The review included the 2020 Smith trial and no other eligible primary study.\",\"claimType\":\"methodological\",\"quote\":\"The review included the 2020 Smith trial and no other eligible primary study.\",\"entailment\":\"The quoted sentence explicitly describes which primary study was included and that no other eligible studies were part of the review.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"A briefing nevertheless counted the Smith trial and the Jones review as two independent confirmations of the effect.\",\"claimType\":\"empirical\",\"quote\":\"A briefing nevertheless counted the Smith trial and the Jones review as two independent confirmations of the effect.\",\"entailment\":\"The quoted sentence reports that a briefing treated the trial and the review as separate confirmations, indicating how the effect was presented.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 735,
+    "completionTokens": 497
+  }
+}

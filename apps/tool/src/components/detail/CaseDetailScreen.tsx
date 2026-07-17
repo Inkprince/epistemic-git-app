@@ -15,6 +15,7 @@ import { CommitModal } from "../CommitModal.js";
 import { EmptyState } from "../EmptyState.js";
 import { LiveRunBanner, MergedBanner } from "../MergeBanner.js";
 import { ArgumentTab } from "./ArgumentTab.js";
+import { AskBox } from "./AskBox.js";
 import { ChallengesTab, QuarantineTab, RelationsTab } from "./AuditTabs.js";
 import { LeftPanel, shortLabel } from "./LeftPanel.js";
 import type { LeftTab } from "./LeftPanel.js";
@@ -25,15 +26,15 @@ import type { Look } from "./types.js";
 /** Per-case onboarding: a "what to try" line and an optional one-click flagship preset. */
 const CASE_META: Record<string, { tryThis: string; presetLabel?: string; presetMatch?: RegExp }> = {
   lhc: {
-    tryThis: "Flagship demo: distrust Hawking radiation and watch the safety conclusion barely move — the empirical cosmic-ray / white-dwarf line carries it without the theoretical premise.",
+    tryThis: "Flagship demo: distrust Hawking radiation and watch the safety conclusion barely move — the real-world cosmic-ray and white-dwarf evidence carries it on its own, without the theory-based premise.",
     presetLabel: "▶ Distrust Hawking radiation",
     presetMatch: /hawking radiation/i,
   },
   covid: {
-    tryThis: "Three real, contested papers in one ledger. Explore the cross-source contradictions between the market-origin and ascertainment-bias camps, and the audit challenge that catches ‘centrality ≠ causation’.",
+    tryThis: "A live, contested dispute. Open the Perspectives tab and compare the two readings of ‘the market was the early epicentre’ — one takes it at face value, the other says it mostly reflects where testing first looked. The crux the tool names is a technical finding about where the earliest cases cluster, not the loud public argument. Reported in plain terms — no origin probability.",
   },
   eggs: {
-    tryThis: "Real mixed evidence. See the ‘contradicts’ relation between the reduced-risk and increased-mortality findings, and the correlated-evidence challenge flagging two non-independent reviews.",
+    tryThis: "Everyday, messy evidence. Open the Perspectives tab and compare the ‘eggs are safe in moderation’ and ‘eggs raise risk’ readings: the named crux is how much weight the link to overall death rates carries. Also see the ‘contradicts’ relation between the reduced-risk and increased-mortality findings.",
   },
 };
 
@@ -59,8 +60,8 @@ export function CaseDetailScreen(props: CaseDetailProps) {
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <EmptyState
           icon={<FileTextIcon size={24} />}
-          title="This ledger has no claims yet"
-          body="An evidence ledger starts with claims backed by exact quotes. Import a bundle that carries evidence, or run the pipeline on a source to build one."
+          title="This case has no claims yet"
+          body="A case starts with claims backed by exact quotes. Import a file that carries evidence, or run the pipeline on a source to build one."
           cta={<button className="btn-outline" onClick={props.onBack}>Back to overview</button>}
         />
       </div>
@@ -272,7 +273,7 @@ function CaseDetailInner({
             {bundle.sources.length > 3 && <span className="avatar more" style={{ width: 32, height: 32, fontSize: 12 }}>+{bundle.sources.length - 3}</span>}
           </div>
           {!merged && (
-            <button className="btn-outline" onClick={onOpenMergePicker} title="Merge another ledger into this case">
+            <button className="btn-outline" onClick={onOpenMergePicker} title="Merge another case into this one">
               <MergeIcon size={18} /> Merge…
             </button>
           )}
@@ -283,7 +284,7 @@ function CaseDetailInner({
             <DownloadIcon size={18} /> Export JSON
           </button>
           {canCommit && (
-            <button className="btn-primary" onClick={() => setCommitOpen(true)} title="Persist this ledger as a permanent case (dev)">
+            <button className="btn-primary" onClick={() => setCommitOpen(true)} title="Save this as a permanent case (dev)">
               <CheckIcon size={15} /> Commit as case
             </button>
           )}
@@ -306,7 +307,7 @@ function CaseDetailInner({
       )}
 
       <div className="scenario-row">
-        <span className="sc-label" title="A branch is a saved belief-state: a perspective, a distrust set, and the correlation toggle. The ledger never changes — you branch interpretations, not data.">
+        <span className="sc-label" title="A branch is a saved setup: a perspective, the claims you distrust, and the correlation toggle. The case never changes — you branch interpretations, not data.">
           <GitBranchIcon size={15} /> Branches
         </span>
         {scenarios.map((s) => (
@@ -371,6 +372,16 @@ function CaseDetailInner({
           selected={selected} onSelect={select}
         />
         <section className="detail-main">
+          <AskBox
+            bundle={bundle}
+            ctx={{
+              respectCorrelation,
+              ...(overlayId ? { overlayId } : {}),
+              ...(diffBId ? { diffBId } : {}),
+              selectedId: selected,
+            }}
+            onSelect={select}
+          />
           <div className="tab-row main-tabs">
             {tabs.map((t) => (
               <button key={t.id} className={`tab${activeTab === t.id ? " active" : ""}`} onClick={() => setMainTab(t.id)}>
@@ -385,7 +396,7 @@ function CaseDetailInner({
                 bundle={bundle} look={look} support={support} distrust={distrust}
                 selected={selected} onSelect={select} onGraphSelect={setSelected} onToggleDistrust={toggleDistrust}
                 conclusion={conclusion} concSupport={concSupport} delta={delta}
-                gaugeLabel={overlayId ? `support under “${shortLabel(overlaysMap.get(overlayId)?.label ?? "")}”` : "Support (no perspective applied)"}
+                gaugeLabel={overlayId ? `support under “${shortLabel(overlaysMap.get(overlayId)?.label ?? "")}”` : "Support (neutral starting point — no perspective applied)"}
                 explanation={explanation}
                 {...(meta?.tryThis ? { tryThis: meta.tryThis } : {})}
                 {...(presetId && meta?.presetLabel
@@ -408,13 +419,13 @@ function CaseDetailInner({
             {activeTab === "perspectives" && !diff && (
               <EmptyState
                 icon={<UsersIcon size={24} />}
-                title={overlays.length === 0 ? "No perspectives on this ledger yet" : "Comparison needs two perspectives"}
+                title={overlays.length === 0 ? "No perspectives on this case yet" : "Comparison needs two perspectives"}
                 body={
                   <>
                     A perspective is your take on the evidence: the claims stay fixed, and you choose
                     which ones to trust. {overlays.length === 1
                       ? `“${shortLabel(overlays[0]!.label)}” is here — add a second to see exactly where they disagree and find the crux.`
-                      : "Anyone can add one — the ledger itself never changes."}
+                      : "Anyone can add one — the case itself never changes."}
                   </>
                 }
                 cta={
@@ -428,15 +439,15 @@ function CaseDetailInner({
               ? <ChallengesTab bundle={bundle} query={query} onSelect={select} />
               : <EmptyState
                   icon={<AlertIcon size={24} />}
-                  title="No adversarial challenges recorded"
-                  body="Challenges are specific objections — invalid inference, scope drift, correlated evidence — each aimed at one node. The pipeline's audit step raises them automatically; hand-built ledgers carry the ones their authors raised."
+                  title="No challenges recorded"
+                  body="Challenges are specific objections — an invalid inference, scope drift, correlated evidence — each aimed at one node. The pipeline's audit step raises them automatically; hand-built cases carry the ones their authors raised."
                 />)}
             {activeTab === "relations" && (bundle.matches.length + bundle.correlationGroups.length
               ? <RelationsTab bundle={bundle} look={look} query={query} onSelect={select} />
               : <EmptyState
                   icon={<LinkIcon size={24} />}
                   title="No claim relations recorded"
-                  body="Relations link claims across sources — equivalent, contradicts, refines — and correlation groups flag evidence that shares an origin, so it isn't counted twice. Merge in another ledger on the same question to see them appear."
+                  body="Relations link claims across sources — equivalent, contradicts, refines — and correlation groups flag evidence that shares an origin, so it isn't counted twice. Merge in another case on the same question to see them appear."
                 />)}
             {activeTab === "quarantine" && (bundle.quarantine.length
               ? <QuarantineTab bundle={bundle} query={query} />

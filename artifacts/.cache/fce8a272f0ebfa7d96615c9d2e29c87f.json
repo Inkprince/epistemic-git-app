@@ -1,0 +1,9 @@
+{
+  "text": "{\"challenges\":[{\"challengeType\":\"scope-drift\",\"targetKind\":\"claim\",\"targetIndex\":1,\"topic\":\"\",\"rationale\":\"The source reports results from an eight‑week trial with 42 participants aged 65‑75. Claim [1] extrapolates that the program \\\"prevents falls permanently for everyone of every age,\\\" which goes far beyond the sample size, age range, and follow‑up period of the study.\",\"suggestedRemedy\":\"Restrict the claim to the studied population and timeframe, or cite additional longitudinal, age‑diverse evidence that supports a permanent, universal effect.\"},{\"challengeType\":\"omitted-qualification\",\"targetKind\":\"claim\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"The original study likely reports statistical significance, confidence intervals, or acknowledges limited power. Claim [0] states the program \\\"reduced falls\\\" without noting whether the reduction was statistically significant or the magnitude of effect, thereby dropping a material caveat present in the source.\",\"suggestedRemedy\":\"Add the study's statistical results (e.g., p‑value, effect size) and any noted limitations, such as small sample size or borderline significance.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 872,
+    "completionTokens": 803
+  }
+}

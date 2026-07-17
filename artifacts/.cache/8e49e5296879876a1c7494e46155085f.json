@@ -1,0 +1,9 @@
+{
+  "text": "{\"challenges\":[{\"challengeType\":\"source-does-not-support\",\"targetKind\":\"claim\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"The memo contains no citation, survey, review, or named scientific body that demonstrates a unanimous agreement among scientists that intervention Z is harmless; therefore the claim is unsupported by the provided source.\",\"suggestedRemedy\":\"Add a systematic review, meta‑analysis, or documented survey that explicitly shows the claimed consensus.\"},{\"challengeType\":\"scope-drift\",\"targetKind\":\"claim\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"Even if a consensus existed for certain conditions, the claim extends it to \\\"every circumstance,\\\" which goes beyond any plausible evidence and constitutes an over‑generalization.\",\"suggestedRemedy\":\"Restrict the claim to the specific contexts for which evidence of consensus is available, or provide additional data covering the broader range.\"},{\"challengeType\":\"invalid-inference\",\"targetKind\":\"inference\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"The inference treats scientific unanimity as a logical guarantee of truth, committing an appeal‑to‑authority fallacy; consensus alone does not establish factual harmlessness.\",\"suggestedRemedy\":\"Base the conclusion on empirical safety data rather than on the premise of consensus.\"},{\"challengeType\":\"missing-source\",\"targetKind\":\"claim\",\"targetIndex\":2,\"topic\":\"empirical safety data for intervention Z\",\"rationale\":\"No empirical study, trial, or observational data is presented to substantiate the assertion that intervention Z is harmless.\",\"suggestedRemedy\":\"Cite peer‑reviewed experimental or epidemiological research that directly assesses the safety of intervention Z.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 863,
+    "completionTokens": 961
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"Preventive health behaviors improve health outcomes\",\"inferences\":[{\"type\":\"supports\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"Empirical studies show that a balanced diet is associated with better health indicators\",\"strength\":\"moderate\",\"defeaters\":[\"Methodological flaws in the diet studies\",\"Confounding lifestyle factors\"]},{\"type\":\"supports\",\"premiseIndexes\":[1],\"conclusionIndex\":-1,\"warrant\":\"Research demonstrates that regular handwashing lowers the transmission rate of many infections\",\"strength\":\"moderate\",\"defeaters\":[\"Inadequate compliance with handwashing protocols\",\"Alternative transmission pathways dominate in specific contexts\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 740,
+    "completionTokens": 371
+  }
+}

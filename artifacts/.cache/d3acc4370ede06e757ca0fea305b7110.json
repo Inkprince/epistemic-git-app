@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 asserts a universal scientific consensus about safety, while Claim 1 comments on the memo’s lack of citations; they address different aspects and can both be true.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 605,
+    "completionTokens": 311
+  }
+}

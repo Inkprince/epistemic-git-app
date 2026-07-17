@@ -309,6 +309,7 @@ export const QuarantineReason = z.enum([
   "unverifiable-source",
   "duplicate",
   "out-of-scope",
+  "injection-suspected",
 ]);
 
 export const QuarantinedClaim = z.object({

@@ -1,7 +1,7 @@
 import type { Bundle } from "@epistemic-git/protocol";
 import { overlaysById, truncate } from "../../domain.js";
 import { CpuIcon, FileTextIcon, LinkIcon, UsersIcon } from "../icons.js";
-import { InfoRow, SectionLabel, pressable } from "../primitives.js";
+import { InfoRow, SectionLabel, SourceLink, pressable } from "../primitives.js";
 import { HistoryPanel } from "./HistoryPanel.js";
 import { InspectPanel } from "./InspectPanel.js";
 import type { Look } from "./types.js";
@@ -67,7 +67,7 @@ export function LeftPanel({
                   <p className="note">{overlayId ? overlaysMap.get(overlayId)?.description : ""}</p>
                 </>
               ) : (
-                <p className="note">No perspectives yet, so you're seeing Support under neutral priors. A perspective sets which claims to trust — anyone can add one.</p>
+                <p className="note">No perspectives yet, so you're seeing Support from a neutral starting point. A perspective sets which claims to trust — anyone can add one.</p>
               )}
               <label className="toggle-row">
                 <input type="checkbox" checked={respectCorrelation} onChange={(e) => onRespectCorrelation(e.target.checked)} />
@@ -109,7 +109,7 @@ export function LeftPanel({
                         onChange={() => onSetDistrust((d) => allDistrusted ? d.filter((x) => !claimIds.includes(x)) : [...new Set([...d, ...claimIds])])}
                         title="Distrust every claim grounded in this source"
                       />
-                      <span className="claim-text">{truncate(s.title, 64)} <span className="subtle">({claimIds.length})</span></span>
+                      <span className="claim-text"><SourceLink title={truncate(s.title, 64)} url={s.url} /> <span className="subtle">({claimIds.length})</span></span>
                     </div>
                   );
                 })}
@@ -122,7 +122,7 @@ export function LeftPanel({
               <InfoRow icon={<UsersIcon size={19} />} k="Perspectives" v={overlays.length > 0 ? `${overlays.length} perspectives` : "None yet"} />
               <InfoRow icon={<FileTextIcon size={19} />} k="Sources" v={`${bundle.sources.length} · ${bundle.passages.length} passages`} />
               <InfoRow icon={<LinkIcon size={19} />} k="Claim relations" v={`${bundle.matches.length} matches`} />
-              <InfoRow icon={<CpuIcon size={19} />} k="Provenance" v={generated ? "Pipeline-generated" : "Hand-authored"} />
+              <InfoRow icon={<CpuIcon size={19} />} k="Origin" v={generated ? "Pipeline-generated" : "Hand-authored"} />
             </div>
           </>
         )}

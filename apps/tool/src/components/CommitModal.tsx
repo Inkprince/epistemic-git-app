@@ -51,7 +51,7 @@ export function CommitModal({ bundle, suggestedLabel, onClose }: { bundle: Bundl
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
-          Save this ledger to the repository: <span className="mono">artifacts/{slug || "…"}.json</span> is
+          Save this case to the repository: <span className="mono">artifacts/{slug || "…"}.json</span> is
           written and registered, and it becomes a permanent case in the sidebar. (Dev server only.)
         </p>
         <div className="run-panel">

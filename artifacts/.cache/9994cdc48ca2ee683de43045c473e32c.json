@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":0,\"toIndex\":1,\"rationale\":\"Claim 0 reports a single trial result, while claim 1 reports the systematic review’s overall conclusion, making claim 0 a specific instance of claim 1.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":1,\"rationale\":\"Claim 2 describes which primary study the review included, whereas claim 1 reports the review’s overall finding; they address different aspects of the review.\"},{\"type\":\"contradicts\",\"fromIndex\":3,\"toIndex\":2,\"rationale\":\"Claim 3 treats the Smith trial and the Jones review as independent confirmations, but claim 2 states the review’s evidence consists solely of that trial, so they cannot both be true.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":3,\"toIndex\":1,\"rationale\":\"Claim 3 concerns how evidence was counted, while claim 1 concerns the effect estimate; they refer to different scopes.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":0,\"toIndex\":3,\"rationale\":\"Claim 0 reports the trial outcome, whereas claim 3 discusses evidence synthesis; they are about different aspects of the research.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 646,
+    "completionTokens": 1655
+  }
+}

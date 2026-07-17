@@ -60,6 +60,16 @@ button { font-family: inherit; cursor: pointer; }
 a { color: var(--ink); text-decoration: none; }
 a:hover { color: var(--ink-2); }
 
+/* Source name that links out to the original document (provenance you can follow). */
+.source-link {
+  display: inline-flex; align-items: baseline; gap: 3px;
+  text-decoration: underline; text-decoration-color: var(--line-strong);
+  text-underline-offset: 2px; color: inherit;
+}
+.source-link:hover { text-decoration-color: currentColor; }
+.source-link svg { align-self: center; opacity: 0.55; flex: none; }
+.source-link:hover svg { opacity: 0.9; }
+
 .scrl::-webkit-scrollbar { width: 8px; height: 8px; }
 .scrl::-webkit-scrollbar-thumb { background: #dcdcdc; border-radius: 4px; }
 .scrl::-webkit-scrollbar-track { background: transparent; }
@@ -67,12 +77,12 @@ a:hover { color: var(--ink-2); }
 /* ── App shell ─────────────────────────────────────────────────────────── */
 .shell {
   height: 100vh;
-  max-width: 1512px; margin: 0 auto;
-  padding: clamp(24px, 5vh, 64px) clamp(14px, 4vw, 60px) 0 clamp(14px, 4vw, 64px);
+  max-width: none; margin: 0;
+  padding: 0;
 }
 .app-card {
-  height: 100%; background: var(--surface);
-  border-radius: 18px 18px 0 0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  height: 100%; width: 100%; background: var(--surface);
+  border-radius: 0; box-shadow: none;
   display: flex; overflow: hidden;
 }
 
@@ -148,8 +158,9 @@ div.nav-sub { padding: 0 6px 0 0; gap: 4px; }
   display: flex; align-items: center; gap: 20px;
   padding: 20px 34px 18px 34px; border-bottom: 1px solid var(--line); flex: none;
 }
+.search-wrap { position: relative; flex: 1; max-width: 340px; }
 .search-box {
-  flex: 1; max-width: 340px; display: flex; align-items: center; gap: 11px;
+  display: flex; align-items: center; gap: 11px;
   background: var(--surface); border: 1px solid var(--line-control); border-radius: var(--r-input);
   padding: 11px 16px;
 }
@@ -159,6 +170,27 @@ div.nav-sub { padding: 0 6px 0 0; gap: 4px; }
 }
 .search-box input::placeholder { color: var(--placeholder); }
 .search-box:focus-within { border-color: var(--ink); }
+/* Search results pop out under the box so overview matches are one glance away, not a scroll down. */
+.search-results {
+  position: absolute; top: calc(100% + 8px); left: 0; z-index: 40;
+  width: max(100%, 420px); max-height: 60vh; overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-input);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12); padding: 6px;
+}
+.search-results .sr-empty { padding: 14px 12px; color: var(--muted-2); font-size: 13.5px; }
+.sr-row {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 9px 10px; border: 0; background: transparent; border-radius: var(--r-chip); cursor: pointer;
+}
+.sr-row:hover, .sr-row:focus-visible { background: var(--surface-3); outline: none; }
+.sr-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.sr-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.sr-q { font-size: 12.5px; color: var(--muted-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sr-status { flex: none; }
+.sr-metrics { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.sr-support { font-size: 14px; font-weight: 700; color: var(--ink); }
+.sr-claims { font-size: 12px; color: var(--muted-2); }
+@media (max-width: 700px) { .search-results .sr-q { display: none; } }
 .topbar .spacer { flex: 1; }
 .topbar .counts { color: var(--muted-2); font-size: 13px; white-space: nowrap; }
 .topbar .counts strong { color: var(--ink); font-weight: 700; }
@@ -394,6 +426,45 @@ div.nav-sub { padding: 0 6px 0 0; gap: 4px; }
 /* Main detail region */
 .detail-main { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 .detail-main > .content { padding: 26px 34px 44px 34px; overflow-y: auto; }
+
+/* Grounded "ask this case" box */
+.askbox { flex: none; padding: 16px 34px 0 34px; }
+.askbox-bar {
+  display: flex; align-items: center; gap: 10px; padding: 0 12px;
+  background: var(--surface); border: 1px solid var(--line-control); border-radius: var(--r-input);
+  color: var(--muted);
+}
+.askbox-bar:focus-within { border-color: var(--ink); color: var(--ink); }
+.askbox-bar input {
+  flex: 1; border: 0; outline: none; background: transparent; padding: 11px 0;
+  font-family: inherit; font-size: 14.5px; color: var(--ink);
+}
+.askbox-clear { border: 0; background: transparent; color: var(--muted); display: inline-flex; padding: 4px; border-radius: 6px; }
+.askbox-clear:hover { background: var(--surface-2); color: var(--ink); }
+.askbox-go { padding: 6px 14px; }
+.askbox-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.askbox-chip {
+  border: 1px solid var(--line-control); background: var(--surface); color: var(--ink-2);
+  border-radius: 999px; padding: 5px 12px; font-size: 12.5px; font-family: inherit;
+}
+.askbox-chip:hover { background: var(--surface-2); color: var(--ink); }
+.askbox-answer {
+  margin-top: 12px; border: 1px solid var(--line-card); border-left: 3px solid var(--green-text);
+  border-radius: var(--r-task); padding: 16px 18px; background: var(--surface);
+}
+.askbox-answer.refused { border-left-color: var(--muted); }
+.askbox-kind {
+  display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 11px; font-weight: 700; color: var(--faint); margin-bottom: 8px;
+}
+.askbox-badge { text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--green-text); background: var(--green-bg); border-radius: var(--r-chip); padding: 2px 7px; }
+.askbox-headline { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.5; }
+.askbox-points { margin: 10px 0 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; font-size: 13.5px; color: var(--ink-2); }
+.askbox-cites { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+.askbox-cite-meta { margin-top: 4px; font-size: 12.5px; }
+.askbox-note { margin: 12px 0 0 0; font-size: 12.5px; color: var(--muted-2); line-height: 1.5; }
+.linklike { border: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; padding: 0; cursor: pointer; }
+.linklike:hover { color: var(--ink-2); }
 
 .content-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
 .content-head .t { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }

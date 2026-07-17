@@ -1,0 +1,400 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_814bb2de9c429527",
+  "case": "trap-review-primary-double-counting",
+  "title": "Review and its included primary study counted as independent evidence",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_1f7e5a23f918c7f9",
+      "type": "other",
+      "title": "2020 Smith primary trial",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    },
+    {
+      "id": "src_dd5081468f716877",
+      "type": "other",
+      "title": "2022 Jones systematic review",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_d13b93a5f0d59827",
+      "sourceId": "src_1f7e5a23f918c7f9",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 111
+      },
+      "verbatimText": "The 2020 Smith randomized trial of 80 adults reported that supplement Q reduced headache days over eight weeks."
+    },
+    {
+      "id": "psg_647a5e1d22d42225",
+      "sourceId": "src_dd5081468f716877",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 74
+      },
+      "verbatimText": "The 2022 Jones systematic review found supplement Q reduced headache days."
+    },
+    {
+      "id": "psg_1dc6796819154856",
+      "sourceId": "src_dd5081468f716877",
+      "locator": {
+        "kind": "char",
+        "start": 75,
+        "end": 152
+      },
+      "verbatimText": "The review included the 2020 Smith trial and no other eligible primary study."
+    },
+    {
+      "id": "psg_7acc4a50f3a0421a",
+      "sourceId": "src_dd5081468f716877",
+      "locator": {
+        "kind": "char",
+        "start": 153,
+        "end": 269
+      },
+      "verbatimText": "A briefing nevertheless counted the Smith trial and the Jones review as two independent confirmations of the effect."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_474ab55465a083ba",
+      "statement": "Supplement Q reduced headache days over eight weeks in a trial of 80 adults.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_d13b93a5f0d59827"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_1f7e5a23f918c7f9"
+      },
+      "tags": [],
+      "structure": {
+        "population": "80 adults",
+        "intervention": "supplement Q",
+        "outcome": "reduced headache days",
+        "timeframe": "eight weeks",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_b06ad6e9fd18907b",
+      "statement": "The 2022 Jones systematic review found supplement Q reduced headache days.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_647a5e1d22d42225"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_dd5081468f716877"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "supplement Q",
+        "outcome": "headache days",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_4d366a60376f6620",
+      "statement": "The review included the 2020 Smith trial and no other eligible primary study.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_1dc6796819154856"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_dd5081468f716877"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_0e226acbd7409d31",
+      "statement": "A briefing nevertheless counted the Smith trial and the Jones review as two independent confirmations of the effect.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_7acc4a50f3a0421a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_dd5081468f716877"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_8f9db2037323bc0b",
+      "statement": "Supplement Q reduces headache days.",
+      "claimType": "predictive",
+      "assumptions": [],
+      "caveats": [],
+      "passages": [],
+      "derived": true,
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "tags": []
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_c266fc57582220d3",
+      "type": "supports",
+      "premises": [
+        "cl_474ab55465a083ba"
+      ],
+      "conclusion": "cl_8f9db2037323bc0b",
+      "warrant": "Direct empirical evidence from a randomized trial showing reduction in headache days provides support for the claim that the supplement is effective.",
+      "assumptions": [],
+      "defeaters": [
+        "The trial had methodological flaws or bias that invalidate its results."
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_d8aacab9bbc448d9",
+      "type": "supports",
+      "premises": [
+        "cl_b06ad6e9fd18907b"
+      ],
+      "conclusion": "cl_8f9db2037323bc0b",
+      "warrant": "A systematic review that reports a reduction in headache days aggregates evidence and therefore supports the effectiveness claim.",
+      "assumptions": [],
+      "defeaters": [
+        "The review’s inclusion criteria or analysis are flawed, or the underlying studies are biased."
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_dea2c0681ae5fb4c",
+      "type": "explains",
+      "premises": [
+        "cl_4d366a60376f6620"
+      ],
+      "conclusion": "cl_b06ad6e9fd18907b",
+      "warrant": "Knowing that the review only included the Smith trial explains why the review’s finding does not add independent evidence beyond the trial itself.",
+      "assumptions": [],
+      "defeaters": [
+        "The review actually included other eligible studies that were omitted from the claim."
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_6f18151f6a5e07d0",
+      "type": "undercuts",
+      "premises": [
+        "cl_4d366a60376f6620"
+      ],
+      "conclusion": "cl_0e226acbd7409d31",
+      "warrant": "If the review’s result is based on the same single trial, then counting the trial and the review as two independent confirmations misrepresents the evidential independence.",
+      "assumptions": [],
+      "defeaters": [
+        "There exist other independent primary studies that the review incorporated, making the two sources truly independent."
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_1e9e0a7fee6e5fe5",
+      "type": "evidence-for",
+      "premises": [
+        "cl_0e226acbd7409d31"
+      ],
+      "conclusion": "cl_8f9db2037323bc0b",
+      "warrant": "The briefing’s claim that there are two independent confirmations is presented as evidence supporting the supplement’s effectiveness.",
+      "assumptions": [],
+      "defeaters": [
+        "Claim 2 shows the two sources are not independent, undermining this evidence."
+      ],
+      "strength": "weak",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_b673fc4abce1a59a",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "claim",
+        "id": "cl_4d366a60376f6620"
+      },
+      "rationale": "The claim that the Jones systematic review \"included the 2020 Smith trial and no other eligible primary study\" extends beyond what the review actually reports; the review may have searched for other studies but merely reports that none were found, which is not the same as asserting that no other eligible studies exist. This overgeneralizes the evidence base.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite the review’s methods section that details its search results, or qualify the claim with \"no other eligible studies were identified in the review\"."
+    },
+    {
+      "id": "chl_aa57daf103d4fd74",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_d8aacab9bbc448d9"
+      },
+      "rationale": "The inference that a systematic review \"aggregates evidence and therefore supports the effectiveness claim\" assumes the review provides independent evidence, but because the review’s dataset consists solely of the Smith trial, the aggregation adds no new information. The logical step from aggregation to support is invalid in this context.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Revise the inference to note that the review adds no independent data beyond the trial, or remove the inference altogether."
+    },
+    {
+      "id": "chl_5a05dc882597705b",
+      "challengeType": "rhetorical-not-evidential",
+      "target": {
+        "kind": "inference",
+        "id": "inf_1e9e0a7fee6e5fe5"
+      },
+      "rationale": "The inference treats the briefing’s statement that there are \"two independent confirmations\" as evidence for effectiveness, but the briefing’s claim is a rhetorical assertion, not an independent data source. Using it as evidence misleads the evidential chain.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Replace the inference with a statement that the briefing’s claim is a summary, not independent evidence, and do not count it as support."
+    },
+    {
+      "id": "chl_9dd61c6ca0731c83",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_8f9db2037323bc0b"
+      },
+      "rationale": "Claim [4] declares that \"Supplement Q reduces headache days\" without qualifying that the conclusion rests on a single small trial (n=80) and a review that contains no additional data. The claim overstates certainty and omits important limitations such as sample size, trial duration, and lack of replication.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a qualification like \"in the context of the single 8‑week trial of 80 adults\" or \"evidence suggests a reduction, but further studies are needed.\""
+    },
+    {
+      "id": "chl_6d80e038170bf48d",
+      "challengeType": "source-does-not-support",
+      "target": {
+        "kind": "claim",
+        "id": "cl_0e226acbd7409d31"
+      },
+      "rationale": "The claim that \"A briefing nevertheless counted the Smith trial and the Jones review as two independent confirmations\" is not backed by any cited source; without a reference to the briefing, the statement lacks evidential support.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Provide a citation to the briefing that makes this counting, or remove the claim."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_4fc434e6d9696b9b",
+      "type": "narrower",
+      "from": "cl_474ab55465a083ba",
+      "to": "cl_b06ad6e9fd18907b",
+      "rationale": "Claim 0 reports a single trial result, while claim 1 reports the systematic review’s overall conclusion, making claim 0 a specific instance of claim 1.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_49534fff43f3f3dc",
+      "type": "compatible-different-scope",
+      "from": "cl_4d366a60376f6620",
+      "to": "cl_b06ad6e9fd18907b",
+      "rationale": "Claim 2 describes which primary study the review included, whereas claim 1 reports the review’s overall finding; they address different aspects of the review.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_9a3db008ad9b4b67",
+      "type": "contradicts",
+      "from": "cl_0e226acbd7409d31",
+      "to": "cl_4d366a60376f6620",
+      "rationale": "Claim 3 treats the Smith trial and the Jones review as independent confirmations, but claim 2 states the review’s evidence consists solely of that trial, so they cannot both be true.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_0945facec2c86cfb",
+      "type": "compatible-different-scope",
+      "from": "cl_0e226acbd7409d31",
+      "to": "cl_b06ad6e9fd18907b",
+      "rationale": "Claim 3 concerns how evidence was counted, while claim 1 concerns the effect estimate; they refer to different scopes.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_a798ad6ac28d4b7f",
+      "type": "compatible-different-scope",
+      "from": "cl_474ab55465a083ba",
+      "to": "cl_0e226acbd7409d31",
+      "rationale": "Claim 0 reports the trial outcome, whereas claim 3 discusses evidence synthesis; they are about different aspects of the research.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

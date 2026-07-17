@@ -106,6 +106,25 @@ describe("detectCorrelation (independence detector)", () => {
     expect(groups[0]!.sharedOrigin).toBe("author");
     expect(groups[0]!.members.length).toBe(2);
   });
+
+  it("groups claims from sources with different authors but a shared declared funder", () => {
+    const b = new BundleBuilder({ case: "corr", title: "corr", question: "?" });
+    const funder = { fundingConflicts: ["Acme Foundation"] };
+    const s1 = b.source({ type: "paper", title: "Paper one", authors: ["A. Smith"], reliability: funder });
+    const s2 = b.source({ type: "paper", title: "Paper two", authors: ["Z. Independent"], reliability: funder });
+    const s3 = b.source({ type: "paper", title: "Unfunded paper", authors: ["Q. Other"] });
+    const psg1 = b.passage({ sourceId: s1, locator: { kind: "page", page: 1 }, verbatimText: "finding one" });
+    const psg2 = b.passage({ sourceId: s2, locator: { kind: "page", page: 1 }, verbatimText: "finding two" });
+    const psg3 = b.passage({ sourceId: s3, locator: { kind: "page", page: 1 }, verbatimText: "finding three" });
+    b.claim({ statement: "Claim from paper one.", claimType: "empirical", passages: [psg1], attribution: { kind: "source", ref: s1 } });
+    b.claim({ statement: "Claim from paper two.", claimType: "empirical", passages: [psg2], attribution: { kind: "source", ref: s2 } });
+    b.claim({ statement: "Claim from the unfunded paper.", claimType: "empirical", passages: [psg3], attribution: { kind: "source", ref: s3 } });
+
+    const groups = detectCorrelation(b.build());
+    expect(groups.length).toBe(1);
+    expect(groups[0]!.sharedOrigin).toBe("funder");
+    expect(groups[0]!.members.length).toBe(2);
+  });
 });
 
 describe("merge (content-addressed compounding)", () => {

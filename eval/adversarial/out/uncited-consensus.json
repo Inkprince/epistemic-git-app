@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_93251c8d84eadc48",
+  "case": "trap-uncited-consensus",
+  "title": "Confident consensus claim without a citation",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_79ca13dd8f92ab0c",
+      "type": "other",
+      "title": "Confident consensus claim without a citation",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_5f66c8953123ba6d",
+      "sourceId": "src_79ca13dd8f92ab0c",
+      "locator": {
+        "kind": "char",
+        "start": 25,
+        "end": 108
+      },
+      "verbatimText": "Scientists unanimously agree that intervention Z is harmless in every circumstance."
+    },
+    {
+      "id": "psg_785f7602ad6ddc24",
+      "sourceId": "src_79ca13dd8f92ab0c",
+      "locator": {
+        "kind": "char",
+        "start": 110,
+        "end": 204
+      },
+      "verbatimText": "The memo provides no citation, survey, review, or named scientific body supporting that claim."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_aa93dbbf9c2aaed5",
+      "statement": "Scientists unanimously agree that intervention Z is harmless in every circumstance.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_5f66c8953123ba6d"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_79ca13dd8f92ab0c"
+      },
+      "tags": [],
+      "structure": {
+        "population": "Scientists",
+        "intervention": "intervention Z",
+        "outcome": "harmless in every circumstance",
+        "quantifiers": "unanimously",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_20c6ee35257f50d6",
+      "statement": "The memo provides no citation, survey, review, or named scientific body supporting that claim.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_785f7602ad6ddc24"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_79ca13dd8f92ab0c"
+      },
+      "tags": [],
+      "structure": {
+        "population": "the memo",
+        "outcome": "no citation, survey, review, or named scientific body supporting that claim",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_aa23142d75c0ed1b",
+      "statement": "Intervention Z is harmless",
+      "claimType": "predictive",
+      "assumptions": [],
+      "caveats": [],
+      "passages": [],
+      "derived": true,
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "tags": []
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_673ee467586aab0f",
+      "type": "supports",
+      "premises": [
+        "cl_aa93dbbf9c2aaed5"
+      ],
+      "conclusion": "cl_aa23142d75c0ed1b",
+      "warrant": "If scientists unanimously agree that an intervention is harmless, then it is reasonable to conclude the intervention is harmless.",
+      "assumptions": [],
+      "defeaters": [
+        "The claim of unanimous agreement is false",
+        "The scientists cited are not qualified or relevant to the intervention"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_adc91584d9e73de9",
+      "type": "undercuts",
+      "premises": [
+        "cl_20c6ee35257f50d6"
+      ],
+      "conclusion": "cl_aa93dbbf9c2aaed5",
+      "warrant": "A claim that provides no citation, survey, review, or named scientific body lacks evidential support, thereby weakening its credibility.",
+      "assumptions": [],
+      "defeaters": [
+        "Independent, credible evidence supporting the claim exists elsewhere",
+        "The lack of citation is due to confidentiality or proprietary constraints rather than lack of evidence"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_fb90d37fa22bbc5b",
+      "challengeType": "source-does-not-support",
+      "target": {
+        "kind": "claim",
+        "id": "cl_aa93dbbf9c2aaed5"
+      },
+      "rationale": "The memo contains no citation, survey, review, or named scientific body that demonstrates a unanimous agreement among scientists that intervention Z is harmless; therefore the claim is unsupported by the provided source.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a systematic review, meta‑analysis, or documented survey that explicitly shows the claimed consensus."
+    },
+    {
+      "id": "chl_b8f1bce2a2b28056",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "claim",
+        "id": "cl_aa93dbbf9c2aaed5"
+      },
+      "rationale": "Even if a consensus existed for certain conditions, the claim extends it to \"every circumstance,\" which goes beyond any plausible evidence and constitutes an over‑generalization.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Restrict the claim to the specific contexts for which evidence of consensus is available, or provide additional data covering the broader range."
+    },
+    {
+      "id": "chl_666878a8c2bde593",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_673ee467586aab0f"
+      },
+      "rationale": "The inference treats scientific unanimity as a logical guarantee of truth, committing an appeal‑to‑authority fallacy; consensus alone does not establish factual harmlessness.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Base the conclusion on empirical safety data rather than on the premise of consensus."
+    },
+    {
+      "id": "chl_12d9ef40cb63e391",
+      "challengeType": "missing-source",
+      "target": {
+        "kind": "claim",
+        "id": "cl_aa23142d75c0ed1b"
+      },
+      "rationale": "No empirical study, trial, or observational data is presented to substantiate the assertion that intervention Z is harmless.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite peer‑reviewed experimental or epidemiological research that directly assesses the safety of intervention Z."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_9c1d4c6cc9a48683",
+      "type": "compatible-different-scope",
+      "from": "cl_aa93dbbf9c2aaed5",
+      "to": "cl_20c6ee35257f50d6",
+      "rationale": "Claim 0 asserts a universal scientific consensus about safety, while Claim 1 comments on the memo’s lack of citations; they address different aspects and can both be true.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"A promotional excerpt repeats only the words ‘the treatment is safe’.\",\"claimType\":\"definitional\",\"quote\":\"A promotional excerpt repeats only the words ‘the treatment is safe’.\",\"entailment\":\"The sentence explicitly states that the promotional excerpt repeats only those words.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"In the report, those words occur inside the full sentence: ‘It would be wrong to conclude that the treatment is safe, because the trial was too small and too short to measure harms.’\",\"claimType\":\"definitional\",\"quote\":\"In the report, those words occur inside the full sentence: ‘It would be wrong to conclude that the treatment is safe, because the trial was too small and too short to measure harms.’\",\"entailment\":\"The quote directly indicates that the words appear within that full sentence in the report.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"Removing the opening and closing words reverses the report's meaning.\",\"claimType\":\"empirical\",\"quote\":\"Removing the opening and closing words reverses the report's meaning.\",\"entailment\":\"The sentence asserts that deleting the surrounding words changes the meaning of the report.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 751,
+    "completionTokens": 411
+  }
+}

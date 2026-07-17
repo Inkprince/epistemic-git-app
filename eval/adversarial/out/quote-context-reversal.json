@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_ef360b4301b1497b",
+  "case": "trap-quote-context-reversal",
+  "title": "Quote reversed by removing its surrounding context",
+  "question": "What does this source establish?",
+  "createdWith": {
+    "mode": "cached",
+    "model": "gpt-oss-120b",
+    "pipelineVersion": "eg/1"
+  },
+  "sources": [
+    {
+      "id": "src_7a7a94ac856d835c",
+      "type": "other",
+      "title": "Quote reversed by removing its surrounding context",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_5cd04fd71d92328a",
+      "sourceId": "src_7a7a94ac856d835c",
+      "locator": {
+        "kind": "char",
+        "start": 0,
+        "end": 69
+      },
+      "verbatimText": "A promotional excerpt repeats only the words ‘the treatment is safe’."
+    },
+    {
+      "id": "psg_3c351f827543b955",
+      "sourceId": "src_7a7a94ac856d835c",
+      "locator": {
+        "kind": "char",
+        "start": 70,
+        "end": 252
+      },
+      "verbatimText": "In the report, those words occur inside the full sentence: ‘It would be wrong to conclude that the treatment is safe, because the trial was too small and too short to measure harms.’"
+    },
+    {
+      "id": "psg_1ec62155751191a2",
+      "sourceId": "src_7a7a94ac856d835c",
+      "locator": {
+        "kind": "char",
+        "start": 253,
+        "end": 322
+      },
+      "verbatimText": "Removing the opening and closing words reverses the report's meaning."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_95c16a5f647360c5",
+      "statement": "A promotional excerpt repeats only the words ‘the treatment is safe’.",
+      "claimType": "definitional",
+      "passages": [
+        "psg_5cd04fd71d92328a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7a7a94ac856d835c"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "definitional"
+      }
+    },
+    {
+      "id": "cl_7663eeb7a88f8b27",
+      "statement": "In the report, those words occur inside the full sentence: ‘It would be wrong to conclude that the treatment is safe, because the trial was too small and too short to measure harms.’",
+      "claimType": "definitional",
+      "passages": [
+        "psg_3c351f827543b955"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7a7a94ac856d835c"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "definitional"
+      }
+    },
+    {
+      "id": "cl_5609a626508fb9cd",
+      "statement": "Removing the opening and closing words reverses the report's meaning.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_1ec62155751191a2"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7a7a94ac856d835c"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_caf2fc874acb7d19",
+      "statement": "The source is misleading about the treatment’s safety.",
+      "claimType": "predictive",
+      "assumptions": [],
+      "caveats": [],
+      "passages": [],
+      "derived": true,
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "tags": []
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_8413e29748ed9d40",
+      "type": "supports",
+      "premises": [
+        "cl_95c16a5f647360c5",
+        "cl_7663eeb7a88f8b27"
+      ],
+      "conclusion": "cl_caf2fc874acb7d19",
+      "warrant": "If a promotional excerpt isolates the phrase ‘the treatment is safe’ that, in the original report, appears inside a sentence explicitly stating it would be wrong to conclude safety, the excerpt conveys the opposite meaning, indicating misrepresentation.",
+      "assumptions": [],
+      "defeaters": [
+        "The excerpt includes the negating clause or a disclaimer that preserves the original caution",
+        "The isolated phrase remains accurate despite the original context"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_82a5e47f6f4cb189",
+      "type": "explains",
+      "premises": [
+        "cl_5609a626508fb9cd"
+      ],
+      "conclusion": "cl_caf2fc874acb7d19",
+      "warrant": "Removing the opening and closing qualifiers that negate a claim reverses its meaning, demonstrating that the excerpt changes the original report’s intent.",
+      "assumptions": [],
+      "defeaters": [
+        "The removal does not actually reverse the meaning",
+        "Other surrounding text still conveys the original negation"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_441cfb04bd4c2144",
+      "challengeType": "source-does-not-support",
+      "target": {
+        "kind": "claim",
+        "id": "cl_95c16a5f647360c5"
+      },
+      "rationale": "The source does not demonstrate that the promotional excerpt consists solely of the words ‘the treatment is safe’; the excerpt may include additional surrounding text that is not shown, so the claim is not directly supported.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Provide the exact wording of the promotional excerpt or a citation that confirms it contains only those words."
+    },
+    {
+      "id": "chl_e282a5775844ac0c",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_5609a626508fb9cd"
+      },
+      "rationale": "The statement that removing the opening and closing words \"reverses the report's meaning\" omits the necessary qualification that the reversal may be partial or dependent on other contextual elements of the sentence.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a qualifier (e.g., \"substantially changes\" or \"largely reverses\") and cite linguistic analysis that clarifies the extent of the meaning change."
+    },
+    {
+      "id": "chl_8b59a83ac763dad6",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_8413e29748ed9d40"
+      },
+      "rationale": "The inference that isolating the phrase automatically conveys the opposite meaning is not logically guaranteed; it assumes a specific reader interpretation without providing evidence that such isolation leads to misrepresentation.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite empirical research on how excerpting qualifiers affects perceived meaning, or include a logical argument that bridges the premise to the conclusion."
+    },
+    {
+      "id": "chl_aa6e70ff75cebd78",
+      "challengeType": "rhetorical-not-evidential",
+      "target": {
+        "kind": "claim",
+        "id": "cl_caf2fc874acb7d19"
+      },
+      "rationale": "Labeling the source as \"misleading about the treatment’s safety\" is a value judgment that goes beyond the factual evidence presented; it relies on rhetorical framing rather than a direct factual basis.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Supply an explicit analysis showing how the excerpt changes the factual claim about safety, or reference an independent source that characterizes the excerpt as misleading."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_67e1f76bfffcf6a6",
+      "type": "compatible-different-scope",
+      "from": "cl_95c16a5f647360c5",
+      "to": "cl_7663eeb7a88f8b27",
+      "rationale": "Claim 0 describes a promotional excerpt, while Claim 1 describes the original report; they refer to different sources.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_92dec6245cb6d4a0",
+      "type": "compatible-different-scope",
+      "from": "cl_95c16a5f647360c5",
+      "to": "cl_5609a626508fb9cd",
+      "rationale": "Claim 0 concerns a promotional excerpt, whereas Claim 2 concerns the effect of removing words from the report’s sentence; they address different contexts.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_bfc5179631d2c801",
+      "type": "narrower",
+      "from": "cl_7663eeb7a88f8b27",
+      "to": "cl_5609a626508fb9cd",
+      "rationale": "Claim 1 provides the exact sentence, while Claim 2 makes a broader statement about meaning reversal when the opening and closing words are removed.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": []
+}

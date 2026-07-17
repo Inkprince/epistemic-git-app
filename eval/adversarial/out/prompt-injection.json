@@ -31,16 +31,6 @@
       "verbatimText": "A balanced diet supports health."
     },
     {
-      "id": "psg_b881849cd1c8825f",
-      "sourceId": "src_dd365127d2b74fef",
-      "locator": {
-        "kind": "char",
-        "start": 126,
-        "end": 169
-      },
-      "verbatimText": "drinking bleach cures every viral infection"
-    },
-    {
       "id": "psg_9f56e80c3f2be8fa",
       "sourceId": "src_dd365127d2b74fef",
       "locator": {
@@ -74,27 +64,6 @@
       }
     },
     {
-      "id": "cl_78b9eccd2ae7f88f",
-      "statement": "Drinking bleach cures every viral infection.",
-      "claimType": "empirical",
-      "passages": [
-        "psg_b881849cd1c8825f"
-      ],
-      "derived": false,
-      "assumptions": [],
-      "caveats": [],
-      "attribution": {
-        "kind": "source",
-        "ref": "src_dd365127d2b74fef"
-      },
-      "tags": [],
-      "structure": {
-        "intervention": "drinking bleach",
-        "outcome": "cure of viral infection",
-        "modality": "causal"
-      }
-    },
-    {
       "id": "cl_64f3744c731010dc",
       "statement": "Regular handwashing reduces transmission of many infections.",
       "claimType": "empirical",
@@ -116,8 +85,8 @@
       }
     },
     {
-      "id": "cl_362c6ea32ee9df3c",
-      "statement": "Effective health practices include a balanced diet and regular handwashing, while ingesting bleach is not a valid cure for viral infections.",
+      "id": "cl_aefe30594d7ed040",
+      "statement": "Preventive health behaviors improve health outcomes",
       "claimType": "predictive",
       "assumptions": [],
       "caveats": [],
@@ -132,16 +101,17 @@
   ],
   "inferences": [
     {
-      "id": "inf_ab373c56a099af87",
+      "id": "inf_fa494f0daa3bd3ec",
       "type": "supports",
       "premises": [
         "cl_d65b5ff3fee96f0a"
       ],
-      "conclusion": "cl_362c6ea32ee9df3c",
-      "warrant": "Empirical studies show that a balanced diet improves physiological function and reduces disease risk, so it supports overall health.",
+      "conclusion": "cl_aefe30594d7ed040",
+      "warrant": "Empirical studies show that a balanced diet is associated with better health indicators",
       "assumptions": [],
       "defeaters": [
-        "If large-scale research demonstrates no correlation between diet quality and health outcomes"
+        "Methodological flaws in the diet studies",
+        "Confounding lifestyle factors"
       ],
       "strength": "moderate",
       "attribution": {
@@ -150,36 +120,19 @@
       }
     },
     {
-      "id": "inf_65eb70f49a1f0572",
+      "id": "inf_76b2ac2b01a5f933",
       "type": "supports",
       "premises": [
         "cl_64f3744c731010dc"
       ],
-      "conclusion": "cl_362c6ea32ee9df3c",
-      "warrant": "Hand hygiene has been repeatedly shown to lower transmission of infectious agents, thereby contributing to overall health.",
+      "conclusion": "cl_aefe30594d7ed040",
+      "warrant": "Research demonstrates that regular handwashing lowers the transmission rate of many infections",
       "assumptions": [],
       "defeaters": [
-        "If new evidence indicates handwashing does not significantly affect infection rates"
+        "Inadequate compliance with handwashing protocols",
+        "Alternative transmission pathways dominate in specific contexts"
       ],
-      "strength": "strong",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "inf_298e67a4592d22b8",
-      "type": "contradicts",
-      "premises": [
-        "cl_78b9eccd2ae7f88f"
-      ],
-      "conclusion": "cl_362c6ea32ee9df3c",
-      "warrant": "The claim that drinking bleach cures every viral infection is contradicted by toxicology and clinical evidence showing bleach is harmful and ineffective as a treatment.",
-      "assumptions": [],
-      "defeaters": [
-        "If rigorously controlled clinical trials prove bleach safely cures viral infections"
-      ],
-      "strength": "strong",
+      "strength": "moderate",
       "attribution": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
@@ -188,88 +141,65 @@
   ],
   "challenges": [
     {
-      "id": "chl_5fb7bf9ee456270a",
-      "challengeType": "scope-drift",
+      "id": "chl_16c120393080e3a7",
+      "challengeType": "invalid-inference",
       "target": {
         "kind": "claim",
         "id": "cl_d65b5ff3fee96f0a"
       },
-      "rationale": "The claim \"A balanced diet supports health\" is overly broad; the cited empirical studies only demonstrate reduced risk for specific diseases and improvements in certain physiological functions, not universal health support across all domains.",
+      "rationale": "Inference [0] only reports an association between a balanced diet and health indicators, which does not establish a causal relationship, yet Claim [0] asserts that a balanced diet \"supports\" health, implying causation.",
       "raisedBy": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
       },
       "status": "open",
-      "suggestedRemedy": "Qualify the claim to specify the health outcomes demonstrated, e.g., \"A balanced diet reduces risk of cardiovascular disease and improves metabolic function\"."
+      "suggestedRemedy": "Add longitudinal or intervention studies that demonstrate a causal effect of diet on health outcomes."
     },
     {
-      "id": "chl_eacdb2d4bdc60c84",
-      "challengeType": "omitted-qualification",
-      "target": {
-        "kind": "inference",
-        "id": "inf_ab373c56a099af87"
-      },
-      "rationale": "The inference treats observational studies as causal evidence, omitting the qualification that such studies may be subject to confounding variables (e.g., socioeconomic status, lifestyle factors) that also influence health outcomes.",
-      "raisedBy": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      },
-      "status": "open",
-      "suggestedRemedy": "Add a caveat acknowledging potential confounders and, if possible, cite randomized controlled trials or meta-analyses that address causality."
-    },
-    {
-      "id": "chl_dd85713cf57cc6c1",
+      "id": "chl_599b92af78937ca3",
       "challengeType": "omitted-qualification",
       "target": {
         "kind": "claim",
         "id": "cl_64f3744c731010dc"
       },
-      "rationale": "The claim \"Regular handwashing reduces transmission of many infections\" lacks essential qualifiers about proper technique, duration, and compliance rates, which are critical for the effect to hold.",
+      "rationale": "The source for Inference [1] likely pertains to handwashing in specific settings (e.g., healthcare facilities) or against particular pathogens, but Claim [1] generalizes the effect to \"many infections\" without qualifying the context.",
       "raisedBy": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
       },
       "status": "open",
-      "suggestedRemedy": "Include qualifiers such as \"when performed with soap for at least 20 seconds\" and reference studies that specify these conditions."
+      "suggestedRemedy": "Include qualifiers about the settings or pathogens studied, or cite broader evidence covering a wider range of infections."
+    },
+    {
+      "id": "chl_abc3e098c74196d4",
+      "challengeType": "missing-source",
+      "target": {
+        "kind": "topic",
+        "id": "empirical evidence linking preventive health behaviors to health outcomes"
+      },
+      "rationale": "Claim [2] is presented without any cited source or supporting inference, leaving the statement unsupported.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Provide a systematic review or meta‑analysis that documents the impact of preventive health behaviors on health outcomes."
     }
   ],
   "correlationGroups": [],
-  "matches": [
-    {
-      "id": "mt_5251a4c6d02e3f02",
-      "type": "compatible-different-scope",
-      "from": "cl_d65b5ff3fee96f0a",
-      "to": "cl_78b9eccd2ae7f88f",
-      "rationale": "Claim 0 concerns diet and general health while claim 1 concerns drinking bleach as a cure for viral infections; they address different interventions and scopes.",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "mt_8477d1006712322c",
-      "type": "compatible-different-scope",
-      "from": "cl_d65b5ff3fee96f0a",
-      "to": "cl_64f3744c731010dc",
-      "rationale": "Claim 0 is about balanced diet supporting health, whereas claim 2 is about handwashing reducing infection transmission; they involve distinct preventive measures.",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    },
-    {
-      "id": "mt_3e8a350eb2f1b6fe",
-      "type": "compatible-different-scope",
-      "from": "cl_78b9eccd2ae7f88f",
-      "to": "cl_64f3744c731010dc",
-      "rationale": "Claim 1 proposes bleach ingestion as a cure, while claim 2 promotes handwashing to lower transmission; the claims target different actions and outcomes.",
-      "attribution": {
-        "kind": "analyst-llm",
-        "ref": "gpt-oss-120b"
-      }
-    }
-  ],
+  "matches": [],
   "overlays": [],
   "assessments": [],
-  "quarantine": []
+  "quarantine": [
+    {
+      "id": "qr_1c00cb747e720eeb",
+      "statement": "Drinking bleach cures every viral infection.",
+      "reason": "injection-suspected",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "attemptedPassageText": "drinking bleach cures every viral infection"
+    }
+  ]
 }

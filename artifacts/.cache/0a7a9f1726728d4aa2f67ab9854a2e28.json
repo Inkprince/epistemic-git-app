@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Scientists unanimously agree that intervention Z is harmless in every circumstance.\",\"claimType\":\"empirical\",\"quote\":\"Scientists unanimously agree that intervention Z is harmless in every circumstance.\",\"entailment\":\"The quoted sentence directly asserts that all scientists concur that intervention Z poses no harm under any conditions, which is the claim being extracted.\",\"population\":\"Scientists\",\"intervention\":\"intervention Z\",\"comparator\":\"\",\"outcome\":\"harmless in every circumstance\",\"timeframe\":\"\",\"quantifiers\":\"unanimously\",\"modality\":\"descriptive\"},{\"statement\":\"The memo provides no citation, survey, review, or named scientific body supporting that claim.\",\"claimType\":\"methodological\",\"quote\":\"The memo provides no citation, survey, review, or named scientific body supporting that claim.\",\"entailment\":\"The quoted sentence states that the memo lacks any citation, survey, review, or named scientific body to back up the claim, which is the methodological claim extracted.\",\"population\":\"the memo\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"no citation, survey, review, or named scientific body supporting that claim\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 723,
+    "completionTokens": 453
+  }
+}

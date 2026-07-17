@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { BundleBuilder, type Bundle, toNanopubTrig, validateBundle, type SourceType } from "@epistemic-git/protocol";
 import { readBundleFile, writeBundleFile } from "@epistemic-git/protocol/node";
@@ -11,6 +11,18 @@ import { matchClaims } from "./stages/match.js";
 import { inferArgument } from "./stages/infer.js";
 import { auditBundle } from "./stages/audit.js";
 import { deriveCorrelationGroups } from "./stages/correlate.js";
+import { loadSourceInput } from "./fetch-source.js";
+import type { ScraperName } from "./scrape.js";
+import { discoverSources } from "./discover.js";
+
+/** Shared scraper options derived from the CLI flags, threaded into any URL retrieval. */
+function scrapeOptsFrom(flags: Record<string, string>, live: boolean) {
+  return {
+    live,
+    ...(flags["scraper"] ? { scraper: flags["scraper"] as ScraperName } : {}),
+    log: (m: string) => console.error(m),
+  };
+}
 
 /**
  * egit CLI — pipeline stages over the command line.
@@ -62,15 +74,15 @@ async function finish(bundle: Bundle, outPath: string) {
 async function runExtract(flags: Record<string, string>, live: boolean): Promise<{ bundle: Bundle; outPath: string }> {
   const inPath = flags["in"];
   const title = flags["title"];
-  if (!inPath || !title) { console.error('extract/build require --in <textfile> and --title "<title>"'); process.exit(1); }
+  if (!inPath || !title) { console.error('extract/build require --in <textfile|url> and --title "<title>"'); process.exit(1); }
   const type = (flags["type"] ?? "other") as SourceType;
   const caseName = flags["case"] ?? "adhoc";
   const question = flags["question"] ?? `What does “${title}” establish?`;
   const outPath = flags["out"] ?? resolve(process.cwd(), "artifacts", `${caseName}.jsonl`);
-  const text = await readFile(resolve(process.cwd(), inPath), "utf8");
+  const { text, url } = await loadSourceInput(inPath, flags["url"], scrapeOptsFrom(flags, live));
 
   const builder = new BundleBuilder({ case: caseName, title, question, mode: live ? "live" : "cached" });
-  const sourceId = builder.source({ type, title, ...(flags["url"] ? { url: flags["url"] } : {}) });
+  const sourceId = builder.source({ type, title, ...(url ? { url } : {}) });
   const client = makeClient(live);
   console.error(`Extracting from "${title}" (${live ? "live" : "cached"}, ${client.model})…`);
   const stats = await extractInto(builder, client, { sourceId, sourceTitle: title, text });
@@ -109,18 +121,18 @@ async function main() {
   if (cmd === "add-source") {
     const inPath = flags["in"]; const srcPath = flags["source-in"]; const title = flags["title"];
     if (!inPath || !srcPath || !title) {
-      console.error('add-source requires --in <bundle.jsonl> --source-in <textfile> --title "<title>" [--type <t>] [--url <u>] [--out <path>] [--live]');
+      console.error('add-source requires --in <bundle.jsonl> --source-in <textfile|url> --title "<title>" [--type <t>] [--url <u>] [--out <path>] [--live]');
       process.exit(1);
     }
     const existing = await readBundleFile(resolve(process.cwd(), inPath));
     const conclusion = existing.claims.find((c) => c.derived);
     const before = conclusion ? computeSupport(existing).support.get(conclusion.id) ?? null : null;
 
-    const text = await readFile(resolve(process.cwd(), srcPath), "utf8");
+    const { text, url } = await loadSourceInput(srcPath, flags["url"], scrapeOptsFrom(flags, live));
     const client = makeClient(live);
     // Extract the new source into a mini-bundle sharing the case, then merge it in (non-destructive).
     const mini = new BundleBuilder({ case: existing.case, title: existing.title, question: existing.question, mode: live ? "live" : "cached" });
-    const sid = mini.source({ type: (flags["type"] ?? "other") as SourceType, title, ...(flags["url"] ? { url: flags["url"] } : {}) });
+    const sid = mini.source({ type: (flags["type"] ?? "other") as SourceType, title, ...(url ? { url } : {}) });
     console.error(`Extracting new source "${title}" (${live ? "live" : "cached"})…`);
     const est = await extractInto(mini, client, { sourceId: sid, sourceTitle: title, text });
 
@@ -137,6 +149,24 @@ async function main() {
       console.error(`  ${moved ? "!" : "="} conclusion support: ${(before * 100).toFixed(1)}% → ${(after * 100).toFixed(1)}%${moved ? "" : " (unchanged until re-inference — run `egit infer` to connect the new evidence)"}`);
     }
     await finish(merged, flags["out"] ?? resolve(process.cwd(), inPath));
+    return;
+  }
+
+  if (cmd === "discover") {
+    const query = flags["query"] ?? positionals.join(" ").trim();
+    if (!query) { console.error('discover requires a query: egit discover --query "<topic>" [--limit n] [--live]'); process.exit(1); }
+    const limit = Number(flags["limit"]) > 0 ? Number(flags["limit"]) : undefined;
+    const result = await discoverSources(query, {
+      live, ...(limit ? { limit } : {}), log: (m) => console.error(m),
+    });
+    if (result.candidates.length === 0) { console.error("No candidate sources found."); return; }
+    console.error(`\nCandidate sources for “${result.query}” (proposals — nothing admitted; review, then add the ones you trust):\n`);
+    for (const c of result.candidates) {
+      console.error(`  ${String(c.rank).padStart(2)}. ${c.title}`);
+      console.error(`      ${c.url}`);
+      if (c.description) console.error(`      ${c.description.slice(0, 140)}${c.description.length > 140 ? "…" : ""}`);
+    }
+    console.error(`\nAdmit one explicitly, e.g.:\n  egit add-source --in artifacts/<case>.jsonl --source-in "${result.candidates[0]!.url}" --title "<title>" --live`);
     return;
   }
 
@@ -218,12 +248,18 @@ async function main() {
   }
 
   console.error(`Usage:
-  egit extract --in <textfile> --title "<title>" --type <paper|report|blog|news|…> [--case <c>] [--question "<q>"] [--url <u>] [--out <path>] [--live]
+  egit extract --in <textfile|url> --title "<title>" --type <paper|report|blog|news|…> [--case <c>] [--question "<q>"] [--url <u>] [--out <path>] [--live]
   egit build   <same flags as extract>            # extract → match → infer → audit → correlate
   egit match   --in <bundle.jsonl> [--out <path>] [--live]
   egit infer   --in <bundle.jsonl> [--out <path>] [--live]
   egit audit   --in <bundle.jsonl> [--out <path>] [--live]
-  egit add-source --in <bundle.jsonl> --source-in <textfile> --title "<t>" [--type <t>] [--url <u>] [--out <path>] [--live]
+  egit add-source --in <bundle.jsonl> --source-in <textfile|url> --title "<t>" [--type <t>] [--url <u>] [--out <path>] [--live]
+  egit discover --query "<topic>" [--limit n] [--live]   # propose candidate sources (Firecrawl); admits nothing
+
+  --in / --source-in accept a local file OR an http(s) URL (the URL is recorded as the source link unless
+  --url overrides). --scraper native (default, no key) | firecrawl (renders JS/markdown; needs
+  FIRECRAWL_API_KEY + --live) | auto. Retrieval fetches a source you name; discover proposes candidates
+  for you to review — neither searches-and-decides for you, and nothing is admitted without an explicit add-source.
   egit verify        <bundle.jsonl>                # validate schema + provenance + id integrity
   egit export-nanopub <bundle.jsonl> [--out x.trig] # emit Nanopublication TriG
   egit merge   <a.jsonl> <b.jsonl> [--out merged.jsonl]   # content-addressed merge + report`);

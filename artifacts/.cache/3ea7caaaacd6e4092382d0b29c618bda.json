@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"The source is misleading about the treatment’s safety.\",\"inferences\":[{\"type\":\"supports\",\"premiseIndexes\":[0,1],\"conclusionIndex\":-1,\"warrant\":\"If a promotional excerpt isolates the phrase ‘the treatment is safe’ that, in the original report, appears inside a sentence explicitly stating it would be wrong to conclude safety, the excerpt conveys the opposite meaning, indicating misrepresentation.\",\"strength\":\"strong\",\"defeaters\":[\"The excerpt includes the negating clause or a disclaimer that preserves the original caution\",\"The isolated phrase remains accurate despite the original context\"]},{\"type\":\"explains\",\"premiseIndexes\":[2],\"conclusionIndex\":-1,\"warrant\":\"Removing the opening and closing qualifiers that negate a claim reverses its meaning, demonstrating that the excerpt changes the original report’s intent.\",\"strength\":\"moderate\",\"defeaters\":[\"The removal does not actually reverse the meaning\",\"Other surrounding text still conveys the original negation\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 798,
+    "completionTokens": 923
+  }
+}

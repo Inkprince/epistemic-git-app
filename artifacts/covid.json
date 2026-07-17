@@ -670,6 +670,25 @@
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
       }
+    },
+    {
+      "id": "inf_7e004aa4f582ded4",
+      "type": "undercuts",
+      "premises": [
+        "cl_a1132300611645f0"
+      ],
+      "conclusion": "cl_f49817a45b664e75",
+      "warrant": "If proximity ascertainment bias makes residential-clustering inferences unreliable, the clustering cannot establish the market as the early epicentre.",
+      "assumptions": [],
+      "defeaters": [
+        "The bias is shown to be small or absent",
+        "Non-spatial lines of evidence independently establish the epicentre"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "human",
+        "ref": "analyst-review"
+      }
     }
   ],
   "challenges": [
@@ -1029,8 +1048,162 @@
       }
     }
   ],
-  "overlays": [],
-  "assessments": [],
+  "overlays": [
+    {
+      "id": "ovl_0a8fca1d7cffd553",
+      "label": "Market-central reading",
+      "description": "Reads the residential-clustering evidence as robust: the mode is a sound centre that falls at the market, and the ascertainment-bias objection is not established, so it does not undercut the epicentre conclusion.",
+      "analyst": {
+        "kind": "human",
+        "ref": "market-central-reading"
+      },
+      "priorStance": "The early-case clustering points to the Huanan market as the epicentre."
+    },
+    {
+      "id": "ovl_c52740341ab37de5",
+      "label": "Ascertainment-bias reading",
+      "description": "Holds that proximity ascertainment bias is real and large, so residential-clustering inferences are unreliable and cannot carry the epicentre conclusion; doubts the stochasticity rescue and reads a mode at the market as partly an artefact of where cases were sought.",
+      "analyst": {
+        "kind": "human",
+        "ref": "ascertainment-skeptic-reading"
+      },
+      "priorStance": "The clustering may be an artefact of where cases were sought; centrality is not established."
+    }
+  ],
+  "assessments": [
+    {
+      "id": "asm_c27d4e0d062e6450",
+      "overlayId": "ovl_0a8fca1d7cffd553",
+      "target": {
+        "kind": "claim",
+        "id": "cl_64cb0faf6e986cc1"
+      },
+      "stance": "accept",
+      "weight": 0.9,
+      "rationale": "With proper implementation the mode falls at the market entrance and the 95% region includes it."
+    },
+    {
+      "id": "asm_c977ada1a986e418",
+      "overlayId": "ovl_0a8fca1d7cffd553",
+      "target": {
+        "kind": "claim",
+        "id": "cl_e9f69a0cf43dc591"
+      },
+      "stance": "accept",
+      "weight": 0.5,
+      "rationale": "The Worobey et al. centrality result is sound."
+    },
+    {
+      "id": "asm_63e39e76d0707bdb",
+      "overlayId": "ovl_0a8fca1d7cffd553",
+      "target": {
+        "kind": "claim",
+        "id": "cl_16b42775ee685e5b"
+      },
+      "stance": "accept",
+      "weight": 0.6,
+      "rationale": "Infection away from home plus chance explains the pattern without any bias."
+    },
+    {
+      "id": "asm_b5a5c3a7e8d727ba",
+      "overlayId": "ovl_0a8fca1d7cffd553",
+      "target": {
+        "kind": "claim",
+        "id": "cl_0fd237cc33f4766f"
+      },
+      "stance": "reject",
+      "weight": 0.8,
+      "rationale": "The distance comparison is not compelling once infection locations are not assumed residential."
+    },
+    {
+      "id": "asm_d816d6af3d103f14",
+      "overlayId": "ovl_0a8fca1d7cffd553",
+      "target": {
+        "kind": "claim",
+        "id": "cl_f8ae25b8406d0b8d"
+      },
+      "stance": "reject",
+      "weight": 0.8,
+      "rationale": "The sign is consistent with ordinary spread, not with large bias."
+    },
+    {
+      "id": "asm_9b2df1c7eeb72bb6",
+      "overlayId": "ovl_0a8fca1d7cffd553",
+      "target": {
+        "kind": "inference",
+        "id": "inf_7e004aa4f582ded4"
+      },
+      "stance": "reject",
+      "weight": 0.7,
+      "rationale": "The bias is not established, so it does not undercut centrality."
+    },
+    {
+      "id": "asm_473a8b3a0ebcc891",
+      "overlayId": "ovl_c52740341ab37de5",
+      "target": {
+        "kind": "claim",
+        "id": "cl_0fd237cc33f4766f"
+      },
+      "stance": "accept",
+      "weight": 0.9,
+      "rationale": "The closer-than-linked pattern is the signature of proximity ascertainment bias."
+    },
+    {
+      "id": "asm_afd1f8a7e4deb196",
+      "overlayId": "ovl_c52740341ab37de5",
+      "target": {
+        "kind": "claim",
+        "id": "cl_f8ae25b8406d0b8d"
+      },
+      "stance": "accept",
+      "weight": 0.9,
+      "rationale": "The sign of the distance difference matches a large-bias model."
+    },
+    {
+      "id": "asm_e099254bc7007c27",
+      "overlayId": "ovl_c52740341ab37de5",
+      "target": {
+        "kind": "claim",
+        "id": "cl_16b42775ee685e5b"
+      },
+      "stance": "uncertain",
+      "weight": 0.6,
+      "rationale": "Stochasticity is asserted, not shown sufficient to explain the pattern."
+    },
+    {
+      "id": "asm_5dea5de1f4025598",
+      "overlayId": "ovl_c52740341ab37de5",
+      "target": {
+        "kind": "claim",
+        "id": "cl_64cb0faf6e986cc1"
+      },
+      "stance": "uncertain",
+      "weight": 0.7,
+      "rationale": "A mode at the market may itself reflect where cases were ascertained."
+    },
+    {
+      "id": "asm_2ab6c5cd892bcb44",
+      "overlayId": "ovl_c52740341ab37de5",
+      "target": {
+        "kind": "claim",
+        "id": "cl_e9f69a0cf43dc591"
+      },
+      "stance": "uncertain",
+      "weight": 0.4,
+      "rationale": "Centrality is exactly what is contested."
+    },
+    {
+      "id": "asm_cace887afd91982c",
+      "overlayId": "ovl_c52740341ab37de5",
+      "target": {
+        "kind": "inference",
+        "id": "inf_7e004aa4f582ded4"
+      },
+      "stance": "accept",
+      "weight": 0.9,
+      "rationale": "If the clustering is unreliable, it cannot establish the market as epicentre."
+    }
+  ],
   "quarantine": [
     {
       "id": "qr_e8b6bc921b62b077",

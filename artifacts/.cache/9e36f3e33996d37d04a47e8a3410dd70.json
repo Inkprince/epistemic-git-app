@@ -1,0 +1,9 @@
+{
+  "text": "{\"challenges\":[{\"challengeType\":\"scope-drift\",\"targetKind\":\"claim\",\"targetIndex\":1,\"topic\":\"\",\"rationale\":\"The source only examined 42 participants aged 65‑75 over an eight‑week follow‑up, yet the claim asserts permanent fall prevention for \\\"everyone of every age,\\\" which extends far beyond the observed sample, timeframe, and outcome window.\",\"suggestedRemedy\":\"Restrict the claim to the studied population and period (e.g., \\\"reduced falls during the eight‑week follow‑up among adults 65‑75\\\"), or provide additional evidence covering broader ages and longer durations.\"},{\"challengeType\":\"omitted-qualification\",\"targetKind\":\"inference\",\"targetIndex\":0,\"topic\":\"\",\"rationale\":\"Inference [0] treats any controlled trial as sufficient evidence for program effectiveness, ignoring essential qualifications such as internal validity, external validity, sample size, and potential confounders that limit the strength of the conclusion.\",\"suggestedRemedy\":\"Add a qualification that the trial’s results are provisional and contingent on factors like sample representativeness, methodological rigor, and replication in larger, diverse cohorts.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 895,
+    "completionTokens": 774
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"An eight-week trial in 42 adults aged 65 to 75 found that the supervised balance program reduced falls during the eight-week follow-up.\",\"claimType\":\"empirical\",\"quote\":\"An eight-week trial in 42 adults aged 65 to 75 found that the supervised balance program reduced falls during the eight-week follow-up.\",\"entailment\":\"The quoted sentence reports the trial’s result that the supervised balance program led to fewer falls over the eight‑week follow‑up, directly supporting the claim of a reduction in falls.\",\"population\":\"42 adults aged 65 to 75\",\"intervention\":\"supervised balance program\",\"comparator\":\"\",\"outcome\":\"reduced falls\",\"timeframe\":\"eight-week follow-up\",\"quantifiers\":\"eight-week trial\",\"modality\":\"causal\"},{\"statement\":\"The article concludes that the program prevents falls permanently for everyone of every age.\",\"claimType\":\"empirical\",\"quote\":\"The article concludes that the program prevents falls permanently for everyone of every age.\",\"entailment\":\"The quoted sentence states the article’s conclusion that the program will permanently prevent falls for all ages, which underlies the claim of lifelong universal fall prevention.\",\"population\":\"everyone of every age\",\"intervention\":\"the program\",\"comparator\":\"\",\"outcome\":\"prevents falls permanently\",\"timeframe\":\"forever\",\"quantifiers\":\"\",\"modality\":\"causal\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 733,
+    "completionTokens": 620
+  }
+}

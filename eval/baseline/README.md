@@ -48,6 +48,21 @@ npx tsx eval/baseline/cli.ts render --run pilot-001
 `eval/baseline/runs/pilot-001/private/run-packets/`; it calls no service and
 creates no output on behalf of a baseline.
 
+### Rubric-blindness (who may run an arm)
+
+The private scoring rubrics (`accuracyCriteria` / `cruxCriteria` in
+`config/tasks.json`) are what the human raters score against. **Whoever runs an
+arm must not have seen those rubrics** — otherwise the artifact can be written to
+the test and the comparison is void. The render packets are deliberately
+rubric-free: they contain the common contract, the arm instructions, the task's
+`researchQuestion`/`taskType`, and the allowed sources, but **not** the rubric.
+So the safe procedure is: run each arm in a *fresh context whose only input is one
+render packet (plus the allowed source files)* — a new model session, a separate
+operator, or a subagent seeded solely with the packet. Do not run an arm from a
+context that has read `config/tasks.json` or `runs/*/private/scores.json`. This is
+why the project's own assistant, having read the rubrics to build the study, does
+**not** generate the comparison artifacts itself.
+
 Run each packet using the configured arm. Save the exact neutral JSON returned by
 the arm without semantic editing. If syntax repair is unavoidable, retain the raw
 provider output separately, document the transformation in `notes`, and have an

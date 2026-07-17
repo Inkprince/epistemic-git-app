@@ -324,6 +324,7 @@
                     "enum": [
                       "causal",
                       "associational",
+                      "conditional",
                       "definitional",
                       "normative",
                       "predictive",
@@ -597,7 +598,8 @@
                   "institution",
                   "funder",
                   "methodology",
-                  "instrument"
+                  "instrument",
+                  "publication"
                 ]
               },
               "rationale": {
@@ -610,6 +612,50 @@
               "members",
               "sharedOrigin",
               "rationale"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "equivalent",
+                  "possibly-equivalent",
+                  "narrower",
+                  "broader",
+                  "contradicts",
+                  "compatible-different-scope"
+                ]
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "attribution": {
+                "$ref": "#/definitions/EpistemicGitBundle/properties/claims/items/properties/attribution"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "from",
+              "to",
+              "rationale",
+              "attribution"
             ],
             "additionalProperties": false
           },
@@ -719,7 +765,8 @@
                   "passage-does-not-entail",
                   "unverifiable-source",
                   "duplicate",
-                  "out-of-scope"
+                  "out-of-scope",
+                  "injection-suspected"
                 ]
               },
               "attemptedPassageText": {

@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"Infantino may have breached political neutrality rules.\",\"inferences\":[{\"type\":\"evidence-for\",\"premiseIndexes\":[2],\"conclusionIndex\":0,\"warrant\":\"The fact that Balogun played after alleged lobbying provides factual context for the complaint about political interference.\",\"strength\":\"weak\",\"defeaters\":[\"If the match outcome is unrelated to the alleged lobbying, the evidence does not support the complaint.\"]},{\"type\":\"rebuts\",\"premiseIndexes\":[1],\"conclusionIndex\":0,\"warrant\":\"Infantino's statement that he did not interfere directly challenges the claim that he breached neutrality rules.\",\"strength\":\"moderate\",\"defeaters\":[\"If Infantino's denial is untrustworthy or if indirect influence still constitutes a breach.\"]},{\"type\":\"undercuts\",\"premiseIndexes\":[4],\"conclusionIndex\":5,\"warrant\":\"The autonomy of FIFA's judicial committees may limit the IOC's ability to enforce its neutrality rules, weakening the claim that the IOC can expel members for violations.\",\"strength\":\"moderate\",\"defeaters\":[\"If IOC authority supersedes committee autonomy or if autonomy does not affect expulsion powers.\"]},{\"type\":\"supports\",\"premiseIndexes\":[0,5],\"conclusionIndex\":-1,\"warrant\":\"A formal complaint alleging breach, together with the IOC's established neutrality rules, together suggest that Infantino may have violated those rules.\",\"strength\":\"moderate\",\"defeaters\":[\"If the complaint is unfounded, or if the rules do not apply to Infantino's actions.\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 903,
+    "completionTokens": 1088
+  }
+}

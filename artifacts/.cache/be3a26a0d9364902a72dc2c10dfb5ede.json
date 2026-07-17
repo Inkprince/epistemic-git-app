@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"Infantino is corrupt\",\"inferences\":[{\"type\":\"evidence-for\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"A formal complaint alleging breach of political neutrality provides evidence that the accused may be corrupt.\",\"strength\":\"moderate\",\"defeaters\":[\"The complaint is unfounded or dismissed after investigation\"]},{\"type\":\"rebuts\",\"premiseIndexes\":[1],\"conclusionIndex\":0,\"warrant\":\"A direct denial of interference weakens the allegation that Infantino breached neutrality.\",\"strength\":\"moderate\",\"defeaters\":[\"Independent evidence shows Infantino did intervene\"]},{\"type\":\"undercuts\",\"premiseIndexes\":[4],\"conclusionIndex\":0,\"warrant\":\"If FIFA's judicial committees act autonomously, external complaints have reduced evidential weight.\",\"strength\":\"weak\",\"defeaters\":[\"The committees are shown to be biased or not truly autonomous\"]},{\"type\":\"presupposes\",\"premiseIndexes\":[5],\"conclusionIndex\":0,\"warrant\":\"The complaint presupposes that Infantino is bound by strict political‑neutrality rules in the Olympic Charter and IOC Code of Ethics.\",\"strength\":\"strong\",\"defeaters\":[\"The rules do not apply to Infantino’s role or are interpreted differently\"]},{\"type\":\"evidence-for\",\"premiseIndexes\":[2],\"conclusionIndex\":1,\"warrant\":\"The fact that Balogun played after the USMNT’s elimination suggests no undue influence by Infantino on the selection process.\",\"strength\":\"moderate\",\"defeaters\":[\"The call from Trump influenced earlier selection decisions despite the later appearance\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 899,
+    "completionTokens": 965
+  }
+}
