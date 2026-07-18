@@ -21,6 +21,7 @@
     "demo:covid": "tsx scripts/demo-covid.ts",
     "demo:eggs": "tsx scripts/demo-eggs.ts",
     "demo:merge": "tsx scripts/demo-merge.ts",
+    "build:whitepaper": "bash scripts/build-whitepaper.sh",
     "author:covid": "tsx cases/covid.ts",
     "author:eggs": "tsx cases/eggs.ts",
     "dev": "npm run dev -w @epistemic-git/tool",

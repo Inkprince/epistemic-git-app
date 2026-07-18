@@ -31,6 +31,20 @@ The pre-built case bundles in `artifacts/` let everything run offline. The extra
 
 ## What's here so far
 
+### Official white paper
+
+The canonical paper is [`spec/whitepaper.md`](spec/whitepaper.md), with the publication
+outputs at [`spec/whitepaper.pdf`](spec/whitepaper.pdf) and
+[`spec/whitepaper.docx`](spec/whitepaper.docx). Rebuild and validate all formats from the
+same Markdown source with:
+
+```bash
+npm run build:whitepaper
+```
+
+The build creates an isolated temporary Python environment on first use and enforces the
+competition's ten-page PDF limit.
+
 | Package | Role |
 |---|---|
 | `packages/protocol` | The durable contribution: the six-object ledger schema (Source → Passage → Claim → Inference → Challenge → Assessment), content-addressed ids, validation invariants, JSONL IO, JSON Schema + Nanopublication export. |
