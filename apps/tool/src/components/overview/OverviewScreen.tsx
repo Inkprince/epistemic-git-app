@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useCases } from "../../cases/store.js";
 import { pct, truncate } from "../../domain.js";
-import { attributionMix, auditActivity, overviewKpis, supportByCase } from "../../stats.js";
+import { attributionMix, auditActivity, caseMatches, overviewKpis, supportByCase } from "../../stats.js";
 import type { AuditItem } from "../../stats.js";
 import {
   AlertIcon, CheckIcon, DownloadIcon, FileTextIcon, FolderIcon, LinkIcon, MessageIcon, PlusIcon, QuarantineIcon, ZapIcon,
@@ -9,26 +9,22 @@ import {
 import { Avatar, Badge, IconTile, Pill, pressable } from "../primitives.js";
 
 export function OverviewScreen({
-  query, onOpenCase, onOpenImport, onOpenRunPanel,
+  query, onOpenCase, onOpenImport, onOpenBuildCase,
 }: {
   query: string;
   onOpenCase: (caseId: string, selectId?: string) => void;
   onOpenImport: () => void;
-  onOpenRunPanel?: () => void;
+  onOpenBuildCase?: () => void;
 }) {
   const { cases: registry } = useCases();
   const kpis = useMemo(() => overviewKpis(registry), [registry]);
-  const mergeableIds = useMemo(
-    () => new Set(Object.values(registry).filter((c) => c.mergePairs?.length).map((c) => c.id)),
-    [registry],
-  );
-  const cases = useMemo(() => supportByCase(registry, mergeableIds), [registry, mergeableIds]);
+  const cases = useMemo(() => supportByCase(registry), [registry]);
   const mix = useMemo(() => attributionMix(registry), [registry]);
   const activity = useMemo(() => auditActivity(registry, 4), [registry]);
 
   const q = query.trim().toLowerCase();
   const visibleCases = q
-    ? cases.filter((c) => c.label.toLowerCase().includes(q) || registry[c.id]!.bundle.question.toLowerCase().includes(q))
+    ? cases.filter((c) => caseMatches(c.label, registry[c.id]!.bundle, q))
     : cases;
   const best = cases.reduce((a, b) => (b.support > a.support ? b : a), cases[0]!);
 
@@ -36,7 +32,7 @@ export function OverviewScreen({
     <div className="scrl" style={{ overflowY: "auto", flex: 1 }}>
       <div className="page-head">
         <div>
-          <div className="title">Cases</div>
+          <div className="title">All cases</div>
           <div className="sub">Real case studies where every claim traces back to an exact quote. Distrust any piece of evidence and watch the conclusion recompute.</div>
         </div>
         <div className="spacer" />
@@ -44,13 +40,13 @@ export function OverviewScreen({
           <button className="btn-outline" onClick={onOpenImport}>
             <DownloadIcon size={18} style={{ transform: "rotate(180deg)" }} /> Import case
           </button>
-          {onOpenRunPanel && (
-            <button className="btn-outline" onClick={onOpenRunPanel}>
-              <ZapIcon size={18} /> Run pipeline
+          {onOpenBuildCase && (
+            <button className="btn-outline" onClick={onOpenBuildCase}>
+              <ZapIcon size={18} /> Build a case
             </button>
-          )}
+)}
           <button className="btn-primary" onClick={() => onOpenCase("lhc")}>
-            <PlusIcon size={18} color="#fff" /> Open flagship case
+            <PlusIcon size={18} color="#fff" /> Try the LHC example
           </button>
         </div>
       </div>
@@ -59,7 +55,7 @@ export function OverviewScreen({
         <div className="kpi-card">
           <div className="top">
             <IconTile><FolderIcon size={21} /></IconTile>
-            <Pill tone="amber">{mergeableIds.size} mergeable</Pill>
+            <Pill tone="neutral">{kpis.sources} sources</Pill>
           </div>
           <div className="val">{kpis.cases}</div>
           <div className="lbl">Cases</div>
@@ -67,7 +63,7 @@ export function OverviewScreen({
         <div className="kpi-card">
           <div className="top">
             <IconTile><FileTextIcon size={21} /></IconTile>
-            <Pill tone="green"><CheckIcon size={12} /> {kpis.passages} passages</Pill>
+            <Pill tone="green"><CheckIcon size={12} /> {kpis.passages} exact quotes</Pill>
           </div>
           <div className="val">{kpis.claims}</div>
           <div className="lbl">Claims tracked</div>
@@ -83,10 +79,10 @@ export function OverviewScreen({
         <div className="kpi-card">
           <div className="top">
             <IconTile><QuarantineIcon size={21} /></IconTile>
-            <Pill tone="neutral">no source quote</Pill>
+            <Pill tone="neutral">no verifiable quote</Pill>
           </div>
           <div className="val">{kpis.quarantined}</div>
-          <div className="lbl">Claims quarantined</div>
+          <div className="lbl">Claims excluded</div>
         </div>
       </div>
 
@@ -105,11 +101,11 @@ export function OverviewScreen({
           </div>
           <div className="barchart">
             {cases.map((c) => (
-              <div key={c.id} className="bar-col" onClick={() => onOpenCase(c.id)} {...pressable(() => onOpenCase(c.id))} title={`Open ${c.label}`} aria-label={`Open ${c.label} — support ${pct(c.support)}`}>
+              <div key={c.id} className="bar-col" onClick={() => onOpenCase(c.id)} {...pressable(() => onOpenCase(c.id))} title={`Open ${c.label}`} aria-label={`Open ${c.label}, support ${pct(c.support)}`}>
                 <span className="bar-val">{pct(c.support)}</span>
                 <div className={`bar-fill${c.id === best.id ? " hot" : ""}`} style={{ height: `${Math.max(4, c.support * 100)}%` }} />
               </div>
-            ))}
+))}
           </div>
           <div className="bar-axis">
             {cases.map((c) => <span key={c.id} className={c.id === best.id ? "hot" : ""}>{c.label}</span>)}
@@ -120,7 +116,7 @@ export function OverviewScreen({
           <div className="head">
             <div>
               <div className="t">Where each claim came from</div>
-              <div className="s">Who each claim came from</div>
+              <div className="s">Quoted from a source, proposed by AI, or added by a person</div>
             </div>
           </div>
           <AttributionDonut mix={mix} />
@@ -144,30 +140,28 @@ export function OverviewScreen({
               <span className="num">{pct(c.support)}</span>
               <span>
                 {c.generated
-                  ? <Badge tone="green">pipeline-generated</Badge>
-                  : c.mergeable
-                    ? <Badge tone="amber">mergeable</Badge>
-                    : <Badge tone="purple">{c.overlays} perspectives</Badge>}
+                  ? <Badge tone="green">AI-built</Badge>
+                  : <Badge tone="purple">{c.overlays} perspectives</Badge>}
               </span>
               <span className="end">{c.claims}</span>
             </div>
-          ))}
+))}
           {visibleCases.length === 0 && <p className="note">No cases match “{query.trim()}”.</p>}
         </div>
 
         <div className="panel-card">
           <div className="head" style={{ marginBottom: 22 }}>
-            <div className="t">Audit trail</div>
+            <div className="t">Recent scrutiny</div>
           </div>
           <div className="timeline">
             {activity.map((a, i) => (
               <ActivityRow key={i} item={a} last={i === activity.length - 1} onOpen={onOpenCase} />
-            ))}
+))}
           </div>
         </div>
       </div>
     </div>
-  );
+);
 }
 
 function AttributionDonut({ mix }: { mix: { fromSource: number; llm: number; human: number; quarantined: number; total: number } }) {
@@ -176,7 +170,7 @@ function AttributionDonut({ mix }: { mix: { fromSource: number; llm: number; hum
     { label: "From source", value: mix.fromSource, color: "#171717" },
     { label: "AI-proposed", value: mix.llm, color: "#22c55e" },
     { label: "Human", value: mix.human, color: "#ffe24d" },
-    { label: "Quarantined", value: mix.quarantined, color: "#e2e2e2" },
+    { label: "Excluded", value: mix.quarantined, color: "#e2e2e2" },
   ].filter((s) => s.value > 0);
   let acc = 0;
   const stops = segs.map((s) => {
@@ -201,10 +195,10 @@ function AttributionDonut({ mix }: { mix: { fromSource: number; llm: number; hum
             <span className="k">{s.label}</span>
             <span className="v">{Math.round((s.value / grand) * 100)}%</span>
           </div>
-        ))}
+))}
       </div>
     </>
-  );
+);
 }
 
 function ActivityRow({ item, last, onOpen }: { item: AuditItem; last: boolean; onOpen: (caseId: string, selectId?: string) => void }) {
@@ -219,9 +213,9 @@ function ActivityRow({ item, last, onOpen }: { item: AuditItem; last: boolean; o
         {!last && <div className="tl-line" />}
       </div>
       <div className="tl-body">
-        <div className="tl-text"><strong>{item.actor}</strong> — {truncate(item.text, 92)}</div>
+        <div className="tl-text"><strong>{item.actor}</strong>, {truncate(item.text, 92)}</div>
         <div className="tl-meta">{item.caseLabel}</div>
       </div>
     </div>
-  );
+);
 }

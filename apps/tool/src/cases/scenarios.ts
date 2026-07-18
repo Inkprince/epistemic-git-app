@@ -1,7 +1,7 @@
 import type { ScenarioState } from "../routing.js";
 
 /**
- * Named scenarios — the app's "branches". A scenario is a saved belief-state (perspective +
+ * Named scenarios, the app's "branches". A scenario is a saved belief-state (perspective +
  * distrust set + correlation toggle) over an immutable ledger: you branch interpretations,
  * not data. Persisted locally per case; shareable because the same state round-trips
  * through the URL scenario codec.
@@ -26,7 +26,7 @@ function loadStore(): Store {
 
 function saveStore(s: Store): void {
   if (typeof localStorage === "undefined") return;
-  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch { /* quota — ignore */ }
+  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch { /* quota, ignore */ }
 }
 
 export function loadScenarios(caseId: string): Scenario[] {

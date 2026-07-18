@@ -1,5 +1,5 @@
 /** Provider-agnostic LLM interface. The model id is always configuration, never hard-coded, so a
- * better model is a swap — and the assessment layer never depends on any of this. */
+ * better model is a swap, and the assessment layer never depends on any of this. */
 
 export type Role = "system" | "user" | "assistant";
 
@@ -41,7 +41,7 @@ export interface LlmClient {
   complete(params: CompleteParams): Promise<CompleteResult>;
 }
 
-/** Thrown in cached-only mode when an input was never recorded — a signal to run once with `--live`. */
+/** Thrown in cached-only mode when an input was never recorded, a signal to run once with `--live`. */
 export class CacheMissError extends Error {
   constructor(readonly key: string) {
     super(`No cached LLM response for key ${key}. Run once with --live (and an API key) to record it.`);

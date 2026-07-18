@@ -2,7 +2,8 @@ import { bundleDigest, validateBundle } from "@epistemic-git/protocol";
 import type { Bundle, ValidationIssue } from "@epistemic-git/protocol";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { appendEvent } from "./history.js";
+import { appendEvent, deleteHistory } from "./history.js";
+import { hideCase, loadHidden } from "./hidden.js";
 import { idbDelete, idbGetAllEntries, idbPut } from "./idb.js";
 import { loadCommittedCases } from "./manifest.js";
 import type { CaseEntry } from "./types.js";
@@ -17,7 +18,14 @@ interface CasesApi {
   /** True once IndexedDB hydration of imported cases has completed. */
   ready: boolean;
   importBundle(raw: unknown, label?: string): ImportResult;
-  removeImported(id: string): void;
+  /** Register a pipeline-built bundle as a first-class local case; returns its id (idempotent). */
+  addBuilt(bundle: Bundle, label?: string): string;
+  /**
+   * Delete any case. Imported/built cases are removed from IndexedDB and their history cleared.
+   * Committed (curated) cases are hidden client-side (reversible) and, in dev, their files and
+   * manifest entry are removed via /api/delete-case so the change persists.
+   */
+  deleteCase(id: string): void;
   renameImported(id: string, label: string): void;
 }
 
@@ -27,6 +35,8 @@ interface StoredImport {
   label: string;
   bundle: Bundle;
   digest: string;
+  /** Absent on entries stored before built cases existed, those are imports. */
+  origin?: "imported" | "built";
 }
 
 /**
@@ -35,7 +45,9 @@ interface StoredImport {
  * across reloads. Every imported bundle passed full validateBundle in the browser first.
  */
 export function CasesProvider({ children }: { children: ReactNode }) {
-  const committed = useMemo(loadCommittedCases, []);
+  const allCommitted = useMemo(loadCommittedCases, []);
+  const [hidden, setHidden] = useState<Set<string>>(() => loadHidden());
+  const committed = useMemo(() => allCommitted.filter((c) => !hidden.has(c.id)), [allCommitted, hidden]);
   const [imported, setImported] = useState<CaseEntry[]>([]);
   const [ready, setReady] = useState(false);
 
@@ -45,7 +57,7 @@ export function CasesProvider({ children }: { children: ReactNode }) {
       .then((entries) => {
         if (cancelled) return;
         setImported(entries.map(([id, v]) => ({
-          id, label: v.label, origin: "imported" as const, bundle: v.bundle, digest: v.digest,
+          id, label: v.label, origin: v.origin ?? ("imported" as const), bundle: v.bundle, digest: v.digest,
         })));
         setReady(true);
       })
@@ -76,19 +88,52 @@ export function CasesProvider({ children }: { children: ReactNode }) {
         appendEvent({ caseId: id, kind: "imported", digest, parents: [], note: finalLabel });
         return { ok: true, id, alreadyImported: false, warnings: check.issues.filter((i) => i.severity === "warning") };
       },
-      removeImported(id) {
+      addBuilt(bundle, label) {
+        const digest = bundleDigest(bundle);
+        const id = `built-${digest.slice(0, 8)}`;
+        const finalLabel = (label ?? "").trim() || bundle.title || "Built case";
+        if (!cases[id]) {
+          const entry: CaseEntry = { id, label: finalLabel, origin: "built", bundle, digest };
+          setImported((prev) => (prev.some((c) => c.id === id) ? prev : [...prev, entry]));
+          void idbPut<StoredImport>("imports", id, { label: finalLabel, bundle, digest, origin: "built" });
+          appendEvent({
+            caseId: id, kind: "pipeline-run", digest, parents: [],
+            stats: { claims: bundle.claims.length, challenges: bundle.challenges.length }, note: finalLabel,
+          });
+        }
+        return id;
+      },
+      deleteCase(id) {
+        const committedCase = allCommitted.some((c) => c.id === id);
+        if (committedCase) {
+          // Curated case: hide client-side (reversible) and, in dev, remove files + manifest entry.
+          setHidden(hideCase(id));
+          if (import.meta.env?.DEV) {
+            void fetch("/api/delete-case", {
+              method: "POST", headers: { "content-type": "application/json" },
+              body: JSON.stringify({ slug: id }),
+            }).catch(() => { /* hidden client-side regardless */ });
+          }
+          return;
+        }
         setImported((prev) => prev.filter((c) => c.id !== id));
         void idbDelete("imports", id);
+        deleteHistory(id);
       },
       renameImported(id, label) {
         const next = label.trim();
         if (!next) return;
         setImported((prev) => prev.map((c) => (c.id === id ? { ...c, label: next } : c)));
         const entry = imported.find((c) => c.id === id);
-        if (entry) void idbPut<StoredImport>("imports", id, { label: next, bundle: entry.bundle, digest: entry.digest });
+        if (entry) {
+          void idbPut<StoredImport>("imports", id, {
+            label: next, bundle: entry.bundle, digest: entry.digest,
+            ...(entry.origin === "built" ? { origin: "built" as const } : {}),
+          });
+        }
       },
     };
-  }, [committed, imported, ready]);
+  }, [allCommitted, committed, imported, ready]);
 
   return <CasesContext.Provider value={api}>{children}</CasesContext.Provider>;
 }

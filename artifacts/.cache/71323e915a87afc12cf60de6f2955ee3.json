@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Freedom Park is a park in Lagos.\",\"claimType\":\"definitional\",\"quote\":\"- [Freedom Park](https://en.wikipedia.org/wiki/Freedom_Park_(Lagos) \\\"Freedom Park (Lagos)\\\")\",\"entailment\":\"The listed item under the Parks section names Freedom Park, indicating it is a park located in Lagos.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Lagos National Stadium is a sports venue in Lagos.\",\"claimType\":\"definitional\",\"quote\":\"- [Lagos National Stadium](https://en.wikipedia.org/wiki/Lagos_National_Stadium \\\"Lagos National Stadium\\\")\",\"entailment\":\"The entry under Sports venues lists Lagos National Stadium, showing it is a sports venue in Lagos.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Third Mainland Bridge is a bridge in Lagos.\",\"claimType\":\"definitional\",\"quote\":\"- [Third Mainland Bridge](https://en.wikipedia.org/wiki/Third_Mainland_Bridge \\\"Third Mainland Bridge\\\")\",\"entailment\":\"The bridge appears in the Buildings and structures list, indicating it is a bridge located in Lagos.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2325,
+    "completionTokens": 440
+  }
+}

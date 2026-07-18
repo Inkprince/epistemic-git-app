@@ -3,20 +3,20 @@ import { buildGraph, ClaimGraph } from "./graph.js";
 import { computeSupport, type SupportOptions } from "./support.js";
 
 /**
- * The perspective diff — the killer feature.
+ * The perspective diff, the killer feature.
  *
  * Given two overlays over the SAME evidence, decompose their disagreement about a target claim
  * into per-node contributions: how much of the conclusion gap each claim accounts for. We do this
- * by one-at-a-time swaps — recompute overlay B's conclusion while adopting overlay A's belief for a
+ * by one-at-a-time swaps, recompute overlay B's conclusion while adopting overlay A's belief for a
  * single node, and measure how far the conclusion moves. The node whose swap moves it most is the
- * crux. This is "show the load-bearing evidence" made concrete and quantitative — and it never asks
+ * crux. This is "show the load-bearing evidence" made concrete and quantitative, and it never asks
  * a model for a verdict; it is pure arithmetic over the two stated belief sets.
  */
 
 function statedBelief(bundle: Bundle, overlayId: string, claimId: string): number | undefined {
   const a = bundle.assessments.find(
     (x) => x.overlayId === overlayId && x.target.kind === "claim" && x.target.id === claimId,
-  );
+);
   if (!a) return undefined;
   if (a.credence !== undefined) return a.credence;
   return { accept: 0.85, uncertain: 0.5, reject: 0.15, irrelevant: 0.0 }[a.stance];
@@ -45,7 +45,7 @@ export interface PerspectiveDiff {
   contributions: NodeContribution[];
   topCrux: NodeContribution | undefined;
   /**
-   * "quantitative" only when both overlays supply explicit credences on every contributing node — i.e.
+   * "quantitative" only when both overlays supply explicit credences on every contributing node, i.e.
    * a defensible probabilistic model exists. Otherwise "qualitative": the decomposition ranks structural
    * leverage from stances, and the percentages are relative weights, not calibrated probabilities.
    */
@@ -121,7 +121,7 @@ export interface CruxRanking {
 /**
  * Value of information: rank the contested nodes by how much resolving them would reduce the
  * disagreement about the target. This answers "what is the single most useful thing to settle
- * next?" — the crux to chase — rather than merely restating who believes what.
+ * next?" (the crux to chase) rather than merely restating who believes what.
  */
 export function valueOfInformation(
   bundleOrGraph: Bundle | ClaimGraph, overlayA: string, overlayB: string, target: string,

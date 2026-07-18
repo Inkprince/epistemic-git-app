@@ -42,9 +42,9 @@
       }
     },
     {
-      "id": "src_13848b8870f0ce2a",
+      "id": "src_bd847d06e4c9e6d2",
       "type": "preprint",
-      "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+      "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases, Reply to Weissman",
       "authors": [
         "Florence Débarre",
         "Michael Worobey"
@@ -176,8 +176,8 @@
       "verbatimText": "In the presence of such bias inferences based on the clustering of case locations become unreliable."
     },
     {
-      "id": "psg_1e363ab7575ae06a",
-      "sourceId": "src_13848b8870f0ce2a",
+      "id": "psg_05a27b7ae6b610be",
+      "sourceId": "src_bd847d06e4c9e6d2",
       "locator": {
         "kind": "char",
         "start": 246,
@@ -186,8 +186,8 @@
       "verbatimText": "Weissman (2024) argues that the finding that early COVID-19 cases without an ascertained link to Wuhan's Huanan Seafood Wholesale market resided on average closer to the market than cases epidemiologically linked to it, reveals \"major proximity ascertainment bias\"."
     },
     {
-      "id": "psg_0167fdf2d0952b2b",
-      "sourceId": "src_13848b8870f0ce2a",
+      "id": "psg_284ea0f0837bc382",
+      "sourceId": "src_bd847d06e4c9e6d2",
       "locator": {
         "kind": "char",
         "start": 512,
@@ -196,8 +196,8 @@
       "verbatimText": "Here we show that Weissman's conclusion is based on a flawed premise, and that there is no such \"internal evidence\" of major bias."
     },
     {
-      "id": "psg_3fdebbdbdf55b1ff",
-      "sourceId": "src_13848b8870f0ce2a",
+      "id": "psg_cd7c8bff8bbbec8e",
+      "sourceId": "src_bd847d06e4c9e6d2",
       "locator": {
         "kind": "char",
         "start": 643,
@@ -415,14 +415,14 @@
       "statement": "Weissman (2024) argues that the finding that early COVID-19 cases without an ascertained link to Wuhan's Huanan Seafood Wholesale market resided on average closer to the market than cases epidemiologically linked to it, reveals \"major proximity ascertainment bias\".",
       "claimType": "empirical",
       "passages": [
-        "psg_1e363ab7575ae06a"
+        "psg_05a27b7ae6b610be"
       ],
       "derived": false,
       "assumptions": [],
       "caveats": [],
       "attribution": {
         "kind": "source",
-        "ref": "src_13848b8870f0ce2a"
+        "ref": "src_bd847d06e4c9e6d2"
       },
       "tags": [],
       "structure": {
@@ -434,14 +434,14 @@
       "statement": "Weissman's conclusion is based on a flawed premise, and there is no such \"internal evidence\" of major bias.",
       "claimType": "methodological",
       "passages": [
-        "psg_0167fdf2d0952b2b"
+        "psg_284ea0f0837bc382"
       ],
       "derived": false,
       "assumptions": [],
       "caveats": [],
       "attribution": {
         "kind": "source",
-        "ref": "src_13848b8870f0ce2a"
+        "ref": "src_bd847d06e4c9e6d2"
       },
       "tags": [],
       "structure": {
@@ -453,14 +453,14 @@
       "statement": "The pattern can be explained by places of infection not being limited to residential neighbourhoods and by stochasticity, without requiring any ascertainment bias.",
       "claimType": "empirical",
       "passages": [
-        "psg_3fdebbdbdf55b1ff"
+        "psg_cd7c8bff8bbbec8e"
       ],
       "derived": false,
       "assumptions": [],
       "caveats": [],
       "attribution": {
         "kind": "source",
-        "ref": "src_13848b8870f0ce2a"
+        "ref": "src_bd847d06e4c9e6d2"
       },
       "tags": [],
       "structure": {
@@ -708,13 +708,13 @@
       "suggestedRemedy": "Add a discussion of the conditions under which the centre‑of‑cases could approximate the source, and acknowledge situations where it would not."
     },
     {
-      "id": "chl_983a60ed5b20caa4",
+      "id": "chl_116e0f98de22b2fa",
       "challengeType": "scope-drift",
       "target": {
         "kind": "claim",
         "id": "cl_7e577f4f037d586d"
       },
-      "rationale": "The claim treats the centroid and mode—measures of central tendency—as if they were candidate point‑source locations, extending their statistical meaning beyond what the data support; a centre does not necessarily identify the origin of transmission.",
+      "rationale": "The claim treats the centroid and mode, measures of central tendency, as if they were candidate point‑source locations, extending their statistical meaning beyond what the data support; a centre does not necessarily identify the origin of transmission.",
       "raisedBy": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"
@@ -801,7 +801,7 @@
         "cl_16b42775ee685e5b"
       ],
       "sharedOrigin": "author",
-      "rationale": "Claims from 2 sources by overlapping authors (florence débarre, michael worobey) — not independent evidence: \"Confirmation of the centrality of the H…\"; \"No evidence of systematic proximity asc…\"."
+      "rationale": "Claims from 2 sources by overlapping authors (florence débarre, michael worobey) not independent evidence: \"Confirmation of the centrality of the H…\"; \"No evidence of systematic proximity asc…\"."
     }
   ],
   "matches": [
@@ -1215,5 +1215,10 @@
       },
       "attemptedPassageText": "We show that this premise is erroneous."
     }
-  ]
+  ],
+  "sourceDocument": {
+    "text": "Confirmation of the centrality of the Huanan market among early COVID-19 cases (Débarre and Worobey, 2024).\n\nThe centrality of Wuhan's Huanan market in maps of December 2019 COVID-19 case residential locations, established by Worobey et al. (2022a), has recently been challenged by Stoyan and Chiu (2024, SC2024). SC2024 proposed a statistical test based on the premise that the measure of central tendency (hereafter, \"centre\") of a sample of case locations must coincide with the exact point from which local transmission began. Here we show that this premise is erroneous. SC2024 put forward two alternative centres (centroid and mode) to the centre-point which was used by Worobey et al. for some analyses, and proposed a bootstrapping method, based on their premise, to test whether a particular location is consistent with it being the point source of transmission. We show that SC2024's concerns about the use of centre-points are inconsequential, and that use of centroids for these data is inadvisable. The mode is an appropriate, even optimal, choice as centre; however, contrary to SC2024's results, we demonstrate that with proper implementation of their methods, the mode falls at the entrance of a parking lot at the market itself, and the 95% confidence region around the mode includes the market. Thus, the market cannot be rejected as central even by SC2024's overly stringent statistical test. Our results directly contradict SC2024's and -- together with myriad additional lines of evidence overlooked by SC2024, including crucial epidemiological information -- point to the Huanan market as the early epicentre of the COVID-19 pandemic.\n",
+    "title": "Confirmation of the centrality of the Huanan market among early COVID-19 cases",
+    "url": "https://arxiv.org/abs/2403.05859"
+  }
 }

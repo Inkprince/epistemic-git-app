@@ -8,11 +8,11 @@ import { z } from "zod";
  *   Source ─▶ Passage ─▶ Claim ─▶ Inference
  *                          │
  *                          ├─▶ Challenge   (typed objection, first-class)
- *                          └─▶ Assessment  (a perspective's judgment — an OVERLAY, never intrinsic)
+ *                          └─▶ Assessment  (a perspective's judgment, an OVERLAY, never intrinsic)
  *
  * Two invariants make the ledger trustworthy and enforce the whole thesis:
- *   1. PROVENANCE — a source-grounded claim cannot exist without a verbatim Passage.
- *   2. ATTRIBUTION — every assertion records whether a Source said it, an AI proposed it,
+ *   1. PROVENANCE: a source-grounded claim cannot exist without a verbatim Passage.
+ *   2. ATTRIBUTION: every assertion records whether a Source said it, an AI proposed it,
  *      or a human authored it. A reader can always tell who is speaking.
  *
  * Identity is content-addressed (see ids.ts): the id is a pure function of the fields
@@ -23,7 +23,7 @@ import { z } from "zod";
 export const SCHEMA_VERSION = "eg/0.1" as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Attribution — who is speaking. NEVER part of an object's identity hash.
+// Attribution, who is speaking. NEVER part of an object's identity hash.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const AttributionKind = z.enum(["source", "analyst-llm", "human"]);
@@ -40,11 +40,11 @@ export type Attribution = z.infer<typeof Attribution>;
 // Reference to any node the ledger can talk about.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const TargetKind = z.enum(["claim", "inference", "passage", "source", "topic"]);
+export const TargetKind = z.enum(["claim", "inference", "passage", "source", "topic", "narrative"]);
 
 export const TargetRef = z.object({
   kind: TargetKind,
-  /** node id, or — for `topic` (a missing-source challenge) — a free-text topic. */
+  /** node id, or (for `topic` (a missing-source challenge)) a free-text topic. */
   id: z.string(),
 });
 export type TargetRef = z.infer<typeof TargetRef>;
@@ -84,7 +84,7 @@ export const Source = z.object({
       knownStance: z.string().optional(),
     })
     .optional(),
-  /** Deliberately planted or detected problems — the substrate of the adversarial suite. */
+  /** Deliberately planted or detected problems, the substrate of the adversarial suite. */
   adversarialFlags: z.array(z.string()).default([]),
   relatedSources: z
     .array(z.object({ sourceId: z.string(), relation: SourceRelation }))
@@ -93,7 +93,7 @@ export const Source = z.object({
 export type Source = z.infer<typeof Source>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Passage — the provenance anchor. Every source-grounded claim points at one.
+// Passage, the provenance anchor. Every source-grounded claim points at one.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const Locator = z.discriminatedUnion("kind", [
@@ -117,14 +117,14 @@ export const Passage = z.object({
 export type Passage = z.infer<typeof Passage>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Claim — atomic, structured so that distinctions a flat graph would collapse survive.
+// Claim, atomic, structured so that distinctions a flat graph would collapse survive.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ClaimType = z.enum([
   "empirical", "methodological", "definitional", "value", "predictive",
 ]);
 
-/** Relationship modality — what KIND of relationship the claim asserts. */
+/** Relationship modality, what KIND of relationship the claim asserts. */
 export const RelationModality = z.enum([
   "causal", "associational", "conditional", "definitional", "normative", "predictive", "descriptive",
 ]);
@@ -164,8 +164,8 @@ export const Claim = z.object({
 export type Claim = z.infer<typeof Claim>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Inference — a relationship between claims that is ITSELF an attributable, challengeable
-// assertion (who drew it, under what warrant, with what defeaters) — not objective metadata.
+// Inference, a relationship between claims that is ITSELF an attributable, challengeable
+// assertion (who drew it, under what warrant, with what defeaters) not objective metadata.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const InferenceType = z.enum([
@@ -182,7 +182,7 @@ export const Inference = z.object({
   /** The principle licensing premises → conclusion (Toulmin warrant). */
   warrant: z.string(),
   assumptions: z.array(z.string()).default([]),
-  /** Conditions under which this inference breaks — what a challenger would attack. */
+  /** Conditions under which this inference breaks, what a challenger would attack. */
   defeaters: z.array(z.string()).default([]),
   strength: Strength,
   attribution: Attribution,
@@ -192,7 +192,7 @@ export const Inference = z.object({
 export type Inference = z.infer<typeof Inference>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Challenge — a typed objection, first-class. Admitted only if it points at a specific node.
+// Challenge, a typed objection, first-class. Admitted only if it points at a specific node.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ChallengeType = z.enum([
@@ -226,7 +226,7 @@ export const Challenge = z.object({
 export type Challenge = z.infer<typeof Challenge>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CorrelationGroup — the anti-double-counting primitive. The Rootclaim error, made explicit.
+// CorrelationGroup, the anti-double-counting primitive. The Rootclaim error, made explicit.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const SharedOrigin = z.enum([
@@ -243,11 +243,11 @@ export const CorrelationGroup = z.object({
 export type CorrelationGroup = z.infer<typeof CorrelationGroup>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Match — a typed relation between two claims, WITHOUT forced equivalence.
+// Match, a typed relation between two claims, WITHOUT forced equivalence.
 //
 // When claims come from many sources (or many chunks of one), the same underlying assertion appears
 // in different words, and near-but-not-identical claims must be related without being flattened. A
-// Match records that relation explicitly and attributably — the ledger says "these two are related
+// Match records that relation explicitly and attributably, the ledger says "these two are related
 // this way, per whom" rather than silently merging them. For symmetric relations the pair is stored
 // in a canonical (sorted) order so the same match gets one id regardless of direction; for the
 // directional narrower/broader relations, `from` is the narrower/broader side respectively.
@@ -268,7 +268,7 @@ export const Match = z.object({
 export type Match = z.infer<typeof Match>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Overlay + Assessment — late-binding trust. Multiple worldviews over ONE record.
+// Overlay + Assessment, late-binding trust. Multiple worldviews over ONE record.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const Overlay = z.object({
@@ -289,7 +289,7 @@ export const Assessment = z.object({
   overlayId: z.string(),
   target: TargetRef, // claim or inference
   stance: Stance,
-  /** OPTIONAL probability in [0,1] — supplied ONLY where a defensible model exists. */
+  /** OPTIONAL probability in [0,1], supplied ONLY where a defensible model exists. */
   credence: z.number().min(0).max(1).optional(),
   /** OPTIONAL log-odds contribution of this node under this overlay (quantitative mode only). */
   logOdds: z.number().optional(),
@@ -300,7 +300,25 @@ export const Assessment = z.object({
 export type Assessment = z.infer<typeof Assessment>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Quarantine — claims the pipeline REFUSED to admit. Kept visible, never dropped.
+// Narrative, an AI-authored plain-English account of how a claim came to be believed.
+// It NARRATES the deterministic support decomposition; it never scores and cannot introduce a
+// number the ledger doesn't already carry. First-class and attributed (analyst-llm), so the tool's
+// own prose is itself inspectable and challengeable, the thesis applied to its own output.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const Narrative = z.object({
+  id: z.string(),
+  /** the node this narrative is about (typically a claim). */
+  target: TargetRef,
+  text: z.string(),
+  /** claim ids whose deterministic support decomposition the text was grounded in. */
+  groundedIn: z.array(z.string()).default([]),
+  attribution: Attribution,
+});
+export type Narrative = z.infer<typeof Narrative>;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Quarantine, claims the pipeline REFUSED to admit. Kept visible, never dropped.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const QuarantineReason = z.enum([
@@ -322,7 +340,7 @@ export const QuarantinedClaim = z.object({
 export type QuarantinedClaim = z.infer<typeof QuarantinedClaim>;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Bundle — a portable, versioned case. The unit that ships, merges, and is interrogated.
+// Bundle, a portable, versioned case. The unit that ships, merges, and is interrogated.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const BundleProvenance = z.object({
@@ -365,6 +383,15 @@ export const Bundle = z.object({
   overlays: z.array(Overlay).default([]),
   assessments: z.array(Assessment).default([]),
   quarantine: z.array(QuarantinedClaim).default([]),
+  narratives: z.array(Narrative).default([]),
   notes: z.string().optional(),
+  /**
+   * The primary raw document this case was built from, kept so a reader can open the exact text the
+   * app and AI decomposed. Non-identity: excluded from bundleId and bundleDigest, and carried in the
+   * meta line by serializeBundle. Absent for hand-authored cases with no single source document.
+   */
+  sourceDocument: z
+    .object({ title: z.string().optional(), url: z.string().optional(), text: z.string() })
+    .optional(),
 });
 export type Bundle = z.infer<typeof Bundle>;

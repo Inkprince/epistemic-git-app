@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on moderate‑strength evidence from observed associations in large prospective cohort studies, which the analysis treats as indicating a likely protective effect of nut consumption on cardiovascular outcomes. This is reinforced by a specific moderate‑strength finding from the Nurses Health Study, where frequent nut eaters showed a 35 % lower risk of coronary heart disease compared with rare consumers. Together, these two lines of cohort evidence provide the current support for the claim.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 413,
+    "completionTokens": 118
+  }
+}

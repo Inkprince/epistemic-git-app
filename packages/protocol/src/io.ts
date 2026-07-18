@@ -2,7 +2,7 @@ import { hashContent } from "./canonical.js";
 import { Bundle } from "./schema.js";
 
 /**
- * JSONL serialization. A bundle is written as one record per line — a `meta` line followed
+ * JSONL serialization. A bundle is written as one record per line, a `meta` line followed
  * by one line per node, each tagged with its type. Line-orientation is deliberate: it makes
  * bundles diffable and mergeable with ordinary text tooling, which is the whole "Git" premise.
  * Records are emitted in a stable order (by type, then id) so the same bundle always serializes
@@ -22,16 +22,17 @@ const NODE_ORDER = [
   ["overlay", "overlays"],
   ["assessment", "assessments"],
   ["quarantine", "quarantine"],
+  ["narrative", "narratives"],
 ] as const;
 
 export function serializeBundle(input: Bundle): string {
   // Normalize through the schema so key order is canonical (schema-declaration order) whether
-  // the bundle came from the builder or from parseBundle — guaranteeing byte-stable output.
+  // the bundle came from the builder or from parseBundle, guaranteeing byte-stable output.
   const bundle = Bundle.parse(input);
-  const { sources, passages, claims, inferences, challenges, correlationGroups, matches, overlays, assessments, quarantine, ...meta } = bundle;
+  const { sources, passages, claims, inferences, challenges, correlationGroups, matches, overlays, assessments, quarantine, narratives, ...meta } = bundle;
   const lines: string[] = [JSON.stringify({ t: "meta", ...meta })];
   const collections: Record<string, { id: string }[]> = {
-    sources, passages, claims, inferences, challenges, correlationGroups, matches, overlays, assessments, quarantine,
+    sources, passages, claims, inferences, challenges, correlationGroups, matches, overlays, assessments, quarantine, narratives,
   };
   for (const [tag, key] of NODE_ORDER) {
     const items = [...collections[key]!].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
@@ -66,16 +67,17 @@ export function parseBundle(text: string): Bundle {
     overlays: pick("overlay"),
     assessments: pick("assessment"),
     quarantine: pick("quarantine"),
+    narratives: pick("narrative"),
   };
   return Bundle.parse(assembled);
 }
 
-/** A stable digest over all node ids — a cheap version/integrity fingerprint for a bundle. */
+/** A stable digest over all node ids, a cheap version/integrity fingerprint for a bundle. */
 export function bundleDigest(bundle: Bundle): string {
   const ids = [
     ...bundle.sources, ...bundle.passages, ...bundle.claims, ...bundle.inferences,
     ...bundle.challenges, ...bundle.correlationGroups, ...bundle.matches, ...bundle.overlays,
-    ...bundle.assessments, ...bundle.quarantine,
+    ...bundle.assessments, ...bundle.quarantine, ...(bundle.narratives ?? []),
   ].map((n) => n.id).sort();
   return hashContent({ id: bundle.id, question: bundle.question, ids });
 }

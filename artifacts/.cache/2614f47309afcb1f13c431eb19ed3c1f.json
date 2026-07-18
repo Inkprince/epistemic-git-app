@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on strong evidence from large prospective cohort studies that consistently find no link between eating up to one egg per day and cardiovascular events in healthy people, reinforced by the Dietary Guidelines Advisory Committee’s conclusion that dietary cholesterol has little impact on serum cholesterol. Moderate‑weight arguments add that dietary cholesterol correlates only weakly with blood cholesterol and that overall dietary fat composition, as well as cooking methods and accompanying foods, play a larger role in heart‑disease risk. However, the support is narrowed by a moderate undercutting note that higher egg intake may raise heart‑failure risk, and a strong attack indicating that the safety claim does not hold for individuals with diabetes, while a weak attack cites isolated studies suggesting a possible risk.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 864,
+    "completionTokens": 171
+  }
+}

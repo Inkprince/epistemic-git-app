@@ -4,13 +4,13 @@ import type { Bundle, Claim, Inference, InferenceType } from "@epistemic-git/pro
  * The argument dependency graph derived from a bundle's inferences.
  *
  * Inferences are classified by how they bear on their conclusion claim:
- *   POSITIVE  — the premises raise support for the conclusion.
- *   ATTACK    — the premises lower support for the conclusion (rebuts / contradicts).
- *   UNDERCUT  — the premises reduce trust in the conclusion claim itself.
+ *   POSITIVE, the premises raise support for the conclusion.
+ *   ATTACK, the premises lower support for the conclusion (rebuts / contradicts).
+ *   UNDERCUT, the premises reduce trust in the conclusion claim itself.
  *
  * This is a weighted bipolar argumentation structure. Keeping the classification explicit (rather
  * than burying it in the scoring) is deliberate: the semantics in support.ts are then a small,
- * auditable function of this graph — which is what lets the assessment layer be LLM-free.
+ * auditable function of this graph, which is what lets the assessment layer be LLM-free.
  */
 
 export const POSITIVE_TYPES: readonly InferenceType[] = ["supports", "evidence-for", "explains", "presupposes"];
@@ -49,7 +49,7 @@ export class ClaimGraph {
     }
   }
 
-  /** Claims that are not the conclusion of any positive inference — the evidential leaves. */
+  /** Claims that are not the conclusion of any positive inference, the evidential leaves. */
   leaves(): Claim[] {
     return [...this.claims.values()].filter((c) => (this.supports.get(c.id) ?? []).length === 0);
   }

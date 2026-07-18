@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { deleteScenario, loadScenarios, saveScenario } from "../src/cases/scenarios.js";
 
-/** Minimal localStorage shim — the module guards on typeof localStorage. */
+/** Minimal localStorage shim, the module guards on typeof localStorage. */
 function installLocalStorage() {
   const store = new Map<string, string>();
   (globalThis as Record<string, unknown>)["localStorage"] = {

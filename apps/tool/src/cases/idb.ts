@@ -1,5 +1,5 @@
 /**
- * Minimal promise wrapper over IndexedDB — no dependency. Stores:
+ * Minimal promise wrapper over IndexedDB, no dependency. Stores:
  *  - "imports":   user-imported bundles, keyed by case id
  *  - "snapshots": bundle snapshots for history diffs, keyed by digest (LRU-capped by caller)
  * Degrades to a no-op in environments without IndexedDB (SSR smoke test, old browsers).

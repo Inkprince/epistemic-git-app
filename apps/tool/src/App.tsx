@@ -6,18 +6,19 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { withAuthored } from "./cases/authored.js";
 import { appendEvent, snapshotPut } from "./cases/history.js";
 import { CasesProvider, useCases } from "./cases/store.js";
+import { CasesScreen } from "./components/cases/CasesScreen.js";
 import { CaseDetailScreen } from "./components/detail/CaseDetailScreen.js";
 import { HelpModal } from "./components/HelpModal.js";
 import { ImportModal } from "./components/ImportModal.js";
 import { MergePickerModal } from "./components/MergePickerModal.js";
 import { OverviewScreen } from "./components/overview/OverviewScreen.js";
-import { RunPanelModal } from "./components/RunPanelModal.js";
+import { BuildCaseModal } from "./components/BuildCaseModal.js";
 import { Sidebar } from "./components/Sidebar.js";
 import { TopBar } from "./components/TopBar.js";
 import type { SearchHit } from "./components/TopBar.js";
 import { formatHash, idRef, parseHash } from "./routing.js";
 import type { CaseParams, Route } from "./routing.js";
-import { overviewKpis, supportByCase } from "./stats.js";
+import { caseMatches, overviewKpis, supportByCase } from "./stats.js";
 
 export type { Route } from "./routing.js";
 
@@ -29,18 +30,17 @@ export function App({ initialRoute }: { initialRoute?: Route }) {
     <CasesProvider>
       <AppShell {...(initialRoute ? { initialRoute } : {})} />
     </CasesProvider>
-  );
+);
 }
 
 function AppShell({ initialRoute }: { initialRoute?: Route }) {
-  const { cases, ready } = useCases();
+  const { cases, ready, addBuilt } = useCases();
   const [route, setRoute] = useState<Route>(initialRoute ?? routeFromHash());
   const [mergedView, setMergedView] = useState<{ bundle: Bundle; report: MergeReport } | null>(null);
-  const [liveResult, setLiveResult] = useState<Bundle | null>(null);
   const [query, setQuery] = useState("");
   const [collapsed, setCollapsed] = useState(() =>
     typeof localStorage !== "undefined" && localStorage.getItem("egit:ui:collapsed") === "1");
-  const [runOpen, setRunOpen] = useState(false);
+  const [buildOpen, setBuildOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const [mergeOpen, setMergeOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -58,7 +58,6 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
   const navigate = (r: Route) => {
     if (r.screen !== "case" || route.screen !== "case" || r.caseId !== route.caseId) {
       setMergedView(null);
-      setLiveResult(null);
     }
     setQuery("");
     setMobileNavOpen(false);
@@ -82,7 +81,6 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
         return;
       }
       setMergedView(null);
-      setLiveResult(null);
       setQuery("");
       setRoute(r);
     };
@@ -91,7 +89,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
   }, []);
 
   // Detail-screen state (tab / selection / scenario) syncs into the URL without polluting
-  // browser history — back steps between screens and cases, not between checkbox clicks.
+  // browser history, back steps between screens and cases, not between checkbox clicks.
   const onParamsChange = (p: CaseParams) => {
     const cur = routeRef.current;
     if (cur.screen !== "case") return;
@@ -105,13 +103,13 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
 
   const caseEntry = route.screen === "case" ? cases[route.caseId] : undefined;
   const baseBundle = caseEntry?.bundle;
-  const rawBundle = liveResult ?? mergedView?.bundle ?? baseBundle;
+  const rawBundle = mergedView?.bundle ?? baseBundle;
   // Locally authored perspectives compose on top of whatever bundle is in view.
   const bundle = useMemo(
     () => (rawBundle && route.screen === "case" ? withAuthored(rawBundle, route.caseId) : rawBundle),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [rawBundle, route.screen === "case" ? route.caseId : "", authoredVersion],
-  );
+);
 
   // Deep link to a case that doesn't exist (or an import not on this machine) → overview once hydrated.
   useEffect(() => {
@@ -125,31 +123,27 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
   const searchHits = useMemo<SearchHit[]>(() => {
     const q = query.trim().toLowerCase();
     if (route.screen !== "overview" || !q) return [];
-    const mergeableIds = new Set(
-      Object.values(cases).filter((c) => c.mergePairs?.length).map((c) => c.id),
-    );
-    return supportByCase(cases, mergeableIds)
+    return supportByCase(cases)
       .map((c) => ({ ...c, question: cases[c.id]!.bundle.question }))
-      .filter((c) => c.label.toLowerCase().includes(q) || c.question.toLowerCase().includes(q));
+      .filter((c) => caseMatches(c.label, cases[c.id]!.bundle, q));
   }, [route.screen, query, cases]);
   const counts = bundle
     ? [
         { label: "claims", value: bundle.claims.length },
-        { label: "inferences", value: bundle.inferences.length },
-        { label: "matches", value: bundle.matches.length },
+        { label: "reasoning steps", value: bundle.inferences.length },
+        { label: "related claims", value: bundle.matches.length },
         { label: "challenges", value: bundle.challenges.length },
-        { label: "quarantined", value: bundle.quarantine.length },
+        { label: "excluded", value: bundle.quarantine.length },
       ]
     : [
         { label: "cases", value: totals.cases },
         { label: "claims", value: totals.claims },
         { label: "challenges", value: totals.challenges },
-        { label: "quarantined", value: totals.quarantined },
+        { label: "excluded", value: totals.quarantined },
       ];
 
   const recordMerge = (base: Bundle, incoming: Bundle, incomingLabel: string, caseId: string) => {
     const result = merge(base, incoming);
-    setLiveResult(null);
     setMergedView(result);
     const baseDigest = bundleDigest(base);
     const incomingDigest = bundleDigest(incoming);
@@ -177,7 +171,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           mobileOpen={mobileNavOpen}
           onToggleCollapse={toggleCollapsed}
           onOpenImport={() => { setMobileNavOpen(false); setImportOpen(true); }}
-          {...(isDev ? { onOpenRunPanel: () => { setMobileNavOpen(false); setRunOpen(true); } } : {})}
+          {...(isDev ? { onOpenBuildCase: () => { setMobileNavOpen(false); setBuildOpen(true); } } : {})}
         />
         <div className="main-col">
           <TopBar
@@ -197,14 +191,23 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
               onOpenCase={(id, selectId) =>
                 navigate({ screen: "case", caseId: id, ...(selectId ? { params: { sel: idRef(selectId) } } : {}) })}
               onOpenImport={() => setImportOpen(true)}
-              {...(isDev ? { onOpenRunPanel: () => setRunOpen(true) } : {})}
+              {...(isDev ? { onOpenBuildCase: () => setBuildOpen(true) } : {})}
             />
-          )}
+)}
+          {route.screen === "cases" && (
+            <CasesScreen
+              query={query}
+              onOpenCase={(id) => navigate({ screen: "case", caseId: id })}
+              onOpenImport={() => setImportOpen(true)}
+              {...(isDev ? { onOpenBuildCase: () => setBuildOpen(true) } : {})}
+            />
+)}
           {route.screen === "case" && caseEntry && bundle && (
             <CaseDetailScreen
               key={route.caseId}
               caseId={route.caseId}
-              caseLabel={liveResult ? "Live pipeline run" : caseEntry.label}
+              caseLabel={caseEntry.label}
+              origin={caseEntry.origin}
               bundle={bundle}
               query={query}
               {...(route.params ? { params: route.params } : {})}
@@ -213,14 +216,12 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
               {...(mergedView ? { merged: mergedView.report } : {})}
               onOpenMergePicker={() => setMergeOpen(true)}
               onRevertMerge={() => setMergedView(null)}
-              isLiveRun={Boolean(liveResult)}
-              onExitLive={() => setLiveResult(null)}
-              onBack={() => navigate({ screen: "overview" })}
+              onBack={() => navigate({ screen: "cases" })}
             />
-          )}
+)}
           {route.screen === "case" && !caseEntry && (
             <div style={{ padding: 40 }} className="subtle">{ready ? "Case not found." : "Loading…"}</div>
-          )}
+)}
         </div>
       </div>
       {helpOpen && <HelpModal onClose={() => setHelpOpen(false)} />}
@@ -229,7 +230,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           onClose={() => setImportOpen(false)}
           onImported={(id) => navigate({ screen: "case", caseId: id })}
         />
-      )}
+)}
       {mergeOpen && route.screen === "case" && bundle && (
         <MergePickerModal
           currentCaseId={route.caseId}
@@ -237,26 +238,21 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           onClose={() => setMergeOpen(false)}
           onPick={(incoming, label) => recordMerge(bundle, incoming, label, route.caseId)}
         />
-      )}
-      {runOpen && isDev && (
-        <RunPanelModal
-          onClose={() => setRunOpen(false)}
+)}
+      {buildOpen && isDev && (
+        <BuildCaseModal
+          onClose={() => setBuildOpen(false)}
           onResult={(b) => {
             setMergedView(null);
-            setLiveResult(b);
-            setRunOpen(false);
-            const fallback = Object.keys(cases)[0];
-            const target: Route = route.screen === "case" ? route : { screen: "case", caseId: fallback ?? "lhc" };
-            setRoute(target);
-            appendEvent({
-              caseId: target.caseId, kind: "pipeline-run", digest: bundleDigest(b), parents: [],
-              stats: { claims: b.claims.length, challenges: b.challenges.length }, note: b.title,
-            });
+            setBuildOpen(false);
+            // A built case is a first-class local case, its history lives under ITS id,
+            // never under whatever case happened to be on screen.
+            const id = addBuilt(b);
             void snapshotPut(bundleDigest(b), b);
-            if (typeof window !== "undefined") window.location.hash = formatHash(target);
+            navigate({ screen: "case", caseId: id });
           }}
         />
-      )}
+)}
     </div>
-  );
+);
 }

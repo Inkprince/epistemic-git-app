@@ -1,4 +1,4 @@
-# Frozen arm instructions — careful investigation v1
+# Frozen arm instructions, careful investigation v1
 
 Work as a careful code-agent-style investigator. Make an evidence checklist,
 open each supplied file or URL, search within documents for exact supporting

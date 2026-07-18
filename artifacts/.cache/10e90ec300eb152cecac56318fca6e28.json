@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Nut-Optimist\",\"suggestedDescription\":\"Favors evidence that nuts lower cardiovascular risk, treating conflicting data as uncertain\",\"stances\":[{\"claimIndex\":0,\"stance\":\"accept\",\"rationale\":\"Large prospective cohorts consistently show that regular nut intake cuts cardiovascular risk, so we embrace this finding.\"},{\"claimIndex\":1,\"stance\":\"accept\",\"rationale\":\"The Nurses Health Study’s striking 35% risk reduction strongly supports the protective role of nuts.\"},{\"claimIndex\":2,\"stance\":\"uncertain\",\"rationale\":\"While lifestyle differences could confound results, we do not let this single concern outweigh the overall positive evidence.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 576,
+    "completionTokens": 218
+  }
+}

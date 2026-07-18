@@ -10,7 +10,7 @@ import { writeFile } from "node:fs/promises";
 
 /**
  * Add two opposed reader perspectives to the (pipeline-built) eggs bundle, so the section-4 crux
- * machinery runs on the nutrition case too — the third of the three cases, and the one where refusing
+ * machinery runs on the nutrition case too, the third of the three cases, and the one where refusing
  * to manufacture a probability matters most. This decorates the committed pipeline output: every
  * existing object (and its content-addressed id) is left exactly as the pipeline produced it; we only
  * append human-authored Overlay/Assessment nodes on top. Assessments carry stance + weight but NO
@@ -50,7 +50,7 @@ const ONE_EGG_OK = "consuming up to one egg daily does not increase";
 const ALL_CAUSE = "associations with increased all-cause mortality";
 const RCT_LDL = "2018 meta-analysis of randomized trials showed eggs increase total";
 
-// Perspective A — "eggs are cardiovascularly safe in moderation".
+// Perspective A, "eggs are cardiovascularly safe in moderation".
 const safe = addOverlay(
   "Eggs-safe-in-moderation reading",
   "eggs-safe-reading",
@@ -63,7 +63,7 @@ assess(safe, ONE_EGG_OK, "accept", 0.8, "Up to one egg a day shows no increased 
 assess(safe, ALL_CAUSE, "uncertain", 0.4, "An all-cause-mortality association is confounded and not cardiovascular-specific.");
 assess(safe, RCT_LDL, "uncertain", 0.5, "Raised LDL is a surrogate marker, not a demonstrated clinical harm.");
 
-// Perspective B — "eggs raise cardiovascular risk".
+// Perspective B, "eggs raise cardiovascular risk".
 const risk = addOverlay(
   "Eggs-raise-risk reading",
   "eggs-risk-reading",

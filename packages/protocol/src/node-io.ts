@@ -3,7 +3,7 @@ import { parseBundle, serializeBundle } from "./io.js";
 import type { Bundle } from "./schema.js";
 
 /**
- * Filesystem helpers (Node only — kept out of the pure `io` module so browser bundles never
+ * Filesystem helpers (Node only, kept out of the pure `io` module so browser bundles never
  * import `node:fs`). Import from `@epistemic-git/protocol/node`.
  */
 

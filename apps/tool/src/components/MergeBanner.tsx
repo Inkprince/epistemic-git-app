@@ -8,7 +8,7 @@ import { Badge, MarkCircle } from "./primitives.js";
 const sumCounts = (rec: Record<string, number>): number => Object.values(rec).reduce((a, b) => a + b, 0);
 
 /**
- * Post-merge report banner. Conflicts are never auto-resolved — A's value is kept in the merged
+ * Post-merge report banner. Conflicts are never auto-resolved, A's value is kept in the merged
  * bundle and B's is preserved in the report; this panel makes both sides visible.
  */
 export function MergedBanner({
@@ -29,17 +29,17 @@ export function MergedBanner({
         <strong>{n}</strong> conflict{n === 1 ? "" : "s"} kept
         {report.conclusionsAffected.map((c) => (
           <span key={c.claimId}> · conclusion <strong>{pct(c.supportBefore)} → {pct(c.supportAfter)}</strong></span>
-        ))}
+))}
       </span>
       {n > 0 && (
         <button className="chip-btn" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
           {open ? <ChevronUp size={14} /> : <ChevronDown size={14} />} {open ? "Hide" : "View"} conflicts
         </button>
-      )}
+)}
       <button className="btn-outline btn-sm" onClick={onRevert}>Revert</button>
       {open && n > 0 && <ConflictPanel conflicts={report.conflicts} bundle={bundle} {...(onSelect ? { onSelect } : {})} />}
     </div>
-  );
+);
 }
 
 function ConflictPanel({ conflicts, bundle, onSelect }: { conflicts: MergeConflict[]; bundle: Bundle; onSelect?: (id: string) => void }) {
@@ -75,7 +75,7 @@ function ConflictPanel({ conflicts, bundle, onSelect }: { conflicts: MergeConfli
   const fmt = (v: unknown): string => {
     if (v && typeof v === "object") {
       const { stance, credence } = v as { stance?: string; credence?: number };
-      return [stance, credence !== undefined ? `confidence ${pct(credence)}` : undefined].filter(Boolean).join(", ") || JSON.stringify(v);
+      return [stance, credence !== undefined ? `stated confidence ${pct(credence)}` : undefined].filter(Boolean).join(", ") || JSON.stringify(v);
     }
     return String(v);
   };
@@ -92,30 +92,19 @@ function ConflictPanel({ conflicts, bundle, onSelect }: { conflicts: MergeConfli
             <div className="cr-main">
               <div className="cr-title">{d.title}</div>
               <div className="cr-ab">
-                <span className="side-a" title="Kept in the merged bundle">A (kept): {fmt(c.a)}</span>
-                <span className="side-b" title="Preserved in the merge report — nothing lost">B (preserved): {fmt(c.b)}</span>
+                <span className="side-a" title="Kept in the merged case">Kept, this case's value: {fmt(c.a)}</span>
+                <span className="side-b" title="Preserved in the merge report (nothing lost">Preserved) from the merged-in case: {fmt(c.b)}</span>
                 <Badge tone="neutral">{c.kind}</Badge>
                 {d.targetId && onSelect && (
                   <button className="chip-btn" style={{ padding: "4px 10px" }} onClick={() => onSelect(d.targetId!)}>
                     Inspect node →
                   </button>
-                )}
+)}
               </div>
             </div>
           </div>
-        );
+);
       })}
     </div>
-  );
-}
-
-/** Shown while viewing a bundle produced by the local pipeline run. */
-export function LiveRunBanner({ backLabel, onBack }: { backLabel: string; onBack: () => void }) {
-  return (
-    <div className="banner">
-      <span className="tl-circle" style={{ width: 26, height: 26, background: "var(--yellow)" }}><ZapIcon size={14} /></span>
-      <span className="txt">Viewing <strong>your live pipeline run</strong> — generated from pasted source text.</span>
-      <button className="btn-outline btn-sm" onClick={onBack}>Back to {backLabel}</button>
-    </div>
-  );
+);
 }

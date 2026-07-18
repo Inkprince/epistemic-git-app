@@ -41,6 +41,9 @@ export const CheckIcon = (p: P) => <S strokeWidth={3} {...p}><polyline points="2
 export const PlusIcon = (p: P) => <S strokeWidth={2} {...p}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></S>;
 export const XIcon = (p: P) => <S strokeWidth={2} {...p}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></S>;
 export const ZapIcon = (p: P) => <S strokeWidth={1.7} {...p}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></S>;
+export const TrashIcon = (p: P) => (
+  <S strokeWidth={1.9} {...p}><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></S>
+);
 export const MessageIcon = (p: P) => (
   <S strokeWidth={1.9} {...p}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></S>
 );

@@ -6,7 +6,7 @@ import type { CaseEntry, CaseManifest } from "./types.js";
 /**
  * Committed cases come from artifacts/cases.json joined against every artifacts/*.json module
  * bundled at build time via import.meta.glob. This works identically in dev and the static
- * production build, and in dev Vite invalidates the glob when /api/commit writes a new artifact —
+ * production build, and in dev Vite invalidates the glob when /api/commit writes a new artifact, 
  * so a freshly committed case appears after the automatic reload with no extra wiring.
  */
 const artifactModules = import.meta.glob("../../../../artifacts/*.json", {
@@ -19,7 +19,7 @@ function moduleFor(file: string): unknown {
   return hit?.[1];
 }
 
-/** Cheap shape check — full validation happens for imports; committed artifacts are CI-verified. */
+/** Cheap shape check, full validation happens for imports; committed artifacts are CI-verified. */
 function looksLikeBundle(x: unknown): x is Bundle {
   return !!x && typeof x === "object" && Array.isArray((x as Bundle).claims) && typeof (x as Bundle).question === "string";
 }
@@ -30,7 +30,7 @@ export function loadCommittedCases(): CaseEntry[] {
   for (const row of manifest.cases) {
     const mod = moduleFor(row.file);
     if (!looksLikeBundle(mod)) {
-      console.warn(`cases.json: skipping "${row.id}" — ${row.file} missing or not a bundle`);
+      console.warn(`cases.json: skipping "${row.id}" ${row.file} missing or not a bundle`);
       continue;
     }
     const mergePairs = (row.mergePairs ?? [])

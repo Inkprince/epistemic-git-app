@@ -20,7 +20,7 @@ const EDGE_COLOR = (type: string): string =>
 const NODE_FONT = "Public Sans, system-ui, sans-serif";
 const MAX_LABEL = 150;
 
-/** Estimate a node box that fits its wrapped label — no more clipped/ellipsised statements. */
+/** Estimate a node box that fits its wrapped label, no more clipped/ellipsised statements. */
 function nodeBox(label: string, conclusion: boolean): { w: number; h: number } {
   const w = conclusion ? 230 : 200;
   const charsPerLine = conclusion ? 36 : 33;
@@ -220,7 +220,7 @@ export function GraphView({
         ref={boxRef}
         className="graph-box"
         role="group"
-        aria-label="Interactive argument graph: claims as cards coloured by support, inferences as edges. Click a node or edge for details."
+        aria-label="Interactive argument map: claims as cards coloured by support, reasoning steps as edges. Click a node or edge for details."
       />
       <div className="graph-controls">
         <button aria-label="Zoom in" onClick={() => cyRef.current?.zoom({ level: cyRef.current.zoom() * 1.25, renderedPosition: center(boxRef.current) })}>
@@ -256,16 +256,16 @@ export function GraphView({
                   <button className="chip-btn" onClick={() => onToggleDistrust(popupClaim.id)}>
                     {distrust.includes(popupClaim.id) ? <><CheckIcon size={13} /> Trust again</> : "Distrust"}
                   </button>
-                )}
+)}
                 <button className="chip-btn" onClick={() => { setPopup(null); (onInspect ?? onSelect)(popup.id); }}>
                   See where it came from →
                 </button>
               </div>
             </>
-          )}
+)}
           {popupInf && (
             <>
-              <div className="gp-title">Inference — {popupInf.type}</div>
+              <div className="gp-title">Reasoning step, {popupInf.type}</div>
               <div className="gp-desc">{popupInf.warrant}</div>
               <div className="gp-meta">
                 <span className="chip">strength: {popupInf.strength}</span>
@@ -277,11 +277,11 @@ export function GraphView({
                 </button>
               </div>
             </>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
-  );
+);
 }
 
 const center = (el: HTMLDivElement | null) =>

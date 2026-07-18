@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"University of Lagos was established in 1962.\",\"claimType\":\"definitional\",\"quote\":\"- [Universities and colleges established in 1962]\",\"entailment\":\"The category label indicates that the University of Lagos belongs to the group of institutions founded in 1962, thereby asserting its establishment year.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"University of Lagos is a public university in Nigeria.\",\"claimType\":\"definitional\",\"quote\":\"- [Public universities in Nigeria]\",\"entailment\":\"The category label classifies the University of Lagos as part of the set of public universities located in Nigeria, asserting its public status and national location.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"University of Lagos is a business school in Lagos.\",\"claimType\":\"definitional\",\"quote\":\"- [Business schools in Lagos]\",\"entailment\":\"The category label places the University of Lagos within the group of business schools situated in Lagos, indicating that it offers business education in that city.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2197,
+    "completionTokens": 526
+  }
+}

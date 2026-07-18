@@ -2,7 +2,7 @@ import type { Bundle, Strength } from "@epistemic-git/protocol";
 import { buildGraph, ClaimGraph } from "./graph.js";
 
 /**
- * Weighted support propagation — the deterministic assessment semantics.
+ * Weighted support propagation, the deterministic assessment semantics.
  *
  * Every number here is a pure function of (bundle structure, one overlay's stated beliefs). No
  * LLM, no randomness. A claim's support in [0,1] is computed as:
@@ -30,7 +30,7 @@ const EPSILON = 1e-9;
 export interface SupportOptions {
   /** which perspective's beliefs to use; if omitted, all leaves take DEFAULT_BELIEF. */
   overlayId?: string;
-  /** claim ids forced to zero support ("distrust this" — powers the drop-Hawking recompute). */
+  /** claim ids forced to zero support ("distrust this" powers the drop-Hawking recompute). */
   distrustClaims?: ReadonlySet<string>;
   /** inference ids to disable (remove that argument step). */
   disableInferences?: ReadonlySet<string>;
@@ -51,7 +51,7 @@ function statedBelief(bundle: Bundle, overlayId: string | undefined, claimId: st
   if (!overlayId) return DEFAULT_BELIEF;
   const a = bundle.assessments.find(
     (x) => x.overlayId === overlayId && x.target.kind === "claim" && x.target.id === claimId,
-  );
+);
   if (!a) return DEFAULT_BELIEF;
   if (a.credence !== undefined) return a.credence;
   return STANCE_BELIEF[a.stance];
@@ -61,7 +61,7 @@ function inferenceTrust(bundle: Bundle, overlayId: string | undefined, inference
   if (!overlayId) return DEFAULT_INFERENCE_TRUST;
   const a = bundle.assessments.find(
     (x) => x.overlayId === overlayId && x.target.kind === "inference" && x.target.id === inferenceId,
-  );
+);
   if (!a) return DEFAULT_INFERENCE_TRUST;
   if (a.credence !== undefined) return a.credence;
   return a.stance === "accept" ? 1.0 : a.stance === "uncertain" ? 0.6 : a.stance === "reject" ? 0.2 : 0.0;
@@ -140,7 +140,7 @@ export function computeSupport(bundleOrGraph: Bundle | ClaimGraph, opts: Support
 
   /**
    * Combine sibling positive supports. Independent supports use noisy-OR. Supports that share a
-   * correlation group are dependent — within each shared-group cluster we take the max (no
+   * correlation group are dependent, within each shared-group cluster we take the max (no
    * double-counting), then noisy-OR across the (now independent) clusters and singletons.
    */
   function combineSupports(items: { value: number; groups: Set<string> }[]): number {
@@ -182,7 +182,7 @@ export interface SupportExplanation {
 
 /**
  * Explain a claim's support: each supporting/attacking/undercutting inference and its contribution,
- * flagged active or not. This is what the UI renders for "does safety survive without Hawking?" —
+ * flagged active or not. This is what the UI renders for "does safety survive without Hawking?" 
  * the surviving support paths are exactly those still `active` after the premise is distrusted.
  */
 export function explainSupport(

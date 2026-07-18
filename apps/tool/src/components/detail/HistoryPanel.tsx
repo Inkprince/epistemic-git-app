@@ -12,8 +12,8 @@ import { Badge, SectionLabel } from "../primitives.js";
 const KIND_META: Record<HistoryEvent["kind"], { icon: JSX.Element; label: string; bg: string }> = {
   "imported": { icon: <DownloadIcon size={15} style={{ transform: "rotate(180deg)" }} />, label: "Imported", bg: "var(--purple-bg)" },
   "merged": { icon: <MergeIcon size={15} />, label: "Merged", bg: "var(--green-bg)" },
-  "pipeline-run": { icon: <ZapIcon size={15} />, label: "Pipeline run", bg: "var(--yellow)" },
-  "committed": { icon: <CheckIcon size={13} />, label: "Committed", bg: "var(--green-bg)" },
+  "pipeline-run": { icon: <ZapIcon size={15} />, label: "Built (AI)", bg: "var(--yellow)" },
+  "committed": { icon: <CheckIcon size={13} />, label: "Saved as case", bg: "var(--green-bg)" },
 };
 
 function relTime(iso: string): string {
@@ -27,7 +27,7 @@ function relTime(iso: string): string {
 }
 
 /**
- * The case's lineage — every import / merge / pipeline-run / commit with its digest and parent
+ * The case's lineage, every import / merge / pipeline-run / commit with its digest and parent
  * digests, like a commit log. Pick two events whose snapshots are still cached to see a full
  * content-addressed diff between them.
  */
@@ -48,7 +48,7 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
     void Promise.all(picked.map((d) => snapshotGet(d))).then(([a, b]) => {
       if (cancelled) return;
       if (!a || !b) {
-        setDiffError("One of these snapshots is no longer cached (only the 20 most recent are kept).");
+        setDiffError("One of these moments is no longer stored (only the 20 most recent are kept).");
         return;
       }
       setDiff({ a, b, report: diffBundles(a, b) });
@@ -61,18 +61,18 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
       <div>
         <SectionLabel>History</SectionLabel>
         <p className="note" style={{ marginTop: 0 }}>
-          No history yet for this case in this browser. Importing, merging, running the pipeline, or
-          committing records an event here — a local commit log of how this case grew.
+          No history yet for this case in this browser. Importing, merging, building, or saving
+          records a moment here, a local log of how this case grew.
         </p>
       </div>
-    );
+);
   }
 
   return (
     <div>
-      <SectionLabel>History — newest first</SectionLabel>
+      <SectionLabel>History, newest first</SectionLabel>
       <p className="note" style={{ margin: "0 0 14px" }}>
-        Select two events to diff their snapshots.
+        Pick two moments to compare.
       </p>
       <div className="timeline">
         {events.map((e, i) => {
@@ -87,7 +87,7 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
               <div className="tl-body" style={{ paddingBottom: 16 }}>
                 <div className="tl-text">
                   <strong>{meta.label}</strong>
-                  {e.note ? <> — {e.note}</> : null}
+                  {e.note ? <>, {e.note}</> : null}
                 </div>
                 <div className="tl-meta">{relTime(e.at)}
                   {e.stats && Object.entries(e.stats).map(([k, v]) => <span key={k}> · {k}: {v}</span>)}
@@ -97,33 +97,33 @@ export function HistoryPanel({ caseId, currentBundle }: { caseId: string; curren
                     className="chip-btn"
                     style={{ padding: "3px 9px", fontSize: 12, fontFamily: "var(--mono)", ...(picked.includes(e.digest) ? { borderColor: "var(--ink)", background: "var(--surface-2)" } : {}) }}
                     onClick={() => pickable && togglePick(e.digest)}
-                    title={picked.includes(e.digest) ? "Deselect" : "Select for diff"}
+                    title={picked.includes(e.digest) ? "Deselect" : "Select to compare"}
                   >
                     {e.digest.slice(0, 8)}
                   </button>
                   {e.parents.map((p) => (
-                    <span key={p} className="chip mono" style={{ fontSize: 11 }} title="Parent digest">← {p.slice(0, 8)}</span>
-                  ))}
+                    <span key={p} className="chip mono" style={{ fontSize: 11 }} title="Parent version fingerprint, identical content always produces the same code">← {p.slice(0, 8)}</span>
+))}
                   {e.digest === currentBundleDigestSafe(currentBundle) && <Badge tone="green">current</Badge>}
                 </div>
               </div>
             </div>
-          );
+);
         })}
       </div>
 
       {picked.length === 2 && (
         <div style={{ marginTop: 18 }}>
-          <SectionLabel>Diff — {picked[0]!.slice(0, 8)} → {picked[1]!.slice(0, 8)}</SectionLabel>
+          <SectionLabel>What changed, {picked[0]!.slice(0, 8)} → {picked[1]!.slice(0, 8)}</SectionLabel>
           {diffError && <p className="note" style={{ color: "var(--pink)", marginTop: 0 }}>{diffError}</p>}
           {diff && <DiffView diff={diff.report} a={diff.a} b={diff.b} />}
         </div>
-      )}
+)}
     </div>
-  );
+);
 }
 
-// bundleDigest is cheap but not free — cache per bundle object identity.
+// bundleDigest is cheap but not free, cache per bundle object identity.
 const digestCache = new WeakMap<Bundle, string>();
 function currentBundleDigestSafe(b: Bundle): string {
   const hit = digestCache.get(b);
@@ -142,7 +142,7 @@ function statementFor(id: string, ...bundles: Bundle[]): string {
     const claim = b.claims.find((c) => c.id === id);
     if (claim) return claim.statement;
     const inf = b.inferences.find((i) => i.id === id);
-    if (inf) return `inference: ${inf.warrant}`;
+    if (inf) return `reasoning step: ${inf.warrant}`;
     const ch = b.challenges.find((c) => c.id === id);
     if (ch) return `challenge: ${ch.rationale}`;
     const src = b.sources.find((s) => s.id === id);
@@ -162,10 +162,10 @@ function DiffView({ diff, a, b }: { diff: BundleDiff; a: Bundle; b: Bundle }) {
           <span className="d-kind">{key}</span>
           <span className="d-text">{truncate(statementFor(id, b, a), 110)}</span>
         </div>
-      )),
-    );
+)),
+);
   if (diff.totalAdded === 0 && diff.totalRemoved === 0) {
-    return <p className="note" style={{ marginTop: 0 }}>Identical content — same nodes on both sides.</p>;
+    return <p className="note" style={{ marginTop: 0 }}>Identical content, same nodes on both sides.</p>;
   }
   return (
     <div className="diff-list">
@@ -175,5 +175,5 @@ function DiffView({ diff, a, b }: { diff: BundleDiff; a: Bundle; b: Bundle }) {
       {rows(diff.added, "+")}
       {rows(diff.removed, "−")}
     </div>
-  );
+);
 }

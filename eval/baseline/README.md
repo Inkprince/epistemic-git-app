@@ -52,12 +52,12 @@ creates no output on behalf of a baseline.
 
 The private scoring rubrics (`accuracyCriteria` / `cruxCriteria` in
 `config/tasks.json`) are what the human raters score against. **Whoever runs an
-arm must not have seen those rubrics** — otherwise the artifact can be written to
+arm must not have seen those rubrics**, otherwise the artifact can be written to
 the test and the comparison is void. The render packets are deliberately
 rubric-free: they contain the common contract, the arm instructions, the task's
 `researchQuestion`/`taskType`, and the allowed sources, but **not** the rubric.
 So the safe procedure is: run each arm in a *fresh context whose only input is one
-render packet (plus the allowed source files)* — a new model session, a separate
+render packet (plus the allowed source files)*, a new model session, a separate
 operator, or a subagent seeded solely with the packet. Do not run an arm from a
 context that has read `config/tasks.json` or `runs/*/private/scores.json`. This is
 why the project's own assistant, having read the rubrics to build the study, does

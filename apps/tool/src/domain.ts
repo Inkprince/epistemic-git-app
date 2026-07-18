@@ -1,5 +1,6 @@
 import type {
-  Attribution, Bundle, Challenge, Claim, Inference, Overlay, Passage, Source,
+  Attribution, Bundle, Challenge, ChallengeStatus, ChallengeType, Claim, Inference, Match, MatchType,
+  Overlay, Passage, QuarantineReason, SharedOrigin, Source, Stance,
 } from "@epistemic-git/protocol";
 
 /** The primary conclusion of a bundle = its (first) derived claim; null for an empty bundle. */
@@ -25,6 +26,40 @@ export function overlaysById(bundle: Bundle): Map<string, Overlay> {
 
 export function challengesFor(bundle: Bundle, target: string): Challenge[] {
   return bundle.challenges.filter((c) => c.target.id === target);
+}
+
+/** Typed relations touching a claim, the same assertion in other words, or a contradiction. */
+export function matchesFor(bundle: Bundle, claimId: string): Match[] {
+  return bundle.matches.filter((m) => m.from === claimId || m.to === claimId);
+}
+
+/** One perspective's stated position on a claim (the "who disagrees, and how" read). */
+export interface OverlayStance {
+  overlay: Overlay;
+  stance: Stance;
+  credence?: number;
+  rationale?: string;
+}
+
+/**
+ * Every perspective that has taken an explicit position on this claim, with its stance. Powers the
+ * "who contests it, and from which perspective" section, the fifth provenance question.
+ */
+export function stancesFor(bundle: Bundle, claimId: string): OverlayStance[] {
+  const overlays = overlaysById(bundle);
+  const out: OverlayStance[] = [];
+  for (const a of bundle.assessments) {
+    if (a.target.kind !== "claim" || a.target.id !== claimId) continue;
+    const overlay = overlays.get(a.overlayId);
+    if (!overlay) continue;
+    out.push({
+      overlay,
+      stance: a.stance,
+      ...(a.credence !== undefined ? { credence: a.credence } : {}),
+      ...(a.rationale ? { rationale: a.rationale } : {}),
+    });
+  }
+  return out;
 }
 
 /**
@@ -58,8 +93,67 @@ export function attributionClass(a: Attribution): "src" | "llm" | "human" {
   return a.kind === "source" ? "src" : a.kind === "analyst-llm" ? "llm" : "human";
 }
 export function attributionLabel(a: Attribution): string {
-  return a.kind === "source" ? "from source" : a.kind === "analyst-llm" ? "AI-proposed" : "human";
+  return a.kind === "source" ? "From source" : a.kind === "analyst-llm" ? "AI-proposed" : "Human";
 }
+
+// ─── Display maps ─────────────────────────────────────────────────────────────
+// Protocol enums are Layer 3 identifiers; these are their Layer 1 labels. A raw
+// enum value must never be the visible text of a UI element (LANGUAGE-AUDIT §3).
+
+const CHALLENGE_TYPE_LABEL: Record<ChallengeType, string> = {
+  "source-does-not-support": "Quote doesn't back the claim",
+  "scope-drift": "Scope drift",
+  "quantifier-drift": "Overstates how many",
+  "omitted-qualification": "Drops a stated caveat",
+  "correlated-evidence": "Double-counted evidence",
+  "circular-citation": "Circular citation",
+  "confounding": "Confounding",
+  "selection-bias": "Selection bias",
+  "construct-mismatch": "Measures something else",
+  "temporal-supersession": "Superseded by later work",
+  "missing-alternative": "Ignores an alternative explanation",
+  "invalid-inference": "Reasoning doesn't follow",
+  "rhetorical-not-evidential": "Rhetoric, not evidence",
+  "missing-source": "Missing source",
+};
+export const challengeTypeLabel = (t: ChallengeType): string => CHALLENGE_TYPE_LABEL[t] ?? t;
+
+const CHALLENGE_STATUS_LABEL: Record<ChallengeStatus, string> = {
+  open: "open", accepted: "accepted", rejected: "rejected", mitigated: "addressed",
+};
+export const challengeStatusLabel = (s: ChallengeStatus): string => CHALLENGE_STATUS_LABEL[s] ?? s;
+
+const EXCLUSION_REASON_LABEL: Record<QuarantineReason, string> = {
+  "no-supporting-passage": "No supporting quote found",
+  "passage-does-not-entail": "The quote doesn't say this",
+  "unverifiable-source": "Source can't be verified",
+  "duplicate": "Duplicate",
+  "out-of-scope": "Outside this case's question",
+  "injection-suspected": "Possible prompt injection, the text tried to instruct the AI",
+};
+export const exclusionReasonLabel = (r: QuarantineReason): string => EXCLUSION_REASON_LABEL[r] ?? r;
+
+const MATCH_TYPE_LABEL: Record<MatchType, string> = {
+  "equivalent": "Same claim",
+  "possibly-equivalent": "Likely the same claim",
+  "narrower": "More specific version",
+  "broader": "More general version",
+  "contradicts": "Contradicts",
+  "compatible-different-scope": "Compatible, different scope",
+};
+export const matchTypeLabel = (t: MatchType): string => MATCH_TYPE_LABEL[t] ?? t;
+
+const STANCE_LABEL: Record<Stance, string> = {
+  accept: "Accepts", reject: "Rejects", uncertain: "Unsure", irrelevant: "Not relevant",
+};
+export const stanceLabel = (s: Stance): string => STANCE_LABEL[s] ?? s;
+
+const SHARED_ORIGIN_LABEL: Record<SharedOrigin, string> = {
+  dataset: "shared dataset", author: "shared authors", institution: "shared institution",
+  funder: "shared funder", methodology: "shared methodology", instrument: "shared instrument",
+  publication: "shared publication",
+};
+export const sharedOriginLabel = (o: SharedOrigin): string => SHARED_ORIGIN_LABEL[o] ?? o;
 
 export function locatorText(p: Passage): string {
   const l = p.locator;

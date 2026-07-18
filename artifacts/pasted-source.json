@@ -1,0 +1,2829 @@
+{
+  "schemaVersion": "eg/0.1",
+  "id": "bnd_3c22bb69f048e49e",
+  "case": "live",
+  "title": "Pasted source",
+  "question": "What does “Pasted source” establish?",
+  "createdWith": {
+    "mode": "live"
+  },
+  "sources": [
+    {
+      "id": "src_7e75e4ec0bd248ac",
+      "type": "other",
+      "title": "Pasted source",
+      "authors": [],
+      "adversarialFlags": [],
+      "relatedSources": []
+    }
+  ],
+  "passages": [
+    {
+      "id": "psg_0fa8525eabf1cde9",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 1040,
+        "end": 1205
+      },
+      "verbatimText": "The integration of Artificial Intelligence (AI) in education has transformed academic learning, offering both opportunities and challenges for students’ development."
+    },
+    {
+      "id": "psg_0722da2090986ee0",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 1206,
+        "end": 1399
+      },
+      "verbatimText": "This\nstudy investigates the impact of AI technologies on students’ learning processes and academic performance, with a focus on their perceptions and the challenges associated with AI\nadoption."
+    },
+    {
+      "id": "psg_bb285d7eea2f6c21",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 1595,
+        "end": 1671
+      },
+      "verbatimText": "Using purposive sampling, 85 participants were selected\nto ensure relevance."
+    },
+    {
+      "id": "psg_ed526a80618cc562",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 1672,
+        "end": 1933
+      },
+      "verbatimText": "Data were collected through a structured questionnaire comprising\n11 items as follows: seven closed-ended questions assessing perceptions, usage, and the\neffectiveness of AI tools; and four open-ended questions exploring experiences, expectations, and concerns."
+    },
+    {
+      "id": "psg_36de6df77b3edf88",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 1934,
+        "end": 2214
+      },
+      "verbatimText": "Quantitative data were analyzed using frequency and percentage\ncalculations, while qualitative responses were subjected to thematic analysis, incorporating\nboth vertical (individual responses) and horizontal (cross-dataset) approaches to ensure\ncomprehensive theme identification."
+    },
+    {
+      "id": "psg_ceb0a714b16d8b55",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 2215,
+        "end": 2365
+      },
+      "verbatimText": "The findings reveal that AI offers significant benefits,\nincluding personalized learning, improved academic outcomes, and enhanced student\nengagement."
+    },
+    {
+      "id": "psg_e742c48676c23e4e",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 2366,
+        "end": 2517
+      },
+      "verbatimText": "However, challenges such as over-reliance on AI, diminished critical thinking\nskills, data privacy risks, and academic dishonesty were also identified."
+    },
+    {
+      "id": "psg_214f236372f31058",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 2518,
+        "end": 2677
+      },
+      "verbatimText": "The study underscores the necessity of a structured framework for AI integration, supported by ethical\nguidelines, to maximize benefits while mitigating risks."
+    },
+    {
+      "id": "psg_1ba99d306038d3ec",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 2783,
+        "end": 2913
+      },
+      "verbatimText": "its successful\nimplementation requires addressing concerns related to accuracy, cognitive disengagement,\nand ethical implications."
+    },
+    {
+      "id": "psg_bc94480afc5f277e",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 2914,
+        "end": 3056
+      },
+      "verbatimText": "A balanced approach is essential to ensure equitable, effective,\nand responsible learning experiences in AI-enhanced educational environments."
+    },
+    {
+      "id": "psg_6c98107f58cc571b",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 4476,
+        "end": 4654
+      },
+      "verbatimText": "Studies have shown that students in personalized learning environments exhibit improved\nself-efficacy and a more positive attitude toward their education (Johnson & Smith, 2019)."
+    },
+    {
+      "id": "psg_9a566bd00701072a",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 4857,
+        "end": 5093
+      },
+      "verbatimText": "AI-powered platforms, such as adaptive learning systems, have been\nshown to enhance student engagement and performance by providing real-time feedback\nand customized learning pathways (Luckin et al., 2016; Zawacki-Richter et al., 2019)."
+    },
+    {
+      "id": "psg_0f57d119ac3bd736",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 5549,
+        "end": 5762
+      },
+      "verbatimText": "However, the rapid information processing and insightful responses provided by AI\nchallenge traditional learning methods, raising questions about the distinctions between\nhuman learning and machine-based learning."
+    },
+    {
+      "id": "psg_a7a4d3346492fb01",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 5776,
+        "end": 5929
+      },
+      "verbatimText": "while AI can efficiently process\nand analyze data, it may lack the nuanced understanding and creativity inherent in human\ncognition (Luckin et al., 2016)"
+    },
+    {
+      "id": "psg_14bb752015bfeec6",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 6128,
+        "end": 6184
+      },
+      "verbatimText": "The use of AI in education is not without its challenges"
+    },
+    {
+      "id": "psg_22edef79ce7385a2",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 6495,
+        "end": 6678
+      },
+      "verbatimText": "Qadir (2023) highlights the risk of students misusing AI tools in dishonest or unauthorized ways, such as using AI-generated content to complete assignments without proper\nattribution"
+    },
+    {
+      "id": "psg_65c18712ab000231",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 7537,
+        "end": 7700
+      },
+      "verbatimText": "intelligent tutoring\nsystems have been shown to provide personalized feedback and support, improving student engagement and learning outcomes (Luckin et al., 2016)"
+    },
+    {
+      "id": "psg_e0dfd2861f82f08a",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 7713,
+        "end": 7895
+      },
+      "verbatimText": "adaptive learning\nplatforms leverage AI to tailor educational content to individual learners’ needs, promoting\nmore effective and efficient learning experiences (Holmes et al., 2019)"
+    },
+    {
+      "id": "psg_12e45a7d9961b5ec",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 7919,
+        "end": 8027
+      },
+      "verbatimText": "AI integration in education raises critical questions about its\nalignment with established learning theories"
+    },
+    {
+      "id": "psg_ba23824457416ae4",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 10146,
+        "end": 10268
+      },
+      "verbatimText": "The sample consisted of 85 second-year students, purposefully selected from the\nAerospace and Medical Engineering programs"
+    },
+    {
+      "id": "psg_9c12c97402a271c9",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 11135,
+        "end": 11223
+      },
+      "verbatimText": "Data were collected using a self-administered questionnaire distributed via Google\nForms"
+    },
+    {
+      "id": "psg_3589d0e055530e86",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 11379,
+        "end": 11497
+      },
+      "verbatimText": "The study utilized\na mixed-methods design, incorporating both quantitative and qualitative data collection\ntechniques."
+    },
+    {
+      "id": "psg_1a1f397a309dc125",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 11498,
+        "end": 11863
+      },
+      "verbatimText": "The questionnaire consisted of 11 items, categorized into two types of questions\nas follows; 7 closed-ended questions designed to quantify students’ responses and identify\npatterns, and 4 open-ended questions aimed at capturing detailed qualitative insights into\nparticipants’ experiences, perceptions, and expectations regarding the impact of AI on their\nlearning."
+    },
+    {
+      "id": "psg_1ba55aa8c8a691b5",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 14227,
+        "end": 14356
+      },
+      "verbatimText": "According to the statistical data obtained, 95.6% of respondents use artificial intelligence technologies in academic activities."
+    },
+    {
+      "id": "psg_801cbc219c8df859",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 14534,
+        "end": 14683
+      },
+      "verbatimText": "Regarding the main types of AI used in academic activities, 88.2% of respondents\nuse virtual assistants (e.g., ChatGPT, Siri, Google Assistant, etc.)"
+    },
+    {
+      "id": "psg_80f484667905bf5b",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 16366,
+        "end": 16551
+      },
+      "verbatimText": "Most students (57.6%) use\nthem weekly, suggesting that these tools have become an integral part of the educational\nprocess, assisting with homework, projects, and knowledge enhancement."
+    },
+    {
+      "id": "psg_ca8d8ed287751dae",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 16552,
+        "end": 16794
+      },
+      "verbatimText": "A considerable\npercentage, 18.8%, use AI daily, indicating a higher reliance on these technologies, possibly\nbecause they consider them essential for learning, whether through virtual assistants,\neducational platforms, or other AI-based tools."
+    },
+    {
+      "id": "psg_d9531a172a921288",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 17041,
+        "end": 17184
+      },
+      "verbatimText": "Only 1.2% of students stated that they do not use AI tools at\nall, confirming that AI has become an almost indispensable resource in education."
+    },
+    {
+      "id": "psg_f4651de6c69c24b1",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 16814,
+        "end": 16846
+      },
+      "verbatimText": "11.8% of students use\nAI monthly"
+    },
+    {
+      "id": "psg_386194486f32fb73",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 16916,
+        "end": 16961
+      },
+      "verbatimText": "a\nsimilar percentage (11.8%) uses them rarely"
+    },
+    {
+      "id": "psg_73be01265224c565",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 17041,
+        "end": 17106
+      },
+      "verbatimText": "Only 1.2% of students stated that they do not use AI tools at\nall"
+    },
+    {
+      "id": "psg_b6a7bec3ca139eaf",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 17425,
+        "end": 17513
+      },
+      "verbatimText": "80% of them agree that\nusing AI-based technologies enhances their educational experience"
+    },
+    {
+      "id": "psg_9c30f1cd8a7ca577",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 17694,
+        "end": 17775
+      },
+      "verbatimText": "17.6% of students expressed uncertainty about the effects of AI on their learning"
+    },
+    {
+      "id": "psg_42d501459a14ca10",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 18056,
+        "end": 18140
+      },
+      "verbatimText": "only 2.4% of students\nconsidered AI to be of no benefit to their educational process"
+    },
+    {
+      "id": "psg_d1b899e66e25708c",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 18513,
+        "end": 18602
+      },
+      "verbatimText": "82.4% of students think that using AI contributes to enhancing their academic\nperformance"
+    },
+    {
+      "id": "psg_910e2f6115ddee0d",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 18613,
+        "end": 18704
+      },
+      "verbatimText": "some (15.3%) believe that implementing AI does not bring significant changes in this regard"
+    },
+    {
+      "id": "psg_124c1e69132a0bbd",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 18710,
+        "end": 18761
+      },
+      "verbatimText": "3.5% feel that it only limits knowledge acquisition"
+    },
+    {
+      "id": "psg_7b5d030d0306b6b6",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 18777,
+        "end": 18866
+      },
+      "verbatimText": "only 2.4% of students think that using AI could lead to a decline in academic\nperformance"
+    },
+    {
+      "id": "psg_0a794be2a0b67900",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 19261,
+        "end": 19333
+      },
+      "verbatimText": "most\nstudents (83.5%) believe that AI improves their learning efficiency"
+    },
+    {
+      "id": "psg_7b90090971f132e1",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 19514,
+        "end": 19594
+      },
+      "verbatimText": "10.6% of students do\nnot think that using AI increases their learning efficiency"
+    },
+    {
+      "id": "psg_b215e959e07989d0",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 19735,
+        "end": 19827
+      },
+      "verbatimText": "7.1% of students stated that they are unsure about AI’ s impact on their\nlearning efficiency"
+    },
+    {
+      "id": "psg_3a5ec26b5f39ac67",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 20270,
+        "end": 20407
+      },
+      "verbatimText": "the most significant issue is the possibility of receiving incorrect or imprecise\nanswers, with 48.2% of students expressing this concern"
+    },
+    {
+      "id": "psg_e94f864ef6d1d9c2",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 20437,
+        "end": 20499
+      },
+      "verbatimText": "worries\nabout the negative impact on critical thinking (16.5%)"
+    },
+    {
+      "id": "psg_775eca5f4b9db37a",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 20642,
+        "end": 20668
+      },
+      "verbatimText": "data\nprivacy issues (9.4%)"
+    },
+    {
+      "id": "psg_f31856a4efc40051",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 20670,
+        "end": 20754
+      },
+      "verbatimText": "the fear that the results generated by AI may not truly belong to the\nstudent (3.5%)"
+    },
+    {
+      "id": "psg_fd4d2fb3135035fb",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 20760,
+        "end": 20796
+      },
+      "verbatimText": "a category labeled as “other” (5.9%)"
+    },
+    {
+      "id": "psg_6ebac5d660e5f067",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 24884,
+        "end": 25030
+      },
+      "verbatimText": "Students widely noted that AI tools reduce the\ntime spent on tasks like researching, processing information, and automating repetitive\nactivities."
+    },
+    {
+      "id": "psg_c9e08ade6feadc47",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 25031,
+        "end": 25196
+      },
+      "verbatimText": "AI’ s ability to provide summaries, find relevant information, and perform\ncomplex calculations allows learners to focus more on critical thinking and understanding."
+    },
+    {
+      "id": "psg_e22accd6fb9745f5",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 23242,
+        "end": 23397
+      },
+      "verbatimText": "AI should provide accurate and organized information;\nconsistency in delivering correct answers; suggestions for\nimproved validation processes in AI tools."
+    },
+    {
+      "id": "psg_b41c7cc16dd9388a",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 23873,
+        "end": 24015
+      },
+      "verbatimText": "Triangulation further supported the robustness of our findings by ensuring that the\nidentified themes held true across diverse student groups."
+    },
+    {
+      "id": "psg_34f7bffe090bb1c0",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 25960,
+        "end": 26052
+      },
+      "verbatimText": "AI saves time by quickly synthesizing broad topics upon\nrequest; reduces study hours by 50%;"
+    },
+    {
+      "id": "psg_cce45eb2067eff05",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 27794,
+        "end": 27874
+      },
+      "verbatimText": "The primary concern\namong users is the reliability of data provided by AI tools."
+    },
+    {
+      "id": "psg_62bff0617c5994d8",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 28070,
+        "end": 28204
+      },
+      "verbatimText": "Students highlighted the risk of relying too\nheavily on AI, which may hinder critical thinking and independent problem-solving skills."
+    },
+    {
+      "id": "psg_fef09c4bb2747a1b",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 28678,
+        "end": 28738
+      },
+      "verbatimText": "The information is often incorrect and needs to be verified;"
+    },
+    {
+      "id": "psg_ee36ef92afdc0e91",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 29061,
+        "end": 29138
+      },
+      "verbatimText": "Excessive reliance on AI reduces critical thinking and academic\nindependence;"
+    },
+    {
+      "id": "psg_3a40ff5b51a7dd93",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 29742,
+        "end": 29834
+      },
+      "verbatimText": "AI cannot replicate emotional nuances in text, which impacts its\nrelevance in some contexts;"
+    },
+    {
+      "id": "psg_fa50a7a1bb5b5293",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 32815,
+        "end": 32888
+      },
+      "verbatimText": "AI reduces my willingness to ask questions because I rely too much on it;"
+    },
+    {
+      "id": "psg_818e46abeff954cb",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 32290,
+        "end": 32378
+      },
+      "verbatimText": "AI helps us improve our relationships with classmates and enhances the\nlearning process;"
+    },
+    {
+      "id": "psg_e158ff9afad1666d",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 34671,
+        "end": 34826
+      },
+      "verbatimText": "The results show that 95.6% of respondents use AI in their academic activities, underscoring the deep integration of this technology into modern education."
+    },
+    {
+      "id": "psg_144d20fe4fced826",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 34827,
+        "end": 34974
+      },
+      "verbatimText": "Virtual assistants\nare the most used AI applications (88.2%), providing support for information retrieval, task\nmanagement, and real-time feedback."
+    },
+    {
+      "id": "psg_7780dd12076de1fd",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 34975,
+        "end": 35110
+      },
+      "verbatimText": "Additionally, 42.4% of respondents use AI-based educational platforms, reflecting a shift toward personalized and interactive learning."
+    },
+    {
+      "id": "psg_78b50af88c0a8fd4",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 36526,
+        "end": 36630
+      },
+      "verbatimText": "nearly half of the respondents (48.2%) expressed reservations about the accuracy of AI-generated content"
+    },
+    {
+      "id": "psg_0e7993c4e200ddf1",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 35824,
+        "end": 35989
+      },
+      "verbatimText": "Based on this study, we conclude that AI offers significant benefits, such as personalized learning, improved educational outcomes, and increased student engagement."
+    },
+    {
+      "id": "psg_85317139b7ca6676",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 35990,
+        "end": 36126
+      },
+      "verbatimText": "However, it also presents challenges, such as over-reliance on technology, diminished\ncritical thinking, and the risk of academic fraud."
+    },
+    {
+      "id": "psg_cd0bb41450310cd2",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 10766,
+        "end": 10995
+      },
+      "verbatimText": "Given the small sample size and its\nfocus on specific academic programs, the findings should be considered preliminary and\nexploratory. They cannot be generalized to all students within these programs or to those\nin other fields."
+    },
+    {
+      "id": "psg_b6c45c30b7180e98",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 39327,
+        "end": 39526
+      },
+      "verbatimText": "Longitudinal research: Future studies should adopt longitudinal designs with larger,\nmore diverse samples to better understand the long-term effects of AI on academic outcomes and career development."
+    },
+    {
+      "id": "psg_08a87f80928f7c9d",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 39527,
+        "end": 39828
+      },
+      "verbatimText": "By addressing these recommendations, educational institutions can ensure that AI\ncomplements rather than replaces traditional teaching methods, ultimately fostering a more\nadaptable, efficient, and personalized learning environment that supports the development\nof essential skills for future success."
+    },
+    {
+      "id": "psg_6f38b0f811902ae4",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 40467,
+        "end": 40629
+      },
+      "verbatimText": "The current study was conducted in line with the ethical\nstandards for research involving human subjects, following approval from our University Ethics\nCommittee."
+    },
+    {
+      "id": "psg_a402a7387166b3ac",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 40828,
+        "end": 41065
+      },
+      "verbatimText": "Informed consent was waived for this study because no personal\ndata were collected from the students, such as first and last names, email addresses, phone numbers,\nor any other type of information that could lead to their identification."
+    },
+    {
+      "id": "psg_c9090be40513a7b8",
+      "sourceId": "src_7e75e4ec0bd248ac",
+      "locator": {
+        "kind": "char",
+        "start": 41310,
+        "end": 41416
+      },
+      "verbatimText": "The raw data supporting the conclusions of this article can be made\navailable by the authors upon request."
+    }
+  ],
+  "claims": [
+    {
+      "id": "cl_86e3e0bb6a0757d5",
+      "statement": "AI integration in education has transformed academic learning, offering both opportunities and challenges for students’ development.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_0fa8525eabf1cde9"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "Artificial Intelligence integration in education",
+        "outcome": "academic learning transformation, opportunities and challenges for students’ development",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_a82cb7bc20d11015",
+      "statement": "The study investigated the impact of AI technologies on students’ learning processes and academic performance.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_0722da2090986ee0"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI technologies",
+        "outcome": "students’ learning processes and academic performance",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_3b11e918bf518292",
+      "statement": "85 participants were selected using purposive sampling to ensure relevance.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_bb285d7eea2f6c21"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "quantifiers": "85 participants",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_92ff0a251f398c16",
+      "statement": "Data were collected through a structured questionnaire comprising 11 items.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_ed526a80618cc562"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "quantifiers": "11 items (7 closed‑ended, 4 open‑ended)",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_aefe021004b8ddc1",
+      "statement": "Quantitative data were analyzed using frequency and percentage calculations.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_36de6df77b3edf88"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_7db8a17337c94f38",
+      "statement": "AI offers significant benefits including personalized learning, improved academic outcomes, and enhanced student engagement.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_ceb0a714b16d8b55"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI",
+        "outcome": "personalized learning, improved academic outcomes, enhanced student engagement",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_7efc8379b3501bba",
+      "statement": "Challenges associated with AI include over‑reliance on AI, diminished critical thinking skills, data privacy risks, and academic dishonesty.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_e742c48676c23e4e"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI",
+        "outcome": "over‑reliance, diminished critical thinking, data privacy risks, academic dishonesty",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_b5a980f1468d6132",
+      "statement": "A structured framework for AI integration, supported by ethical guidelines, is necessary to maximize benefits while mitigating risks.",
+      "claimType": "value",
+      "passages": [
+        "psg_214f236372f31058"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI integration",
+        "outcome": "maximized benefits, mitigated risks",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_1c23975d0448f623",
+      "statement": "Successful AI implementation requires addressing concerns related to accuracy, cognitive disengagement, and ethical implications.",
+      "claimType": "value",
+      "passages": [
+        "psg_1ba99d306038d3ec"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI implementation",
+        "outcome": "addressing accuracy, cognitive disengagement, ethical implications",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_4137335d81265e3d",
+      "statement": "A balanced approach is essential to ensure equitable, effective, and responsible learning experiences in AI‑enhanced educational environments.",
+      "claimType": "value",
+      "passages": [
+        "psg_bc94480afc5f277e"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI‑enhanced educational environments",
+        "outcome": "equitable, effective, responsible learning experiences",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_9351e2c542bae7fa",
+      "statement": "Students in personalized learning environments exhibit improved self‑efficacy and a more positive attitude toward their education.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_6c98107f58cc571b"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students in personalized learning environments",
+        "intervention": "personalized learning environments",
+        "outcome": "improved self‑efficacy, more positive attitude toward education",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_3e72e03fa80ecddc",
+      "statement": "AI‑powered platforms, such as adaptive learning systems, have been shown to enhance student engagement and performance by providing real‑time feedback and customized learning pathways.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_9a566bd00701072a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI‑powered platforms (adaptive learning systems)",
+        "outcome": "enhanced student engagement and performance",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_5f0dd86b4e5577c3",
+      "statement": "Rapid information processing and insightful responses provided by AI challenge traditional learning methods.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_0f57d119ac3bd736"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI rapid information processing and insightful responses",
+        "comparator": "traditional learning methods",
+        "outcome": "challenge to traditional methods",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_4e0645f6e7b5867d",
+      "statement": "AI can efficiently process and analyze data, but it may lack the nuanced understanding and creativity inherent in human cognition",
+      "claimType": "definitional",
+      "passages": [
+        "psg_a7a4d3346492fb01"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI processing and analysis of data",
+        "outcome": "nuanced understanding and creativity",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_601a46dd6155a4ae",
+      "statement": "The use of AI in education is not without its challenges",
+      "claimType": "empirical",
+      "passages": [
+        "psg_14bb752015bfeec6"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI use in education",
+        "outcome": "challenges",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_74861a492bc3b13a",
+      "statement": "Students risk misusing AI tools in dishonest or unauthorized ways, such as using AI‑generated content to complete assignments without proper attribution",
+      "claimType": "empirical",
+      "passages": [
+        "psg_22edef79ce7385a2"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "use of AI tools for assignments",
+        "outcome": "dishonest or unauthorized completion of assignments without attribution",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_c4e633d600a0eac1",
+      "statement": "Intelligent tutoring systems provide personalized feedback and support, improving student engagement and learning outcomes",
+      "claimType": "empirical",
+      "passages": [
+        "psg_65c18712ab000231"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "intelligent tutoring systems",
+        "outcome": "student engagement and learning outcomes",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_52ca5654e7830aaf",
+      "statement": "Adaptive learning platforms leverage AI to tailor educational content to individual learners’ needs, promoting more effective and efficient learning experiences",
+      "claimType": "empirical",
+      "passages": [
+        "psg_e0dfd2861f82f08a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "individual learners",
+        "intervention": "adaptive learning platforms using AI",
+        "outcome": "more effective and efficient learning experiences",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_6cc20469d76c19f8",
+      "statement": "AI integration in education raises critical questions about its alignment with established learning theories",
+      "claimType": "empirical",
+      "passages": [
+        "psg_12e45a7d9961b5ec"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI integration in education",
+        "outcome": "alignment with learning theories",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_13c6ea05f2fd8717",
+      "statement": "The sample consisted of 85 second‑year students purposefully selected from the Aerospace and Medical Engineering programs",
+      "claimType": "methodological",
+      "passages": [
+        "psg_ba23824457416ae4"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "85 second‑year students from Aerospace and Medical Engineering programs",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_a334cb8fa79ee48b",
+      "statement": "Data were collected using a self‑administered questionnaire distributed via Google Forms",
+      "claimType": "methodological",
+      "passages": [
+        "psg_9c12c97402a271c9"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "self‑administered questionnaire via Google Forms",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_152b2643ac8844e4",
+      "statement": "The study utilized a mixed-methods design, incorporating both quantitative and qualitative data collection techniques.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_3589d0e055530e86"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_ba3dccd6227cb21a",
+      "statement": "The questionnaire consisted of 11 items, categorized into two types of questions as follows; 7 closed-ended questions designed to quantify students’ responses and identify patterns, and 4 open-ended questions aimed at capturing detailed qualitative insights into participants’ experiences, perceptions, and expectations regarding the impact of AI on their learning.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_1a1f397a309dc125"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_fe528ddb1be86d88",
+      "statement": "95.6% of respondents use artificial intelligence technologies in academic activities.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_1ba55aa8c8a691b5"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "artificial intelligence technologies",
+        "outcome": "use of AI technologies in academic activities",
+        "quantifiers": "95.6%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_2f396f14e1828025",
+      "statement": "88.2% of respondents use virtual assistants (e.g., ChatGPT, Siri, Google Assistant, etc.).",
+      "claimType": "empirical",
+      "passages": [
+        "psg_801cbc219c8df859"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "virtual assistants",
+        "outcome": "use of virtual assistants in academic activities",
+        "quantifiers": "88.2%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_357e2d4f056211d8",
+      "statement": "57.6% of students use AI tools weekly.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_80f484667905bf5b"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI tools",
+        "outcome": "weekly use of AI tools",
+        "timeframe": "weekly",
+        "quantifiers": "57.6%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_df32aa4627646056",
+      "statement": "18.8% of students use AI tools daily.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_ca8d8ed287751dae"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI tools",
+        "outcome": "daily use of AI tools",
+        "timeframe": "daily",
+        "quantifiers": "18.8%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_f0ce747d620db7ea",
+      "statement": "1.2% of students stated that they do not use AI tools at all.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_d9531a172a921288"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI tools",
+        "outcome": "non-use of AI tools",
+        "quantifiers": "1.2%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_9070aa519e03847f",
+      "statement": "11.8% of students use AI monthly",
+      "claimType": "empirical",
+      "passages": [
+        "psg_f4651de6c69c24b1"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI monthly use",
+        "outcome": "frequency of AI use",
+        "quantifiers": "11.8%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_d5f304614128ac27",
+      "statement": "11.8% of students use AI rarely",
+      "claimType": "empirical",
+      "passages": [
+        "psg_386194486f32fb73"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI rare use",
+        "outcome": "frequency of AI use",
+        "quantifiers": "11.8%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_377b6b35ede7686b",
+      "statement": "1.2% of students stated that they do not use AI tools at all",
+      "claimType": "empirical",
+      "passages": [
+        "psg_73be01265224c565"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "no AI use",
+        "outcome": "non‑use of AI",
+        "quantifiers": "1.2%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_cc4d362e910f4dbe",
+      "statement": "80% of students agree that using AI-based technologies enhances their educational experience",
+      "claimType": "empirical",
+      "passages": [
+        "psg_b6a7bec3ca139eaf"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI‑based technologies",
+        "outcome": "enhanced educational experience",
+        "quantifiers": "80%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_3135b7e6d698db1c",
+      "statement": "17.6% of students expressed uncertainty about the effects of AI on their learning",
+      "claimType": "empirical",
+      "passages": [
+        "psg_9c30f1cd8a7ca577"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "uncertainty about learning effects",
+        "quantifiers": "17.6%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_8238bea3324fb41e",
+      "statement": "2.4% of students considered AI to be of no benefit to their educational process",
+      "claimType": "empirical",
+      "passages": [
+        "psg_42d501459a14ca10"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "perceived lack of benefit",
+        "quantifiers": "2.4%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_55e7bdbf6e552691",
+      "statement": "82.4% of students think that using AI contributes to enhancing their academic performance",
+      "claimType": "empirical",
+      "passages": [
+        "psg_d1b899e66e25708c"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "enhanced academic performance",
+        "quantifiers": "82.4%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_117cbe9ea975e0ee",
+      "statement": "15.3% of students believe that implementing AI does not bring significant changes in academic performance",
+      "claimType": "empirical",
+      "passages": [
+        "psg_910e2f6115ddee0d"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI implementation",
+        "outcome": "no significant change in academic performance",
+        "quantifiers": "15.3%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_8a55350e05263886",
+      "statement": "3.5% of students feel that AI only limits knowledge acquisition",
+      "claimType": "empirical",
+      "passages": [
+        "psg_124c1e69132a0bbd"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "limited knowledge acquisition",
+        "quantifiers": "3.5%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_a5871185e1abe361",
+      "statement": "2.4% of students think that using AI could lead to a decline in academic performance",
+      "claimType": "empirical",
+      "passages": [
+        "psg_7b5d030d0306b6b6"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "decline in academic performance",
+        "quantifiers": "2.4%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_7be818a8353ba0ae",
+      "statement": "83.5% of students believe that AI improves their learning efficiency",
+      "claimType": "empirical",
+      "passages": [
+        "psg_0a794be2a0b67900"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "improved learning efficiency",
+        "quantifiers": "83.5%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_b24e928463413c8d",
+      "statement": "10.6% of students do not think that using AI increases their learning efficiency",
+      "claimType": "empirical",
+      "passages": [
+        "psg_7b90090971f132e1"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "no increase in learning efficiency",
+        "quantifiers": "10.6%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_c8b0e3762198ebd8",
+      "statement": "7.1% of students are unsure about AI’s impact on their learning efficiency",
+      "claimType": "empirical",
+      "passages": [
+        "psg_b215e959e07989d0"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "uncertainty about learning efficiency impact",
+        "quantifiers": "7.1%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_358d823cd61f7f53",
+      "statement": "48.2% of students are concerned about receiving incorrect or imprecise answers from AI",
+      "claimType": "empirical",
+      "passages": [
+        "psg_3a5ec26b5f39ac67"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI-generated answers",
+        "outcome": "concern about incorrect/imprecise answers",
+        "quantifiers": "48.2%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_ebf749b0e78e3eb0",
+      "statement": "16.5% of students worry about the negative impact of AI on critical thinking",
+      "claimType": "empirical",
+      "passages": [
+        "psg_e94f864ef6d1d9c2"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "negative impact on critical thinking",
+        "quantifiers": "16.5%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_ddd774ffcf6bdedb",
+      "statement": "9.4% of students have data privacy concerns regarding AI",
+      "claimType": "empirical",
+      "passages": [
+        "psg_775eca5f4b9db37a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "data privacy concerns",
+        "quantifiers": "9.4%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_d11b1504e3b73790",
+      "statement": "3.5% of students fear that AI‑generated results may not truly belong to them",
+      "claimType": "empirical",
+      "passages": [
+        "psg_f31856a4efc40051"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI‑generated results",
+        "outcome": "concern about result ownership",
+        "quantifiers": "3.5%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_d8373adedde9bc88",
+      "statement": "5.9% of students selected an \"other\" category for their concerns about AI",
+      "claimType": "empirical",
+      "passages": [
+        "psg_fd4d2fb3135035fb"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI use",
+        "outcome": "other concerns",
+        "quantifiers": "5.9%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_ff3837f5e1745b45",
+      "statement": "Students widely noted that AI tools reduce the time spent on tasks like researching, processing information, and automating repetitive activities.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_6ebac5d660e5f067"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "AI tools",
+        "outcome": "time spent on tasks",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_4710d6788c48e80b",
+      "statement": "AI’s ability to provide summaries, find relevant information, and perform complex calculations allows learners to focus more on critical thinking and understanding.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_c9e08ade6feadc47"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "learners",
+        "intervention": "AI’s ability to provide summaries, find relevant information, and perform complex calculations",
+        "outcome": "focus on critical thinking and understanding",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_d5da2e8fd9046f89",
+      "statement": "AI should provide accurate and organized information; consistency in delivering correct answers; suggestions for improved validation processes in AI tools.",
+      "claimType": "value",
+      "passages": [
+        "psg_e22accd6fb9745f5"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI",
+        "outcome": "accurate and organized information, consistent correct answers, improved validation processes",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_f5e4e70a9d962619",
+      "statement": "Triangulation further supported the robustness of our findings by ensuring that the identified themes held true across diverse student groups.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_b41c7cc16dd9388a"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "diverse student groups",
+        "intervention": "triangulation",
+        "outcome": "robustness of findings",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_1a18807430e98c82",
+      "statement": "AI saves time by quickly synthesizing broad topics upon request; reduces study hours by 50%.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_34f7bffe090bb1c0"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI synthesizing broad topics",
+        "outcome": "study hours reduced by 50%",
+        "quantifiers": "50%",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_eeb9c278f8cee207",
+      "statement": "The primary concern among users is the reliability of data provided by AI tools.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_cce45eb2067eff05"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "users",
+        "intervention": "AI tools",
+        "outcome": "concern about data reliability",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_aa419ea77bfa1a11",
+      "statement": "Students highlighted the risk of relying too heavily on AI, which may hinder critical thinking and independent problem‑solving skills.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_62bff0617c5994d8"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "relying too heavily on AI",
+        "outcome": "hinder critical thinking and independent problem‑solving skills",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_c10b101ffe7a4b94",
+      "statement": "The information is often incorrect and needs to be verified.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_fef09c4bb2747a1b"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI‑provided information",
+        "outcome": "information is often incorrect and needs verification",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_6b91a34ed5af7bd7",
+      "statement": "Excessive reliance on AI reduces critical thinking and academic independence.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_ee36ef92afdc0e91"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "intervention": "excessive reliance on AI",
+        "outcome": "reduces critical thinking and academic independence",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_968ffff86480c589",
+      "statement": "AI cannot replicate emotional nuances in text, which impacts its relevance in some contexts.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_3a40ff5b51a7dd93"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI‑generated text",
+        "outcome": "cannot replicate emotional nuances; impacts relevance",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_2f8007b39eae3deb",
+      "statement": "AI reduces my willingness to ask questions because I rely too much on it.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_fa50a7a1bb5b5293"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "participant",
+        "intervention": "reliance on AI",
+        "outcome": "reduces willingness to ask questions",
+        "modality": "causal"
+      }
+    },
+    {
+      "id": "cl_f7287cc4fbbd1fbc",
+      "statement": "AI helps us improve our relationships with classmates and enhances the learning process.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_818e46abeff954cb"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "respondents",
+        "intervention": "AI tools",
+        "outcome": "improved relationships with classmates; enhanced learning process",
+        "modality": "associational"
+      }
+    },
+    {
+      "id": "cl_cd8d7ad7ed1b70fa",
+      "statement": "95.6% of respondents use AI in their academic activities",
+      "claimType": "empirical",
+      "passages": [
+        "psg_e158ff9afad1666d"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "respondents (students)",
+        "intervention": "use of AI in academic activities",
+        "outcome": "usage rate of AI",
+        "quantifiers": "95.6%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_da3b0a83cf892722",
+      "statement": "Virtual assistants are the most used AI applications (88.2%)",
+      "claimType": "empirical",
+      "passages": [
+        "psg_144d20fe4fced826"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "respondents (students)",
+        "intervention": "use of virtual assistants",
+        "outcome": "usage rate of virtual assistants",
+        "quantifiers": "88.2%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_3dc343b33f54bae8",
+      "statement": "42.4% of respondents use AI-based educational platforms",
+      "claimType": "empirical",
+      "passages": [
+        "psg_7780dd12076de1fd"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "respondents (students)",
+        "intervention": "use of AI-based educational platforms",
+        "outcome": "usage rate of AI-based platforms",
+        "quantifiers": "42.4%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_3e93e56410a2c65b",
+      "statement": "Nearly half of the respondents (48.2%) expressed reservations about the accuracy of AI-generated content",
+      "claimType": "empirical",
+      "passages": [
+        "psg_78b50af88c0a8fd4"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "respondents (students)",
+        "intervention": "reservations about AI-generated content accuracy",
+        "outcome": "level of concern",
+        "quantifiers": "48.2%",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_53ba5b033c6aedc6",
+      "statement": "AI offers significant benefits, such as personalized learning, improved educational outcomes, and increased student engagement",
+      "claimType": "value",
+      "passages": [
+        "psg_0e7993c4e200ddf1"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI integration in education",
+        "outcome": "personalized learning, improved outcomes, increased engagement",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_8d238b6a3cba7195",
+      "statement": "AI presents challenges, such as over-reliance on technology, diminished critical thinking, and the risk of academic fraud",
+      "claimType": "value",
+      "passages": [
+        "psg_85317139b7ca6676"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI integration in education",
+        "outcome": "over-reliance, reduced critical thinking, academic fraud risk",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_9ffb4103baa8dc91",
+      "statement": "The findings should be considered preliminary and exploratory and cannot be generalized to all students within these programs or to those in other fields",
+      "claimType": "methodological",
+      "passages": [
+        "psg_cd0bb41450310cd2"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_be0a94a7c8ba3325",
+      "statement": "Future studies should adopt longitudinal designs with larger, more diverse samples to better understand the long-term effects of AI on academic outcomes and career development.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_b6c45c30b7180e98"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_0c5be6da33afdad9",
+      "statement": "Educational institutions can ensure that AI complements rather than replaces traditional teaching methods, fostering a more adaptable, efficient, and personalized learning environment that supports the development of essential skills for future success.",
+      "claimType": "value",
+      "passages": [
+        "psg_08a87f80928f7c9d"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "intervention": "AI",
+        "comparator": "traditional teaching methods",
+        "outcome": "more adaptable, efficient, and personalized learning environment supporting essential skills",
+        "modality": "normative"
+      }
+    },
+    {
+      "id": "cl_01cb89b7780a31e7",
+      "statement": "The current study was conducted in line with the ethical standards for research involving human subjects, following approval from our University Ethics Committee.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_6f38b0f811902ae4"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "human subjects",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_e383832ea624168f",
+      "statement": "Informed consent was waived for this study because no personal data were collected from the students, such as first and last names, email addresses, phone numbers, or any other type of information that could lead to their identification.",
+      "claimType": "empirical",
+      "passages": [
+        "psg_a402a7387166b3ac"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "population": "students",
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_c5800139f6de66b9",
+      "statement": "The raw data supporting the conclusions of this article can be made available by the authors upon request.",
+      "claimType": "methodological",
+      "passages": [
+        "psg_c9090be40513a7b8"
+      ],
+      "derived": false,
+      "assumptions": [],
+      "caveats": [],
+      "attribution": {
+        "kind": "source",
+        "ref": "src_7e75e4ec0bd248ac"
+      },
+      "tags": [],
+      "structure": {
+        "modality": "descriptive"
+      }
+    },
+    {
+      "id": "cl_b529cca4d80123b6",
+      "statement": "AI integration in education provides substantial benefits such as personalized learning, increased engagement and efficiency, but also introduces notable challenges including over‑reliance, accuracy concerns, and threats to critical thinking; therefore a balanced, ethically‑guided framework is required.",
+      "claimType": "predictive",
+      "assumptions": [],
+      "caveats": [],
+      "passages": [],
+      "derived": true,
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "tags": []
+    }
+  ],
+  "inferences": [
+    {
+      "id": "inf_c7ed357ada05637b",
+      "type": "supports",
+      "premises": [
+        "cl_9351e2c542bae7fa",
+        "cl_3e72e03fa80ecddc",
+        "cl_ff3837f5e1745b45",
+        "cl_4710d6788c48e80b",
+        "cl_1a18807430e98c82",
+        "cl_f7287cc4fbbd1fbc"
+      ],
+      "conclusion": "cl_7db8a17337c94f38",
+      "warrant": "Empirical evidence of improved self‑efficacy, engagement, time‑saving, and collaborative benefits demonstrates that AI offers significant advantages in learning contexts.",
+      "assumptions": [],
+      "defeaters": [
+        "If the reported improvements are limited to the specific sample or are influenced by self‑report bias"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_26c7e5a66563a862",
+      "type": "supports",
+      "premises": [
+        "cl_74861a492bc3b13a",
+        "cl_358d823cd61f7f53",
+        "cl_ebf749b0e78e3eb0",
+        "cl_ddd774ffcf6bdedb",
+        "cl_d11b1504e3b73790",
+        "cl_aa419ea77bfa1a11",
+        "cl_c10b101ffe7a4b94",
+        "cl_6b91a34ed5af7bd7",
+        "cl_968ffff86480c589",
+        "cl_2f8007b39eae3deb",
+        "cl_3e93e56410a2c65b",
+        "cl_8d238b6a3cba7195"
+      ],
+      "conclusion": "cl_7efc8379b3501bba",
+      "warrant": "Student‑reported concerns about misuse, inaccurate outputs, reduced critical thinking, privacy, and over‑reliance constitute concrete challenges associated with AI use in education.",
+      "assumptions": [],
+      "defeaters": [
+        "If mitigation strategies (e.g., training, verification protocols) effectively eliminate these concerns"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_40baaaac93e741af",
+      "type": "presupposes",
+      "premises": [
+        "cl_7db8a17337c94f38",
+        "cl_7efc8379b3501bba"
+      ],
+      "conclusion": "cl_b5a980f1468d6132",
+      "warrant": "When both notable benefits and serious risks are present, a structured framework with ethical guidelines is a necessary precondition for responsible implementation.",
+      "assumptions": [],
+      "defeaters": [
+        "If the benefits overwhelmingly outweigh the risks, a formal framework may be deemed unnecessary"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_801cf8f7892b14ac",
+      "type": "supports",
+      "premises": [
+        "cl_cc4d362e910f4dbe",
+        "cl_55e7bdbf6e552691",
+        "cl_7be818a8353ba0ae",
+        "cl_b24e928463413c8d",
+        "cl_c8b0e3762198ebd8"
+      ],
+      "conclusion": "cl_7db8a17337c94f38",
+      "warrant": "High percentages of students reporting enhanced experience, performance, and efficiency provide quantitative backing for the claim that AI delivers educational benefits.",
+      "assumptions": [],
+      "defeaters": [
+        "If respondents’ positive attitudes are driven by novelty effects rather than sustained outcomes"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_56b23d2dbc19a265",
+      "type": "supports",
+      "premises": [
+        "cl_358d823cd61f7f53",
+        "cl_eeb9c278f8cee207"
+      ],
+      "conclusion": "cl_7efc8379b3501bba",
+      "warrant": "The primary concern expressed by nearly half of the participants, incorrect or imprecise AI answers, directly evidences a key challenge of AI integration.",
+      "assumptions": [],
+      "defeaters": [
+        "If AI systems improve accuracy to a level where such concerns become negligible"
+      ],
+      "strength": "strong",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_f39424e0cbe25fa1",
+      "type": "explains",
+      "premises": [
+        "cl_86e3e0bb6a0757d5"
+      ],
+      "conclusion": "cl_b529cca4d80123b6",
+      "warrant": "The overarching observation that AI has transformed learning while presenting opportunities and challenges explains why a balanced, ethical approach is being advocated.",
+      "assumptions": [],
+      "defeaters": [
+        "If the transformation is superficial or limited to specific disciplines"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_387f85d8bd89a237",
+      "type": "undercuts",
+      "premises": [
+        "cl_9ffb4103baa8dc91"
+      ],
+      "conclusion": "cl_86e3e0bb6a0757d5",
+      "warrant": "Methodological limitations (small, purposive sample, lack of generalizability) weaken confidence in the claim that AI integration has broadly transformed academic learning.",
+      "assumptions": [],
+      "defeaters": [
+        "If subsequent studies with larger, more diverse samples replicate the findings"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_faee9ca9e6c10ec3",
+      "type": "undercuts",
+      "premises": [
+        "cl_be0a94a7c8ba3325"
+      ],
+      "conclusion": "cl_86e3e0bb6a0757d5",
+      "warrant": "The call for longitudinal, larger‑scale research indicates that current evidence is insufficient to firmly assert a lasting transformation caused by AI.",
+      "assumptions": [],
+      "defeaters": [
+        "If the present cross‑sectional data are corroborated by other robust investigations"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_27d7f2b00d72fa84",
+      "type": "supports",
+      "premises": [
+        "cl_f5e4e70a9d962619"
+      ],
+      "conclusion": "cl_86e3e0bb6a0757d5",
+      "warrant": "Triangulation of quantitative and qualitative data enhances the credibility of the study’s findings about AI’s impact.",
+      "assumptions": [],
+      "defeaters": [
+        "If triangulation was performed on a limited set of themes, reducing its protective effect"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_79f01da4f3c8298e",
+      "type": "supports",
+      "premises": [
+        "cl_01cb89b7780a31e7"
+      ],
+      "conclusion": "cl_b5a980f1468d6132",
+      "warrant": "Adherence to ethical standards and institutional review underscores the necessity of ethical guidelines in AI integration frameworks.",
+      "assumptions": [],
+      "defeaters": [
+        "If ethical oversight is superficial and does not translate into concrete practice"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "inf_b14a0f8ca5d9be68",
+      "type": "supports",
+      "premises": [
+        "cl_53ba5b033c6aedc6"
+      ],
+      "conclusion": "cl_7db8a17337c94f38",
+      "warrant": "The value statement that AI offers significant benefits aligns with the empirical evidence of personalized learning, improved outcomes, and higher engagement.",
+      "assumptions": [],
+      "defeaters": [
+        "If the value claim is interpreted as normative rather than descriptive, limiting its evidential weight"
+      ],
+      "strength": "moderate",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chl_5ae87dbdbf3b9833",
+      "challengeType": "scope-drift",
+      "target": {
+        "kind": "claim",
+        "id": "cl_7db8a17337c94f38"
+      },
+      "rationale": "The claim that AI offers \"significant benefits\" (personalized learning, improved outcomes, enhanced engagement) is based on data from a purposive sample of 85 students from two engineering programs, which the authors themselves note is not generalizable. Extrapolating to all educational contexts exceeds the scope of the evidence.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Qualify the claim to reflect the limited sample or provide additional data from broader, more diverse populations."
+    },
+    {
+      "id": "chl_4f0f3a017ae7f6c7",
+      "challengeType": "omitted-qualification",
+      "target": {
+        "kind": "claim",
+        "id": "cl_7efc8379b3501bba"
+      },
+      "rationale": "The listed challenges (over‑reliance, diminished critical thinking, privacy risks, academic dishonesty) are derived from self‑reported concerns, not from observed incidents. The source does not indicate that these concerns have manifested as actual harms, so the qualification that they are perceived rather than proven is omitted.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Add a qualifier such as \"perceived\" or \"self‑reported\" to indicate that the challenges are based on participant perceptions."
+    },
+    {
+      "id": "chl_d40833e012e27bb9",
+      "challengeType": "invalid-inference",
+      "target": {
+        "kind": "inference",
+        "id": "inf_c7ed357ada05637b"
+      },
+      "rationale": "Inference [0] treats participants' self‑reported improvements in self‑efficacy, engagement, and time‑saving as empirical evidence that AI provides \"significant advantages\". Perception does not equal objective performance improvement, making the inference logically unsupported.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Support the inference with objective performance metrics or reframe it as a perception‑based observation."
+    },
+    {
+      "id": "chl_79567335ee53d26b",
+      "challengeType": "missing-source",
+      "target": {
+        "kind": "claim",
+        "id": "cl_3e72e03fa80ecddc"
+      },
+      "rationale": "The claim that AI‑powered platforms have been shown to enhance engagement and performance lacks any cited study or data; no source is provided to substantiate the statement.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Cite peer‑reviewed research that directly measures the impact of adaptive learning systems on engagement and performance, or remove the claim."
+    },
+    {
+      "id": "chl_8edc156a17291cbf",
+      "challengeType": "correlated-evidence",
+      "target": {
+        "kind": "inference",
+        "id": "inf_27d7f2b00d72fa84"
+      },
+      "rationale": "Inference [8] asserts that triangulation of quantitative and qualitative data enhances credibility, yet both data types originate from the same questionnaire administered to the same participants, sharing the same sampling bias and measurement errors, thus not providing independent corroboration.",
+      "raisedBy": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "status": "open",
+      "suggestedRemedy": "Obtain qualitative data from a distinct method (e.g., interviews, focus groups) or acknowledge the limitation of using a single instrument for triangulation."
+    }
+  ],
+  "correlationGroups": [],
+  "matches": [
+    {
+      "id": "mt_66f95d7e13b363f5",
+      "type": "narrower",
+      "from": "cl_601a46dd6155a4ae",
+      "to": "cl_86e3e0bb6a0757d5",
+      "rationale": "[14] mentions only challenges, while [0] includes both opportunities and challenges.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_c305d09803902141",
+      "type": "equivalent",
+      "from": "cl_7db8a17337c94f38",
+      "to": "cl_53ba5b033c6aedc6",
+      "rationale": "Both list the same benefits: personalized learning, improved outcomes, and increased engagement.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_17bd1ec01bcdfa2e",
+      "type": "narrower",
+      "from": "cl_8d238b6a3cba7195",
+      "to": "cl_7efc8379b3501bba",
+      "rationale": "[63] lists a subset of challenges (over‑reliance, diminished thinking, academic fraud) omitting data‑privacy risks present in [6].",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_e75c64d70b10facc",
+      "type": "narrower",
+      "from": "cl_13c6ea05f2fd8717",
+      "to": "cl_3b11e918bf518292",
+      "rationale": "[19] specifies the sample as 85 second‑year engineering students, whereas [2] only notes 85 purposively selected participants.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_4e09b0afac9a3098",
+      "type": "narrower",
+      "from": "cl_ba3dccd6227cb21a",
+      "to": "cl_92ff0a251f398c16",
+      "rationale": "[22] provides a detailed breakdown of the 11‑item questionnaire, making it a more specific description than [3].",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_15164a8bd54ea0f0",
+      "type": "equivalent",
+      "from": "cl_fe528ddb1be86d88",
+      "to": "cl_cd8d7ad7ed1b70fa",
+      "rationale": "Both state that 95.6% of respondents use AI in academic activities.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_f2255f395e65af04",
+      "type": "equivalent",
+      "from": "cl_2f396f14e1828025",
+      "to": "cl_da3b0a83cf892722",
+      "rationale": "Both report that 88.2% of respondents use virtual assistants.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_33f9bd745f902629",
+      "type": "equivalent",
+      "from": "cl_f0ce747d620db7ea",
+      "to": "cl_377b6b35ede7686b",
+      "rationale": "Both indicate that 1.2% of students do not use AI tools at all.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_a91452e2812c98cd",
+      "type": "equivalent",
+      "from": "cl_358d823cd61f7f53",
+      "to": "cl_3e93e56410a2c65b",
+      "rationale": "Both give the same proportion (48.2%) of students concerned about inaccurate AI‑generated content.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_02b051746a92eec7",
+      "type": "equivalent",
+      "from": "cl_aa419ea77bfa1a11",
+      "to": "cl_6b91a34ed5af7bd7",
+      "rationale": "Both describe excessive reliance on AI reducing critical thinking and independent problem‑solving.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_60548ac039f26f65",
+      "type": "narrower",
+      "from": "cl_2f8007b39eae3deb",
+      "to": "cl_7efc8379b3501bba",
+      "rationale": "[56] describes a specific personal effect (reduced willingness to ask questions) whereas [6] lists broader over‑reliance challenges.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_a171457169997de3",
+      "type": "narrower",
+      "from": "cl_1a18807430e98c82",
+      "to": "cl_ff3837f5e1745b45",
+      "rationale": "[50] quantifies a 50% reduction in study hours, a more specific claim than the general time‑saving noted in [46].",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_2b8e593b1c1984b9",
+      "type": "narrower",
+      "from": "cl_358d823cd61f7f53",
+      "to": "cl_eeb9c278f8cee207",
+      "rationale": "[41] provides a concrete 48.2% figure of concern about incorrect answers, while [51] states the primary concern is reliability in general.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_6cd6c275d9c82145",
+      "type": "compatible-different-scope",
+      "from": "cl_3e72e03fa80ecddc",
+      "to": "cl_c4e633d600a0eac1",
+      "rationale": "Both claim AI improves engagement and outcomes, but refer to different technologies (adaptive learning systems vs intelligent tutoring systems).",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_fc1706c570bfc10e",
+      "type": "compatible-different-scope",
+      "from": "cl_3e72e03fa80ecddc",
+      "to": "cl_52ca5654e7830aaf",
+      "rationale": "[11] emphasizes feedback and performance; [17] focuses on content tailoring, so they address different aspects of AI‑driven platforms.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_f89f2405c779f09d",
+      "type": "compatible-different-scope",
+      "from": "cl_ff3837f5e1745b45",
+      "to": "cl_4710d6788c48e80b",
+      "rationale": "Both discuss AI reducing time on tasks; [47] additionally highlights how this enables deeper critical thinking.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_232cf5969d12aacd",
+      "type": "compatible-different-scope",
+      "from": "cl_c10b101ffe7a4b94",
+      "to": "cl_358d823cd61f7f53",
+      "rationale": "[53] states information is often incorrect and needs verification, while [41] reports the proportion of students worried about such inaccuracies.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_813da92d879df4b1",
+      "type": "compatible-different-scope",
+      "from": "cl_1c23975d0448f623",
+      "to": "cl_7efc8379b3501bba",
+      "rationale": "[8] lists concerns about accuracy, cognitive disengagement, and ethics; [6] lists over‑reliance, critical‑thinking decline, privacy, and dishonesty, overlapping but distinct challenge sets.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_6051a3a5f1ff4706",
+      "type": "compatible-different-scope",
+      "from": "cl_b5a980f1468d6132",
+      "to": "cl_1c23975d0448f623",
+      "rationale": "[7] proposes a structured framework and ethical guidelines; [8] enumerates concerns to be addressed, focusing on different implementation aspects.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_8307ee1df3893d75",
+      "type": "compatible-different-scope",
+      "from": "cl_cc4d362e910f4dbe",
+      "to": "cl_55e7bdbf6e552691",
+      "rationale": "[31] reflects students’ belief that AI enhances the educational experience, while [34] measures belief that AI improves academic performance; the scopes differ (experience vs performance).",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    },
+    {
+      "id": "mt_f8111b6a6e737eeb",
+      "type": "compatible-different-scope",
+      "from": "cl_7be818a8353ba0ae",
+      "to": "cl_b24e928463413c8d",
+      "rationale": "[38] reports a majority believing AI improves learning efficiency; [39] reports a minority disagreeing, both can coexist as differing student opinions.",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      }
+    }
+  ],
+  "overlays": [],
+  "assessments": [],
+  "quarantine": [
+    {
+      "id": "qr_71e1cbbfaa19ac58",
+      "statement": "The research involved second‑year students who had direct experience with AI‑enhanced learning environments.",
+      "reason": "passage-does-not-entail",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "attemptedPassageText": "Conducted at the National University of Science and Technology POLITEHNICA Bucharest, this research involved second-year students who had direct experience with AI‑enhanced learning environments."
+    },
+    {
+      "id": "qr_53106125f37401ab",
+      "statement": "16.5% of students worry about becoming overly dependent on technology due to AI",
+      "reason": "passage-does-not-entail",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "attemptedPassageText": "the risk of becoming overly dependent on technology (16.5%)"
+    },
+    {
+      "id": "qr_449ead9ac0c413c0",
+      "statement": "AI is potentially harmful for academic integrity because it may encourage cheating, as it makes tasks too easy.",
+      "reason": "passage-does-not-entail",
+      "attribution": {
+        "kind": "analyst-llm",
+        "ref": "gpt-oss-120b"
+      },
+      "attemptedPassageText": "AI is potentially harmful for academic integrity because it may encourage cheating, as it makes tasks too easy;"
+    }
+  ],
+  "narratives": []
+}

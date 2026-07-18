@@ -7,8 +7,8 @@ import type {
 /**
  * Content-addressed id derivation.
  *
- * Each function hashes ONLY the fields that define what the object is — normalized text,
- * sorted set-valued fields — and excludes attribution, timestamps, evidence links, and any
+ * Each function hashes ONLY the fields that define what the object is, normalized text,
+ * sorted set-valued fields, and excludes attribution, timestamps, evidence links, and any
  * other annotation that two independent investigators might legitimately differ on. Result:
  * the same underlying assertion gets the same id everywhere, so bundles merge cleanly.
  */
@@ -111,6 +111,14 @@ export function assessmentId(a: { overlayId: string; target: TargetRef }): strin
 
 export function quarantineId(q: { statement: string; reason: QuarantineReason }): string {
   return contentId("qr", { statement: normalizeText(q.statement), reason: q.reason });
+}
+
+export function narrativeId(n: { target: TargetRef; text: string; groundedIn: readonly string[] }): string {
+  return contentId("nar", {
+    target: n.target,
+    text: normalizeText(n.text),
+    groundedIn: sorted(n.groundedIn),
+  });
 }
 
 export function bundleId(b: { case: string; question: string }): string {

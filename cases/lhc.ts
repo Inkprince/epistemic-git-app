@@ -5,7 +5,7 @@ import { BundleBuilder, serializeBundle, validateBundle } from "@epistemic-git/p
 import { writeBundleFile } from "@epistemic-git/protocol/node";
 
 /**
- * The LHC "micro black hole" safety case — hand-authored reference bundle (no LLM).
+ * The LHC "micro black hole" safety case, hand-authored reference bundle (no LLM).
  *
  * This is a bounded, revealing slice of a *settled* question: could the LHC create a microscopic
  * black hole that destroys Earth? The interesting epistemic structure is that the safety
@@ -13,10 +13,10 @@ import { writeBundleFile } from "@epistemic-git/protocol/node";
  *
  *   Line A (theoretical): any micro black hole would evaporate via Hawking radiation.
  *   Line B (empirical):   cosmic rays have bombarded astronomical bodies at higher energies for
- *                         eons; the survival of white dwarfs and neutron stars bounds the risk —
+ *                         eons; the survival of white dwarfs and neutron stars bounds the risk, 
  *                         and this line does NOT depend on Hawking radiation.
  *
- * That structure is exactly what powers the flagship interaction: "distrust Hawking radiation —
+ * That structure is exactly what powers the flagship interaction: "distrust Hawking radiation, 
  * does safety survive?" It does, via Line B, and the tool shows precisely why, localizing the
  * residual disagreement to the white-dwarf capture argument (the true crux).
  *
@@ -76,7 +76,7 @@ export function buildLhcBundle() {
   });
   const lawsuit = b.source({
     type: "news",
-    title: "Wagner & Sancho v. CERN et al. — request to halt LHC startup over safety fears",
+    title: "Wagner & Sancho v. CERN et al. request to halt LHC startup over safety fears",
     authors: ["W. Wagner", "L. Sancho"],
     publishedDate: "2008-03-21",
     reliability: { peerReviewStatus: "unknown", knownStance: "argues the LHC is unsafe" },
@@ -87,7 +87,7 @@ export function buildLhcBundle() {
     sourceId: lsag,
     locator: { kind: "section", path: "§Cosmic rays" },
     verbatimText:
-      "Nature has already conducted the equivalent of about a hundred thousand LHC experimental programmes on Earth — and the planet still exists.",
+      "Nature has already conducted the equivalent of about a hundred thousand LHC experimental programmes on Earth \u2014 and the planet still exists.",
   });
   const p_conclusion = b.passage({
     sourceId: lsag,
@@ -173,7 +173,7 @@ export function buildLhcBundle() {
     passages: [p_nature], attribution: attr(lsag),
   });
   const c_atrest = b.claim({
-    statement: "Cosmic-ray black holes would be produced at high velocity and escape a body, whereas LHC black holes could be produced nearly at rest and be gravitationally captured — so the cosmic-ray analogy is not automatically sufficient.",
+    statement: "Cosmic-ray black holes would be produced at high velocity and escape a body, whereas LHC black holes could be produced nearly at rest and be gravitationally captured, so the cosmic-ray analogy is not automatically sufficient.",
     claimType: "methodological",
     structure: { modality: "descriptive" },
     passages: [p_gm_atrest], attribution: attr(gm),
@@ -197,7 +197,7 @@ export function buildLhcBundle() {
     caveats: ["Relies on a non-standard metric rejected by the mainstream physics community."],
   });
 
-  // The safety conclusion (derived — concluded by inference, so it carries no direct passage).
+  // The safety conclusion (derived, concluded by inference, so it carries no direct passage).
   const c_safe = b.claim({
     statement: "LHC collisions pose no credible danger of producing a black hole that could threaten Earth.",
     claimType: "predictive",
@@ -206,14 +206,14 @@ export function buildLhcBundle() {
   });
 
   // ── Inferences (the argument structure) ───────────────────────────────────────
-  // Line A — theoretical, depends on Hawking radiation.
+  // Line A, theoretical, depends on Hawking radiation.
   const i_lineA = b.inference({
     type: "supports", premises: [c_hawking], conclusion: c_safe,
     warrant: "Objects that evaporate essentially instantly cannot accumulate or grow to a dangerous size.",
     strength: "strong", attribution: attr(lsag),
     defeaters: ["Hawking radiation does not exist or micro black holes are stable."],
   });
-  // Line B — empirical, does NOT depend on Hawking radiation.
+  // Line B, empirical, does NOT depend on Hawking radiation.
   const i_lineB = b.inference({
     type: "supports", premises: [c_nature_ran, c_cosmic_energy, c_whitedwarf], conclusion: c_safe,
     warrant: "If the process were dangerous, higher-energy natural analogues over cosmological time would have already destroyed observed astronomical bodies; their survival bounds the risk.",
@@ -251,7 +251,7 @@ export function buildLhcBundle() {
     strength: "speculative", attribution: attr(rossler),
   });
 
-  // ── Correlation group — anti-double-counting ──────────────────────────────────
+  // ── Correlation group, anti-double-counting ──────────────────────────────────
   // The white-dwarf bound and the charge-coverage claim both come from the single Giddings–Mangano
   // paper; they must not be treated as two independent supports.
   b.correlationGroup({
@@ -263,7 +263,7 @@ export function buildLhcBundle() {
   b.challenge({
     challengeType: "construct-mismatch",
     target: { kind: "claim", id: c_nature_ran },
-    rationale: "Cosmic-ray black holes are relativistic and would traverse Earth, unlike potential at-rest LHC black holes — the natural analogue may not match the LHC case.",
+    rationale: "Cosmic-ray black holes are relativistic and would traverse Earth, unlike potential at-rest LHC black holes, the natural analogue may not match the LHC case.",
     raisedBy: attr(gm), status: "mitigated",
     suggestedRemedy: "Extend the argument to dense stellar remnants (white dwarfs, neutron stars) that capture even fast black holes.",
   });
@@ -280,7 +280,7 @@ export function buildLhcBundle() {
     raisedBy: { kind: "analyst-llm", ref: "reference-author" }, status: "open",
   });
 
-  // ── Overlays (perspectives) + assessments — late-binding trust ─────────────────
+  // ── Overlays (perspectives) + assessments, late-binding trust ─────────────────
   const consensus = b.overlay({
     label: "Mainstream physics consensus (LSAG)",
     analyst: { kind: "human", ref: "lsag-consensus" },

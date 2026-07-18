@@ -372,7 +372,7 @@
       "type": "compatible-different-scope",
       "from": "cl_94154ad52b95c5c9",
       "to": "cl_de3469b810edd5ba",
-      "rationale": "Claim 1 describes the issuance of a correction; claim 2 reports the corrected analysis result—different aspects of the same study.",
+      "rationale": "Claim 1 describes the issuance of a correction; claim 2 reports the corrected analysis result, different aspects of the same study.",
       "attribution": {
         "kind": "analyst-llm",
         "ref": "gpt-oss-120b"

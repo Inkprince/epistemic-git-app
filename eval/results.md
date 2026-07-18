@@ -13,7 +13,7 @@ live in their respective directories.
 | Epistemic Git arm | frozen model/pipeline version, prompt, 7 tasks, neutral output schema, import validation | none | 7 external pipeline runs |
 | Blinded evaluators | opaque keyed artifact IDs/order, response schema, private arm map | none | participants and ≥2 raters per response |
 | Requested metrics | accuracy, citation correctness, unsupported-claim rate, answer time, crux identification, update time, inter-rater agreement | scoring code unit-tested; no human observations | completed blinded records |
-| Adversarial suite | all 10 planned traps and full extract → match → infer → audit runner | 10 detected, 0 miss, 0 not run | none — all ten replay from committed cache |
+| Adversarial suite | all 10 planned traps and full extract → match → infer → audit runner | 10 detected, 0 miss, 0 not run | none, all ten replay from committed cache |
 | LHC expert review | physicist packet, grounded targets, consent/conflict and change protocol | none | ≥1 qualified physicist |
 | COVID opposed review | identical neutral packet for opposed prior stances | none | ≥1 reviewer from each specified stance |
 | Eggs expert review | nutrition/epidemiology packet and grounded targets | none | ≥1 qualified reviewer |
@@ -40,7 +40,7 @@ Cached execution now covers all ten traps, and all ten are detected:
 
 **The prompt-injection result changed on purpose, and the history is kept.** In the first committed
 run, extraction admitted the injected instruction ("drinking bleach cures every viral infection") as a
-grounded claim — a published miss. A deterministic extraction-time defense now detects the injected
+grounded claim, a published miss. A deterministic extraction-time defense now detects the injected
 region of a source and quarantines any claim built on it (reason `injection-suspected`), kept visible
 rather than dropped, so the trap now passes. The defense is a first line, not a proof of safety: it
 matches a fixed, inspectable vocabulary of injection markers, and a novel or paraphrased injection can

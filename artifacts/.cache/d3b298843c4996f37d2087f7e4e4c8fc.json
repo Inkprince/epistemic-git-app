@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on strong empirical arguments: natural high‑energy cosmic‑ray collisions, far more energetic and numerous than any LHC event, have not destroyed astronomical bodies, and the survival of white dwarfs and neutron stars, objects that would capture and be annihilated by any dangerous stable black hole, provides a robust safety bound. Additionally, theoretical work shows that tiny black holes would evaporate almost instantly, preventing them from growing to a threatening size, and the need for speculative new physics (such as large extra dimensions) makes the prior probability of producing any black hole at all low. Weak attacks note that the natural analogue may not cover slow black holes possibly produced at the LHC, and a speculative scenario where micro black holes are stable could undermine the safety argument, but these challenges are considered minor compared with the strong supporting evidence.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 582,
+    "completionTokens": 194
+  }
+}

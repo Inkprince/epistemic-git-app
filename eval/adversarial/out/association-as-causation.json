@@ -194,7 +194,7 @@
         "cl_b0d39626b72e8093"
       ],
       "conclusion": "cl_4f898865ab5b9030",
-      "warrant": "The observed association may be explained by a confounding factor—exercise—which is linked both to higher coffee consumption and lower depression, thereby reducing confidence in a direct causal link between coffee and depression prevention.",
+      "warrant": "The observed association may be explained by a confounding factor, exercise, which is linked both to higher coffee consumption and lower depression, thereby reducing confidence in a direct causal link between coffee and depression prevention.",
       "assumptions": [],
       "defeaters": [
         "If the analysis statistically adjusts for exercise and the coffee‑depression link remains"

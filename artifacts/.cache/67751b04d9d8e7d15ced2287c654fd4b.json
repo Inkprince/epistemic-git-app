@@ -1,0 +1,9 @@
+{
+  "text": "The main point of contention is that the long‑term survival of white dwarfs and neutron stars over billions of years limits any producible stable black hole to accretion rates that are harmless, even when slow black holes are captured, accounting for 39.8 % of the disagreement gap. A secondary issue, contributing 12.8 % of the gap, is that the analysis includes both charged and neutral black holes, covering the slowest‑accreting neutral cases. A further 11.7 % of the gap concerns a modified Schwarzschild metric that suggests microscopic black holes could be stable and accrete dangerously.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 421,
+    "completionTokens": 156
+  }
+}

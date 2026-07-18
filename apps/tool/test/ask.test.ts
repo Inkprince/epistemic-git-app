@@ -10,7 +10,7 @@ const covid = JSON.parse(
 
 const ctx = { respectCorrelation: true };
 
-describe("answerCase — grounded router over the COVID ledger", () => {
+describe("answerCase, grounded router over the COVID ledger", () => {
   it("names the crux for a disagreement question", () => {
     const a = answerCase("what's the crux of the disagreement?", covid, ctx);
     expect(a.kind).toBe("crux");
@@ -39,7 +39,7 @@ describe("answerCase — grounded router over the COVID ledger", () => {
     const a = answerCase("what's the source for this?", covid, { respectCorrelation: true, selectedId: conclusion.id });
     expect(a.kind).toBe("provenance");
     expect(a.grounded).toBe(true);
-    expect(a.headline).toMatch(/derived conclusion/i);
+    expect(a.headline).toMatch(/inferred conclusion/i);
     // every cited premise points at a real claim and carries a verbatim quote
     expect(a.citations.length).toBeGreaterThan(0);
     for (const c of a.citations) {
@@ -66,7 +66,7 @@ describe("answerCase — grounded router over the COVID ledger", () => {
     expect(a.points.length).toBeGreaterThan(0);
   });
 
-  it("refuses — grounded=false — anything outside the ledger", () => {
+  it("refuses (grounded=false) anything outside the ledger", () => {
     const a = answerCase("what will the weather be tomorrow?", covid, ctx);
     expect(a.grounded).toBe(false);
     expect(a.kind).toBe("refused");

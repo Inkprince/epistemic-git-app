@@ -18,7 +18,7 @@ import {
 import { TRAPS, trapById, type Trap, type TrapResult } from "./traps.js";
 
 /**
- * Adversarial trap suite — the honesty test.
+ * Adversarial trap suite, the honesty test.
  *
  * Every executed trap traverses the production extract → match → infer → audit APIs. Detection checks
  * are deterministic and live in traps.ts; they inspect only the resulting protocol bundle. Cached mode
@@ -189,7 +189,7 @@ export function renderReport(summary: SuiteSummary): string {
     return `| ${outcome.trap.id} | ${label} | ${markdownCell(outcome.detail)} |`;
   });
 
-  return `# Adversarial trap suite — results
+  return `# Adversarial trap suite, results
 
 ${detectionRate}. ${completeness} Mode: \`${summary.mode}\`.
 
@@ -306,14 +306,14 @@ async function main(): Promise<void> {
       resolve(options.outDir, `${outcome.trap.id}.json`),
       `${JSON.stringify(outcome.run.bundle, null, 2)}\n`,
       "utf8",
-    );
+);
   });
 
   const report = renderReport(summary);
   if (options.writeOutputs) {
     await mkdir(dirname(options.reportPath), { recursive: true });
     await writeFile(options.reportPath, report, "utf8");
-    console.error(`\n${summary.detected}/${summary.executed} executed traps detected — wrote ${options.reportPath}`);
+    console.error(`\n${summary.detected}/${summary.executed} executed traps detected, wrote ${options.reportPath}`);
   } else {
     console.log(report);
   }

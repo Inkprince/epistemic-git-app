@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on strong evidence that UNILAG holds high national and international rankings and has received recognized awards, which the sources cite as “#2 in Nigeria,” “Ranked 3rd‑best university in Africa,” and “THE World University Rankings…1st in Nigeria.” Moderate support comes from statements that the university provides qualitative, research‑oriented education and maintains highly competitive admissions, reinforcing its top‑tier status. A weaker argument points to its public, federal research university status as structural capacity for excellence. However, a moderate undercutting note highlights lower placements in some global and subject‑specific rankings, suggesting the claim is contested.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 508,
+    "completionTokens": 159
+  }
+}

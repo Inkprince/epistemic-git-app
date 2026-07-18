@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on a direct statement from the authors that the study adhered to ethical standards and received approval from their University Ethics Committee, providing strong, straightforward support for the assertion.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 353,
+    "completionTokens": 85
+  }
+}

@@ -5,7 +5,7 @@ import { sha256Hex } from "./sha256.js";
  *
  * Two investigators who never coordinate must arrive at the SAME id for the same
  * underlying assertion, or the "Git" merge cannot coalesce their work. So ids are a
- * pure function of an object's identity-defining fields — never of timestamps, author,
+ * pure function of an object's identity-defining fields, never of timestamps, author,
  * or any incidental metadata. This module is the single source of that determinism.
  */
 
@@ -18,7 +18,7 @@ export function normalizeText(text: string): string {
  * Produce a stable string for any JSON value: object keys are sorted recursively so
  * key order never affects the hash. Arrays keep their order (callers sort explicitly
  * when a field has set semantics, e.g. premises or authors). Strings are left as-is
- * here — normalize them at the field level before hashing when appropriate.
+ * here, normalize them at the field level before hashing when appropriate.
  */
 export function canonicalize(value: unknown): string {
   return JSON.stringify(sortValue(value));
@@ -35,7 +35,7 @@ function sortValue(value: unknown): unknown {
   return value;
 }
 
-/** SHA-256 hex digest of the canonical form of `value`. Pure JS — identical in Node and browser. */
+/** SHA-256 hex digest of the canonical form of `value`. Pure JS: identical in Node and browser. */
 export function hashContent(value: unknown): string {
   return sha256Hex(canonicalize(value));
 }

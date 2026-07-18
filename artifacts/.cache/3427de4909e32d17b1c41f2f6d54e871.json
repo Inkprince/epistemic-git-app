@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Empirical Skepticism\",\"suggestedDescription\":\"A cautious skeptic who trusts only direct empirical observation and doubts theoretical extrapolations\",\"stances\":[{\"claimIndex\":0,\"stance\":\"reject\",\"rationale\":\"Without direct observation of black holes from cosmic rays, the claim remains unverified.\"},{\"claimIndex\":1,\"stance\":\"reject\",\"rationale\":\"A modified metric is a theoretical construct lacking empirical support.\"},{\"claimIndex\":2,\"stance\":\"accept\",\"rationale\":\"The lack of established theory predicting black‑hole production aligns with the view that it requires speculative physics.\"},{\"claimIndex\":3,\"stance\":\"reject\",\"rationale\":\"Large extra dimensions are a speculative hypothesis not confirmed by observation.\"},{\"claimIndex\":4,\"stance\":\"accept\",\"rationale\":\"No experiment has directly detected Hawking radiation, so the statement matches observed facts.\"},{\"claimIndex\":5,\"stance\":\"uncertain\",\"rationale\":\"We have no empirical evidence of microscopic black holes to confirm their evaporation behavior.\"},{\"claimIndex\":6,\"stance\":\"uncertain\",\"rationale\":\"The dynamics of hypothetical black holes from cosmic rays versus the LHC are not directly observed.\"},{\"claimIndex\":7,\"stance\":\"accept\",\"rationale\":\"The analysis indeed includes both charged and neutral black holes as described.\"},{\"claimIndex\":8,\"stance\":\"accept\",\"rationale\":\"Cosmic‑ray energies exceeding LHC collisions are well‑documented by observations.\"},{\"claimIndex\":9,\"stance\":\"accept\",\"rationale\":\"The long‑term survival of white dwarfs and neutron stars provides empirical limits on harmful black‑hole accretion.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 747,
+    "completionTokens": 715
+  }
+}

@@ -1,5 +1,7 @@
 import type { Bundle, Match } from "@epistemic-git/protocol";
-import { truncate } from "../../domain.js";
+import {
+  challengeStatusLabel, challengeTypeLabel, exclusionReasonLabel, matchTypeLabel, sharedOriginLabel, truncate,
+} from "../../domain.js";
 import { Badge, MarkCircle, pressable } from "../primitives.js";
 import type { Look } from "./types.js";
 
@@ -28,19 +30,19 @@ export function ChallengesTab({ bundle, query = "", onSelect }: { bundle: Bundle
                 <div className="title">{c.rationale}</div>
                 {c.target.kind === "topic" && <div className="desc">missing coverage: {c.target.id}</div>}
                 <div className="foot">
-                  <Badge tone="pink">{c.challengeType}</Badge>
-                  <Badge tone="neutral">{c.status}</Badge>
+                  <Badge tone="pink">{challengeTypeLabel(c.challengeType)}</Badge>
+                  <Badge tone="neutral">{challengeStatusLabel(c.status)}</Badge>
                 </div>
               </div>
             </div>
-          );
+);
         })}
       </div>
     </>
-  );
+);
 }
 
-export function RelationsTab({ bundle, look, query = "", onSelect }: { bundle: Bundle; look: Look; query?: string; onSelect: (id: string) => void }) {
+export function ConnectionsTab({ bundle, look, query = "", onSelect }: { bundle: Bundle; look: Look; query?: string; onSelect: (id: string) => void }) {
   const q = query.trim().toLowerCase();
   const visibleMatches = bundle.matches.filter((m) =>
     matchesQuery(q, m.rationale, m.type, look.claims.get(m.from)?.statement, look.claims.get(m.to)?.statement));
@@ -48,20 +50,20 @@ export function RelationsTab({ bundle, look, query = "", onSelect }: { bundle: B
     <>
       {bundle.matches.length > 0 && (
         <>
-          <div className="content-head"><div className="t">Claim relations</div></div>
+          <div className="content-head"><div className="t">Related claims</div></div>
           {q && <p className="note" style={{ margin: "-12px 0 14px" }}>{visibleMatches.length} of {bundle.matches.length} match “{query.trim()}”.</p>}
           <div className="task-list">
             {visibleMatches.map((m) => <MatchCard key={m.id} m={m} look={look} onSelect={onSelect} />)}
           </div>
         </>
-      )}
+)}
       {bundle.correlationGroups.length > 0 && (
         <>
           <div className="content-head" style={{ marginTop: bundle.matches.length ? 30 : 0 }}>
-            <div className="t">Correlated-evidence groups</div>
+            <div className="t">Shared-origin evidence</div>
           </div>
           <p className="note" style={{ margin: "-12px 0 16px" }}>
-            These claims share an origin and are not independent. Toggle “Don't double-count correlated evidence” in the Evidence panel to discount them.
+            These claims come from the same place, so they count as one line of evidence, not several. Toggle “Don't double-count correlated evidence” in the Evidence panel to discount them.
           </p>
           <div className="task-list">
             {bundle.correlationGroups.map((g) => (
@@ -70,17 +72,17 @@ export function RelationsTab({ bundle, look, query = "", onSelect }: { bundle: B
                 <div className="main">
                   <div className="title">{g.rationale}</div>
                   <div className="foot">
-                    <Badge tone="amber">{g.sharedOrigin}</Badge>
+                    <Badge tone="amber">{sharedOriginLabel(g.sharedOrigin)}</Badge>
                     <Badge tone="neutral">{g.members.length} claims</Badge>
                   </div>
                 </div>
               </div>
-            ))}
+))}
           </div>
         </>
-      )}
+)}
     </>
-  );
+);
 }
 
 function MatchCard({ m, look, onSelect }: { m: Match; look: Look; onSelect: (id: string) => void }) {
@@ -95,18 +97,18 @@ function MatchCard({ m, look, onSelect }: { m: Match; look: Look; onSelect: (id:
           {"  ↔  "}
           <a className="premise-link" onClick={() => onSelect(m.to)} {...pressable(() => onSelect(m.to))}>{truncate(look.claims.get(m.to)?.statement ?? m.to, 44)}</a>
         </div>
-        <div className="foot"><Badge tone={tone}>{m.type}</Badge></div>
+        <div className="foot"><Badge tone={tone}>{matchTypeLabel(m.type)}</Badge></div>
       </div>
     </div>
-  );
+);
 }
 
-export function QuarantineTab({ bundle, query = "" }: { bundle: Bundle; query?: string }) {
+export function ExcludedTab({ bundle, query = "" }: { bundle: Bundle; query?: string }) {
   const qq = query.trim().toLowerCase();
   const visible = bundle.quarantine.filter((x) => matchesQuery(qq, x.statement, x.reason, x.attemptedPassageText));
   return (
     <>
-      <div className="content-head"><div className="t">Quarantine — refused for lack of a verbatim source</div></div>
+      <div className="content-head"><div className="t">Excluded claims, each with the reason and the receipts</div></div>
       {qq && <p className="note" style={{ margin: "-12px 0 14px" }}>{visible.length} of {bundle.quarantine.length} match “{query.trim()}”.</p>}
       <div className="task-list">
         {visible.map((q) => (
@@ -115,11 +117,11 @@ export function QuarantineTab({ bundle, query = "" }: { bundle: Bundle; query?: 
             <div className="main">
               <div className="title">{q.statement}</div>
               {q.attemptedPassageText && <div className="desc">attempted quote: “{truncate(q.attemptedPassageText, 90)}”</div>}
-              <div className="foot"><Badge tone="neutral">{q.reason}</Badge></div>
+              <div className="foot"><Badge tone="neutral">{exclusionReasonLabel(q.reason)}</Badge></div>
             </div>
           </div>
-        ))}
+))}
       </div>
     </>
-  );
+);
 }

@@ -90,7 +90,7 @@
         },
         {
           "id": "COVID-REPLY-2024",
-          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases, Reply to Weissman",
           "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
           "phase": "initial"
         }
@@ -115,7 +115,7 @@
       "allowedSources": [
         {
           "id": "COVID-REPLY-2024",
-          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases, Reply to Weissman",
           "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
           "phase": "initial"
         }
@@ -146,7 +146,7 @@
         },
         {
           "id": "COVID-REPLY-2024",
-          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases, Reply to Weissman",
           "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
           "phase": "initial"
         }
@@ -183,7 +183,7 @@
         },
         {
           "id": "COVID-REPLY-2024",
-          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+          "title": "No evidence of systematic proximity ascertainment bias in early COVID-19 cases, Reply to Weissman",
           "uri": "artifacts/sources/covid/debarre-worobey-reply.txt",
           "phase": "conflicting-update"
         }
@@ -208,7 +208,7 @@
       "allowedSources": [
         {
           "id": "EGGS-WIKIPEDIA-2026-07-14",
-          "title": "Egg as food — health and nutrition (Wikipedia excerpt, retrieved 2026-07-14)",
+          "title": "Egg as food, health and nutrition (Wikipedia excerpt, retrieved 2026-07-14)",
           "uri": "artifacts/sources/eggs-wikipedia.txt",
           "phase": "initial"
         }

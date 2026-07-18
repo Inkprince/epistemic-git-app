@@ -1,4 +1,4 @@
-# Frozen common artifact contract — v1
+# Frozen common artifact contract, v1
 
 Investigate the supplied task using only the listed source packet and explicitly
 identified web pages. Do not infer that two sources are independent merely

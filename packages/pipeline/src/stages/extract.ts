@@ -30,14 +30,14 @@ export function chunkText(text: string, size: number, overlap: number): string[]
 
 /**
  * A first-line, DETERMINISTIC defense against instructions smuggled into a source ("prompt
- * injection"). We do not ask the model to police itself — instead we mark the character regions of
+ * injection"). We do not ask the model to police itself, instead we mark the character regions of
  * the source that carry known injection markers, and refuse to admit any claim whose supporting
  * passage falls inside such a region. The claim is quarantined (reason `injection-suspected`), kept
  * visible on the record, never silently dropped.
  *
  * This is intentionally a fixed, inspectable vocabulary of markers, not a complete solution: it
  * catches the classic overrides ("ignore previous instructions", "SYSTEM OVERRIDE", …) and their
- * enclosed payload, and it is honest about being a heuristic — a paraphrased or novel injection can
+ * enclosed payload, and it is honest about being a heuristic, a paraphrased or novel injection can
  * still slip past it. It exists so that the extraction stage has *a* structural line of defense that
  * a reader can audit, rather than trusting the model's goodwill.
  */
@@ -104,7 +104,7 @@ function overlapsInjection(
 
 /**
  * Locate a proposed quote inside the source text. Exact substring first; if that fails, a tolerant
- * pass treats whitespace runs and typographic quote/dash variants as interchangeable — models often
+ * pass treats whitespace runs and typographic quote/dash variants as interchangeable, models often
  * normalize those even when quoting faithfully. Either way the admitted passage is ALWAYS the
  * original source bytes at the matched offsets, so the provenance invariant (the citation must
  * physically exist in the source) is preserved; only the lookup is tolerant, never the storage.
@@ -117,39 +117,39 @@ export function locateQuote(text: string, quote: string): { start: number; end: 
   const pattern = escaped
     .replace(/['‘’]/g, "['‘’]")
     .replace(/["“”]/g, "[\"“”]")
-    .replace(/[-‐‑–—]/g, "[-‐‑–—]")
+    .replace(/[-‐‑–\u2014]/g, "[-‐‑–\u2014]")
     .replace(/\s+/g, "\\s+");
   try {
     const m = new RegExp(pattern).exec(text);
     if (m && m[0].length > 0) return { start: m.index, end: m.index + m[0].length };
   } catch {
-    // Pathological pattern — fall through to "not found".
+    // Pathological pattern, fall through to "not found".
   }
   return undefined;
 }
 
 /**
- * Stage 1 — quote-grounded extraction.
+ * Stage 1, quote-grounded extraction.
  *
  * The model proposes atomic claims each with a verbatim quote, but we do NOT take its word for the
  * quote: we require the quote to locate in the real source text and compute the char offsets
  * ourselves, storing the source's own bytes as the passage. A claim whose "quote" cannot be located
  * is quarantined, not admitted. This makes the provenance invariant robust to paraphrase and
- * hallucination — the model cannot fabricate a citation, because the citation must physically exist
+ * hallucination, the model cannot fabricate a citation, because the citation must physically exist
  * in the bytes we were given.
  */
 export async function extractInto(
   builder: BundleBuilder,
   client: LlmClient,
   input: { sourceId: string; sourceTitle: string; text: string },
-  opts: { chunkChars?: number; overlapChars?: number } = {},
+  opts: { chunkChars?: number; overlapChars?: number; onChunk?: (done: number, total: number) => void } = {},
 ): Promise<ExtractStats> {
   const chunks = chunkText(input.text, opts.chunkChars ?? 6000, opts.overlapChars ?? 400);
 
   // Extract per chunk, then de-duplicate identical proposals before grounding them.
   const proposals: ExtractionResult["claims"] = [];
   const seenProposal = new Set<string>();
-  for (const chunk of chunks) {
+  for (const [i, chunk] of chunks.entries()) {
     const { value } = await completeStructured(client, "extracted_claims", ExtractionResult, {
       system: EXTRACTION_SYSTEM,
       prompt: extractionUserPrompt(input.sourceTitle, chunk),
@@ -163,9 +163,10 @@ export async function extractInto(
       seenProposal.add(key);
       proposals.push(c);
     }
+    opts.onChunk?.(i + 1, chunks.length);
   }
 
-  // Regions of the source carrying smuggled instructions — computed once, deterministically.
+  // Regions of the source carrying smuggled instructions, computed once, deterministically.
   const injectionSpans = detectInjectionSpans(input.text);
 
   let grounded = 0;
@@ -202,7 +203,7 @@ export async function extractInto(
     const passageId = builder.passage({
       sourceId: input.sourceId,
       locator: { kind: "char", start: loc.start, end: loc.end },
-      // Always the source's own bytes at the located span — never the model's rendition.
+      // Always the source's own bytes at the located span, never the model's rendition.
       verbatimText: input.text.slice(loc.start, loc.end),
     });
 

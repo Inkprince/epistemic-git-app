@@ -12,13 +12,13 @@ export interface InferStats {
 }
 
 /**
- * Stage 3 — inference reconstruction.
+ * Stage 3, inference reconstruction.
  *
  * Turns a flat set of extracted claims into a navigable argument: which claims support, rebut,
  * undercut, or presuppose which others, each with a warrant and defeaters. The model references
  * claims by INDEX (so it never has to reproduce our content-addressed ids), and it may name one
  * synthesized overall conclusion. Every reconstructed inference is attributed to the model
- * (`analyst-llm`) and is therefore itself challengeable — the tool drew it, the source did not.
+ * (`analyst-llm`) and is therefore itself challengeable, the tool drew it, the source did not.
  */
 export async function inferArgument(
   bundle: Bundle,
@@ -41,7 +41,7 @@ export async function inferArgument(
 
   // Resolve the synthesized overall conclusion (index -1) as a CANDIDATE id only. We do not commit
   // the derived claim to the bundle until we know at least one surviving inference actually concludes
-  // in it — otherwise we would leave an orphan derived claim that violates the protocol invariant
+  // in it, otherwise we would leave an orphan derived claim that violates the protocol invariant
   // (a derived claim must be the conclusion of some inference). This is the failure mode that occurs
   // when the model names an overall conclusion but proposes no valid inference reaching it.
   const conclusionText = value.overallConclusion.trim();
@@ -92,7 +92,7 @@ export async function inferArgument(
   if (conclusionAdded) validIds.add(candidateConclusionId!);
   const committedInferences = newInferences.filter(
     (inf) => validIds.has(inf.conclusion) && inf.premises.every((p) => validIds.has(p)),
-  );
+);
 
   const merged: Bundle = {
     ...bundle,

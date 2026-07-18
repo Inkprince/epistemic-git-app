@@ -2,7 +2,7 @@
   "name": "epistemic-git",
   "version": "0.1.0",
   "private": true,
-  "description": "Epistemic Git — a portable, versioned, mergeable evidence ledger. Share the evidence substrate without being forced to share conclusions.",
+  "description": "Epistemic Git, a portable, versioned, mergeable evidence ledger. Share the evidence substrate without being forced to share conclusions.",
   "type": "module",
   "workspaces": [
     "packages/*",
@@ -22,6 +22,7 @@
     "demo:eggs": "tsx scripts/demo-eggs.ts",
     "demo:merge": "tsx scripts/demo-merge.ts",
     "author:covid": "tsx cases/covid.ts",
+    "author:eggs": "tsx cases/eggs.ts",
     "dev": "npm run dev -w @epistemic-git/tool",
     "build:tool": "npm run build -w @epistemic-git/tool",
     "smoke:tool": "vitest run apps/tool/test/smoke.test.tsx",

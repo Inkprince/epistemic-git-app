@@ -3,7 +3,7 @@ import { computeSupport, explainSupport, perspectiveDiff, valueOfInformation } f
 
 /**
  * Read-only, deterministic queries over a bundle. Every function is a pure transform (bundle + args)
- * → plain serializable object — no LLM, no mutation. The MCP server is a thin wrapper over these, so
+ * → plain serializable object, no LLM, no mutation. The MCP server is a thin wrapper over these, so
  * a downstream model interrogating the ledger gets structured, provenance-backed answers it can verify,
  * never a fresh opinion.
  */

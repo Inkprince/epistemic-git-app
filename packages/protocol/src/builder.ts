@@ -1,13 +1,13 @@
 import {
   assessmentId, bundleId, challengeId, claimId, correlationGroupId,
-  inferenceId, matchId, overlayId, passageId, quarantineId, sourceId,
+  inferenceId, matchId, narrativeId, overlayId, passageId, quarantineId, sourceId,
 } from "./ids.js";
 import {
   type Assessment, type Attribution, type Bundle, type Challenge, type ChallengeType,
   type Claim, type ClaimStructure, type ClaimType, type CorrelationGroup, type Inference,
-  type InferenceType, type Locator, type Match, type MatchType, type Overlay, type QuarantinedClaim,
-  type QuarantineReason, SCHEMA_VERSION, type SharedOrigin, type Source, type SourceType, type Stance,
-  type Strength, type TargetRef,
+  type InferenceType, type Locator, type Match, type MatchType, type Narrative, type Overlay,
+  type QuarantinedClaim, type QuarantineReason, SCHEMA_VERSION, type SharedOrigin, type Source,
+  type SourceType, type Stance, type Strength, type TargetRef,
 } from "./schema.js";
 
 /**
@@ -28,6 +28,7 @@ export class BundleBuilder {
   private readonly overlays = new Map<string, Overlay>();
   private readonly assessments = new Map<string, Assessment>();
   private readonly quarantine = new Map<string, QuarantinedClaim>();
+  private readonly narratives = new Map<string, Narrative>();
 
   private readonly meta: { id: string; case: string; title: string; question: string };
   private readonly createdWith: Bundle["createdWith"];
@@ -192,6 +193,15 @@ export class BundleBuilder {
     return id;
   }
 
+  narrative(n: { target: TargetRef; text: string; groundedIn?: string[]; attribution: Attribution }): string {
+    const groundedIn = n.groundedIn ?? [];
+    const id = narrativeId({ target: n.target, text: n.text, groundedIn });
+    if (!this.narratives.has(id)) {
+      this.narratives.set(id, { id, target: n.target, text: n.text, groundedIn, attribution: n.attribution });
+    }
+    return id;
+  }
+
   build(): Bundle {
     return {
       schemaVersion: SCHEMA_VERSION,
@@ -207,6 +217,7 @@ export class BundleBuilder {
       overlays: [...this.overlays.values()],
       assessments: [...this.assessments.values()],
       quarantine: [...this.quarantine.values()],
+      narratives: [...this.narratives.values()],
     };
   }
 }

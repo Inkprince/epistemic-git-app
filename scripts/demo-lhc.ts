@@ -3,7 +3,7 @@ import { computeSupport, explainSupport, merge, perspectiveDiff, valueOfInformat
 import { buildLhcBundle } from "../cases/lhc.js";
 
 /**
- * Proof-of-thesis walkthrough for the LHC case — all pure, deterministic analysis, no LLM.
+ * Proof-of-thesis walkthrough for the LHC case, all pure, deterministic analysis, no LLM.
  * Run: `npm run demo:lhc`. This is the narrative behind the flagship demo and the essay's §4/§7.
  */
 
@@ -17,7 +17,7 @@ const hawking = id((s) => s.startsWith("Any microscopic black hole would emit"))
 const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
 const rule = (t: string) => console.log(`\n${"─".repeat(78)}\n${t}\n${"─".repeat(78)}`);
 
-console.log(`\n█ EPISTEMIC GIT — LHC safety case`);
+console.log(`\n█ EPISTEMIC GIT, LHC safety case`);
 console.log(`  Question: ${bundle.question}`);
 console.log(`  ${bundle.claims.length} claims · ${bundle.inferences.length} inferences · ` +
   `${bundle.challenges.length} challenges · ${bundle.overlays.length} perspectives`);
@@ -27,8 +27,8 @@ rule("1 · How strongly is the safety conclusion supported? (mainstream consensu
 const safeConsensus = computeSupport(bundle, { overlayId: consensus }).support.get(safe)!;
 console.log(`  Support for "LHC is safe" under the consensus overlay: ${pct(safeConsensus)}`);
 
-// ── 2. THE FLAGSHIP: distrust Hawking radiation — does safety survive? ─────────
-rule("2 · Distrust Hawking radiation — does safety survive?");
+// ── 2. THE FLAGSHIP: distrust Hawking radiation, does safety survive? ─────────
+rule("2 · Distrust Hawking radiation, does safety survive?");
 const before = safeConsensus;
 const after = computeSupport(bundle, { overlayId: consensus, distrustClaims: new Set([hawking]) }).support.get(safe)!;
 console.log(`  Before (trusting Hawking radiation): ${pct(before)}`);
@@ -41,10 +41,10 @@ for (const p of expl.positive) {
   const label = p.premises.length >= 3 ? "empirical line (cosmic rays / white dwarfs)"
     : p.premises.includes(hawking) ? "theoretical line (Hawking evaporation)"
     : "low-prior-of-production line";
-  console.log(`   [${tag}] ${label} — contributes ${pct(p.contribution)}`);
+  console.log(`   [${tag}] ${label}, contributes ${pct(p.contribution)}`);
 }
 
-// ── 3. The perspective diff — why consensus and skeptic disagree ──────────────
+// ── 3. The perspective diff: why consensus and skeptic disagree ──────────────
 rule("3 · Where do the consensus and the skeptic actually disagree?");
 const diff = perspectiveDiff(bundle, consensus, skeptic, safe);
 console.log(`  Consensus support: ${pct(diff.supportA)}   Skeptic support: ${pct(diff.supportB)}   Gap: ${pct(diff.gap)}`);
@@ -56,7 +56,7 @@ for (const c of diff.contributions.slice(0, 5)) {
 }
 console.log(`  Unexplained residual (nonlinear interactions): ${pct(Math.abs(diff.residual))}`);
 
-// ── 4. Value of information — the single best crux to resolve ─────────────────
+// ── 4. Value of information: the single best crux to resolve ─────────────────
 rule("4 · What one thing, if resolved, would most reduce the disagreement?");
 const voi = valueOfInformation(bundle, consensus, skeptic, safe);
 voi.slice(0, 3).forEach((c, i) => {
@@ -69,11 +69,11 @@ rule("5 · Correlated evidence is not double-counted (the Rootclaim error, avoid
 const wd = id((s) => s.startsWith("The survival of white dwarfs"));
 const naive = computeSupport(bundle, { overlayId: consensus }).support.get(wd)!;
 console.log(`  The white-dwarf bound and the charge-coverage claim both come from ONE paper`);
-console.log(`  (Giddings–Mangano 2008) — the ledger records that as a correlation group, so they`);
+console.log(`  (Giddings–Mangano 2008) the ledger records that as a correlation group, so they`);
 console.log(`  cannot stack as if they were independent confirmations.`);
 console.log(`  (Correlation-aware combination is applied wherever those two are used as sibling supports.)`);
 
-// ── 6. Merge — two independent investigations compound ────────────────────────
+// ── 6. Merge: two independent investigations compound ────────────────────────
 rule("6 · Compounding: a second investigator's bundle merges in");
 const b2 = new BundleBuilder({ case: "lhc", title: bundle.title, question: bundle.question, mode: "hand-authored" });
 const src2 = b2.source({ type: "paper", title: "2023 neutron-star accretion constraints on stable TeV black holes", authors: ["Independent Team"] });
@@ -97,5 +97,5 @@ for (const c of report.conclusionsAffected) {
 }
 
 console.log(`\n${"═".repeat(78)}`);
-console.log(`Every number above is deterministic arithmetic over the ledger — no model in the loop.`);
+console.log(`Every number above is deterministic arithmetic over the ledger, no model in the loop.`);
 console.log(`${"═".repeat(78)}\n`);

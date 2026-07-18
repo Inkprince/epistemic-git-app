@@ -10,11 +10,11 @@ export interface MatchStats {
 }
 
 /**
- * Stage 2 — claim matching (without forced equivalence).
+ * Stage 2, claim matching (without forced equivalence).
  *
  * Relates claims to one another as typed, attributed Match edges: equivalent, possibly-equivalent,
  * narrower/broader, contradicts, or compatible-but-different-scope. Crucially it does NOT merge
- * claims — a difference in population, dose, comparator, or outcome is preserved as a narrower/broader
+ * claims, a difference in population, dose, comparator, or outcome is preserved as a narrower/broader
  * or different-scope relation, never collapsed. This is what lets the ledger relate the same assertion
  * across many sources while keeping every distinction a careful reader would need.
  */

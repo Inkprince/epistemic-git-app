@@ -6,7 +6,7 @@ export const pressable = (fn: () => void) => ({
   role: "button" as const,
   tabIndex: 0,
   onKeyDown: (e: KeyboardEvent) => {
-    // Only when the row itself is focused — inner controls (checkboxes, links) keep their own keys.
+    // Only when the row itself is focused, inner controls (checkboxes, links) keep their own keys.
     if (e.target === e.currentTarget && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
       fn();
@@ -22,7 +22,7 @@ export function Badge({ tone, dot, children }: { tone: BadgeTone; dot?: boolean;
       {dot && <span className="dot" />}
       {children}
     </span>
-  );
+);
 }
 
 export function Pill({ tone, children }: { tone: "green" | "pink" | "amber" | "neutral"; children: ReactNode }) {
@@ -33,7 +33,7 @@ export function IconTile({ children, sm }: { children: ReactNode; sm?: boolean }
   return <span className={`icon-tile${sm ? " sm" : ""}`}>{children}</span>;
 }
 
-/** Initials avatar — deterministic neutral-dark tile, per the spec's avatar slots. */
+/** Initials avatar, deterministic neutral-dark tile, per the spec's avatar slots. */
 export function Avatar({ label, size = 34, tile, title }: { label: string; size?: number; tile?: boolean; title?: string }) {
   const initials = label
     .split(/\s+/)
@@ -47,7 +47,7 @@ export function Avatar({ label, size = 34, tile, title }: { label: string; size?
     <span className={`avatar${tile ? " tile" : ""}`} title={title ?? label} style={style}>
       {initials || "?"}
     </span>
-  );
+);
 }
 
 export function SectionLabel({ children }: { children: ReactNode }) {
@@ -58,7 +58,7 @@ export function SectionLabel({ children }: { children: ReactNode }) {
  * A source rendered by name. When the source carries a `url`, the name links out to the
  * original document (new tab); otherwise it is plain text. Follow the provenance, don't just read it.
  */
-export function SourceLink({ title, url, className }: { title?: string; url?: string; className?: string }) {
+export function SourceLink({ title, url, className }: { title?: string | undefined; url?: string | undefined; className?: string | undefined }) {
   const label = title ?? "Unknown source";
   if (!url) return <span className={className}>{label}</span>;
   return (
@@ -73,7 +73,7 @@ export function SourceLink({ title, url, className }: { title?: string; url?: st
       {label}
       <ExternalLinkIcon size={12} />
     </a>
-  );
+);
 }
 
 /** The spec's task-card completion mark: green check circle / open circle / tinted variants. */
@@ -83,7 +83,7 @@ export function MarkCircle({ kind }: { kind: "green" | "pink" | "open" | "neutra
       {kind === "green" && <CheckIcon size={13} />}
       {kind === "pink" && <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#fff" }} />}
     </span>
-  );
+);
 }
 
 /** Icon + label/value info row (spec's "Deal Info" rows). */
@@ -96,5 +96,5 @@ export function InfoRow({ icon, k, v }: { icon: ReactNode; k: string; v: ReactNo
         <div className="v">{v}</div>
       </div>
     </div>
-  );
+);
 }

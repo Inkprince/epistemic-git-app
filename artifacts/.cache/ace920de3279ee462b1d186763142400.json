@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on two identical source quotations that state “more recent reviews from 2020 concluded that moderate daily egg consumption shows no increased cardiovascular disease risk.” Because the evidence is explicitly cited and directly affirms the claim, the support is straightforward and unambiguous. No undercutting or contradictory evidence is presented, so the claim’s current backing is strong and clear.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 339,
+    "completionTokens": 135
+  }
+}

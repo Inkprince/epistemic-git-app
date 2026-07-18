@@ -11,13 +11,13 @@ import { createLlmClientFromEnv } from "@epistemic-git/llm/node";
 import { auditBundle, deriveCorrelationGroups, extractInto, inferArgument, matchClaims, PROMPT_VERSION } from "@epistemic-git/pipeline";
 
 /**
- * COVID-origins: the Huanan-market spatial-clustering crux — a genuinely MULTI-SOURCE, contested case.
+ * COVID-origins: the Huanan-market spatial-clustering crux, a genuinely MULTI-SOURCE, contested case.
  *
  * Three real sources are ingested into one ledger: two from the same camp (Débarre & Worobey) arguing
  * the market is central, and one (Weissman) arguing proximity ascertainment bias makes the clustering
  * unreliable. Because all claims live in one bundle, cross-source MATCHING relates and contradicts
  * claims between the papers, and the adversarial AUDIT can flag that the two same-author papers are not
- * independent evidence — the exact "correlated evidence treated as independent" error at the heart of
+ * independent evidence, the exact "correlated evidence treated as independent" error at the heart of
  * the Rootclaim debate, surfaced automatically on real text.
  *
  * NOTE ON PROVENANCE: source texts are the papers' abstracts as retrieved from arXiv on 2026-07-14;
@@ -44,7 +44,7 @@ const SOURCES = [
   },
   {
     file: S("debarre-worobey-reply.txt"),
-    title: "No evidence of systematic proximity ascertainment bias in early COVID-19 cases — Reply to Weissman",
+    title: "No evidence of systematic proximity ascertainment bias in early COVID-19 cases, Reply to Weissman",
     url: "https://arxiv.org/abs/2405.08040",
     authors: ["Florence Débarre", "Michael Worobey"],
     stance: "rebuts the ascertainment-bias critique",
@@ -94,12 +94,12 @@ async function main() {
   bundle = corr.bundle;
   console.error(`  correlation groups: ${corr.added} (same-author / same-dataset sources)`);
 
-  // ── Opposed perspectives (overlays) + assessments — the SAME structure, read two ways ──────────
+  // ── Opposed perspectives (overlays) + assessments, the SAME structure, read two ways ──────────
   //
   // This is the point of the whole system on a LIVE dispute: two readers who disagree attach
   // different credences to the one shared ledger, and the perspective-diff (in packages/analysis)
   // then decomposes exactly which node carries their disagreement about "the market was the early
-  // epicentre" — without either reader having to accept the other's conclusion, and with no model in
+  // epicentre" without either reader having to accept the other's conclusion, and with no model in
   // the loop. Claims are pipeline-generated, so we key each assessment to a claim by a stable,
   // self-documenting substring of its statement; the ids are content-addressed and reproduce from
   // cache, and this authoring adds only Overlay/Assessment nodes (existing ids never change).
@@ -147,7 +147,7 @@ async function main() {
     stance: Stance,
     weight: number,
     rationale?: string,
-  ): void => {
+): void => {
     assessments.push({
       id: assessmentId({ overlayId: overlayIdValue, target }),
       overlayId: overlayIdValue, target, stance, weight,
@@ -170,13 +170,13 @@ async function main() {
   const STOCHASTICITY = "stochasticity";
   const CENTRALITY_FRAMING = "has recently been challenged by Stoyan and Chiu";
 
-  // Perspective A — market-central reading (comparatively sympathetic to the Débarre–Worobey case).
+  // Perspective A, market-central reading (comparatively sympathetic to the Débarre–Worobey case).
   const central = addOverlay(
     "Market-central reading",
     "market-central-reading",
     "Reads the residential-clustering evidence as robust: the mode is a sound centre that falls at the market, and the ascertainment-bias objection is not established, so it does not undercut the epicentre conclusion.",
     "The early-case clustering points to the Huanan market as the epicentre.",
-  );
+);
   assess(central, MODE_AT_MARKET, "accept", 0.9, "With proper implementation the mode falls at the market entrance and the 95% region includes it.");
   assess(central, CENTRALITY_FRAMING, "accept", 0.5, "The Worobey et al. centrality result is sound.");
   assess(central, STOCHASTICITY, "accept", 0.6, "Infection away from home plus chance explains the pattern without any bias.");
@@ -184,13 +184,13 @@ async function main() {
   assess(central, BIAS_SIGN, "reject", 0.8, "The sign is consistent with ordinary spread, not with large bias.");
   assessInf(central, undercut.id, "reject", 0.7, "The bias is not established, so it does not undercut centrality.");
 
-  // Perspective B — ascertainment-bias reading (comparatively sympathetic to Weissman's objection).
+  // Perspective B, ascertainment-bias reading (comparatively sympathetic to Weissman's objection).
   const skeptic = addOverlay(
     "Ascertainment-bias reading",
     "ascertainment-skeptic-reading",
     "Holds that proximity ascertainment bias is real and large, so residential-clustering inferences are unreliable and cannot carry the epicentre conclusion; doubts the stochasticity rescue and reads a mode at the market as partly an artefact of where cases were sought.",
     "The clustering may be an artefact of where cases were sought; centrality is not established.",
-  );
+);
   assess(skeptic, BIAS_INCOMPAT, "accept", 0.9, "The closer-than-linked pattern is the signature of proximity ascertainment bias.");
   assess(skeptic, BIAS_SIGN, "accept", 0.9, "The sign of the distance difference matches a large-bias model.");
   assess(skeptic, STOCHASTICITY, "uncertain", 0.6, "Stochasticity is asserted, not shown sufficient to explain the pattern.");
@@ -200,6 +200,10 @@ async function main() {
 
   bundle = { ...bundle, overlays, assessments };
   console.error(`  overlays: ${overlays.length} · assessments: ${assessments.length}`);
+
+  // Keep the primary (first) source's raw document so the case can show what was decomposed.
+  const primary = SOURCES[0]!;
+  bundle = { ...bundle, sourceDocument: { title: primary.title, url: primary.url, text: await readFile(primary.file, "utf8") } };
 
   const check = validateBundle(bundle);
   if (!check.ok) {
@@ -212,7 +216,7 @@ async function main() {
   await mkdir(dirname(out), { recursive: true });
   await writeBundleFile(out, bundle);
   await writeFile(resolve(here, "../artifacts/covid.json"), JSON.stringify(bundle, null, 2) + "\n", "utf8");
-  console.error(`Wrote ${out} (+ covid.json) — ${serializeBundle(bundle).split("\n").length - 1} records`);
+  console.error(`Wrote ${out} (+ covid.json) ${serializeBundle(bundle).split("\n").length - 1} records`);
 }
 
 main().catch((e) => { console.error(e instanceof Error ? e.message : e); process.exit(1); });

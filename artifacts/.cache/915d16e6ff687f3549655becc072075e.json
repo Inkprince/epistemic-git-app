@@ -1,0 +1,9 @@
+{
+  "text": "The claim is directly supported by two identical source statements that explicitly say his writing and poems often touch on environmental and human rights issues. Both citations provide the same wording, giving the claim a clear and unambiguous basis. No undercutting or contradictory evidence is presented, so the support is strong and straightforward.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 322,
+    "completionTokens": 89
+  }
+}

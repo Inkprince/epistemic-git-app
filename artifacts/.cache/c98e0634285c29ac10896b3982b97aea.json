@@ -1,0 +1,9 @@
+{
+  "text": "The conclusion is judged to have 91.5 % support from the applied perspective. It is backed by three positive arguments: (1) objects that evaporate essentially instantly cannot build up to a hazardous size (+57.7 %); (2) if the process were dangerous, analogous high‑energy natural events over cosmological times would already have destroyed observed astronomical bodies, which they have not (+83.8 %); and (3) any production that relies on speculative physics makes the prior probability of creating a black hole low (+58.5 %). Minor challenges amount to –5.5 % and –0.4 %.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 344,
+    "completionTokens": 149
+  }
+}

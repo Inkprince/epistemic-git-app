@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests directly on the reported finding from the Nurses’ Health Study, which states that women who ate nuts five or more times per week experienced a 35 % lower risk of coronary heart disease compared with those who rarely ate nuts. This single source provides the explicit quantitative result that underlies the claim, giving it strong support. No additional evidence or counter‑arguments are presented, so the claim’s support is entirely based on this study’s reported association.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 384,
+    "completionTokens": 172
+  }
+}

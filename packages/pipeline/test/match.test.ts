@@ -20,14 +20,14 @@ function claimsBundle() {
   return b.build();
 }
 
-describe("stage 2 — claim matching", () => {
+describe("stage 2, claim matching", () => {
   it("adds typed match edges by index and drops invalid ones without collapsing claims", async () => {
     const client = new FakeMatcher({
       matches: [
         { type: "equivalent", fromIndex: 0, toIndex: 1, rationale: "same population, exposure, and outcome, different wording" },
         { type: "compatible-different-scope", fromIndex: 0, toIndex: 2, rationale: "diabetics vs general population" },
-        { type: "narrower", fromIndex: 0, toIndex: 99, rationale: "out of range — should be dropped" },
-        { type: "equivalent", fromIndex: 2, toIndex: 2, rationale: "self — should be dropped" },
+        { type: "narrower", fromIndex: 0, toIndex: 99, rationale: "out of range, should be dropped" },
+        { type: "equivalent", fromIndex: 2, toIndex: 2, rationale: "self, should be dropped" },
       ],
     });
 
@@ -38,7 +38,7 @@ describe("stage 2 — claim matching", () => {
     expect(stats.added).toBe(2);
     expect(stats.dropped).toBe(2); // out-of-range and self-match
 
-    // claims are NOT merged — all three survive; the relations are recorded as edges
+    // claims are NOT merged, all three survive; the relations are recorded as edges
     expect(bundle.claims.length).toBe(3);
     expect(bundle.matches.length).toBe(2);
 

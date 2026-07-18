@@ -1,4 +1,4 @@
-# Invitation: expert review — eggs & cardiovascular health
+# Invitation: expert review, eggs & cardiovascular health
 
 *Draft outreach note. Recipient: a nutrition scientist or epidemiologist familiar with dietary
 exposure, substitution models, biomarkers vs clinical endpoints, and observational confounding.
@@ -13,9 +13,9 @@ competition, on using AI to build trustworthy, inspectable knowledge bases for c
 One case is the everyday-but-messy question of whether eggs are bad for cardiovascular health.
 
 The entry's point is that the framing usually *is* the hard part. So rather than answer "are eggs
-healthy?", the record first refuses that question as underspecified and decomposes it — by population,
+healthy?", the record first refuses that question as underspecified and decomposes it, by population,
 dose, **comparator food** ("eggs instead of *what?*"), outcome, timeframe, and observational-vs-trial
-design — and then keeps genuinely contradictory findings side by side rather than averaging them into
+design, and then keeps genuinely contradictory findings side by side rather than averaging them into
 a tidy verdict. Each claim is tied to an exact source passage, and an automated auditor flags scope
 drift, correlated evidence, and confounding.
 

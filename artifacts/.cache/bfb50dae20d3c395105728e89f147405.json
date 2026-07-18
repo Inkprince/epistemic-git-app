@@ -1,0 +1,9 @@
+{
+  "text": "The claim is strongly supported because the provided source quotes directly state that the University of Lagos (UNILAG) is a public, federal research university located in Akoka, Yaba, in the heart of Nigeria’s commercial capital. Both quotations repeat the same description, reinforcing the assertion without any contradictory evidence. Consequently, the support for the claim is clear and unchallenged.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 373,
+    "completionTokens": 113
+  }
+}

@@ -10,10 +10,10 @@ const slugify = (s: string): string =>
 
 /**
  * Dev-only "git commit": persist the current bundle (imported / merged / live-run) as a
- * committed case — the server writes artifacts/<slug>.json(l) and registers it in
+ * committed case, the server writes artifacts/<slug>.json(l) and registers it in
  * artifacts/cases.json; Vite reloads with the new case in the sidebar.
  */
-export function CommitModal({ bundle, suggestedLabel, onClose }: { bundle: Bundle; suggestedLabel: string; onClose: () => void }) {
+export function SaveCaseModal({ bundle, suggestedLabel, onClose }: { bundle: Bundle; suggestedLabel: string; onClose: () => void }) {
   const [label, setLabel] = useState(suggestedLabel);
   const [slug, setSlug] = useState(slugify(suggestedLabel));
   const [slugTouched, setSlugTouched] = useState(false);
@@ -34,7 +34,7 @@ export function CommitModal({ bundle, suggestedLabel, onClose }: { bundle: Bundl
         return;
       }
       appendEvent({ caseId: j.id, kind: "committed", digest: bundleDigest(bundle), parents: [], note: label });
-      // The manifest changed on disk — reload onto the new case so the glob re-evaluates cleanly.
+      // The manifest changed on disk, reload onto the new case so the glob re-evaluates cleanly.
       window.location.hash = `#/case/${j.id}`;
       window.location.reload();
     } catch (e) {
@@ -45,9 +45,9 @@ export function CommitModal({ bundle, suggestedLabel, onClose }: { bundle: Bundl
   }
 
   return (
-    <Modal onClose={onClose} ariaLabel="Commit as case" closeOnOverlay={!busy}>
+    <Modal onClose={onClose} ariaLabel="Save as case" closeOnOverlay={!busy}>
         <div className="head">
-          <div className="t">Commit as case</div>
+          <div className="t">Save as case</div>
           <button className="close" onClick={onClose} aria-label="Close"><XIcon size={16} /></button>
         </div>
         <p className="subtle" style={{ margin: 0 }}>
@@ -65,7 +65,7 @@ export function CommitModal({ bundle, suggestedLabel, onClose }: { bundle: Bundl
             disabled={busy}
           />
           <input
-            placeholder="slug (a-z, 0-9, hyphen)"
+            placeholder="web address name (a-z, 0-9, hyphen)"
             value={slug}
             onChange={(e) => { setSlugTouched(true); setSlug(e.target.value); }}
             disabled={busy}
@@ -77,10 +77,10 @@ export function CommitModal({ bundle, suggestedLabel, onClose }: { bundle: Bundl
             disabled={busy || !label.trim() || !/^[a-z0-9][a-z0-9-]{1,39}$/.test(slug)}
             onClick={commit}
           >
-            <CheckIcon size={15} /> {busy ? "Committing…" : "Commit case"}
+            <CheckIcon size={15} /> {busy ? "Saving…" : "Save case"}
           </button>
           {error && <p className="note" style={{ marginTop: 2, color: "var(--pink)" }}>{error}</p>}
         </div>
     </Modal>
-  );
+);
 }

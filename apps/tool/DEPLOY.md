@@ -19,7 +19,7 @@ Deploy `apps/tool/dist` to any static host:
 | Vercel | `npm run build:tool` | `apps/tool/dist` |
 | Any | `npm run build:tool` | copy `apps/tool/dist/**` to your web root |
 
-**Note — the live runner is dev-only.** The `/api/build` endpoint that runs the pipeline on pasted text
+**Note, the live runner is dev-only.** The `/api/build` endpoint that runs the pipeline on pasted text
 exists only under `npm run dev` (it needs the server-side key from `.env`). The static hosted build is a
 pre-baked *viewer*; that is the intended dual-mode split (a judge explores instantly with no key, and can
 run their own questions locally via `npm run dev` or the `egit` CLI).

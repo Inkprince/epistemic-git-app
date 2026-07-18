@@ -6,7 +6,7 @@ import { Bundle } from "../src/schema.js";
 
 /**
  * Emit the published JSON Schema for a bundle. This is the artifact another team validates
- * against — the concrete promise behind "compounding & interoperability". Written to
+ * against, the concrete promise behind "compounding & interoperability". Written to
  * `spec/schema/bundle.schema.json` at the repo root.
  */
 const here = dirname(fileURLToPath(import.meta.url));

@@ -1,0 +1,9 @@
+{
+  "text": "The evidence ledger shows that, according to six sources and eleven claims, the consensus among mainstream physicists (as represented by the LSAG) is that collisions at the Large Hadron Collider do not pose a credible danger of creating a black hole that could threaten Earth. This conclusion carries a neutral support rating of 44.3 %, with ten challenges noted but no cross‑claim relations or quarantined items.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 301,
+    "completionTokens": 98
+  }
+}

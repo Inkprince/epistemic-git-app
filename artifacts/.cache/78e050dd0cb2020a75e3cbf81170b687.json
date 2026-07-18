@@ -1,0 +1,9 @@
+{
+  "text": "The claim is directly supported by two identical source statements that each assert that chicken eggs are an affordable source of protein and other nutrients. Because the support consists solely of these repeated affirmations, the evidence for the claim is thin and relies on a single line of testimony rather than multiple independent sources.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 315,
+    "completionTokens": 84
+  }
+}

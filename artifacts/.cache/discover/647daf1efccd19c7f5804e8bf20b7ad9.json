@@ -1,0 +1,54 @@
+{
+  "query": "eggs",
+  "retrievedVia": "firecrawl",
+  "candidates": [
+    {
+      "url": "https://en.wikipedia.org/wiki/Eggs_as_food",
+      "title": "Eggs as food",
+      "description": "Humans and other hominids have consumed eggs for millions of years. The most widely consumed eggs are those of fowl, especially chickens.",
+      "rank": 1
+    },
+    {
+      "url": "https://nutritionsource.hsph.harvard.edu/food-features/eggs/",
+      "title": "Eggs - The Nutrition Source",
+      "description": "For those looking to eat a healthy diet, keeping intake of eggs moderate to low will be best for most, emphasizing plant-based protein options when possible.",
+      "rank": 2
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10304460/",
+      "title": "Eggs: Healthy or Risky? A Review of Evidence from High ...",
+      "description": "by M Myers · 2023 · Cited by 95 — Hen's eggs (from Gallus gallus domesticus) provide choline, folate, vitamin D, iodine, B vitamins and high-quality protein",
+      "rank": 3
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=b52h7kraC3A",
+      "title": "50 Ways To Cook an Egg",
+      "description": "I'm going to show you every different way to cook an egg.",
+      "rank": 4
+    },
+    {
+      "url": "https://www.healthline.com/nutrition/proven-health-benefits-of-eggs",
+      "title": "Eggs: Nutrition and Health Benefits",
+      "description": "Eggs are high in protein and contain beneficial nutrients, including choline and other vitamins. They also contain two antioxidants that support eye health.",
+      "rank": 5
+    },
+    {
+      "url": "https://www.mayoclinichealthsystem.org/hometown-health/speaking-of-health/is-it-healthy-to-eat-eggs-every-day",
+      "title": "Is it healthy to eat eggs every day? - Mayo Clinic Health ...",
+      "description": "Most healthy people can eat up to seven eggs a week without affecting their heart health. Some choose to eat only the egg white and not the yolk.",
+      "rank": 6
+    },
+    {
+      "url": "https://www.fda.gov/food/buy-store-serve-safe-food/what-you-need-know-about-egg-safety",
+      "title": "What You Need to Know About Egg Safety",
+      "description": "Fresh eggs, even those with clean, uncracked shells, may contain bacteria called Salmonella that can cause foodborne illness, often called “food poisoning.”",
+      "rank": 7
+    },
+    {
+      "url": "https://www.smithsfoodanddrug.com/blog/health/all-about-eggs",
+      "title": "All About Eggs",
+      "description": "Eggs graded at Grade AA and A have a firmer yolk, thicker egg whites, a normal shape and a smaller breakout appearance than Grade B. One extra- ...",
+      "rank": 8
+    }
+  ]
+}

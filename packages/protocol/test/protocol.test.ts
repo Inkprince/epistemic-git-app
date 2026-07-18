@@ -36,7 +36,7 @@ describe("vendored sha256 (isomorphic content addressing)", () => {
   });
 
   it("agrees with node:crypto on randomized inputs (incl. unicode + block boundaries)", () => {
-    const alphabet = "abc XYZ 0123 éü中文🙂\n\t«»—“”";
+    const alphabet = "abc XYZ 0123 éü中文🙂\n\t«», “”";
     const cases: string[] = [];
     // Deterministic pseudo-random strings across every interesting length regime.
     let seed = 42;

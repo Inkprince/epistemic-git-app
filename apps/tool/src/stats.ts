@@ -1,6 +1,6 @@
 import { computeSupport } from "@epistemic-git/analysis";
 import type { Bundle } from "@epistemic-git/protocol";
-import { primaryConclusion } from "./domain.js";
+import { challengeTypeLabel, primaryConclusion } from "./domain.js";
 
 /** Pure cross-bundle aggregations that feed the Overview dashboard. */
 
@@ -10,13 +10,28 @@ export interface CaseSupport {
   support: number;
   claims: number;
   overlays: number;
-  mergeable: boolean;
   generated: boolean;
+}
+
+/**
+ * Comprehensive case search: a query hits a case when it appears in the label, the question, any
+ * claim statement, any source title, any challenge rationale, or any perspective label/description.
+ * `q` is expected already lowercased and trimmed; an empty `q` matches everything.
+ */
+export function caseMatches(label: string, bundle: Bundle, q: string): boolean {
+  if (!q) return true;
+  if (label.toLowerCase().includes(q)) return true;
+  if (bundle.question.toLowerCase().includes(q)) return true;
+  if (bundle.title.toLowerCase().includes(q)) return true;
+  if (bundle.claims.some((c) => c.statement.toLowerCase().includes(q))) return true;
+  if (bundle.sources.some((s) => s.title.toLowerCase().includes(q))) return true;
+  if (bundle.challenges.some((c) => c.rationale.toLowerCase().includes(q))) return true;
+  if (bundle.overlays.some((o) => o.label.toLowerCase().includes(q) || (o.description ?? "").toLowerCase().includes(q))) return true;
+  return false;
 }
 
 export function supportByCase(
   bundles: Record<string, { label: string; bundle: Bundle }>,
-  mergeableIds: Set<string>,
 ): CaseSupport[] {
   return Object.entries(bundles).map(([id, { label, bundle }]) => {
     const conclusion = primaryConclusion(bundle);
@@ -30,7 +45,6 @@ export function supportByCase(
       support: (conclusion && field?.support.get(conclusion.id)) || 0,
       claims: bundle.claims.length,
       overlays: bundle.overlays.length,
-      mergeable: mergeableIds.has(id),
       generated: bundle.claims.some((c) => c.attribution.kind === "analyst-llm"),
     };
   });
@@ -92,7 +106,7 @@ export function auditActivity(
     for (const c of bundle.challenges) {
       items.push({
         kind: "challenge",
-        actor: `${c.challengeType} challenge`,
+        actor: `Challenge, ${challengeTypeLabel(c.challengeType).toLowerCase()}`,
         text: c.rationale,
         caseId,
         caseLabel: label,
@@ -103,7 +117,7 @@ export function auditActivity(
       items.push({ kind: "contradiction", actor: "Contradiction", text: m.rationale, caseId, caseLabel: label, targetId: m.from });
     }
     for (const q of bundle.quarantine) {
-      items.push({ kind: "quarantine", actor: "Quarantine", text: q.statement, caseId, caseLabel: label });
+      items.push({ kind: "quarantine", actor: "Excluded", text: q.statement, caseId, caseLabel: label });
     }
   }
   // Interleave cases so one bundle doesn't dominate the feed.

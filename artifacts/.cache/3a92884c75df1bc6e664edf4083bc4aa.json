@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on theoretical statements that black holes emit particles with a temperature set by their surface gravity, implying slow evaporation, but no empirical data are presented to show a direct detection of this radiation. Consequently, the support is purely conceptual and does not include any experimental observation.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 349,
+    "completionTokens": 98
+  }
+}

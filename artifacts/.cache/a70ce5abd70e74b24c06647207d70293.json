@@ -1,0 +1,9 @@
+{
+  "text": "There are no recorded challenges to the statement “Don’t be scared of what you don’t know. Ask questions, trust your gut, and take good notice of where the sun falls – it will help you understand what kinds of plant to put where.”.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 269,
+    "completionTokens": 80
+  }
+}

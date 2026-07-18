@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"University of Asmara is located in Eritrea\",\"claimType\":\"definitional\",\"quote\":\"- [University of Asmara](https://en.wikipedia.org/wiki/University_of_Asmara \\\"University of Asmara\\\")\",\"entailment\":\"The bullet list under the Eritrea flag includes University of Asmara, indicating its location in Eritrea.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"University of Eswatini is located in Eswatini\",\"claimType\":\"definitional\",\"quote\":\"- [University of Eswatini](https://en.wikipedia.org/wiki/University_of_Eswatini \\\"University of Eswatini\\\")\",\"entailment\":\"The bullet list under the Eswatini flag lists University of Eswatini, showing it is situated in Eswatini.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"University of Kinshasa is located in the Democratic Republic of the Congo\",\"claimType\":\"definitional\",\"quote\":\"- [University of Kinshasa](https://en.wikipedia.org/wiki/University_of_Kinshasa \\\"University of Kinshasa\\\")\",\"entailment\":\"The bullet list under the Democratic Republic of the Congo flag includes University of Kinshasa, indicating its location there.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2290,
+    "completionTokens": 438
+  }
+}

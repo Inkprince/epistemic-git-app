@@ -4,7 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
 /**
- * Source discovery via Firecrawl `/search` — the "search for resources with bearing on the topic"
+ * Source discovery via Firecrawl `/search`, the "search for resources with bearing on the topic"
  * ingestion step.
  *
  * Deliberately NOT auto-admission. Discovery *proposes* candidate sources with the query and rank that
@@ -18,7 +18,7 @@ export interface Candidate {
   url: string;
   title: string;
   description: string;
-  /** 1-based position in the provider's result list — recorded, not endorsed. */
+  /** 1-based position in the provider's result list, recorded, not endorsed. */
   rank: number;
 }
 

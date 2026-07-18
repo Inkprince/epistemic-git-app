@@ -1,7 +1,7 @@
 {
   "name": "@epistemic-git/tool",
   "version": "0.1.0",
-  "description": "Epistemic Git — the interrogable ledger explorer. Trace any claim to its passage, recompute live, decompose disagreement, and merge bundles. Runs the deterministic analysis engine in the browser.",
+  "description": "Epistemic Git, the interrogable ledger explorer. Trace any claim to its passage, recompute live, decompose disagreement, and merge bundles. Runs the deterministic analysis engine in the browser.",
   "type": "module",
   "private": true,
   "scripts": {

@@ -1,8 +1,8 @@
 /**
- * @epistemic-git/analysis — deterministic, LLM-free reasoning over a bundle.
+ * @epistemic-git/analysis, deterministic, LLM-free reasoning over a bundle.
  *
  * Every export here is a pure function of a bundle (and, where relevant, an overlay's stated
- * beliefs). No network, no model calls, no randomness — so results are reproducible, unit-testable,
+ * beliefs). No network, no model calls, no randomness, so results are reproducible, unit-testable,
  * and instant enough to recompute live in the browser as a judge perturbs the ledger.
  */
 

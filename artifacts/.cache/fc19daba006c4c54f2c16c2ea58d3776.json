@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Skeptical View on Nuts and Cardiovascular Risk\",\"suggestedDescription\":\"A cautious perspective that treats positive nut‑heart findings as uncertain and gives weight to criticisms, confounding factors, and methodological concerns.\",\"stances\":[{\"claimIndex\":0,\"stance\":\"uncertain\",\"rationale\":\"While cohort studies report associations, the potential for confounding makes the claim far from conclusive.\"},{\"claimIndex\":1,\"stance\":\"uncertain\",\"rationale\":\"Observational data from the Nurses' Health Study are vulnerable to dietary recall bias and unmeasured lifestyle factors.\"},{\"claimIndex\":2,\"stance\":\"uncertain\",\"rationale\":\"Even a randomized trial like PREDIMED is clouded by later revelations of randomization problems, so its results remain doubtful.\"},{\"claimIndex\":3,\"stance\":\"accept\",\"rationale\":\"The noted irregularities in randomization are a legitimate methodological flaw that undermines confidence in the trial.\"},{\"claimIndex\":4,\"stance\":\"uncertain\",\"rationale\":\"Although the re‑analysis reproduced similar effect sizes, the underlying design issues keep the evidence questionable.\"},{\"claimIndex\":5,\"stance\":\"accept\",\"rationale\":\"Nuts are indeed energy‑dense, a fact that must be considered when evaluating any health benefit.\"},{\"claimIndex\":6,\"stance\":\"accept\",\"rationale\":\"Recommendations should prudently account for total caloric intake given nuts’ high energy content.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 665,
+    "completionTokens": 495
+  }
+}

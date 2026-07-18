@@ -1,5 +1,5 @@
 import {
-  assessmentId, challengeId, claimId, correlationGroupId, inferenceId, matchId, overlayId, passageId, sourceId,
+  assessmentId, challengeId, claimId, correlationGroupId, inferenceId, matchId, narrativeId, overlayId, passageId, sourceId,
 } from "./ids.js";
 import { Bundle } from "./schema.js";
 
@@ -18,16 +18,16 @@ export interface ValidationResult {
 
 /**
  * Validate a bundle at three levels:
- *   1. structural — matches the Zod schema;
- *   2. referential — every id reference resolves to a node that exists;
- *   3. invariant — PROVENANCE (source-grounded claims carry a passage; derived claims are
+ *   1. structural, matches the Zod schema;
+ *   2. referential, every id reference resolves to a node that exists;
+ *   3. invariant, PROVENANCE (source-grounded claims carry a passage; derived claims are
  *      concluded by an inference) and ID INTEGRITY (recorded ids match recomputed ids).
  *
  * A ledger that fails any error-level check is not trustworthy and callers should refuse it.
  */
 /**
  * Convenience: return only the content-addressing issues (recorded id ≠ recomputed id). A clean result
- * ([]) means every node's id is a faithful hash of its content — the guarantee that makes merge safe.
+ * ([]) means every node's id is a faithful hash of its content, the guarantee that makes merge safe.
  */
 export function verifyIds(input: unknown): ValidationIssue[] {
   return validateBundle(input).issues.filter((i) => i.code.startsWith("id."));
@@ -50,6 +50,7 @@ export function validateBundle(input: unknown): ValidationResult {
   const claimIds = new Set(b.claims.map((c) => c.id));
   const inferenceIds = new Set(b.inferences.map((i) => i.id));
   const overlayIds = new Set(b.overlays.map((o) => o.id));
+  const narrativeIds = new Set(b.narratives.map((n) => n.id));
 
   const err = (code: string, message: string, node?: string) =>
     issues.push({ code, severity: "error", message, ...(node ? { node } : {}) });
@@ -97,6 +98,12 @@ export function validateBundle(input: unknown): ValidationResult {
       if (!sourceIds.has(s)) warn("ref.overlay.admits", `overlay ${o.id} admits unknown source ${s}`, o.id);
     }
   }
+  for (const nar of b.narratives) {
+    checkTarget(nar.target, nar.id, "narrative");
+    for (const gid of nar.groundedIn) {
+      if (!claimIds.has(gid)) err("ref.narrative.grounded", `narrative ${nar.id} is grounded in missing claim ${gid}`, nar.id);
+    }
+  }
 
   function checkTarget(t: { kind: string; id: string }, node: string, ctx: string, claimOrInferenceOnly = false) {
     switch (t.kind) {
@@ -106,6 +113,8 @@ export function validateBundle(input: unknown): ValidationResult {
         else if (!passageIds.has(t.id)) err(`ref.${ctx}.target`, `${ctx} ${node} targets missing passage ${t.id}`, node); break;
       case "source": if (claimOrInferenceOnly) err(`ref.${ctx}.target`, `${ctx} ${node} may only target a claim or inference`, node);
         else if (!sourceIds.has(t.id)) err(`ref.${ctx}.target`, `${ctx} ${node} targets missing source ${t.id}`, node); break;
+      case "narrative": if (claimOrInferenceOnly) err(`ref.${ctx}.target`, `${ctx} ${node} may only target a claim or inference`, node);
+        else if (!narrativeIds.has(t.id)) err(`ref.${ctx}.target`, `${ctx} ${node} targets missing narrative ${t.id}`, node); break;
       case "topic": break; // a missing-source challenge names a topic, not an existing node
       default: err(`ref.${ctx}.target`, `${ctx} ${node} has unknown target kind ${t.kind}`, node);
     }
@@ -152,6 +161,9 @@ export function validateBundle(input: unknown): ValidationResult {
   }
   for (const a of b.assessments) {
     if (a.id !== assessmentId(a)) err("id.assessment", `assessment id ${a.id} does not match its content hash`, a.id);
+  }
+  for (const nar of b.narratives) {
+    if (nar.id !== narrativeId(nar)) err("id.narrative", `narrative id ${nar.id} does not match its content hash`, nar.id);
   }
 
   return { ok: !issues.some((i) => i.severity === "error"), issues };

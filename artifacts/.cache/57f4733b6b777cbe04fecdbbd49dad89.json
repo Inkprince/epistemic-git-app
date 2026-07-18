@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"The university is described as the first choice and the nation’s pride.\",\"claimType\":\"definitional\",\"quote\":\"University of First Choice and the Nation’s Pride\",\"entailment\":\"The quoted phrase directly labels the university as the first choice and the nation’s pride, supporting the claim that it is described that way.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"The Vice-Chancellor welcomes you.\",\"claimType\":\"definitional\",\"quote\":\"## Welcomes You\",\"entailment\":\"The heading \\\"Welcomes You\\\" under the Vice-Chancellor section indicates that the Vice-Chancellor extends a welcome, supporting the claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Professor Folasade T. Ogunsola holds the qualifications MBChB, FMCPath, FWACP, FRCPath (UK), PhD (Cardiff), FNAMed, and FAMedS.\",\"claimType\":\"definitional\",\"quote\":\"Professor Folasade T. Ogunsola OON, FAS MBChB, FMCPath, FWACP, FRCPath (UK) PhD (Cardiff) FNAMed, FAMedS\",\"entailment\":\"The listed titles and degrees after the professor’s name provide a verbatim record of her qualifications, supporting the claim about her credentials.\",\"population\":\"Professor Folasade T. Ogunsola\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 971,
+    "completionTokens": 602
+  }
+}

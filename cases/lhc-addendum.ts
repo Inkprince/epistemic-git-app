@@ -5,7 +5,7 @@ import { BundleBuilder, validateBundle } from "@epistemic-git/protocol";
 import { writeBundleFile } from "@epistemic-git/protocol/node";
 
 /**
- * A SECOND, independently-authored LHC ledger — "investigator B".
+ * A SECOND, independently-authored LHC ledger, "investigator B".
  *
  * It shares the same case/question as the main LHC bundle and deliberately overlaps: it re-states the
  * safety conclusion identically (so content-addressed ids coincide and merge coalesces them), adds a
@@ -58,7 +58,7 @@ export function buildLhcAddendum() {
     strength: "moderate", attribution: { kind: "source", ref: src },
   });
 
-  // The skeptic perspective, reconstructed identically so the overlay id matches the main bundle —
+  // The skeptic perspective, reconstructed identically so the overlay id matches the main bundle, 
   // but assessing the SAME conclusion with a DIFFERENT credence, which merge will flag as a conflict.
   const skeptic = b.overlay({
     label: "Concerned skeptic",

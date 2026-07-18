@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"There is a PDF titled “University of Lagos Pocket Statistics”.\",\"claimType\":\"empirical\",\"quote\":\"\\\"University of Lagos Pocket Statistics\\\" (PDF). _University of Lagos_.\",\"entailment\":\"The quoted reference lists a PDF with that title, indicating its existence.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"The University of Lagos was established in 1962.\",\"claimType\":\"empirical\",\"quote\":\"\\\"University of Lagos (1962- ) •\\\"\",\"entailment\":\"The quoted title includes the year 1962, indicating the founding year of the university.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Prof. Folasade Ogunsola became the first female Vice‑Chancellor of UNILAG.\",\"claimType\":\"empirical\",\"quote\":\"\\\"Prof Folasade Ogunsola emerges first female UNILAG VC\\\"\",\"entailment\":\"The quoted article headline states that she emerged as the first female VC, confirming the claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"A panel ordered UNILAG to close its accounts with commercial banks.\",\"claimType\":\"empirical\",\"quote\":\"\\\"Panel orders UNILAG to close accounts with commercial banks\\\"\",\"entailment\":\"The quoted news headline reports that a panel gave this order, supporting the claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2460,
+    "completionTokens": 540
+  }
+}

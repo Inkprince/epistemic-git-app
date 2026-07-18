@@ -6,14 +6,14 @@ import { join, resolve } from "node:path";
 /**
  * Source retrieval, pluggable and cached.
  *
- * A scraper turns a URL you have *named* into readable text. It never searches or ranks — the operator
+ * A scraper turns a URL you have *named* into readable text. It never searches or ranks, the operator
  * chooses the URL; the scraper only fetches it. Two providers ship:
- *   - `native`   — dependency-free global fetch + a minimal HTML→text reduction. No key, no cost.
- *   - `firecrawl` — the Firecrawl API (https://firecrawl.dev), which renders JS and returns clean
+ *   - `native`, dependency-free global fetch + a minimal HTML→text reduction. No key, no cost.
+ *   - `firecrawl`, the Firecrawl API (https://firecrawl.dev), which renders JS and returns clean
  *                   markdown; handles pages the native reducer can't. Needs FIRECRAWL_API_KEY + --live.
  *
  * Every result is content-hash cached under artifacts/.cache/scrape/, so a demo replays offline and
- * reproducibly regardless of provider — the same dual-mode contract the LLM layer uses.
+ * reproducibly regardless of provider, the same dual-mode contract the LLM layer uses.
  */
 
 export type ScraperName = "native" | "firecrawl" | "auto";
@@ -123,7 +123,7 @@ async function nativeFetchText(url: string, fetchImpl: typeof fetch): Promise<st
       `${url} looks like a PDF; native fetch handles HTML/plain-text only. ` +
         `Save the text to a .txt file and pass it with --in, use --scraper firecrawl, ` +
         `or link an HTML page (e.g. arXiv /abs/ rather than /pdf/).`,
-    );
+);
   }
 
   const raw = await res.text();
@@ -131,9 +131,9 @@ async function nativeFetchText(url: string, fetchImpl: typeof fetch): Promise<st
   const text = (looksHtml ? htmlToText(raw) : raw).trim();
   if (text.length < 200) {
     throw new ScrapeError(
-      `Fetched ${url} but recovered only ${text.length} chars of readable text — the page may be ` +
+      `Fetched ${url} but recovered only ${text.length} chars of readable text, the page may be ` +
         `JavaScript-rendered or access-restricted. Try --scraper firecrawl, or save the text to a file.`,
-    );
+);
   }
   return text;
 }

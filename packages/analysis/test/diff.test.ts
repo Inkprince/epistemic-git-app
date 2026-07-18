@@ -7,7 +7,7 @@ import { diffBundles, merge } from "../src/index.js";
 const load = (name: string): Bundle =>
   JSON.parse(readFileSync(fileURLToPath(new URL(`../../../artifacts/${name}.json`, import.meta.url)), "utf8")) as Bundle;
 
-describe("diffBundles — content-addressed bundle diff", () => {
+describe("diffBundles, content-addressed bundle diff", () => {
   it("is empty for identical bundles", () => {
     const lhc = load("lhc");
     const d = diffBundles(lhc, lhc);
@@ -21,7 +21,7 @@ describe("diffBundles — content-addressed bundle diff", () => {
     const addendum = load("lhc-addendum");
     const { bundle: merged, report } = merge(lhc, addendum);
     const d = diffBundles(lhc, merged);
-    expect(d.totalRemoved).toBe(0); // merge is a union — nothing is ever lost
+    expect(d.totalRemoved).toBe(0); // merge is a union, nothing is ever lost
     const reportAdded = Object.values(report.added).reduce((a, b) => a + b, 0);
     expect(d.totalAdded).toBe(reportAdded);
   });

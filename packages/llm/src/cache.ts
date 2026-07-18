@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { CacheMissError, type CompleteParams, type CompleteResult, type LlmClient } from "./types.js";
 
 /**
- * Content-hash cache — the mechanism behind reproducible dual-mode runs.
+ * Content-hash cache, the mechanism behind reproducible dual-mode runs.
  *
  * The cache key is a pure hash of everything that determines the output: model, prompt-template
  * version, messages, schema, and sampling params. A committed cache lets the whole pipeline replay
@@ -30,7 +30,7 @@ function canonical(value: unknown): string {
           .filter(([, x]) => x !== undefined)
           .sort(([a], [b]) => (a < b ? -1 : 1))
           .map(([k, x]) => [k, sort(x)]),
-      );
+);
     }
     return v;
   };
@@ -58,7 +58,7 @@ export class CachedLlmClient implements LlmClient {
     private readonly inner: LlmClient,
     private readonly store: CacheStore,
     private readonly opts: { promptVersion: string; mode: "cached" | "live" },
-  ) {}
+) {}
 
   get model(): string { return this.inner.model; }
 

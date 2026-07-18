@@ -3,7 +3,7 @@ import { computeSupport, explainSupport, perspectiveDiff, valueOfInformation } f
 import { groundingPremises, primaryConclusion } from "./domain.js";
 
 /**
- * The grounded "ask this case" router — deterministic, LLM-free, and unable to exceed the ledger.
+ * The grounded "ask this case" router, deterministic, LLM-free, and unable to exceed the ledger.
  *
  * A question is classified by intent and answered ONLY from deterministic analysis over the bundle
  * (support, provenance, challenges, correlation, perspective-diff, cruxes). Anything it cannot ground
@@ -73,7 +73,7 @@ function matchClaim(bundle: Bundle, question: string): Bundle["claims"][number] 
 
 export function answerCase(question: string, bundle: Bundle, ctx: AskContext): AskAnswer {
   const q = question.trim().toLowerCase();
-  if (!q) return refuse("Ask a question about this case — its confidence, the disagreement, the sources behind a claim, or its weak points.");
+  if (!q) return refuse("Ask a question about this case, its confidence, the disagreement, the sources behind a claim, or its weak points.");
 
   const conclusion = primaryConclusion(bundle);
   const overlays = bundle.overlays;
@@ -86,19 +86,19 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
       return refuse(
         "This case has fewer than two perspectives loaded, so there's no disagreement to break down. Open the Perspectives tab to author or import an opposing view, then ask again.",
         "crux",
-      );
+);
     }
     const a = ctx.overlayId ?? overlays[0]!.id;
     const b = ctx.diffBId && ctx.diffBId !== a ? ctx.diffBId : overlays.find((o) => o.id !== a)!.id;
     const diff = perspectiveDiff(bundle, a, b, conclusion.id, opts);
     const points = diff.contributions.slice(0, 3).map(
       (c) => `${pctOf(c.shareOfGap)} of the gap: “${c.statement}” (${pctOf(c.beliefA)} vs ${pctOf(c.beliefB)})`,
-    );
+);
     return {
       kind: "crux",
       grounded: true,
       headline: diff.topCrux
-        ? `The single most load-bearing disagreement is “${diff.topCrux.statement}” — ${pctOf(diff.topCrux.shareOfGap)} of a ${pctOf(Math.abs(diff.gap))} gap.`
+        ? `The single most load-bearing disagreement is “${diff.topCrux.statement}” ${pctOf(diff.topCrux.shareOfGap)} of a ${pctOf(Math.abs(diff.gap))} gap.`
         : `The two perspectives differ by ${pctOf(Math.abs(diff.gap))} on the conclusion.`,
       points,
       citations: diff.topCrux ? [{ label: "Go to crux claim", nodeId: diff.topCrux.claimId }] : [],
@@ -122,7 +122,7 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
       };
     }
     if (target.derived && target.passages.length === 0) {
-      // A derived conclusion has no quote of its own — trace to the grounded premises it rests on.
+      // A derived conclusion has no quote of its own, trace to the grounded premises it rests on.
       const premises = groundingPremises(bundle, target.id);
       const cites: AskCitation[] = premises.map((pc) => {
         const p = bundle.passages.find((x) => x.id === pc.passages[0]);
@@ -137,8 +137,8 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
       return {
         kind: "provenance", grounded: true,
         headline: premises.length
-          ? `“${target.statement}” is a derived conclusion — no quote of its own. It rests on ${premises.length} quote-backed claim(s):`
-          : `“${target.statement}” is a derived conclusion, and no quote-backed claims feed it yet.`,
+          ? `“${target.statement}” is an inferred conclusion, no quote of its own. It rests on ${premises.length} quote-backed claim(s):`
+          : `“${target.statement}” is an inferred conclusion, and no quote-backed claims feed it yet.`,
         points: [], citations: cites, focusId: target.id,
       };
     }
@@ -167,15 +167,15 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
     if (groups.length === 0) {
       return {
         kind: "independence", grounded: true,
-        headline: "No correlation groups are recorded on this case — no evidence is currently flagged as sharing an origin.",
+        headline: "No shared-origin groups are recorded on this case, no evidence is currently flagged as coming from the same place.",
         points: [], citations: [],
-        note: "Absence of a flag isn't proof of independence; it means the pipeline/authors found no shared dataset, author, funder, or instrument.",
+        note: "Absence of a flag isn't proof of independence; it means neither the AI nor the authors found a shared dataset, author, funder, or instrument.",
       };
     }
     return {
       kind: "independence", grounded: true,
-      headline: `${groups.length} correlation group(s) flag evidence that shares an origin, so it is combined — not multiplied — when computing support.`,
-      points: groups.map((g) => `Shared ${g.sharedOrigin}: ${g.members.length} members — ${g.rationale}`),
+      headline: `${groups.length} shared-origin group(s) flag evidence that comes from the same place, so it is combined (not multiplied) when computing support.`,
+      points: groups.map((g) => `Shared ${g.sharedOrigin}: ${g.members.length} members, ${g.rationale}`),
       citations: [],
     };
   }
@@ -226,21 +226,21 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
     };
   }
 
-  // ── What's missing (light heuristic — deterministic over the ledger) ────────
+  // ── What's missing (light heuristic, deterministic over the ledger) ────────
   if (has(q, "missing", "gap", "what else", "blind spot", "not represented", "left out", "overlooked", "underrepresented")) {
     const points: string[] = [];
     const singleSource = bundle.claims.filter((c) => !c.derived && c.attribution.kind === "source");
-    if (bundle.sources.length < 3) points.push(`Only ${bundle.sources.length} source(s) — a contested question usually needs more independent lines.`);
+    if (bundle.sources.length < 3) points.push(`Only ${bundle.sources.length} source(s) a contested question usually needs more independent lines.`);
     if (overlays.length < 2) points.push("Fewer than two perspectives are loaded, so no disagreement is being tracked.");
     const unchallenged = bundle.claims.filter((c) => !c.derived && !bundle.challenges.some((ch) => ch.target.kind === "claim" && ch.target.id === c.id));
-    if (unchallenged.length) points.push(`${unchallenged.length} claim(s) carry no recorded challenge — untested, not necessarily sound.`);
-    if (bundle.correlationGroups.length === 0 && singleSource.length > 1) points.push("No correlation groups recorded — worth checking whether any sources share a dataset, author, or funder.");
+    if (unchallenged.length) points.push(`${unchallenged.length} claim(s) carry no recorded challenge, untested, not necessarily sound.`);
+    if (bundle.correlationGroups.length === 0 && singleSource.length > 1) points.push("No shared-origin groups recorded, worth checking whether any sources share a dataset, author, or funder.");
     if (points.length === 0) points.push("No obvious structural gaps: multiple sources, opposed perspectives, challenges, and correlation checks are all present.");
     return {
       kind: "missing", grounded: true,
-      headline: "What the case is (and isn't) covering — structural gaps only:",
+      headline: "What the case is (and isn't) covering, structural gaps only:",
       points, citations: [],
-      note: "This is a structural check over what's in the case, not a judgement about the wider literature. Use `discover` to search for candidate sources to fill a gap.",
+      note: "This is a structural check over what's in the case, not a judgement about the wider literature.",
     };
   }
 
@@ -250,10 +250,10 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
     const s = conclusion ? field.support.get(conclusion.id) ?? 0 : 0;
     return {
       kind: "overview", grounded: true,
-      headline: conclusion ? `Conclusion: “${conclusion.statement}” — ${pctOf(s)} neutral support.` : "This case has no derived conclusion yet.",
+      headline: conclusion ? `Conclusion: “${conclusion.statement}” ${pctOf(s)} neutral support.` : "This case has no inferred conclusion yet.",
       points: [
-        `${bundle.sources.length} sources · ${bundle.claims.length} claims · ${bundle.inferences.length} inferences`,
-        `${bundle.matches.length} cross-claim relations · ${bundle.challenges.length} challenges · ${bundle.quarantine.length} quarantined`,
+        `${bundle.sources.length} sources · ${bundle.claims.length} claims · ${bundle.inferences.length} reasoning steps`,
+        `${bundle.matches.length} related claims across sources · ${bundle.challenges.length} challenges · ${bundle.quarantine.length} excluded`,
         `${overlays.length} perspective(s)${overlays.length ? ": " + overlays.map((o) => o.label).join(" vs ") : ""}`,
       ],
       citations: conclusion ? [{ label: "Go to conclusion", nodeId: conclusion.id }] : [],
@@ -262,8 +262,8 @@ export function answerCase(question: string, bundle: Bundle, ctx: AskContext): A
   }
 
   return refuse(
-    "I can only answer from this case — its confidence, cruxes, sources, challenges, correlations, or what's structurally missing. I won't guess beyond the evidence on file. Try: “what's the crux?”, “how strong is the conclusion?”, or “what's the source for …?”",
-  );
+    "I can only answer from this case, its confidence, cruxes, sources, challenges, double-counting, or what's structurally missing. I won't guess beyond the evidence on file. Try: “what's the crux?”, “how strong is the conclusion?”, or “what's the source for …?”",
+);
 }
 
 function refuse(headline: string, kind: AskKind = "refused"): AskAnswer {

@@ -1,15 +1,15 @@
 import type {
-  Assessment, Bundle, Challenge, Claim, CorrelationGroup, Inference, Match, Overlay,
+  Assessment, Bundle, Challenge, Claim, CorrelationGroup, Inference, Match, Narrative, Overlay,
   Passage, QuarantinedClaim, Source,
 } from "@epistemic-git/protocol";
 import { computeSupport } from "./support.js";
 
 /**
- * Content-addressed merge — the "Git" in Epistemic Git.
+ * Content-addressed merge, the "Git" in Epistemic Git.
  *
  * Two independently produced bundles combine by taking the union of their nodes keyed on
- * content-addressed id. Identical ids coalesce (and their incidental fields — a claim's supporting
- * passages, a source's flags — are unioned, never overwritten). Where the SAME node id carries
+ * content-addressed id. Identical ids coalesce (and their incidental fields, a claim's supporting
+ * passages, a source's flags, are unioned, never overwritten). Where the SAME node id carries
  * genuinely different judgments (two overlays disagreeing about the same target), the difference is
  * surfaced as an explicit conflict rather than silently resolved. Nothing is ever lost.
  */
@@ -46,7 +46,7 @@ export function merge(a: Bundle, b: Bundle): MergeResult {
 
   function mergeCollection<T extends { id: string }>(
     key: string, aItems: T[], bItems: T[], coalesce?: (x: T, y: T) => T,
-  ): T[] {
+): T[] {
     const out = new Map<string, T>();
     for (const item of aItems) out.set(item.id, item);
     for (const item of bItems) {
@@ -108,12 +108,13 @@ export function merge(a: Bundle, b: Bundle): MergeResult {
   });
 
   const quarantine = mergeCollection<QuarantinedClaim>("quarantine", a.quarantine, b.quarantine);
+  const narratives = mergeCollection<Narrative>("narratives", a.narratives ?? [], b.narratives ?? []);
 
   const merged: Bundle = {
     ...a,
     sources, passages, claims, inferences, challenges,
-    correlationGroups, matches, overlays, assessments, quarantine,
-    ...(a.notes || b.notes ? { notes: [a.notes, b.notes].filter(Boolean).join(" — merged — ") } : {}),
+    correlationGroups, matches, overlays, assessments, quarantine, narratives,
+    ...(a.notes || b.notes ? { notes: [a.notes, b.notes].filter(Boolean).join(" (merged) ") } : {}),
   };
 
   // Which derived conclusions moved once B's evidence was folded in?

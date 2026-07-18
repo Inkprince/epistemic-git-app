@@ -7,8 +7,8 @@ import { Modal } from "./Modal.js";
 
 /**
  * Load any exported evidence ledger (.json or .jsonl) back into the explorer. The bundle is
- * fully validated in the browser — schema, referential integrity, provenance invariants, and
- * content-hash id integrity — and refused with the issue list if it fails. Imports persist
+ * fully validated in the browser, schema, referential integrity, provenance invariants, and
+ * content-hash id integrity, and refused with the issue list if it fails. Imports persist
  * locally (IndexedDB) and appear in the sidebar until removed.
  */
 export function ImportModal({ onClose, onImported }: { onClose: () => void; onImported: (id: string) => void }) {
@@ -32,7 +32,7 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
       const label = file.name.replace(/\.(bundle\.)?jsonl?$/i, "").replace(/[-_]/g, " ");
       const result = importBundle(raw, label);
       if (!result.ok) {
-        setError({ msg: "This file is not a valid case — refused (nothing was imported).", issues: result.issues.slice(0, 6) });
+        setError({ msg: "This file isn't a valid case, so nothing was imported. Details below.", issues: result.issues.slice(0, 6) });
         return;
       }
       onImported(result.id);
@@ -52,7 +52,7 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
         </div>
         <p className="subtle" style={{ margin: 0 }}>
           Open an exported case (<span className="mono">.json</span> or <span className="mono">.jsonl</span>).
-          Your browser checks it end-to-end — structure, sources, and a tamper-check — before
+          Your browser checks it end-to-end (structure, sources, and a tamper-check) before
           anything is added. Nothing leaves your machine.
         </p>
         <div
@@ -93,9 +93,9 @@ export function ImportModal({ onClose, onImported }: { onClose: () => void; onIm
               <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
                 {error.issues.map((i, n) => <li key={n} className="mono" style={{ fontSize: 12 }}>{i.code}: {i.message}</li>)}
               </ul>
-            )}
+)}
           </div>
-        )}
+)}
     </Modal>
-  );
+);
 }

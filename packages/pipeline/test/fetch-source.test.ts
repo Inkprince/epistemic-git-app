@@ -21,7 +21,7 @@ describe("htmlToText", () => {
   });
 
   it("decodes the common named and numeric entities", () => {
-    expect(htmlToText("<p>Débarre &amp; Worobey &#8212; 5&nbsp;m</p>")).toBe("Débarre & Worobey — 5 m");
+    expect(htmlToText("<p>Débarre &amp; Worobey &#8212; 5&nbsp;m</p>")).toBe("Débarre & Worobey \u2014 5 m");
     expect(htmlToText("<p>a &lt; b &gt; c &quot;q&quot; &#39;s&#39;</p>")).toBe('a < b > c "q" \'s\'');
   });
 });

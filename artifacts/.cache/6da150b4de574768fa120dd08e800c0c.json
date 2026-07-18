@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on strong arguments that any black hole produced in LHC collisions would evaporate essentially instantly, preventing it from growing to a dangerous size, and that natural high‑energy cosmic‑ray collisions, far more numerous and energetic than LHC events, have not destroyed astronomical bodies, providing an empirical safety bound. A moderate point adds that producing a black hole at all requires speculative physics, making the prior probability low. Weak attacks note that the natural analogue might not cover slow black holes that the LHC could create, and a speculative challenge suggests that if micro black holes were stable they could accrete, but these concerns are considered minor compared with the strong supporting evidence.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 582,
+    "completionTokens": 160
+  }
+}

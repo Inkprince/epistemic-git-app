@@ -1,0 +1,9 @@
+{
+  "text": "The claim is directly supported by two identical source statements that describe the egg white as being mainly water and protein while containing only minimal cholesterol and fat. These quotations provide consistent, unchallenged evidence for the claim, giving it a clear and straightforward basis.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 324,
+    "completionTokens": 76
+  }
+}

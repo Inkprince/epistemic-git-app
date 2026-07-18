@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\": [{\"statement\": \"Abia State University is located in Nigeria.\", \"claimType\": \"definitional\", \"quote\": \"- [Abia State University](https://en.wikipedia.org/wiki/Abia_State_University \\\"Abia State University\\\")\", \"entailment\": \"The bullet list under the Nigeria flag includes Abia State University, indicating it is a Nigerian university.\", \"population\": \"\", \"intervention\": \"\", \"comparator\": \"\", \"outcome\": \"\", \"timeframe\": \"\", \"quantifiers\": \"\", \"modality\": \"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2229,
+    "completionTokens": 236
+  }
+}

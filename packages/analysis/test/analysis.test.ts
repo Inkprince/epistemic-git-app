@@ -148,7 +148,7 @@ describe("merge (content-addressed compounding)", () => {
   });
 });
 
-describe("LHC integration — the flagship interaction", () => {
+describe("LHC integration, the flagship interaction", () => {
   const bundle = buildLhcBundle();
   const consensus = bundle.overlays.find((o) => o.label.includes("consensus"))!.id;
   const skeptic = bundle.overlays.find((o) => o.label.includes("skeptic"))!.id;
@@ -163,7 +163,7 @@ describe("LHC integration — the flagship interaction", () => {
   it("DROP HAWKING RADIATION: consensus safety survives via the empirical line", () => {
     const before = computeSupport(bundle, { overlayId: consensus }).support.get(safe)!;
     const after = computeSupport(bundle, { overlayId: consensus, distrustClaims: new Set([hawking]) }).support.get(safe)!;
-    // safety barely moves — the cosmic-ray / white-dwarf line does not depend on Hawking radiation
+    // safety barely moves, the cosmic-ray / white-dwarf line does not depend on Hawking radiation
     expect(after).toBeGreaterThan(0.8);
     expect(before - after).toBeLessThan(0.15);
 

@@ -7,7 +7,7 @@ import type { Bundle, Claim, Inference } from "./schema.js";
  * claim–evidence graph. Each claim and inference becomes a nanopublication: a small named-graph
  * bundle of an ASSERTION (what is claimed), its PROVENANCE (which passage/source, attributed to
  * whom), and PUBLICATION INFO (schema + integrity). This is the concrete interoperability bridge
- * — another team's tooling that speaks Nanopublications can consume our ledger directly.
+ *, another team's tooling that speaks Nanopublications can consume our ledger directly.
  */
 
 const PREFIXES = `@prefix eg: <https://epistemic.git/protocol#> .

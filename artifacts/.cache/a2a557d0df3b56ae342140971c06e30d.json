@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":10,\"toIndex\":1,\"rationale\":\"Claim 10 gives a precise cholesterol amount (186 mg) which is a specific instance of the general statement that eggs are high in cholesterol.\"},{\"type\":\"narrower\",\"fromIndex\":11,\"toIndex\":9,\"rationale\":\"Claim 11 provides a conditional recommendation (one egg per day if other cholesterol is low), which is a specific case within the broader guideline to keep total dietary cholesterol under 300 mg per day.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":5,\"toIndex\":6,\"rationale\":\"Claim 5 refers to healthy individuals, while claim 6 concerns people with diabetes; the two statements can both be true for their respective populations.\"},{\"type\":\"contradicts\",\"fromIndex\":6,\"toIndex\":7,\"rationale\":\"Claim 6 says seven eggs per week increase heart disease risk in diabetics, whereas claim 7 reports research finding no such connection, directly opposing each other.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":3,\"toIndex\":4,\"rationale\":\"Claim 3 attributes heart‑disease risk mainly to foods eaten with eggs, while claim 4 attributes it mainly to cooking methods; both can be true because they address different contributing factors.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 811,
+    "completionTokens": 1497
+  }
+}

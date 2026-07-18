@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on the observation that white dwarfs and neutron stars have persisted for gigayears, and that any dangerous stable black holes would be efficiently captured and destroy them; their continued existence therefore provides strong empirical bounds that limit producible black holes to harmless accretion rates, even when slow black holes are considered. This single line of evidence is presented as a robust constraint against risk.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 385,
+    "completionTokens": 127
+  }
+}

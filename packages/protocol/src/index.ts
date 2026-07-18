@@ -1,5 +1,5 @@
 /**
- * @epistemic-git/protocol — the portable evidence-ledger protocol.
+ * @epistemic-git/protocol, the portable evidence-ledger protocol.
  *
  * The durable contribution of the entry. Everything else (pipeline, analysis, tool) is
  * machinery that reads and writes this format. Node-only filesystem helpers live at

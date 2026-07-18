@@ -1,0 +1,9 @@
+{
+  "text": "{\"matches\":[{\"type\":\"narrower\",\"fromIndex\":1,\"toIndex\":0,\"rationale\":\"Claim 1 reports a specific result from the Nurses Health Study (women, ≥5 times/week), whereas Claim 0 makes a general statement about several large prospective cohorts, so Claim 1 is a stricter case of Claim 0.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":0,\"rationale\":\"Claim 2 discusses potential confounding of observational findings, a methodological concern, while Claim 0 reports the observed association; both can be true but address different aspects.\"},{\"type\":\"compatible-different-scope\",\"fromIndex\":2,\"toIndex\":1,\"rationale\":\"Claim 2’s comment on confounding applies to observational results like those in Claim 1, yet it concerns study validity rather than the specific risk reduction reported, so the scopes differ but are compatible.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 651,
+    "completionTokens": 869
+  }
+}

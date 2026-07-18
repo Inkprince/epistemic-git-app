@@ -1,0 +1,9 @@
+{
+  "text": "The claim is backed by a strong quantitative measurement showing that a large egg contains about 186 mg of cholesterol, confirming that eggs are naturally high in cholesterol. However, a moderate undercutting piece notes that dietary cholesterol from eggs does not necessarily raise blood cholesterol, which weakens the inference that the natural cholesterol content translates into higher blood cholesterol levels. Consequently, the claim has solid factual support but its health implication is contested.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 388,
+    "completionTokens": 123
+  }
+}

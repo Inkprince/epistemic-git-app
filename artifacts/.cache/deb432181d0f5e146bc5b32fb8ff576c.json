@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Skeptical on Nut Cardiovascular Benefits\",\"suggestedDescription\":\"A cautious perspective that treats positive nut studies as uncertain and emphasizes potential confounding factors.\",\"stances\":[{\"claimIndex\":0,\"stance\":\"uncertain\",\"rationale\":\"While large cohort studies report associations, the evidence is not decisive given possible biases.\"},{\"claimIndex\":1,\"stance\":\"uncertain\",\"rationale\":\"The Nurses Health Study finding is intriguing but may reflect lifestyle differences rather than a causal nut effect.\"},{\"claimIndex\":2,\"stance\":\"accept\",\"rationale\":\"Indeed, nut consumers often have healthier habits, so confounding is a serious concern.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 572,
+    "completionTokens": 229
+  }
+}

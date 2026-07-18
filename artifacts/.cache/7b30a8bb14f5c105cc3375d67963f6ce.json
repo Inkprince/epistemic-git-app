@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on a direct statement that “regular consumption of nuts has been associated with a reduced risk of cardiovascular disease in several large prospective cohort studies,” which is repeated verbatim in the source material. Because the support consists solely of this assertion without additional data or references, the evidence for the claim is thin and relies on a single line of reported findings.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 342,
+    "completionTokens": 137
+  }
+}

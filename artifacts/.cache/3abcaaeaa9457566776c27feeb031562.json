@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"University of Lagos is listed among Nigerian universities.\",\"claimType\":\"definitional\",\"quote\":\"- [University of Lagos](https://en.wikipedia.org/wiki/University_of_Lagos)\",\"entailment\":\"The bullet point explicitly includes University of Lagos in the list of Nigerian institutions, indicating its inclusion as a university in Nigeria.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2188,
+    "completionTokens": 209
+  }
+}

@@ -22,19 +22,17 @@ describe("overview aggregations", () => {
   });
 
   it("supportByCase computes a support value in [0,1] per case", () => {
-    const rows = supportByCase(registry, new Set(["lhc"]));
+    const rows = supportByCase(registry);
     expect(rows).toHaveLength(3);
     for (const r of rows) {
       expect(r.support).toBeGreaterThanOrEqual(0);
       expect(r.support).toBeLessThanOrEqual(1);
     }
-    expect(rows.find((r) => r.id === "lhc")!.mergeable).toBe(true);
-    expect(rows.find((r) => r.id === "eggs")!.mergeable).toBe(false);
   });
 
   it("supportByCase survives an empty bundle (0-claim guard)", () => {
     const empty: Bundle = { ...load("lhc"), claims: [], inferences: [], passages: [], challenges: [], matches: [], correlationGroups: [], overlays: [], assessments: [], quarantine: [] };
-    const rows = supportByCase({ empty: { label: "Empty", bundle: empty } }, new Set());
+    const rows = supportByCase({ empty: { label: "Empty", bundle: empty } });
     expect(rows[0]!.support).toBe(0);
   });
 

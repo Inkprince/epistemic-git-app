@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Pro‑Nut Cardiovascular Benefit Perspective\",\"suggestedDescription\":\"A viewpoint that emphasizes evidence supporting nuts as protective against heart disease, treating mixed or negative findings as uncertain.\",\"stances\":[{\"claimIndex\":0,\"stance\":\"accept\",\"rationale\":\"Large prospective cohorts consistently link regular nut intake with lower cardiovascular disease risk, reinforcing the positive claim.\"},{\"claimIndex\":1,\"stance\":\"accept\",\"rationale\":\"The Nurses' Health Study shows a striking 35% reduction in coronary heart disease among frequent nut consumers, bolstering the argument.\"},{\"claimIndex\":2,\"stance\":\"accept\",\"rationale\":\"The PREDIMED RCT demonstrated a substantial 28% drop in major cardiovascular events when nuts were added to a Mediterranean diet.\"},{\"claimIndex\":3,\"stance\":\"uncertain\",\"rationale\":\"While the trial had randomization issues, the impact on the overall conclusion is not definitively disproven.\"},{\"claimIndex\":4,\"stance\":\"accept\",\"rationale\":\"The corrected PREDIMED analysis still yields similar effect sizes, confirming the benefit.\"},{\"claimIndex\":5,\"stance\":\"uncertain\",\"rationale\":\"Nuts are energy‑dense, but this fact does not directly negate their cardiovascular advantage.\"},{\"claimIndex\":6,\"stance\":\"uncertain\",\"rationale\":\"Caloric considerations are noted, yet they do not outweigh the observed risk‑reduction evidence.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 669,
+    "completionTokens": 383
+  }
+}

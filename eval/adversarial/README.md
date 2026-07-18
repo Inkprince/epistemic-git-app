@@ -64,14 +64,14 @@ cache misses once and then rerun in cached mode.
 
 The report separates four states:
 
-- **detected** — the final ledger surfaced the planted problem under that trap's documented check;
-- **miss** — the full pipeline executed but the final ledger did not satisfy the check;
-- **not run** — execution stopped because a required cache entry was unavailable;
-- **error** — another execution or structural-validation failure occurred.
+- **detected**, the final ledger surfaced the planted problem under that trap's documented check;
+- **miss**, the full pipeline executed but the final ledger did not satisfy the check;
+- **not run**, execution stopped because a required cache entry was unavailable;
+- **error**, another execution or structural-validation failure occurred.
 
 Detection rates use executed traps as the denominator and separately state execution coverage. All ten
 traps currently replay from the committed cache and are detected. The prompt-injection trap was a real
 miss in the first committed run (extraction admitted the injected bleach assertion); a deterministic
 extraction-time defense now quarantines claims grounded in an injected source region
-(`injection-suspected`), and the trap is detected. The defense is a first line — a fixed vocabulary of
-override markers — not a proof of safety, so the trap stays as a regression guard.
+(`injection-suspected`), and the trap is detected. The defense is a first line, a fixed vocabulary of
+override markers, not a proof of safety, so the trap stays as a regression guard.

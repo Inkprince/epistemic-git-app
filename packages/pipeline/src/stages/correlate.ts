@@ -3,7 +3,7 @@ import { detectCorrelation } from "@epistemic-git/analysis";
 
 /**
  * Derive explicit CorrelationGroup nodes from source metadata (shared authors / dataset / declared
- * relations). Deterministic — the detection lives in the pure analysis package; here we only mint the
+ * relations). Deterministic: the detection lives in the pure analysis package; here we only mint the
  * content-addressed ids. Making the correlation explicit lets the assessment layer discount
  * double-counted evidence and lets the UI show *why* two "independent" citations are not independent.
  */

@@ -20,7 +20,7 @@ function threeClaimBundle() {
   return b.build();
 }
 
-/** Three source-grounded (non-derived) claims — a bundle that is valid on its own. */
+/** Three source-grounded (non-derived) claims, a bundle that is valid on its own. */
 function threeGroundedClaimBundle() {
   const b = new BundleBuilder({ case: "t", title: "t", question: "Is it safe?" });
   const src = b.source({ type: "paper", title: "Src" });
@@ -35,14 +35,14 @@ function threeGroundedClaimBundle() {
   return b.build();
 }
 
-describe("stage 3 — inference reconstruction", () => {
+describe("stage 3, inference reconstruction", () => {
   it("adds a synthesized conclusion and wires inferences by index", async () => {
     const client = new FakeInferer({
       overallConclusion: "Therefore the thing is safe.",
       inferences: [
         { type: "supports", premiseIndexes: [0, 1], conclusionIndex: -1, warrant: "two lines of evidence support safety", strength: "strong", defeaters: ["either datum is wrong"] },
         { type: "rebuts", premiseIndexes: [2], conclusionIndex: -1, warrant: "the counter-consideration argues against safety", strength: "weak", defeaters: [] },
-        { type: "supports", premiseIndexes: [99], conclusionIndex: -1, warrant: "out of range — should be dropped", strength: "moderate", defeaters: [] },
+        { type: "supports", premiseIndexes: [99], conclusionIndex: -1, warrant: "out of range, should be dropped", strength: "moderate", defeaters: [] },
       ],
     });
 
@@ -68,7 +68,7 @@ describe("stage 3 — inference reconstruction", () => {
   it("does not leave an orphan derived conclusion when no valid inference reaches it", async () => {
     // The model names an overall conclusion but every proposed inference is invalid (out-of-range or
     // empty premises), so none actually concludes in the synthesized claim. The stage must NOT commit
-    // an orphan derived claim — the resulting bundle must validate.
+    // an orphan derived claim, the resulting bundle must validate.
     const client = new FakeInferer({
       overallConclusion: "Therefore the thing is safe.",
       inferences: [

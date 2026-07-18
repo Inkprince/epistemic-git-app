@@ -3,7 +3,7 @@ import { idbDelete, idbGet, idbKeys, idbPut } from "./idb.js";
 
 /**
  * Per-case lineage: every mutation event (import / merge / pipeline run / commit) is recorded
- * with the bundle digest after the event and its parent digest(s) — a lightweight commit log.
+ * with the bundle digest after the event and its parent digest(s) a lightweight commit log.
  * Events live in localStorage (small); bundle snapshots for diffing live in IndexedDB, LRU-capped.
  */
 
@@ -36,7 +36,7 @@ function saveAll(events: HistoryEvent[]): void {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify(events.slice(-MAX_EVENTS)));
   } catch {
-    // Quota exceeded — drop the oldest half and retry once.
+    // Quota exceeded, drop the oldest half and retry once.
     try { localStorage.setItem(LS_KEY, JSON.stringify(events.slice(-MAX_EVENTS / 2))); } catch { /* give up quietly */ }
   }
 }
@@ -55,6 +55,11 @@ export function eventsFor(caseId: string): HistoryEvent[] {
   return loadAll().filter((e) => e.caseId === caseId).reverse(); // newest first
 }
 
+/** Drop every event for a case (used when the case is deleted). Snapshots are LRU, so leave them. */
+export function deleteHistory(caseId: string): void {
+  saveAll(loadAll().filter((e) => e.caseId !== caseId));
+}
+
 /** Store a bundle snapshot for later diffing; evicts oldest beyond the cap. */
 export async function snapshotPut(digest: string, bundle: Bundle): Promise<void> {
   await idbPut("snapshots", digest, { bundle, at: Date.now() });
@@ -62,7 +67,7 @@ export async function snapshotPut(digest: string, bundle: Bundle): Promise<void>
   if (keys.length > MAX_SNAPSHOTS) {
     const entries = await Promise.all(
       keys.map(async (k) => ({ k, at: ((await idbGet<{ at: number }>("snapshots", k))?.at ?? 0) })),
-    );
+);
     entries.sort((a, b) => a.at - b.at);
     for (const { k } of entries.slice(0, entries.length - MAX_SNAPSHOTS)) await idbDelete("snapshots", k);
   }

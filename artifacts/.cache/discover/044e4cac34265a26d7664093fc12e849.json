@@ -1,0 +1,36 @@
+{
+  "query": "do eggs raise cholesterol meta-analysis",
+  "retrievedVia": "firecrawl",
+  "candidates": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7400894/",
+      "title": "Association between Egg Consumption and Cholesterol ...",
+      "description": "by MY Li · 2020 · Cited by 57, The results indicated that egg consumption significantly increases the LDL-c/HDL-c ratio and LDL-c levels, especially with a longer intervention duration.",
+      "rank": 1
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0939475325000031",
+      "title": "Effect of egg consumption on health outcomes: An updated umbrella ...",
+      "description": "by E Formisano · 2025 · Cited by 6, Current evidence indicates that dietary cholesterol from eggs may have limited, clinically insignificant effects on blood cholesterol levels and cardiovascular ...",
+      "rank": 2
+    },
+    {
+      "url": "https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.121.057642",
+      "title": "Associations of Dietary Cholesterol, Serum Cholesterol, and Egg ...",
+      "description": "by B Zhao · 2022 · Cited by 117, In the updated meta-analysis, we found a significant positive association for egg consumption and cardiovascular disease risk in US cohorts, a ...",
+      "rank": 3
+    },
+    {
+      "url": "https://www.pcrm.org/news/news-releases/new-review-study-shows-egg-industry-funded-research-downplays-danger-cholesterol",
+      "title": "New Review Study Shows That Egg-Industry-Funded Research ...",
+      "description": "According to a 2019 meta-analysis, eating an egg each day raises low density lipoprotein (LDL, or “bad”) cholesterol by about nine points.",
+      "rank": 4
+    },
+    {
+      "url": "https://www.mayoclinic.org/diseases-conditions/high-blood-cholesterol/expert-answers/cholesterol/faq-20058468",
+      "title": "Eggs: Are they good or bad for my cholesterol?",
+      "description": "But the cholesterol in eggs doesn't seem to raise cholesterol levels the way some other foods, such as those high in trans fats and saturated ...",
+      "rank": 5
+    }
+  ]
+}

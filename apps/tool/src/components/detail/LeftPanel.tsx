@@ -14,7 +14,7 @@ export function LeftPanel({
   overlayId, onOverlay,
   respectCorrelation, onRespectCorrelation,
   distrust, onToggleDistrust, onSetDistrust,
-  selected, onSelect,
+  selected, onSelect, onLocalChange,
 }: {
   caseId: string;
   bundle: Bundle;
@@ -32,11 +32,20 @@ export function LeftPanel({
   onSetDistrust: (updater: (d: string[]) => string[]) => void;
   selected: string;
   onSelect: (id: string) => void;
+  onLocalChange: () => void;
 }) {
   const overlays = bundle.overlays;
   const overlaysMap = overlaysById(bundle);
   const q = query.trim().toLowerCase();
-  const evidence = bundle.claims.filter((c) => !c.derived).filter((c) => !q || c.statement.toLowerCase().includes(q));
+  const claimMatches = (c: (typeof bundle.claims)[number]) => {
+    if (!q) return true;
+    if (c.statement.toLowerCase().includes(q)) return true;
+    const p = look.passages.get(c.passages[0] ?? "");
+    if (p?.verbatimText.toLowerCase().includes(q)) return true;
+    const src = p ? look.sources.get(p.sourceId) : undefined;
+    return Boolean(src?.title.toLowerCase().includes(q));
+  };
+  const evidence = bundle.claims.filter((c) => !c.derived).filter(claimMatches);
   const generated = bundle.claims.some((c) => c.attribution.kind === "analyst-llm");
 
   return (
@@ -49,8 +58,12 @@ export function LeftPanel({
       <div className="body scrl">
         {leftTab === "history" && <HistoryPanel caseId={caseId} currentBundle={bundle} />}
         {leftTab === "inspect" && (
-          <InspectPanel selectedId={selected} support={support} look={look} bundle={bundle} onSelect={onSelect} />
-        )}
+          <InspectPanel
+            caseId={caseId} selectedId={selected} support={support} look={look} bundle={bundle}
+            overlayId={overlayId} distrust={distrust} respectCorrelation={respectCorrelation}
+            onSelect={onSelect} onToggleDistrust={onToggleDistrust} onLocalChange={onLocalChange}
+          />
+)}
         {leftTab === "evidence" && (
           <>
             <div className="control-group">
@@ -62,43 +75,55 @@ export function LeftPanel({
                       <button key={o.id} className={o.id === overlayId ? "active" : ""} aria-pressed={o.id === overlayId} onClick={() => onOverlay(o.id)}>
                         {shortLabel(o.label)}
                       </button>
-                    ))}
+))}
                   </div>
                   <p className="note">{overlayId ? overlaysMap.get(overlayId)?.description : ""}</p>
                 </>
-              ) : (
-                <p className="note">No perspectives yet, so you're seeing Support from a neutral starting point. A perspective sets which claims to trust — anyone can add one.</p>
-              )}
+) : (
+                <p className="note">No perspectives yet, so you're seeing Support from a neutral starting point. A perspective sets which claims it accepts, anyone can add one.</p>
+)}
               <label className="toggle-row">
                 <input type="checkbox" checked={respectCorrelation} onChange={(e) => onRespectCorrelation(e.target.checked)} />
                 Don't double-count correlated evidence
               </label>
+              <p className="note" style={{ marginTop: 2 }}>Evidence sharing an origin counts once, see the Connections tab.</p>
             </div>
 
             <div className="control-group">
-              <SectionLabel>Evidence — check to distrust</SectionLabel>
-              {evidence.map((c) => (
-                <div
-                  key={c.id}
-                  className={`claim-row ${selected === c.id ? "selected" : ""} ${distrust.includes(c.id) ? "distrusted" : ""}`}
-                  onClick={() => onSelect(c.id)}
-                  {...pressable(() => onSelect(c.id))}
-                  aria-label={`Inspect claim: ${c.statement.slice(0, 60)}`}
-                >
-                  <input
-                    type="checkbox" checked={distrust.includes(c.id)}
-                    onClick={(e) => e.stopPropagation()} onChange={() => onToggleDistrust(c.id)}
-                    title="Distrust this claim and recompute"
-                  />
-                  <span className="claim-text" title={c.statement}>{c.statement}</span>
-                </div>
-              ))}
+              <SectionLabel>Evidence, check to distrust</SectionLabel>
+              {evidence.map((c) => {
+                const p = look.passages.get(c.passages[0] ?? "");
+                const src = p ? look.sources.get(p.sourceId) : undefined;
+                return (
+                  <div
+                    key={c.id}
+                    className={`claim-row ${selected === c.id ? "selected" : ""} ${distrust.includes(c.id) ? "distrusted" : ""}`}
+                    onClick={() => onSelect(c.id)}
+                    {...pressable(() => onSelect(c.id))}
+                    aria-label={`Inspect claim: ${c.statement.slice(0, 60)}`}
+                  >
+                    <input
+                      type="checkbox" checked={distrust.includes(c.id)}
+                      onClick={(e) => e.stopPropagation()} onChange={() => onToggleDistrust(c.id)}
+                      title="Distrust this claim and recompute"
+                    />
+                    <span className="claim-body">
+                      <span className="claim-text" title={c.statement}>{c.statement}</span>
+                      {src && (
+                        <span className="claim-source subtle">
+                          <SourceLink title={truncate(src.title, 56)} url={src.url} />
+                        </span>
+)}
+                    </span>
+                  </div>
+);
+              })}
               {q && <p className="note">{evidence.length} of {bundle.claims.filter((c) => !c.derived).length} claims match “{query.trim()}”.</p>}
             </div>
 
-            {bundle.sources.length > 1 && (
+            {bundle.sources.length >= 1 && (
               <div className="control-group">
-                <SectionLabel>Sources — distrusting one drops all its claims</SectionLabel>
+                <SectionLabel>{bundle.sources.length > 1 ? "Sources, distrusting one drops all its claims" : "Source"}</SectionLabel>
                 {bundle.sources.map((s) => {
                   const claimIds = bundle.claims.filter((c) => c.attribution.kind === "source" && c.attribution.ref === s.id).map((c) => c.id);
                   const allDistrusted = claimIds.length > 0 && claimIds.every((id) => distrust.includes(id));
@@ -111,25 +136,28 @@ export function LeftPanel({
                       />
                       <span className="claim-text"><SourceLink title={truncate(s.title, 64)} url={s.url} /> <span className="subtle">({claimIds.length})</span></span>
                     </div>
-                  );
+);
                 })}
               </div>
-            )}
+)}
 
             <div className="panel-rule" />
             <SectionLabel>Case info</SectionLabel>
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               <InfoRow icon={<UsersIcon size={19} />} k="Perspectives" v={overlays.length > 0 ? `${overlays.length} perspectives` : "None yet"} />
-              <InfoRow icon={<FileTextIcon size={19} />} k="Sources" v={`${bundle.sources.length} · ${bundle.passages.length} passages`} />
-              <InfoRow icon={<LinkIcon size={19} />} k="Claim relations" v={`${bundle.matches.length} matches`} />
-              <InfoRow icon={<CpuIcon size={19} />} k="Origin" v={generated ? "Pipeline-generated" : "Hand-authored"} />
+              <InfoRow icon={<FileTextIcon size={19} />} k="Sources" v={`${bundle.sources.length} · ${bundle.passages.length} exact quotes`} />
+              <InfoRow icon={<LinkIcon size={19} />} k="Connections" v={`${bundle.matches.length} related claims`} />
+              <InfoRow icon={<CpuIcon size={19} />} k="How it was built" v={generated ? "AI-built" : "Hand-built"} />
             </div>
           </>
-        )}
+)}
       </div>
     </section>
-  );
+);
 }
 
-export const shortLabel = (label: string): string =>
-  label.replace(/\s*\(.*\)\s*/, "").replace("Mainstream physics ", "").trim() || label;
+/** Compact form of an overlay label for chips and segmented controls: drop any parenthetical, then truncate. */
+export const shortLabel = (label: string): string => {
+  const cleaned = label.replace(/\s*\([^)]*\)\s*/g, " ").trim() || label;
+  return truncate(cleaned, 32);
+};

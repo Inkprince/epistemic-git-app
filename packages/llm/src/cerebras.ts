@@ -2,7 +2,7 @@ import type { CompleteParams, CompleteResult, LlmClient, LlmMessage } from "./ty
 
 /**
  * Cerebras Inference client (gpt-oss-120b by default). OpenAI-compatible, so this is a thin fetch
- * wrapper — no SDK dependency. The transport is injectable so the cache and structured-output logic
+ * wrapper, no SDK dependency. The transport is injectable so the cache and structured-output logic
  * can be unit-tested with no network and no API key.
  */
 
@@ -92,7 +92,7 @@ export class CerebrasClient implements LlmClient {
         });
         raw = await res.text();
       } catch (e) {
-        // Network failure or timeout abort — retriable like a 5xx.
+        // Network failure or timeout abort, retriable like a 5xx.
         if (attempt >= this.maxRetries) {
           const why = e instanceof Error && e.name === "AbortError"
             ? `request timed out after ${this.timeoutMs}ms`
@@ -131,14 +131,14 @@ export class CerebrasClient implements LlmClient {
     };
   }
 
-  /** Linear backoff with ±25% jitter — clears per-minute buckets without thundering-herd sync. */
+  /** Linear backoff with ±25% jitter, clears per-minute buckets without thundering-herd sync. */
   private backoff(attempt: number): number {
     const base = this.retryDelayMs * (attempt + 1);
     return Math.round(base * (0.75 + Math.random() * 0.5));
   }
 }
 
-/** A client that refuses to make calls — used as the inner client in cached-only mode with no key. */
+/** A client that refuses to make calls, used as the inner client in cached-only mode with no key. */
 export class NullClient implements LlmClient {
   constructor(readonly model: string) {}
   async complete(): Promise<CompleteResult> {

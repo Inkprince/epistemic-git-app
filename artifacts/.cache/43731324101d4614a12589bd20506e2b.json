@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"University of Nairobi is listed as a university in Kenya.\",\"claimType\":\"definitional\",\"quote\":\"- [University of Nairobi](https://en.wikipedia.org/wiki/University_of_Nairobi \\\"University of Nairobi\\\")\",\"entailment\":\"The quoted list entry shows University of Nairobi among the Kenyan institutions, supporting the claim that it is listed as a university in Kenya.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"National University of Lesotho is listed as a university in Lesotho.\",\"claimType\":\"definitional\",\"quote\":\"- [National University of Lesotho](https://en.wikipedia.org/wiki/National_University_of_Lesotho \\\"National University of Lesotho\\\")\",\"entailment\":\"The quoted line under the Lesotho flag includes National University of Lesotho, confirming it is listed as a university in Lesotho.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"University of Bamako is listed as a university in Mali.\",\"claimType\":\"definitional\",\"quote\":\"- [University of Bamako](https://en.wikipedia.org/wiki/University_of_Bamako \\\"University of Bamako\\\")\",\"entailment\":\"The quoted entry appears under the Mali flag, indicating University of Bamako is listed as a university in Mali.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2252,
+    "completionTokens": 400
+  }
+}

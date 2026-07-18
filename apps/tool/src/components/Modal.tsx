@@ -22,7 +22,7 @@ export function Modal({
   useEffect(() => {
     openerRef.current = document.activeElement;
     const card = cardRef.current;
-    // Focus the first focusable control (or the card itself) — unless a child already claimed focus.
+    // Focus the first focusable control (or the card itself) unless a child already claimed focus.
     if (card && !card.contains(document.activeElement)) {
       const first = card.querySelector<HTMLElement>(FOCUSABLE);
       (first ?? card).focus();
@@ -71,5 +71,5 @@ export function Modal({
         {children}
       </div>
     </div>
-  );
+);
 }

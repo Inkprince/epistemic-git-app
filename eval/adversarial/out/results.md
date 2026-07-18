@@ -1,4 +1,4 @@
-# Adversarial trap suite — results
+# Adversarial trap suite, results
 
 10/10 executed traps detected. All 10 selected traps executed. Mode: `cached`.
 

@@ -1,0 +1,9 @@
+{
+  "text": "The claim is backed by strong evidence from multiple large prospective cohort studies that consistently link regular nut consumption with lower cardiovascular disease incidence, reinforced by the Nurses’ Health Study’s finding of a substantially reduced coronary heart disease risk among frequent nut eaters. Experimental confirmation comes from the PREDIMED randomized trial, which showed that adding mixed nuts to a Mediterranean diet lowered major cardiovascular events. A moderate counterpoint notes that nuts’ high energy density could increase total calorie intake and potentially offset benefits for weight‑sensitive individuals.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 518,
+    "completionTokens": 128
+  }
+}

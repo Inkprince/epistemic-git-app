@@ -1,4 +1,4 @@
-# Frozen arm instructions — structured ledger v1
+# Frozen arm instructions, structured ledger v1
 
 Use the configured extract → match → infer → audit → correlate workflow. Admit
 source claims only when grounded in exact passages, preserve typed relationships,

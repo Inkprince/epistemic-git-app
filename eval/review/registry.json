@@ -13,7 +13,7 @@
       "minimumCompletedReviews": 1,
       "targetIds": [
         "cl_af4d09691174a254",
-        "cl_e2221e0ea1653d31",
+        "cl_01a4b46b4761ce0e",
         "cl_fc0d90d9a7217da7",
         "cl_d4b8762a26cce42e"
       ]
@@ -52,17 +52,18 @@
       "id": "eggs-epidemiology",
       "caseId": "eggs",
       "artifactPath": "artifacts/eggs.json",
-      "bundleId": "bnd_a9164971b6cfc742",
+      "bundleId": "bnd_1f96a919195655f4",
       "formPath": "eval/review/forms/eggs-epidemiology.md",
       "requiredReviewerStance": "nutrition scientist or epidemiologist with dietary exposure/outcome expertise",
       "minimumCompletedReviews": 1,
       "targetIds": [
-        "cl_4f6c750a4dbdbec1",
-        "cl_4153f160a1cd5cd0",
-        "cl_834af275120e524c",
-        "cl_70df06a93a29fc02",
-        "cl_dc58cea98ff719fa"
-      ]
+        "cl_646da059993b633b",
+        "cl_9cd9599a8702739b",
+        "cl_bb42270f7ef9d08f",
+        "cl_6ec0fda638f01486",
+        "cl_608baede04104f08"
+      ],
+      "artifactSnapshotDate": "2026-07-18"
     }
   ],
   "userStudy": {

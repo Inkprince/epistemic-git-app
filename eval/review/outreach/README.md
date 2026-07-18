@@ -13,7 +13,7 @@ recruitment, scheduling, and conflict disclosure do not depend on those IDs.
 | [`brief-covid-opposed.md`](brief-covid-opposed.md) | **Two** reviewers with *opposed* priors (one zoonosis-leaning, one lab-origin/ascertainment-bias-leaning) | Opposed-reader review of the COVID Huanan-market bundle |
 | [`brief-eggs-epidemiology.md`](brief-eggs-epidemiology.md) | 1 nutrition scientist / epidemiologist | Expert review of the eggs bundle |
 | [`brief-blinded-raters.md`](brief-blinded-raters.md) | ≥3 general raters (no domain expertise required) | Score anonymized outputs in the blinded baseline study |
-| [`bundle-primer.md`](bundle-primer.md) | Every reviewer above | One-page "how to read a bundle" — attach to every brief |
+| [`bundle-primer.md`](bundle-primer.md) | Every reviewer above | One-page "how to read a bundle" attach to every brief |
 
 ## Non-negotiables (from `../PROTOCOL.md`)
 
@@ -34,7 +34,7 @@ recruitment, scheduling, and conflict disclosure do not depend on those IDs.
 
 1. Confirm stance/qualification and log conflicts.
 2. For experts: once the deepened case bundle is frozen, send the matching form from `../forms/`,
-   the frozen artifact + tool link, and the cited sources — nothing that coaches a verdict.
+   the frozen artifact + tool link, and the cited sources, nothing that coaches a verdict.
 3. For raters: send the `evaluator/` packet produced by `eval/baseline/cli.ts prepare` and
    `../../baseline/EVALUATOR.md`. Never send the `private/` directory.
 4. Collect the completed record before the reviewer compares notes with anyone else. For the two

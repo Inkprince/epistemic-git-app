@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on epidemiological data that link higher egg intake to lower coronary‑artery‑disease incidence, a moderate line of evidence suggesting eggs are not harmful. Strong systematic reviews, including a 2020 synthesis, reinforce this view by concluding that moderate daily egg consumption does not raise cardiovascular disease risk. Additionally, the argument that dietary cholesterol raises the total‑to‑HDL ratio is presented as a premise that assumes a higher ratio is detrimental, which undercuts the claim. However, a moderate counter‑analysis reports increased all‑cause and cardiovascular mortality with higher egg consumption, opposing the protective association.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 463,
+    "completionTokens": 151
+  }
+}

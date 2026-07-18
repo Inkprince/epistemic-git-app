@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on a direct observation from the Nurses Health Study that women consuming nuts five or more times weekly showed a 35 % lower coronary heart disease risk compared with those who rarely ate nuts. However, a strong undercutting step notes that the same confounding concerns identified elsewhere in the study may weaken the inference that nuts alone caused the risk reduction. Consequently, while the observational evidence supports the association, its causal interpretation is contested by potential confounding.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 415,
+    "completionTokens": 126
+  }
+}

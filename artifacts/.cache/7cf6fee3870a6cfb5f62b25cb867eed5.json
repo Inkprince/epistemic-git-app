@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Accra Institute of Technology is listed under Ghana.\",\"claimType\":\"definitional\",\"quote\":\"- [Accra Institute of Technology](https://en.wikipedia.org/wiki/Accra_Institute_of_Technology \\\"Accra Institute of Technology\\\")\",\"entailment\":\"The bullet point showing Accra Institute of Technology appears in the list of institutions under the Ghana heading, indicating it is a Ghanaian university.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Omar Bongo University is listed under Gabon.\",\"claimType\":\"definitional\",\"quote\":\"- [Omar Bongo University](https://en.wikipedia.org/wiki/Omar_Bongo_University \\\"Omar Bongo University\\\")\",\"entailment\":\"The bullet point for Omar Bongo University appears in the row labeled with the Gabon flag, showing it is associated with Gabon.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"African Virtual University is listed under Kenya.\",\"claimType\":\"definitional\",\"quote\":\"- [African Virtual University](https://en.wikipedia.org/wiki/African_Virtual_University \\\"African Virtual University\\\")\",\"entailment\":\"The bullet point for African Virtual University is included in the list of institutions under the Kenya heading, indicating it is a Kenyan university.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2129,
+    "completionTokens": 587
+  }
+}

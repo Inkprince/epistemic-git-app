@@ -1,0 +1,9 @@
+{
+  "text": "The claim is backed by several lines of evidence: multiple large prospective cohort studies report an association between regular nut intake and lower cardiovascular disease incidence, suggesting a causal link; the Nurses’ Health Study adds a dose‑response pattern, with women consuming five or more servings per week showing about a 35 % lower risk of coronary heart disease; and the PREDIMED randomized controlled trial provides experimental confirmation that adding mixed nuts to a Mediterranean diet reduces major cardiovascular events by roughly 28 %. Together, these moderate‑strength observational findings and the strong experimental result give the claim solid, though not unchallenged, support.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 483,
+    "completionTokens": 153
+  }
+}

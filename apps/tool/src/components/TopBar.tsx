@@ -78,10 +78,8 @@ export function TopBar({
                   </span>
                   <span className="sr-status">
                     {c.generated
-                      ? <Badge tone="green">pipeline</Badge>
-                      : c.mergeable
-                        ? <Badge tone="amber">mergeable</Badge>
-                        : <Badge tone="purple">{c.overlays} views</Badge>}
+                      ? <Badge tone="green">AI-built</Badge>
+                      : <Badge tone="purple">{c.overlays} perspectives</Badge>}
                   </span>
                   <span className="sr-metrics">
                     <span className="sr-support">{pct(c.support)}</span>

@@ -5,7 +5,7 @@ import { scrapeUrl, type ScrapeOptions } from "./scrape.js";
 /**
  * Resolve a source input that may be either a local text file or an http(s) URL.
  *
- * This automates *retrieval of a source you have already named* — a convenience, not research.
+ * This automates *retrieval of a source you have already named*, a convenience, not research.
  * The operator still chooses which document enters the ledger; the pipeline never searches for or
  * judges sources on its own. When the input is a URL, that URL is also recorded as the source's
  * citation link unless an explicit `--url` overrides it. URL retrieval is delegated to the pluggable,

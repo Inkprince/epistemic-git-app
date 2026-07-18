@@ -5,7 +5,7 @@ const text = await readFile("artifacts/sources/eggs-wikipedia.txt", "utf8");
 const res = await fetch("http://localhost:5173/api/build", {
   method: "POST",
   headers: { "content-type": "application/json" },
-  body: JSON.stringify({ text, title: "Egg as food — health and nutrition", question: "Is eating eggs bad for cardiovascular health?" }),
+  body: JSON.stringify({ text, title: "Egg as food, health and nutrition", question: "Is eating eggs bad for cardiovascular health?" }),
 });
 const json = (await res.json()) as { ok?: boolean; stats?: unknown; bundle?: { claims: unknown[]; inferences: unknown[]; matches: unknown[]; challenges: unknown[] }; error?: string };
 console.log("HTTP", res.status);

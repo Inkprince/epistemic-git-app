@@ -12,15 +12,31 @@ import { App } from "../src/App.js";
 describe("app smoke render", () => {
   it("renders the overview with real data", () => {
     const html = renderToString(createElement(App));
-    for (const s of ["Cases", "Conclusion support by case", "Where each claim came from", "Audit trail", "Import case"]) {
+    for (const s of ["Cases", "Conclusion support by case", "Where each claim came from", "Recent scrutiny", "Import case"]) {
       expect(html, `overview missing "${s}"`).toContain(s);
     }
   });
 
   it("renders the LHC case detail with real data", () => {
     const html = renderToString(createElement(App, { initialRoute: { screen: "case", caseId: "lhc" } }));
-    for (const s of ["Live support", "Supporting argument lines", "Argument", "Evidence", "Inspect", "Perspectives"]) {
+    for (const s of ["Current support", "Why the conclusion holds", "Argument", "Evidence", "Inspect", "Perspectives"]) {
       expect(html, `detail missing "${s}"`).toContain(s);
+    }
+  });
+
+  it("renders the rebuilt multi-source eggs case detail", () => {
+    const html = renderToString(createElement(App, { initialRoute: { screen: "case", caseId: "eggs" } }));
+    // The multi-source rebuild must render the Sources section, its source links, and the header
+    // "Raw document" button (the case carries a primary sourceDocument).
+    for (const s of ["Evidence", "Sources", "nutritionsource.hsph.harvard.edu", "Perspectives", "Raw document"]) {
+      expect(html, `eggs detail missing "${s}"`).toContain(s);
+    }
+  });
+
+  it("renders the all-cases browser screen", () => {
+    const html = renderToString(createElement(App, { initialRoute: { screen: "cases" } }));
+    for (const s of ["Cases", "Import case", "claims"]) {
+      expect(html, `cases screen missing "${s}"`).toContain(s);
     }
   });
 });

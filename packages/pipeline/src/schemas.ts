@@ -14,7 +14,7 @@ export const ExtractedClaim = z.object({
   quote: z.string(),
   /** one sentence on why the quote entails the claim (kept for audit; not stored as a node). */
   entailment: z.string(),
-  // structured fields — "" means not applicable
+  // structured fields, "" means not applicable
   population: z.string(),
   intervention: z.string(),
   comparator: z.string(),
@@ -86,3 +86,19 @@ export const AuditResult = z.object({
   challenges: z.array(ChallengeProposal),
 });
 export type AuditResult = z.infer<typeof AuditResult>;
+
+export const PerspectiveStance = z.object({
+  /** index into the (non-derived) claim list shown to the model. */
+  claimIndex: z.number().int(),
+  stance: z.enum(["accept", "uncertain", "reject", "skip"]),
+  /** one sentence, in the worldview's voice, on why. "" when skip. */
+  rationale: z.string(),
+});
+export type PerspectiveStance = z.infer<typeof PerspectiveStance>;
+
+export const PerspectiveResult = z.object({
+  suggestedLabel: z.string(),
+  suggestedDescription: z.string(),
+  stances: z.array(PerspectiveStance),
+});
+export type PerspectiveResult = z.infer<typeof PerspectiveResult>;

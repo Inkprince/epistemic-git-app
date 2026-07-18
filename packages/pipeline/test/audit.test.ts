@@ -20,14 +20,14 @@ function smallArgument() {
   return b.build();
 }
 
-describe("stage 4 — adversarial audit", () => {
+describe("stage 4, adversarial audit", () => {
   it("admits challenges that point at a specific node and drops the rest", async () => {
     const client = new FakeAuditor({
       challenges: [
         { challengeType: "scope-drift", targetKind: "claim", targetIndex: 0, topic: "", rationale: "generalizes beyond the cohort", suggestedRemedy: "restrict scope" },
         { challengeType: "invalid-inference", targetKind: "inference", targetIndex: 0, topic: "", rationale: "association does not license a safety conclusion", suggestedRemedy: "" },
         { challengeType: "missing-source", targetKind: "topic", targetIndex: -1, topic: "a randomized trial", rationale: "no experimental evidence is present", suggestedRemedy: "find an RCT" },
-        { challengeType: "confounding", targetKind: "claim", targetIndex: 99, topic: "", rationale: "out of range — should be dropped", suggestedRemedy: "" },
+        { challengeType: "confounding", targetKind: "claim", targetIndex: 99, topic: "", rationale: "out of range, should be dropped", suggestedRemedy: "" },
       ],
     });
 
@@ -47,5 +47,37 @@ describe("stage 4 — adversarial audit", () => {
     expect(byType["invalid-inference"]!.suggestedRemedy).toBeUndefined(); // empty remedy omitted
     expect(byType["scope-drift"]!.raisedBy.kind).toBe("analyst-llm");
     expect(byType["scope-drift"]!.status).toBe("open");
+  });
+
+  it("with a focus claim, admits only challenges on that claim or an inference bearing on it", async () => {
+    const input = smallArgument();
+    const premise = input.claims[0]!; // index 0, NOT the focus
+    const conclusion = input.claims[1]!; // index 1, the focus
+    const inf = input.inferences[0]!; // premises:[premise], conclusion → bears on the focus
+
+    const client = new FakeAuditor({
+      challenges: [
+        // on the focus claim itself → admitted
+        { challengeType: "omitted-qualification", targetKind: "claim", targetIndex: 1, topic: "", rationale: "overstates the safety conclusion", suggestedRemedy: "" },
+        // on an inference whose conclusion is the focus → admitted
+        { challengeType: "invalid-inference", targetKind: "inference", targetIndex: 0, topic: "", rationale: "association does not license safety", suggestedRemedy: "" },
+        // on a different claim (the premise) → OFF-target, dropped even though it resolves
+        { challengeType: "confounding", targetKind: "claim", targetIndex: 0, topic: "", rationale: "the cohort premise is confounded", suggestedRemedy: "" },
+        // on a topic → OFF-target under focus, dropped
+        { challengeType: "missing-source", targetKind: "topic", targetIndex: -1, topic: "an RCT", rationale: "no experiment", suggestedRemedy: "" },
+      ],
+    });
+
+    const { bundle, stats } = await auditBundle(input, client, { focusClaimId: conclusion.id });
+
+    expect(stats.proposed).toBe(4);
+    expect(stats.added).toBe(2);
+    expect(stats.dropped).toBe(2); // the off-target claim and the topic
+
+    const targets = bundle.challenges.map((c) => `${c.target.kind}:${c.target.id}`);
+    expect(targets).toContain(`claim:${conclusion.id}`);
+    expect(targets).toContain(`inference:${inf.id}`);
+    expect(targets).not.toContain(`claim:${premise.id}`);
+    expect(bundle.challenges.some((c) => c.target.kind === "topic")).toBe(false);
   });
 });

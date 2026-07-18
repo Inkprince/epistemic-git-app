@@ -1,4 +1,4 @@
-# Invitation: opposed-reader review — COVID Huanan-market clustering
+# Invitation: opposed-reader review, COVID Huanan-market clustering
 
 *Draft outreach note. We need **two** reviewers with meaningfully opposed priors on the COVID-origins
 evidence: one comparatively sympathetic to market-origin / zoonotic arguments, one comparatively
@@ -17,7 +17,7 @@ signal or an artifact of where people happened to look for cases.
 
 The core idea of the entry is that **people who disagree should be able to share the same evidence
 record without being forced to share a conclusion.** So we've built this dispute as a structured
-record — the centrality argument, the proximity-ascertainment-bias critique, and the authors' reply —
+record, the centrality argument, the proximity-ascertainment-bias critique, and the authors' reply, 
 with each claim tied to an exact quote and each reasoning step open to challenge. Crucially, the
 record does **not** announce an origin probability. The test we care about is whether a reader who
 disagrees with a conclusion can still use and extend the very same structure.
@@ -37,7 +37,7 @@ answers until both are locked.
 record, and the cited preprints. Nothing to install.
 
 **Independence and honesty.** Your criticism may be quoted in redacted form, and we publish points we
-decline to act on with our reasons — we are not paying for a favorable verdict, and a sharp, critical
+decline to act on with our reasons, we are not paying for a favorable verdict, and a sharp, critical
 review is exactly the deliverable. [Compensation: fixed [amount] for your time regardless of your
 conclusions, or: this is unpaid.] Your name, email, and signature stay private; the public record
 uses an opaque ID and a label you approve, and you may withdraw any time before publication.

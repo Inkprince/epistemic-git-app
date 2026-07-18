@@ -1,0 +1,9 @@
+{
+  "text": "The evidence ledger shows that moderate egg consumption does not significantly increase cardiovascular disease risk, with a neutral support rating of 53.5 %. This conclusion is based on one source that includes twelve individual claims and eight reasoning steps, and it is linked to nine related claims across sources. The analysis also notes five challenges to the claim and presents four perspectives, including readings that view eggs as safe in moderation, as potentially raising risk, and two additional viewpoints.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 302,
+    "completionTokens": 106
+  }
+}

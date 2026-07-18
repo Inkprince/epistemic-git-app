@@ -5,7 +5,7 @@ import {
 } from "./icons.js";
 
 export function Sidebar({
-  route, onNavigate, collapsed, mobileOpen, onToggleCollapse, onOpenImport, onOpenRunPanel,
+  route, onNavigate, collapsed, mobileOpen, onToggleCollapse, onOpenImport, onOpenBuildCase,
 }: {
   route: Route;
   onNavigate: (r: Route) => void;
@@ -13,12 +13,13 @@ export function Sidebar({
   mobileOpen: boolean;
   onToggleCollapse: () => void;
   onOpenImport: () => void;
-  onOpenRunPanel?: () => void;
+  onOpenBuildCase?: () => void;
 }) {
-  const { cases, removeImported } = useCases();
+  const { cases, deleteCase } = useCases();
   const onCase = route.screen === "case";
+  const casesOpen = onCase || route.screen === "cases";
   const committed = Object.values(cases).filter((c) => c.origin === "committed");
-  const imported = Object.values(cases).filter((c) => c.origin === "imported");
+  const local = Object.values(cases).filter((c) => c.origin !== "committed");
 
   return (
     <aside className={`sidebar${collapsed ? " collapsed" : ""}${mobileOpen ? " mobile-open" : ""}`}>
@@ -35,44 +36,57 @@ export function Sidebar({
           <span className="lbl">Overview</span>
         </button>
         <button
-          className={`nav-item${onCase ? " active" : ""}`}
-          onClick={() => onNavigate({ screen: "case", caseId: onCase ? route.caseId : committed[0]?.id ?? "lhc" })}
+          className={`nav-item${casesOpen ? " active" : ""}`}
+          onClick={() => onNavigate({ screen: "cases" })}
           title={collapsed ? "Cases" : undefined}
         >
           <FolderIcon size={20} />
           <span className="lbl">Cases</span>
-          <span className="tail">{onCase ? <ChevronUp size={18} color="#a3a3a3" /> : <ChevronDown size={18} color="#a3a3a3" />}</span>
+          <span className="tail">{casesOpen ? <ChevronUp size={18} color="#a3a3a3" /> : <ChevronDown size={18} color="#a3a3a3" />}</span>
         </button>
-        {onCase && committed.map((c) => (
-          <button
-            key={c.id}
-            className={`nav-sub${route.caseId === c.id ? " active" : ""}`}
-            onClick={() => onNavigate({ screen: "case", caseId: c.id })}
-          >
-            <span className="tree"><TreeElbow /></span>
-            <span className="lbl">{c.label}</span>
-          </button>
-        ))}
-        {onCase && imported.map((c) => (
-          <div key={c.id} className={`nav-sub imported${route.caseId === c.id ? " active" : ""}`} role="group">
+        {casesOpen && committed.map((c) => (
+          <div key={c.id} className={`nav-sub imported${route.screen === "case" && route.caseId === c.id ? " active" : ""}`} role="group">
             <button className="nav-sub-main" onClick={() => onNavigate({ screen: "case", caseId: c.id })} title={c.label}>
               <span className="tree"><TreeElbow /></span>
               <span className="lbl">{c.label}</span>
             </button>
-            <span className="import-badge" title="Imported bundle (stored locally)">imp</span>
             <button
               className="nav-sub-x"
-              aria-label={`Remove imported case ${c.label}`}
-              title="Remove (local only)"
+              aria-label={`Delete case ${c.label}`}
+              title="Delete this example case"
               onClick={() => {
-                removeImported(c.id);
-                if (route.caseId === c.id) onNavigate({ screen: "overview" });
+                if (!confirm(`Delete “${c.label}”? In the dev server this removes its files; otherwise it is hidden and can be restored by clearing site data.`)) return;
+                deleteCase(c.id);
+                if (route.screen === "case" && route.caseId === c.id) onNavigate({ screen: "cases" });
               }}
             >
               <XIcon size={11} />
             </button>
           </div>
-        ))}
+))}
+        {casesOpen && local.map((c) => (
+          <div key={c.id} className={`nav-sub imported${onCase && route.caseId === c.id ? " active" : ""}`} role="group">
+            <button className="nav-sub-main" onClick={() => onNavigate({ screen: "case", caseId: c.id })} title={c.label}>
+              <span className="tree"><TreeElbow /></span>
+              <span className="lbl">{c.label}</span>
+            </button>
+            <span className="import-badge" title={c.origin === "built" ? "Built by the AI pipeline (stored locally in this browser)" : "Imported case (stored locally in this browser)"}>
+              {c.origin === "built" ? "built" : "local"}
+            </span>
+            <button
+              className="nav-sub-x"
+              aria-label={`Delete case ${c.label}`}
+              title="Delete (local only)"
+              onClick={() => {
+                if (!confirm(`Delete “${c.label}”? This removes it from this browser and can't be undone.`)) return;
+                deleteCase(c.id);
+                if (onCase && route.caseId === c.id) onNavigate({ screen: "cases" });
+              }}
+            >
+              <XIcon size={11} />
+            </button>
+          </div>
+))}
       </nav>
       <div className="side-bottom">
         <div className="rule" />
@@ -80,14 +94,14 @@ export function Sidebar({
           <DownloadIcon size={20} style={{ transform: "rotate(180deg)" }} />
           <span className="lbl">Import case</span>
         </button>
-        {onOpenRunPanel && (
-          <button className="nav-item" onClick={onOpenRunPanel}>
+        {onOpenBuildCase && (
+          <button className="nav-item" onClick={onOpenBuildCase}>
             <ZapIcon size={20} />
-            <span className="lbl">Run pipeline</span>
-            <span className="tail"><span className="count-badge-yellow">dev</span></span>
+            <span className="lbl">Build a case</span>
+            <span className="tail"><span className="count-badge-yellow" title="Beta, available when running the development server">beta</span></span>
           </button>
-        )}
+)}
       </div>
     </aside>
-  );
+);
 }

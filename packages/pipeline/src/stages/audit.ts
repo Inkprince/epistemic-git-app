@@ -12,10 +12,10 @@ export interface AuditStats {
 }
 
 /**
- * Stage 4 — adversarial audit.
+ * Stage 4, adversarial audit.
  *
  * Runs typed critic passes over the ledger and emits Challenge nodes, each REQUIRED to point at a
- * specific claim, inference, or named missing topic — vague criticism is dropped, never admitted.
+ * specific claim, inference, or named missing topic, vague criticism is dropped, never admitted.
  * Challenges are attributed to the model (`analyst-llm`) and start life "open"; they are first-class
  * ledger citizens, so the tool and any downstream reader can see exactly where the argument is
  * contested. This is the adversarial-robustness layer made concrete.
@@ -23,10 +23,18 @@ export interface AuditStats {
 export async function auditBundle(
   bundle: Bundle,
   client: LlmClient,
-  opts: { reasoningEffort?: "low" | "medium" | "high" } = {},
+  opts: { reasoningEffort?: "low" | "medium" | "high"; focusClaimId?: string } = {},
 ): Promise<{ bundle: Bundle; stats: AuditStats }> {
   const claims = bundle.claims;
   const inferences = bundle.inferences;
+
+  // Optional "red-team this claim" focus: bias the auditor toward one claim, then admit only the
+  // challenges that actually land on it or on an inference that bears on it.
+  const focusIndex = opts.focusClaimId ? claims.findIndex((c) => c.id === opts.focusClaimId) : -1;
+  const focus = focusIndex >= 0 ? { index: focusIndex, statement: claims[focusIndex]!.statement } : undefined;
+  const focusInferenceIds = opts.focusClaimId
+    ? new Set(inferences.filter((inf) => inf.conclusion === opts.focusClaimId || inf.premises.includes(opts.focusClaimId)).map((inf) => inf.id))
+    : undefined;
 
   const { value } = await completeStructured(client, "adversarial_audit", AuditResult, {
     system: AUDIT_SYSTEM,
@@ -34,7 +42,8 @@ export async function auditBundle(
       bundle.question,
       claims.map((c, i) => ({ index: i, statement: c.statement })),
       inferences.map((inf, i) => ({ index: i, type: inf.type, warrant: inf.warrant })),
-    ),
+      focus,
+),
     temperature: 0,
     seed: 1,
     reasoningEffort: opts.reasoningEffort ?? "medium",
@@ -48,6 +57,14 @@ export async function auditBundle(
   for (const prop of value.challenges) {
     const target = resolveTarget(prop, claims, inferences);
     if (!target) { dropped++; continue; } // could not point at a specific node → not admitted
+
+    // When focused, admit only challenges that hit the focus claim or an inference bearing on it.
+    if (opts.focusClaimId) {
+      const hitsFocus =
+        (target.kind === "claim" && target.id === opts.focusClaimId) ||
+        (target.kind === "inference" && focusInferenceIds!.has(target.id));
+      if (!hitsFocus) { dropped++; continue; }
+    }
 
     const id = challengeId({ challengeType: prop.challengeType as ChallengeType, target, rationale: prop.rationale });
     if (seen.has(id)) continue;

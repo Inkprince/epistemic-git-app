@@ -24,7 +24,7 @@ export class FileCacheStore implements CacheStore {
 }
 
 /**
- * Build the pipeline's LLM client from environment. In "cached" mode (default) a key is optional —
+ * Build the pipeline's LLM client from environment. In "cached" mode (default) a key is optional, 
  * cache hits need no network, and a miss throws a helpful error. In "live" mode a key is required.
  * Env: CEREBRAS_API_KEY, CEREBRAS_MODEL (default gpt-oss-120b), CEREBRAS_BASE_URL,
  * CEREBRAS_MAX_RETRIES, CEREBRAS_RETRY_DELAY_MS, CEREBRAS_TIMEOUT_MS.

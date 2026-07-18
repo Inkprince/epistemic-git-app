@@ -3,7 +3,7 @@
  *
  * The protocol's content addressing must work identically in Node (pipeline, CLI, tests)
  * and the browser (import validation, browser-side authoring). `node:crypto` is Node-only
- * and `crypto.subtle` is async — which would force every id function and validator to be
+ * and `crypto.subtle` is async, which would force every id function and validator to be
  * async. A vendored synchronous implementation keeps the API sync and isomorphic.
  * Correctness is pinned by NIST vectors plus randomized cross-checks against node:crypto
  * in packages/protocol/test/protocol.test.ts.
@@ -32,7 +32,7 @@ export function sha256Hex(input: string): string {
   const padded = new Uint8Array(paddedLen);
   padded.set(data);
   padded[data.length] = 0x80;
-  // JS numbers cover < 2^53 bits — write the length as two 32-bit words.
+  // JS numbers cover < 2^53 bits, write the length as two 32-bit words.
   const view = new DataView(padded.buffer);
   view.setUint32(paddedLen - 8, Math.floor(bitLen / 0x100000000), false);
   view.setUint32(paddedLen - 4, bitLen >>> 0, false);

@@ -1,0 +1,9 @@
+{
+  "text": "The conclusion is supported at a 91.5 % confidence level according to the mainstream perspective. This assessment rests on the observation that cosmic rays with far higher energies have struck Earth for billions of years without causing any incident.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 253,
+    "completionTokens": 82
+  }
+}

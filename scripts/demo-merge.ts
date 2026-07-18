@@ -6,7 +6,7 @@ import { parseBundle, validateBundle } from "@epistemic-git/protocol";
 import { computeSupport, merge, perspectiveDiff } from "@epistemic-git/analysis";
 
 /**
- * Compounding at scale — the "Git merge" on real, contested evidence.
+ * Compounding at scale, the "Git merge" on real, contested evidence.
  *
  * Two investigators work the COVID Huanan-market dispute INDEPENDENTLY over overlapping sources:
  *   • the market-central team reads Débarre–Worobey's centrality paper and their reply;
@@ -14,8 +14,8 @@ import { computeSupport, merge, perspectiveDiff } from "@epistemic-git/analysis"
  * They never coordinate. Because every node is content-addressed, the eight claims they both drew
  * from the shared centrality paper carry identical ids, so a merge COALESCES them (evidence pools
  * behind one claim) instead of duplicating them; each team's unique claims, relations, challenges and
- * perspective are unioned in; and where the two disagree on a shared node — here, the status of one
- * challenge — the difference is preserved as an explicit conflict, never silently resolved.
+ * perspective are unioned in; and where the two disagree on a shared node, here, the status of one
+ * challenge, the difference is preserved as an explicit conflict, never silently resolved.
  *
  * Everything below is deterministic set-algebra over content-addressed ids. No model in the loop. To
  * keep the demo reproducible it partitions the committed covid bundle into the two teams' views and
@@ -39,7 +39,7 @@ function analystView(opts: {
   const passages = full.passages.filter((p) => opts.sources.has(p.sourceId));
   const claims = full.claims.filter(
     (c) => c.derived || (c.attribution.kind === "source" && opts.sources.has(c.attribution.ref ?? "")),
-  );
+);
   const claimIds = new Set(claims.map((c) => c.id));
   const inferences = full.inferences.filter((i) => claimIds.has(i.conclusion) && i.premises.every((p) => claimIds.has(p)));
   const infIds = new Set(inferences.map((i) => i.id));
@@ -59,7 +59,7 @@ function analystView(opts: {
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 const line = "─".repeat(78);
 
-// One shared challenge the two teams resolve differently — the preserved conflict.
+// One shared challenge the two teams resolve differently, the preserved conflict.
 const sharedChallenge = full.challenges.find((c) => c.target.kind === "claim" && c.target.id === full.claims.find((cl) => cl.statement.includes("SC2024 proposed a statistical test"))!.id)!;
 
 const teamCentral = analystView({
@@ -72,7 +72,7 @@ const teamBias = analystView({
   overlayLabel: "Ascertainment", // keeps the shared challenge "open"
 });
 
-console.log(`\n█ EPISTEMIC GIT — compounding at scale (content-addressed merge)`);
+console.log(`\n█ EPISTEMIC GIT, compounding at scale (content-addressed merge)`);
 console.log(`  Two investigators, worked independently over overlapping sources, never coordinated:`);
 console.log(`   • market-central team:     ${teamCentral.claims.length} claims, ${teamCentral.overlays.length} perspective  (centrality paper + reply)`);
 console.log(`   • ascertainment-bias team: ${teamBias.claims.length} claims, ${teamBias.overlays.length} perspective  (Weissman + centrality paper)`);
@@ -82,20 +82,20 @@ console.log(`   both partial bundles valid on their own: ${okA && okB}`);
 
 const { bundle: merged, report } = merge(teamCentral, teamBias);
 
-console.log(`\n${line}\n1 · The merge (union by content-addressed id — nothing lost, nothing double-counted)\n${line}`);
+console.log(`\n${line}\n1 · The merge (union by content-addressed id, nothing lost, nothing double-counted)\n${line}`);
 console.log(`   ~ coalesced (same id from both teams): ${JSON.stringify(report.coalesced)}`);
 console.log(`   + added (unique to one team):          ${JSON.stringify(report.added)}`);
 console.log(`   → merged ledger: ${merged.claims.length} claims, ${merged.overlays.length} perspectives, ${merged.matches.length} matches`);
 console.log(`   merged bundle valid: ${validateBundle(merged).ok}`);
-console.log(`   The ${report.coalesced["claims"] ?? 0} shared centrality claims pooled into one copy each — not counted twice.`);
+console.log(`   The ${report.coalesced["claims"] ?? 0} shared centrality claims pooled into one copy each, not counted twice.`);
 
 console.log(`\n${line}\n2 · Genuine disagreement is preserved as an explicit conflict, not resolved\n${line}`);
 if (report.conflicts.length === 0) console.log(`   (no conflicts)`);
 for (const c of report.conflicts) {
-  console.log(`   ! ${c.kind} on ${c.id.slice(0, 14)} — team A: ${JSON.stringify(c.a)}  vs  team B: ${JSON.stringify(c.b)}`);
+  console.log(`   ! ${c.kind} on ${c.id.slice(0, 14)}, team A: ${JSON.stringify(c.a)}  vs  team B: ${JSON.stringify(c.b)}`);
 }
 
-console.log(`\n${line}\n3 · Both perspectives now sit over the merged ledger — the crux survives the merge\n${line}`);
+console.log(`\n${line}\n3 · Both perspectives now sit over the merged ledger, the crux survives the merge\n${line}`);
 const central = merged.overlays.find((o) => o.label.includes("Market-central"))!.id;
 const skeptic = merged.overlays.find((o) => o.label.includes("Ascertainment"))!.id;
 const concl = merged.claims.find((c) => c.derived && c.statement.includes("early epicentre"))!.id;
@@ -108,5 +108,5 @@ console.log(`   crux after merge (${diff.mode}): ${diff.topCrux?.statement.slice
 console.log(`\n${line}`);
 console.log(`Two independent investigations combined into one ledger with no central authority: shared`);
 console.log(`evidence pooled, unique evidence added, and a live disagreement kept inspectable. That is the`);
-console.log(`compounding the competition asks for — and every step is deterministic id algebra.`);
+console.log(`compounding the competition asks for, and every step is deterministic id algebra.`);
 console.log(`${line}\n`);

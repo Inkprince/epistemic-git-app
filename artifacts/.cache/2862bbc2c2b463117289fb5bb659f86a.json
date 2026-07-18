@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Oluwaseyi Oso is listed as the author of the article “The Nigerian dream of freedom”.\",\"claimType\":\"empirical\",\"quote\":\"By [Oluwaseyi Oso]\",\"entailment\":\"The byline “By [Oluwaseyi Oso]” directly indicates that he authored the article.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Oluwaseyi Oso is associated with The Nation (Nigeria).\",\"claimType\":\"definitional\",\"quote\":\"**As seen in:** [The Nation (Nigeria)]\",\"entailment\":\"The profile lists The Nation (Nigeria) under “As seen in,” indicating an association.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"Oluwaseyi Oso is associated with TheCable.\",\"claimType\":\"definitional\",\"quote\":\"[TheCable]\",\"entailment\":\"The profile includes TheCable in the list of outlets where his work appears, showing an association.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"},{\"statement\":\"Oluwaseyi Oso is associated with Global Patriot News.\",\"claimType\":\"definitional\",\"quote\":\"[Global Patriot News]\",\"entailment\":\"The profile lists Global Patriot News among the outlets that feature his work, indicating an association.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2642,
+    "completionTokens": 592
+  }
+}

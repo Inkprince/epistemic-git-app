@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on two source statements that explicitly describe the relationship between dietary cholesterol and blood cholesterol as “only weakly related.” Both quotations directly affirm the claim, providing consistent textual support. No additional evidence or counter‑arguments are presented, so the support derives solely from these repeated assertions.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 304,
+    "completionTokens": 99
+  }
+}

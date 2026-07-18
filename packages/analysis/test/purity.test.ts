@@ -22,7 +22,7 @@ function sources(dir: string): { path: string; text: string }[] {
 
 const root = join(__dirname, "..", "..", ".."); // repo root
 
-describe("purity invariant — LLM calls only in packages/pipeline", () => {
+describe("purity invariant, LLM calls only in packages/pipeline", () => {
   it("packages/analysis never imports the LLM adapter", () => {
     const offenders = sources(join(root, "packages/analysis/src")).filter((f) => /@epistemic-git\/llm/.test(f.text));
     expect(offenders.map((f) => f.path)).toEqual([]);
@@ -42,7 +42,7 @@ describe("purity invariant — LLM calls only in packages/pipeline", () => {
     const files = sources(join(root, "apps/tool/src"));
     const offenders = files.filter((f) =>
       /@epistemic-git\/llm/.test(f.text) || /from ["']node:/.test(f.text) || /@epistemic-git\/protocol\/node/.test(f.text),
-    );
+);
     expect(offenders.map((f) => f.path)).toEqual([]);
   });
 });

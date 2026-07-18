@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on a single source that explicitly states “just one large egg yolk has 200 mg of cholesterol,” providing direct but uncorroborated support. No additional evidence or counter‑arguments are presented, so the claim’s current backing is limited to that lone statement.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 318,
+    "completionTokens": 85
+  }
+}

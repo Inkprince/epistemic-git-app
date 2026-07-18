@@ -1,21 +1,25 @@
 import { XIcon } from "./icons.js";
 import { Modal } from "./Modal.js";
 
+// Ordered to match the concept dependency map (LANGUAGE-AUDIT §9): each entry only
+// leans on terms defined above it.
 const GLOSSARY: [string, string][] = [
   ["Claim", "A single statement pulled from a source and backed by an exact quote. Claims are the building blocks of the argument."],
-  ["Passage", "The exact quote a claim is traced to, down to the character — with where it lives (character range, page, or timestamp)."],
-  ["Inference", "One reasoning step: premises → conclusion. Each one says why the step holds, how strong it is, and what would break it."],
-  ["Support", "The conclusion's live score. Your browser recomputes it from how much each claim is trusted, flowing through the inferences, minus rebuttals — no AI in the loop."],
-  ["Perspective", "One person's take on the evidence. The claims stay fixed — a perspective just sets which ones it trusts. Anyone can add one."],
-  ["Assessment", "A perspective's stance on a single claim or inference: accept, reject, uncertain, or irrelevant (optionally weighted)."],
-  ["Branch", "A saved setup: a perspective, the claims you distrust, and the correlation toggle. You branch interpretations, not data — and the link carries it."],
-  ["Distrust", "Turn off a claim and watch the conclusion recompute. The flagship demo: distrust Hawking radiation on the LHC case."],
-  ["Challenge", "A specific objection — invalid inference, scope drift, correlated evidence — aimed at one node in the argument."],
-  ["Relation (match)", "A link between claims across sources: equivalent, contradicts, refines, and so on."],
-  ["Correlation group", "Claims that share an origin, so they can't be counted as independent evidence."],
-  ["Quarantine", "Claims the pipeline refused because it couldn't find their quote in the source text — parked here with the receipts, never let in quietly."],
-  ["Merge", "Combine two cases: identical claims join up, new evidence is added, and real disagreements are kept as conflicts — nothing is overwritten or lost."],
-  ["Value of information", "How much of the disagreement between two perspectives would clear up if a single crux claim were settled."],
+  ["Quote", "The exact excerpt a claim is traced to, down to the character, with where it lives (character range, page, or timestamp)."],
+  ["Reasoning step", "One step of reasoning: premises → conclusion. Each one says why the step holds, how strong it is, and what would break it."],
+  ["Support", "How strongly the evidence you trust backs a claim, computed live in your browser from the argument, structural arithmetic, not a real-world probability, and no AI in the loop."],
+  ["Distrust", "Turn off a claim and watch the conclusion recompute. Try it: distrust Hawking radiation on the LHC case."],
+  ["Perspective", "One reading of the same evidence. The claims stay fixed, a perspective just sets which ones it accepts. Anyone can add one."],
+  ["Stance", "A perspective's position on a single claim: accepts, rejects, unsure, or not relevant, optionally with a stated confidence."],
+  ["Crux", "The single disagreement between two perspectives that moves the conclusion most, the thing most worth settling first."],
+  ["Scenario", "A saved what-if: which perspective is applied and which evidence is set aside. The case never changes (you save readings, not edits) and the link carries it."],
+  ["Challenge", "A specific objection (reasoning that doesn't follow, scope drift, double-counted evidence) aimed at one claim or reasoning step."],
+  ["Related claims", "Links between claims across sources: same claim, likely the same, more specific, contradicts, and so on."],
+  ["Shared-origin evidence", "Claims whose evidence comes from the same place (dataset, authors, funder), so it counts as one line of evidence, not several."],
+  ["Excluded", "Claims refused because their quote couldn't be found in the source text, parked in plain sight with the reason, never let in quietly."],
+  ["History", "Every import, merge, build, and save this case has been through, pick two moments to see exactly what changed."],
+  ["Merge", "Combine two cases: identical claims join up, new evidence is added, and real disagreements are kept as conflicts, nothing is overwritten or lost."],
+  ["What settling a crux buys", "How much of the disagreement between two perspectives would clear up if a single crux claim were settled."],
 ];
 
 export function HelpModal({ onClose }: { onClose: () => void }) {
@@ -27,8 +31,8 @@ export function HelpModal({ onClose }: { onClose: () => void }) {
       </div>
       <p className="subtle" style={{ margin: 0 }}>
         Epistemic Git shows you the <strong>evidence behind a conclusion</strong>, not just the
-        conclusion — every claim traced to an exact quote, every reasoning step spelled out, every
-        objection on the record. Distrust evidence, switch perspectives, branch interpretations, merge
+        conclusion, every claim traced to an exact quote, every reasoning step spelled out, every
+        objection on the record. Distrust evidence, switch perspectives, save scenarios, merge
         independent investigations, and watch the conclusion recompute live.
       </p>
       <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10, maxHeight: "52vh", overflowY: "auto", paddingRight: 6 }} className="scrl">
@@ -37,8 +41,8 @@ export function HelpModal({ onClose }: { onClose: () => void }) {
             <span style={{ flex: "0 0 148px", fontWeight: 700, fontSize: 13.5 }}>{term}</span>
             <span className="subtle" style={{ fontSize: 13.5, lineHeight: 1.5 }}>{def}</span>
           </div>
-        ))}
+))}
       </div>
     </Modal>
-  );
+);
 }

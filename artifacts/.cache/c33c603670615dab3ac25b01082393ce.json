@@ -1,0 +1,9 @@
+{
+  "text": "The claim that UNILAG University was founded in 1962 is directly supported by two source excerpts, each stating “Founded 1962.” These identical statements provide clear, unambiguous evidence for the founding year, giving the claim strong support. No contrary or undercutting information is presented.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 302,
+    "completionTokens": 109
+  }
+}

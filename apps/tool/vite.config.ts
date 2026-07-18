@@ -10,7 +10,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../..");
 
 const MAX_BODY_BYTES = 2 * 1024 * 1024; // 2 MB request ceiling
-const MAX_TEXT_CHARS = 150_000; // ~25 extraction chunks — keeps a run bounded
+const MAX_TEXT_CHARS = 150_000; // ~25 extraction chunks, keeps a run bounded
 const RUN_TIMEOUT_MS = 8 * 60 * 1000; // hard ceiling on a full pipeline run
 
 class BodyError extends Error {
@@ -39,25 +39,40 @@ function readBody(req: IncomingMessage): Promise<Record<string, unknown>> {
   });
 }
 
+/** Best-effort human title from a URL when the caller supplies none: host + last path segment. */
+function deriveTitleFromUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    const seg = u.pathname.split("/").filter(Boolean).pop() ?? "";
+    const slug = decodeURIComponent(seg).replace(/[-_]+/g, " ").replace(/\.\w+$/, "").trim();
+    return slug ? `${u.hostname}: ${slug}` : u.hostname;
+  } catch {
+    return url;
+  }
+}
+
 /**
  * Dev-only live runner. Exposes POST /api/build that runs the real pipeline (extract → match →
  * infer → audit → correlate) SERVER-SIDE, so the Cerebras key (from .env) never reaches the
  * browser. The TS pipeline is loaded through Vite's SSR module graph. Absent in the static
- * production build — there the app is a pre-baked viewer (the documented dual-mode).
+ * production build, there the app is a pre-baked viewer (the documented dual-mode).
  */
 function liveRunner(): Plugin {
   return {
     name: "egit-live-runner",
     configureServer(server: ViteDevServer) {
       const env = loadEnv("development", repoRoot, "");
-      for (const key of ["CEREBRAS_API_KEY", "CEREBRAS_MODEL", "CEREBRAS_BASE_URL", "CEREBRAS_MAX_RETRIES", "CEREBRAS_RETRY_DELAY_MS", "CEREBRAS_TIMEOUT_MS"]) {
+      for (const key of [
+        "CEREBRAS_API_KEY", "CEREBRAS_MODEL", "CEREBRAS_BASE_URL", "CEREBRAS_MAX_RETRIES", "CEREBRAS_RETRY_DELAY_MS", "CEREBRAS_TIMEOUT_MS",
+        "FIRECRAWL_API_KEY", "FIRECRAWL_BASE_URL",
+      ]) {
         if (env[key]) process.env[key] = env[key];
       }
 
-      let running = false; // one pipeline at a time — runs share the fs cache and the rate-limit budget
+      let running = false; // one pipeline at a time, runs share the fs cache and the rate-limit budget
       let committing = false; // single-flight for the manifest read-modify-write
 
-      // Dev-only: persist a bundle as a committed case — writes artifacts/<slug>.json(l) and
+      // Dev-only: persist a bundle as a committed case, writes artifacts/<slug>.json(l) and
       // registers it in artifacts/cases.json. Vite's glob invalidation reloads the app with the
       // new case present. Absent (like /api/build) from the static production build.
       server.middlewares.use("/api/commit", async (req: IncomingMessage, res: ServerResponse, next) => {
@@ -95,7 +110,7 @@ function liveRunner(): Plugin {
           }
 
           const manifestPath = resolve(artifactsDir, "cases.json");
-          // Strip a UTF-8 BOM — Node's "utf8" read keeps it, and JSON.parse chokes on it.
+          // Strip a UTF-8 BOM, Node's "utf8" read keeps it, and JSON.parse chokes on it.
           // (PowerShell/Notepad edits of cases.json prepend one.)
           const manifest = JSON.parse((await readFile(manifestPath, "utf8")).replace(/^﻿/, "")) as {
             version: number;
@@ -124,6 +139,55 @@ function liveRunner(): Plugin {
         }
       });
 
+      // Dev-only: delete a committed case, removes artifacts/<slug>.json(l) and its cases.json entry.
+      // The client hides the case regardless (localStorage); this makes the removal persist on disk.
+      // Path-guarded to the artifacts dir and single-flighted with the commit handler's lock.
+      server.middlewares.use("/api/delete-case", async (req: IncomingMessage, res: ServerResponse, next) => {
+        if (req.method !== "POST") return next();
+        const send = (code: number, obj: unknown) => {
+          if (res.writableEnded) return;
+          res.statusCode = code;
+          res.setHeader("content-type", "application/json");
+          res.end(JSON.stringify(obj));
+        };
+        if (committing) return send(429, { error: "Another commit or delete is in progress." });
+        committing = true;
+        try {
+          const body = await readBody(req);
+          const slug = String(body["slug"] ?? "").trim();
+          if (!/^[a-z0-9][a-z0-9-]{1,39}$/.test(slug)) {
+            return send(400, { error: "Slug must be 2-40 chars of a-z, 0-9, hyphen." });
+          }
+          const artifactsDir = resolve(repoRoot, "artifacts");
+          const jsonPath = resolve(artifactsDir, `${slug}.json`);
+          const jsonlPath = resolve(artifactsDir, `${slug}.jsonl`);
+          if (!jsonPath.startsWith(artifactsDir) || !jsonlPath.startsWith(artifactsDir)) {
+            return send(400, { error: "Invalid slug." });
+          }
+
+          const manifestPath = resolve(artifactsDir, "cases.json");
+          const manifest = JSON.parse((await readFile(manifestPath, "utf8")).replace(/^﻿/, "")) as {
+            version: number;
+            cases: { id: string; label: string; file: string }[];
+          };
+          const before = manifest.cases.length;
+          manifest.cases = manifest.cases.filter((c) => c.id !== slug);
+          if (manifest.cases.length !== before) {
+            await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + "\n", "utf8");
+          }
+          const { rm } = await import("node:fs/promises");
+          if (existsSync(jsonPath)) await rm(jsonPath);
+          if (existsSync(jsonlPath)) await rm(jsonlPath);
+          console.log(`[egit] deleted case "${slug}"`);
+          send(200, { ok: true, id: slug });
+        } catch (e) {
+          if (e instanceof BodyError) return send(e.code, { error: e.message });
+          send(500, { error: e instanceof Error ? e.message : String(e) });
+        } finally {
+          committing = false;
+        }
+      });
+
       server.middlewares.use("/api/build", async (req: IncomingMessage, res: ServerResponse, next) => {
         if (req.method !== "POST") return next();
         const send = (code: number, obj: unknown) => {
@@ -132,16 +196,33 @@ function liveRunner(): Plugin {
           res.setHeader("content-type", "application/json");
           res.end(JSON.stringify(obj));
         };
-        if (running) return send(429, { error: "A pipeline run is already in progress — wait for it to finish." });
+        if (running) return send(429, { error: "A pipeline run is already in progress, wait for it to finish." });
         running = true;
         try {
           const body = await readBody(req);
-          const text = String(body["text"] ?? "").trim();
           const title = String(body["title"] ?? "Pasted source").trim() || "Pasted source";
           const question = String(body["question"] ?? "").trim() || `What does “${title}” establish?`;
-          if (!text) return send(400, { error: "Provide source text." });
-          if (text.length > MAX_TEXT_CHARS) {
-            return send(400, { error: `Source text too long (${text.length.toLocaleString()} chars; ${MAX_TEXT_CHARS.toLocaleString()} max).` });
+
+          // Normalize input into a list of sources. New shape: `sources: [{ text?, url?, title? }]`.
+          // Back-compat: a bare `text`/`title` becomes a single pasted source.
+          interface SourceInput { text?: string; url?: string; title?: string }
+          const rawSources: SourceInput[] = Array.isArray(body["sources"])
+            ? (body["sources"] as SourceInput[])
+            : [{ text: String(body["text"] ?? ""), title }];
+          const sourceInputs = rawSources
+            .map((s) => ({
+              url: typeof s.url === "string" ? s.url.trim() : "",
+              text: typeof s.text === "string" ? s.text.trim() : "",
+              title: typeof s.title === "string" ? s.title.trim() : "",
+            }))
+            .filter((s) => s.url || s.text);
+          if (sourceInputs.length === 0) return send(400, { error: "Provide at least one source (pasted text or a URL)." });
+          if (sourceInputs.some((s) => s.url && !/^https?:\/\//i.test(s.url))) {
+            return send(400, { error: "Source URLs must start with http:// or https://." });
+          }
+          const pastedTotal = sourceInputs.reduce((n, s) => n + s.text.length, 0);
+          if (pastedTotal > MAX_TEXT_CHARS) {
+            return send(400, { error: `Pasted source text too long (${pastedTotal.toLocaleString()} chars; ${MAX_TEXT_CHARS.toLocaleString()} max).` });
           }
 
           const proto = await server.ssrLoadModule("@epistemic-git/protocol");
@@ -155,40 +236,142 @@ function liveRunner(): Plugin {
             promptVersion: pipe.PROMPT_VERSION,
           });
 
+          // From here on the response is a 200 NDJSON stream: progress events while the pipeline
+          // runs, then a single terminal `done` or `error` event. (Validation errors above still
+          // use plain JSON status codes; nothing has been streamed yet at that point.)
+          res.statusCode = 200;
+          res.setHeader("content-type", "application/x-ndjson");
+          res.setHeader("cache-control", "no-cache");
+          const emit = (obj: unknown) => {
+            if (!res.writableEnded) res.write(JSON.stringify(obj) + "\n");
+          };
+          const progress = (stage: string, pct: number, detail?: string) =>
+            emit({ type: "progress", stage, pct: Math.round(pct), ...(detail ? { detail } : {}) });
+
           const run = async () => {
             const t0 = Date.now();
             const lap = (stage: string, from: number) =>
               console.log(`[egit] /api/build ${stage}: ${((Date.now() - from) / 1000).toFixed(1)}s`);
             let t = Date.now();
             const b = new proto.BundleBuilder({ case: "live", title, question, mode: live ? "live" : "cached" });
-            const sourceId = b.source({ type: "other", title });
-            const exStats = await pipe.extractInto(b, client, { sourceId, sourceTitle: title, text });
-            lap(`extract (${exStats.grounded}/${exStats.extracted} grounded, ${exStats.chunks} chunks)`, t);
+
+            // Stage 1, extract: retrieve each source (scrape URLs), then extract per source. The
+            // extract band (3..50%) is split evenly across sources so multi-source runs still show
+            // steady motion. Firecrawl is used when a key is present; native fetch is the fallback.
+            progress("extract", 3);
+            const cacheDir = resolve(repoRoot, "artifacts", ".cache");
+            const n = sourceInputs.length;
+            const agg = { extracted: 0, grounded: 0, quarantined: 0, chunks: 0 };
+            // The primary (first) source is the document the case started from; keep its raw text so
+            // the case can show exactly what was decomposed (capped to keep bundles reasonable).
+            let primaryDoc: { title?: string; url?: string; text: string } | undefined;
+            for (const [k, s] of sourceInputs.entries()) {
+              let text = s.text;
+              let url = s.url || undefined;
+              let srcTitle = s.title;
+              if (url) {
+                progress("extract", 3 + 47 * (k / n), `source ${k + 1}/${n}: fetching ${url}`);
+                const scraped = await pipe.scrapeUrl(url, { live: true, env: process.env, cacheDir, log: (msg: string) => console.log(`[egit] ${msg}`) });
+                text = scraped.text;
+                if (!srcTitle) srcTitle = deriveTitleFromUrl(url);
+              }
+              if (!srcTitle) srcTitle = n > 1 ? `Pasted source ${k + 1}` : title;
+              if (agg.chunks === 0 && !text) continue; // skip empties defensively
+              if (!primaryDoc && text) primaryDoc = { text: text.slice(0, 500_000), ...(srcTitle ? { title: srcTitle } : {}), ...(url ? { url } : {}) };
+              const sourceId = b.source({ type: "other", title: srcTitle, ...(url ? { url } : {}) });
+              const st = await pipe.extractInto(b, client, { sourceId, sourceTitle: srcTitle, text }, {
+                onChunk: (done: number, total: number) =>
+                  progress("extract", 3 + 47 * ((k + done / total) / n), `source ${k + 1}/${n} · passage ${done}/${total}`),
+              });
+              agg.extracted += st.extracted; agg.grounded += st.grounded;
+              agg.quarantined += st.quarantined; agg.chunks += st.chunks;
+            }
+            const exStats = agg;
+            lap(`extract (${exStats.grounded}/${exStats.extracted} grounded, ${exStats.chunks} chunks, ${n} sources)`, t);
             let bundle = b.build();
             t = Date.now();
+            progress("match", 50, `${exStats.grounded} claims admitted`);
             const m = await pipe.matchClaims(bundle, client); bundle = m.bundle;
             lap(`match (+${m.stats.added})`, t);
             t = Date.now();
+            progress("infer", 58, `${m.stats.added} connections found`);
             const inf = await pipe.inferArgument(bundle, client); bundle = inf.bundle;
             lap(`infer (+${inf.stats.added})`, t);
             t = Date.now();
+            progress("audit", 70, `${inf.stats.added} reasoning steps`);
             const au = await pipe.auditBundle(bundle, client); bundle = au.bundle;
             lap(`audit (+${au.stats.added})`, t);
+            progress("correlate", 80, `${au.stats.added} challenges raised`);
             const corr = pipe.deriveCorrelationGroups(bundle); bundle = corr.bundle;
+
+            // Stages 6+7, AI embellishment: draft two opposing perspectives and narrate the top
+            // claims, so a built case reads like the curated ones. Best-effort: if a stage can't run
+            // (no key + cache miss), it is skipped and the build still succeeds.
+            let overlaysAdded = 0;
+            let narrativesAdded = 0;
+            t = Date.now();
+            const analyst = { kind: "analyst-llm" as const, ref: client.model };
+            const worldviews = [
+              { fallback: "Accepts the strongest supporting evidence", worldview: `Adopt the reading most favourable to a "yes" answer to: ${question}. Accept the claims that best support it and weight them heavily; treat contrary evidence as uncertain.` },
+              { fallback: "Weights the critical evidence", worldview: `Adopt the sceptical reading of: ${question}. Weight the contradicting, confounding, and critical claims heavily; treat the supporting evidence as uncertain.` },
+            ];
+            // Perspective band 83..93, one honest step per worldview drafted.
+            for (const [pi, wv] of worldviews.entries()) {
+              progress("perspective", 83 + 10 * (pi / worldviews.length), `perspective ${pi + 1}/${worldviews.length}`);
+              try {
+                const draft = await pipe.draftPerspective(bundle, client, { worldview: wv.worldview });
+                if (!draft.stances.length) continue;
+                const label = (draft.suggestedLabel || wv.fallback).trim();
+                if (bundle.overlays.some((o: { label: string }) => o.label.trim().toLowerCase() === label.toLowerCase())) continue;
+                const ovlId = proto.overlayId({ label, analyst });
+                const overlay = { id: ovlId, label, analyst, ...(draft.suggestedDescription ? { description: draft.suggestedDescription.trim() } : {}) };
+                const assessments = draft.stances.map((s: { claimId: string; stance: string; rationale: string }) => {
+                  const target = { kind: "claim" as const, id: s.claimId };
+                  // weight matches the curated author scripts (cases/eggs.ts) so a live-built case
+                  // feeds computeSupport identically to the committed demos.
+                  return { id: proto.assessmentId({ overlayId: ovlId, target }), overlayId: ovlId, target, stance: s.stance, weight: 0.7, ...(s.rationale ? { rationale: s.rationale } : {}) };
+                });
+                bundle = { ...bundle, overlays: [...bundle.overlays, overlay], assessments: [...bundle.assessments, ...assessments] };
+                overlaysAdded++;
+              } catch (e) {
+                console.log(`[egit] perspective skipped: ${e instanceof Error ? e.message : String(e)}`);
+              }
+            }
+            lap(`perspective (+${overlaysAdded})`, t);
+
+            t = Date.now();
+            const conclusion = bundle.claims.find((c: { derived?: boolean }) => c.derived);
+            const grounded = bundle.claims.filter((c: { derived?: boolean; passages: string[] }) => !c.derived && c.passages.length);
+            const toNarrate = [...(conclusion ? [conclusion] : []), ...grounded.slice(0, 2)];
+            const overlayId0 = bundle.overlays[0]?.id;
+            // Narrate band 93..99, one honest step per summary written.
+            for (const [ni, c] of toNarrate.entries()) {
+              progress("narrate", 93 + 6 * (ni / Math.max(1, toNarrate.length)), `summary ${ni + 1}/${toNarrate.length}`);
+              try {
+                const { bundle: nb } = await pipe.narrateClaim(bundle, client, { claimId: c.id, ...(overlayId0 ? { overlayId: overlayId0 } : {}), respectCorrelation: true });
+                if ((nb.narratives?.length ?? 0) > (bundle.narratives?.length ?? 0)) narrativesAdded++;
+                bundle = nb;
+              } catch (e) {
+                console.log(`[egit] narrate skipped: ${e instanceof Error ? e.message : String(e)}`);
+              }
+            }
+            lap(`narrate (+${narrativesAdded})`, t);
             lap("total", t0);
-            return { bundle, exStats, m, inf, au, corr };
+            const finalBundle = primaryDoc ? { ...bundle, sourceDocument: primaryDoc } : bundle;
+            return { bundle: finalBundle, exStats, m, inf, au, corr, overlaysAdded, narrativesAdded, sources: n };
           };
           const timeout = new Promise<never>((_, rej) =>
             setTimeout(() => rej(new BodyError(504, `Pipeline run exceeded ${RUN_TIMEOUT_MS / 60000} minutes and was abandoned.`)), RUN_TIMEOUT_MS),
-          );
-          const { bundle, exStats, m, inf, au, corr } = await Promise.race([run(), timeout]);
+);
+          const { bundle, exStats, m, inf, au, corr, overlaysAdded, narrativesAdded, sources } = await Promise.race([run(), timeout]);
 
           const check = proto.validateBundle(bundle);
           const problems = (check.issues ?? [])
             .filter((i: { severity: string }) => i.severity === "error")
             .slice(0, 5)
             .map((i: { code: string; message: string }) => `${i.code}: ${i.message}`);
-          send(200, {
+          emit({
+            type: "done",
             ok: check.ok,
             bundle,
             ...(problems.length ? { problems } : {}),
@@ -198,20 +381,207 @@ function liveRunner(): Plugin {
               inferences: inf.stats.added,
               challenges: au.stats.added,
               correlationGroups: corr.added,
+              perspectives: overlaysAdded,
+              narratives: narrativesAdded,
+              sources,
               mode: live ? "live" : "cached",
             },
           });
+          res.end();
+        } catch (e) {
+          const msg = e instanceof Error ? e.message : String(e);
+          const friendly = /cache miss/i.test(msg) || /No API key configured/i.test(msg)
+            ? "No CEREBRAS_API_KEY configured, so live extraction on new text is unavailable. Add a key to .env (repo root) and restart the dev server."
+            : msg;
+          if (!res.headersSent) {
+            // Failed before streaming began, plain JSON status.
+            if (e instanceof BodyError) return send(e.code, { error: e.message });
+            return send(friendly === msg ? 500 : 503, { error: friendly });
+          }
+          // Already streaming, deliver the failure as the terminal event.
+          if (!res.writableEnded) {
+            res.write(JSON.stringify({ type: "error", error: friendly }) + "\n");
+            res.end();
+          }
+        } finally {
+          running = false;
+        }
+      });
+
+      // ── AI-assist endpoints (red-team / narrate / answer / perspective) ──────────────────────
+      // Each runs a model SERVER-SIDE (key from .env, never in the browser), returns attributed,
+      // grounded nodes for the app to render, and is stripped from the static production build.
+      // Dual-mode: cached replay with no key, live on a cache miss when a key is present.
+      const aiContext = async () => {
+        const proto = await server.ssrLoadModule("@epistemic-git/protocol");
+        const llmNode = await server.ssrLoadModule("@epistemic-git/llm/node");
+        const pipe = await server.ssrLoadModule("@epistemic-git/pipeline");
+        const live = Boolean(process.env["CEREBRAS_API_KEY"]);
+        const client = llmNode.createLlmClientFromEnv({
+          mode: live ? "live" : "cached",
+          cacheDir: resolve(repoRoot, "artifacts", ".cache"),
+          promptVersion: pipe.PROMPT_VERSION,
+        });
+        return { proto, pipe, client, live };
+      };
+      const noKeyHint = (feature: string) =>
+        `No CEREBRAS_API_KEY configured, live ${feature} is unavailable, and this input isn't in the cache. Add a key to .env (repo root) and restart the dev server.`;
+      let aiBusy = false; // AI endpoints share the fs cache + rate-limit budget, one at a time.
+      const jsonSend = (res: ServerResponse, code: number, obj: unknown) => {
+        if (res.writableEnded) return;
+        res.statusCode = code;
+        res.setHeader("content-type", "application/json");
+        res.end(JSON.stringify(obj));
+      };
+
+      server.middlewares.use("/api/redteam", async (req: IncomingMessage, res: ServerResponse, next) => {
+        if (req.method !== "POST") return next();
+        const send = (code: number, obj: unknown) => jsonSend(res, code, obj);
+        if (aiBusy) return send(429, { error: "An AI-assist run is already in progress, wait for it to finish." });
+        aiBusy = true;
+        try {
+          const body = await readBody(req);
+          const bundle = body["bundle"] as { challenges: unknown[] } | undefined;
+          const claimId = String(body["claimId"] ?? "").trim();
+          if (!bundle || typeof bundle !== "object") return send(400, { error: "Provide a bundle." });
+          if (!claimId) return send(400, { error: "Provide a claimId." });
+
+          const { proto, pipe, client } = await aiContext();
+          const before = bundle.challenges.length;
+          const { bundle: audited, stats } = await pipe.auditBundle(bundle, client, { focusClaimId: claimId });
+          const challenges = audited.challenges.slice(before);
+
+          const check = proto.validateBundle(audited);
+          const problems = (check.issues ?? [])
+            .filter((i: { severity: string }) => i.severity === "error")
+            .slice(0, 5)
+            .map((i: { code: string; message: string }) => `${i.code}: ${i.message}`);
+          send(200, { ok: check.ok, challenges, stats, ...(problems.length ? { problems } : {}) });
         } catch (e) {
           if (e instanceof BodyError) return send(e.code, { error: e.message });
           const msg = e instanceof Error ? e.message : String(e);
-          if (/cache miss/i.test(msg) || /No API key configured/i.test(msg)) {
-            return send(503, {
-              error: "No CEREBRAS_API_KEY configured — live extraction on new text is unavailable. Add a key to .env (repo root) and restart the dev server.",
-            });
-          }
+          if (/cache miss/i.test(msg) || /No API key configured/i.test(msg)) return send(503, { error: noKeyHint("red-teaming") });
           send(500, { error: msg });
         } finally {
-          running = false;
+          aiBusy = false;
+        }
+      });
+
+      server.middlewares.use("/api/narrate", async (req: IncomingMessage, res: ServerResponse, next) => {
+        if (req.method !== "POST") return next();
+        const send = (code: number, obj: unknown) => jsonSend(res, code, obj);
+        if (aiBusy) return send(429, { error: "An AI-assist run is already in progress, wait for it to finish." });
+        aiBusy = true;
+        try {
+          const body = await readBody(req);
+          const bundle = body["bundle"] as object | undefined;
+          const claimId = String(body["claimId"] ?? "").trim();
+          const overlayId = body["overlayId"] ? String(body["overlayId"]) : undefined;
+          const respectCorrelation = body["respectCorrelation"] !== false;
+          if (!bundle || typeof bundle !== "object") return send(400, { error: "Provide a bundle." });
+          if (!claimId) return send(400, { error: "Provide a claimId." });
+
+          const { pipe, client } = await aiContext();
+          const { narrative } = await pipe.narrateClaim(bundle, client, {
+            claimId, ...(overlayId ? { overlayId } : {}), respectCorrelation,
+          });
+          if (!narrative) return send(422, { error: "Could not produce a summary for this claim." });
+          send(200, { ok: true, narrative });
+        } catch (e) {
+          if (e instanceof BodyError) return send(e.code, { error: e.message });
+          const msg = e instanceof Error ? e.message : String(e);
+          if (/cache miss/i.test(msg) || /No API key configured/i.test(msg)) return send(503, { error: noKeyHint("summaries") });
+          send(500, { error: msg });
+        } finally {
+          aiBusy = false;
+        }
+      });
+
+      server.middlewares.use("/api/answer", async (req: IncomingMessage, res: ServerResponse, next) => {
+        if (req.method !== "POST") return next();
+        const send = (code: number, obj: unknown) => jsonSend(res, code, obj);
+        if (aiBusy) return send(429, { error: "An AI-assist run is already in progress, wait for it to finish." });
+        aiBusy = true;
+        try {
+          const body = await readBody(req);
+          const question = String(body["question"] ?? "").trim();
+          const answer = body["answer"] as { grounded?: boolean; headline?: string; points?: string[]; citations?: { quote?: string }[] } | undefined;
+          if (!question || !answer || typeof answer !== "object") return send(400, { error: "Provide a question and a grounded answer." });
+          if (!answer.grounded) return send(400, { error: "The router refused this question, so there is nothing grounded to rephrase." });
+
+          const { pipe, client } = await aiContext();
+          const quotes = (answer.citations ?? []).map((c) => c.quote).filter((q): q is string => Boolean(q));
+          const { text } = await client.complete({
+            system: pipe.ANSWER_SYSTEM,
+            prompt: pipe.answerUserPrompt(question, answer.headline ?? "", answer.points ?? [], quotes),
+            temperature: 0, seed: 1, reasoningEffort: "low",
+          });
+          const clean = text.trim();
+          if (!clean) return send(422, { error: "No prose produced." });
+          send(200, { ok: true, text: clean, model: client.model });
+        } catch (e) {
+          if (e instanceof BodyError) return send(e.code, { error: e.message });
+          const msg = e instanceof Error ? e.message : String(e);
+          if (/cache miss/i.test(msg) || /No API key configured/i.test(msg)) return send(503, { error: noKeyHint("prose answers") });
+          send(500, { error: msg });
+        } finally {
+          aiBusy = false;
+        }
+      });
+
+      server.middlewares.use("/api/perspective", async (req: IncomingMessage, res: ServerResponse, next) => {
+        if (req.method !== "POST") return next();
+        const send = (code: number, obj: unknown) => jsonSend(res, code, obj);
+        if (aiBusy) return send(429, { error: "An AI-assist run is already in progress, wait for it to finish." });
+        aiBusy = true;
+        try {
+          const body = await readBody(req);
+          const bundle = body["bundle"] as object | undefined;
+          const worldview = String(body["worldview"] ?? "").trim();
+          if (!bundle || typeof bundle !== "object") return send(400, { error: "Provide a bundle." });
+          if (!worldview) return send(400, { error: "Describe the worldview to draft." });
+
+          const { pipe, client } = await aiContext();
+          const draft = await pipe.draftPerspective(bundle, client, { worldview });
+          send(200, { ok: true, ...draft });
+        } catch (e) {
+          if (e instanceof BodyError) return send(e.code, { error: e.message });
+          const msg = e instanceof Error ? e.message : String(e);
+          if (/cache miss/i.test(msg) || /No API key configured/i.test(msg)) return send(503, { error: noKeyHint("perspective drafting") });
+          send(500, { error: msg });
+        } finally {
+          aiBusy = false;
+        }
+      });
+
+      // Dev-only: propose candidate sources for a topic via Firecrawl `/search`. Proposes only; it
+      // admits nothing. The build modal lets the user pick which candidates become source URLs, so
+      // the selection stays an explicit human act. Needs FIRECRAWL_API_KEY; results are cached.
+      server.middlewares.use("/api/discover", async (req: IncomingMessage, res: ServerResponse, next) => {
+        if (req.method !== "POST") return next();
+        const send = (code: number, obj: unknown) => jsonSend(res, code, obj);
+        if (aiBusy) return send(429, { error: "An AI-assist run is already in progress; wait for it to finish." });
+        aiBusy = true;
+        try {
+          const body = await readBody(req);
+          const query = String(body["query"] ?? "").trim();
+          const limit = Math.max(1, Math.min(Number(body["limit"] ?? 8), 20));
+          if (!query) return send(400, { error: "Provide a search query." });
+          if (!process.env["FIRECRAWL_API_KEY"]) {
+            return send(503, { error: "No FIRECRAWL_API_KEY configured. Add one to .env (repo root) and restart the dev server to discover sources, or paste URLs directly." });
+          }
+          const pipe = await server.ssrLoadModule("@epistemic-git/pipeline");
+          const result = await pipe.discoverSources(query, {
+            limit, live: true, env: process.env,
+            cacheDir: resolve(repoRoot, "artifacts", ".cache"),
+            log: (msg: string) => console.log(`[egit] ${msg}`),
+          });
+          send(200, { ok: true, candidates: result.candidates });
+        } catch (e) {
+          if (e instanceof BodyError) return send(e.code, { error: e.message });
+          send(500, { error: e instanceof Error ? e.message : String(e) });
+        } finally {
+          aiBusy = false;
         }
       });
     },

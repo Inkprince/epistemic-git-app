@@ -9,8 +9,8 @@ import {
 
 /**
  * Read-only MCP server over one Epistemic Git bundle. A downstream model (e.g. Claude Code) can attach
- * this and interrogate the ledger — trace any claim to its verbatim source, list the challenges, see
- * where perspectives diverge and which crux matters most — but it cannot get an unsupported opinion:
+ * this and interrogate the ledger, trace any claim to its verbatim source, list the challenges, see
+ * where perspectives diverge and which crux matters most, but it cannot get an unsupported opinion:
  * every tool returns deterministic analysis grounded in the ledger. This is the concrete
  * "withstands downstream-model interrogation" surface.
  *
@@ -20,7 +20,7 @@ import {
 
 const bundlePath = resolve(process.cwd(), process.env["EGIT_BUNDLE"] ?? process.argv[2] ?? "artifacts/lhc.jsonl");
 const bundle = await readBundleFile(bundlePath);
-console.error(`[egit-mcp] serving ${bundle.case} — ${bundle.claims.length} claims from ${bundlePath}`);
+console.error(`[egit-mcp] serving ${bundle.case}, ${bundle.claims.length} claims from ${bundlePath}`);
 
 const server = new McpServer({ name: "epistemic-git", version: "0.1.0" });
 const text = (obj: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(obj, null, 2) }] });

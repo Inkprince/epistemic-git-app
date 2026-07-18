@@ -1,10 +1,10 @@
 import type { Bundle } from "@epistemic-git/protocol";
 
-export type CaseOrigin = "committed" | "imported";
+export type CaseOrigin = "committed" | "imported" | "built";
 
-/** One openable ledger in the app — a committed artifact or a user-imported bundle. */
+/** One openable ledger in the app, a committed artifact, a user-imported bundle, or a case built from pasted source text. */
 export interface CaseEntry {
-  /** Route slug. Imported: `imp-${digest.slice(0, 8)}` (idempotent re-import). */
+  /** Route slug. Imported: `imp-${digest.slice(0, 8)}`; built: `built-${digest.slice(0, 8)}` (idempotent). */
   id: string;
   label: string;
   origin: CaseOrigin;

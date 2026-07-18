@@ -1,4 +1,4 @@
-# Frozen arm instructions — deep research v1
+# Frozen arm instructions, deep research v1
 
 Use the configured native deep-research workflow. Search and read the supplied
 URLs, trace primary sources where the source packet permits it, and check whether

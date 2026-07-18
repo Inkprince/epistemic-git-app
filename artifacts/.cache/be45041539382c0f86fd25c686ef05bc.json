@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on observational evidence from large prospective cohort studies that report an association between regular nut consumption and lower cardiovascular disease risk. However, this support is undercut by a strong observation that such findings are vulnerable to confounding, because nut eaters often differ in other health‑related behaviors like exercise and smoking. Consequently, the association is weakened by concerns that the observed risk reduction may reflect these other lifestyle factors rather than nut intake itself.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 375,
+    "completionTokens": 121
+  }
+}

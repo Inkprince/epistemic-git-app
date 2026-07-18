@@ -1,0 +1,9 @@
+{
+  "text": "{\"overallConclusion\":\"UNILAG is the best university in Nigeria\",\"inferences\":[{\"type\":\"supports\",\"premiseIndexes\":[8,9,10,79],\"conclusionIndex\":-1,\"warrant\":\"High national and international rankings together with recognized awards indicate that UNILAG outperforms other Nigerian institutions.\",\"strength\":\"strong\",\"defeaters\":[\"The rankings use different methodologies that may favor certain metrics\",\"More recent rankings could place UNILAG lower\",\"Other universities might have comparable or higher rankings in the same period\"]},{\"type\":\"supports\",\"premiseIndexes\":[84,102],\"conclusionIndex\":-1,\"warrant\":\"Providing qualitative, research‑oriented education and maintaining highly competitive admissions are hallmarks of a top‑tier university.\",\"strength\":\"moderate\",\"defeaters\":[\"Qualitative claims are subjective and may be contested\",\"Competitive admissions alone do not guarantee overall superiority\"]},{\"type\":\"undercuts\",\"premiseIndexes\":[20,21,22,23,24,25,26],\"conclusionIndex\":-1,\"warrant\":\"Lower placements in global and subject‑specific rankings suggest UNILAG may not be the leading institution nationally.\",\"strength\":\"moderate\",\"defeaters\":[\"Global rankings prioritize international visibility over national impact\",\"Subject rankings may not reflect overall university quality\"]},{\"type\":\"presupposes\",\"premiseIndexes\":[0],\"conclusionIndex\":-1,\"warrant\":\"Being a public, federal research university provides the structural capacity to be the best university in the country.\",\"strength\":\"weak\",\"defeaters\":[\"Other Nigerian universities share the same public, federal research status\",\"Institutional status alone does not determine quality\"]}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 6115,
+    "completionTokens": 1010
+  }
+}

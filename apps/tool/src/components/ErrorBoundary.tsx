@@ -25,7 +25,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
           <div style={{ maxWidth: 480, padding: 40, textAlign: "center" }}>
             <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.4px" }}>Something went wrong</div>
             <p className="subtle" style={{ marginTop: 10 }}>
-              The explorer hit an unexpected error while rendering. Reloading usually clears it —
+              The explorer hit an unexpected error while rendering. Reloading usually clears it, 
               your case data is safe and unchanged.
             </p>
             <p className="note mono" style={{ wordBreak: "break-word" }}>{this.state.error.message}</p>
@@ -39,6 +39,6 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
           </div>
         </div>
       </div>
-    );
+);
   }
 }

@@ -25,7 +25,7 @@ function scrapeOptsFrom(flags: Record<string, string>, live: boolean) {
 }
 
 /**
- * egit CLI — pipeline stages over the command line.
+ * egit CLI, pipeline stages over the command line.
  *   extract  source text            → claims + passages (+ quarantine)
  *   infer    an existing bundle      → argument structure (inferences + conclusion)
  *   build    extract then infer      → a full argument bundle from one source
@@ -102,8 +102,8 @@ async function main() {
     const r = validateBundle(b);
     for (const i of r.issues) console.error(`  [${i.severity}] ${i.code}: ${i.message}`);
     console.error(r.ok
-      ? `OK — ${b.claims.length} claims · ${b.inferences.length} inferences · ${b.matches.length} matches · ${r.issues.length} warning(s)`
-      : `INVALID — ${r.issues.filter((i) => i.severity === "error").length} error(s)`);
+      ? `OK, ${b.claims.length} claims · ${b.inferences.length} inferences · ${b.matches.length} matches · ${r.issues.length} warning(s)`
+      : `INVALID, ${r.issues.filter((i) => i.severity === "error").length} error(s)`);
     process.exit(r.ok ? 0 : 1);
   }
 
@@ -114,7 +114,7 @@ async function main() {
     const trig = toNanopubTrig(b);
     const out = flags["out"] ?? resolve(process.cwd(), inPath).replace(/\.jsonl?$/, "") + ".trig";
     await writeFile(out, trig, "utf8");
-    console.error(`Wrote ${out} — ${b.claims.length + b.inferences.length} nanopublications`);
+    console.error(`Wrote ${out}, ${b.claims.length + b.inferences.length} nanopublications`);
     return;
   }
 
@@ -146,7 +146,7 @@ async function main() {
     console.error(`  + ${merged.claims.length - existing.claims.length} claims · ${merged.passages.length - existing.passages.length} passages · ${merged.matches.length - existing.matches.length} matches · ${merged.challenges.length - existing.challenges.length} challenges  (extraction: grounded ${est.grounded}, quarantined ${est.quarantined})`);
     if (conclusion && before != null && after != null) {
       const moved = Math.abs(after - before) > 1e-6;
-      console.error(`  ${moved ? "!" : "="} conclusion support: ${(before * 100).toFixed(1)}% → ${(after * 100).toFixed(1)}%${moved ? "" : " (unchanged until re-inference — run `egit infer` to connect the new evidence)"}`);
+      console.error(`  ${moved ? "!" : "="} conclusion support: ${(before * 100).toFixed(1)}% → ${(after * 100).toFixed(1)}%${moved ? "" : " (unchanged until re-inference, run `egit infer` to connect the new evidence)"}`);
     }
     await finish(merged, flags["out"] ?? resolve(process.cwd(), inPath));
     return;
@@ -160,7 +160,7 @@ async function main() {
       live, ...(limit ? { limit } : {}), log: (m) => console.error(m),
     });
     if (result.candidates.length === 0) { console.error("No candidate sources found."); return; }
-    console.error(`\nCandidate sources for “${result.query}” (proposals — nothing admitted; review, then add the ones you trust):\n`);
+    console.error(`\nCandidate sources for “${result.query}” (proposals, nothing admitted; review, then add the ones you trust):\n`);
     for (const c of result.candidates) {
       console.error(`  ${String(c.rank).padStart(2)}. ${c.title}`);
       console.error(`      ${c.url}`);
@@ -259,7 +259,7 @@ async function main() {
   --in / --source-in accept a local file OR an http(s) URL (the URL is recorded as the source link unless
   --url overrides). --scraper native (default, no key) | firecrawl (renders JS/markdown; needs
   FIRECRAWL_API_KEY + --live) | auto. Retrieval fetches a source you name; discover proposes candidates
-  for you to review — neither searches-and-decides for you, and nothing is admitted without an explicit add-source.
+  for you to review, neither searches-and-decides for you, and nothing is admitted without an explicit add-source.
   egit verify        <bundle.jsonl>                # validate schema + provenance + id integrity
   egit export-nanopub <bundle.jsonl> [--out x.trig] # emit Nanopublication TriG
   egit merge   <a.jsonl> <b.jsonl> [--out merged.jsonl]   # content-addressed merge + report`);

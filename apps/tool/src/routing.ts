@@ -4,6 +4,7 @@ import type { Bundle } from "@epistemic-git/protocol";
  * Hash routing with full deep links. Grammar:
  *
  *   #/                                     overview
+ *   #/cases                                all-cases browser
  *   #/case/{caseId}                        case, defaults
  *   #/case/{caseId}?tab={mainTab}          active main tab
  *                  &sel={8hex}             selected node (claim or inference)
@@ -14,8 +15,10 @@ import type { Bundle } from "@epistemic-git/protocol";
  * link degrades instead of erroring when the receiver lacks an imported bundle.
  */
 
-export type MainTab = "argument" | "perspectives" | "challenges" | "relations" | "quarantine";
-const MAIN_TABS: readonly MainTab[] = ["argument", "perspectives", "challenges", "relations", "quarantine"];
+export type MainTab = "argument" | "perspectives" | "challenges" | "connections" | "excluded";
+const MAIN_TABS: readonly MainTab[] = ["argument", "perspectives", "challenges", "connections", "excluded"];
+/** Pre-rename tab ids still accepted in deep links, so older shared URLs keep working. */
+const LEGACY_TABS: Record<string, MainTab> = { relations: "connections", quarantine: "excluded" };
 
 export interface CaseParams {
   tab?: MainTab;
@@ -25,6 +28,7 @@ export interface CaseParams {
 
 export type Route =
   | { screen: "overview" }
+  | { screen: "cases" }
   | { screen: "case"; caseId: string; params?: CaseParams };
 
 export interface ScenarioState {
@@ -68,12 +72,14 @@ export function decodeScenario(code: string, bundle: Bundle): ScenarioState | nu
 }
 
 export function parseHash(hash: string): Route {
+  if (/^#\/cases\/?$/.test(hash)) return { screen: "cases" };
   const m = /^#\/case\/([\w-]+)(?:\?(.*))?$/.exec(hash);
   if (!m?.[1]) return { screen: "overview" };
   const params: CaseParams = {};
   if (m[2]) {
     const q = new URLSearchParams(m[2]);
-    const tab = q.get("tab");
+    const rawTab = q.get("tab");
+    const tab = rawTab ? LEGACY_TABS[rawTab] ?? rawTab : null;
     if (tab && (MAIN_TABS as readonly string[]).includes(tab)) params.tab = tab as MainTab;
     const sel = q.get("sel");
     if (sel && /^[\w-]{1,40}$/.test(sel)) params.sel = sel;
@@ -85,13 +91,14 @@ export function parseHash(hash: string): Route {
 
 export function formatHash(route: Route): string {
   if (route.screen === "overview") return "#/";
+  if (route.screen === "cases") return "#/cases";
   const q = new URLSearchParams();
   const p = route.params ?? {};
   if (p.tab && p.tab !== "argument") q.set("tab", p.tab);
   if (p.sel) q.set("sel", p.sel);
   if (p.scenario) q.set("s", p.scenario);
   const qs = q.toString();
-  // URLSearchParams percent-encodes ~ and . — decode them back for readable scenario codes.
+  // URLSearchParams percent-encodes ~ and . decode them back for readable scenario codes.
   const pretty = qs.replace(/%7E/gi, "~").replace(/%2E/gi, ".");
   return `#/case/${route.caseId}${pretty ? `?${pretty}` : ""}`;
 }

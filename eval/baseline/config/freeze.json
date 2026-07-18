@@ -3,15 +3,15 @@
   "algorithm": "sha256",
   "frozenAt": "2026-07-16T00:00:00.000Z",
   "files": {
-    "config/study.json": "fa117bf98c2868d89002606c220a792b2d71674ec6dde8e125a448620093436f",
-    "config/tasks.json": "d3bd9331b630b6b6d0f195bde580e3a4bb1b512238ae08538a15aa8d9ecdf60f",
-    "prompts/common-artifact.v1.md": "c42a4ebe557db2e34a6499a66489385c9e1df612c5a8eb86712f23c1a7c603fe",
-    "prompts/deep-research.v1.md": "c1bd2b47a5949b46671b28c4dc679b837cfe2179d58924ce5c1a6ed8a6b9e7ef",
-    "prompts/careful-claude-code.v1.md": "25f3beb134b693f99718b78e2c22b2adbe8198d4b609e426cabc36ef07227811",
-    "prompts/epistemic-git.v1.md": "a285581ea520423c58fcdbc15a9d975e1ecd020672c7a827d32d8fbea44aac9a",
-    "schemas/artifact.schema.json": "f168c5e480994fb084037153e2b3e39ab55a32e3720802718b17922ab2fa6faa",
-    "schemas/imports.schema.json": "96133b6cf1ca99d1052c5129909c8b436f9e37725c5788a16d88ac00cef62d43",
-    "schemas/evaluations.schema.json": "5404ddb6baf3cc961be6a227f9cbcb3b7702b37c14f55c5757dedb1474b5a218",
-    "EVALUATOR.md": "e06f31abeb40518159529c43fbb487fca052bc9baae487adede12456279e9e8a"
+    "config/study.json": "71eac699ee59d9ea64cbfeec36d08f39b748a079af6b5e2178e4ac11b42af4ef",
+    "config/tasks.json": "317b1d3f71b5938a0163c1a58abb12234e2baf3b4886b9656a21897ba748918c",
+    "prompts/common-artifact.v1.md": "75e403df4320fb34a03364aba74fcc2b59334d266322a23ca1e36d46b4344545",
+    "prompts/deep-research.v1.md": "08dc703fb5d66576952f5f9e05bbf31ae0b1f62dd88f838860cb5b71c5a0c6e9",
+    "prompts/careful-claude-code.v1.md": "235a9d7d386761b7f94c66d17365d233051dd9cbb65926fecc5824f4ebf55ae5",
+    "prompts/epistemic-git.v1.md": "a197825584f5ccd5dd02a280dc244c2ffea8ab993a4f6d32bb79c5a1ae2aa4ec",
+    "schemas/artifact.schema.json": "15ad2fed6afc0332743446575718706ed6aff5ece46486a17d6436d0f8410042",
+    "schemas/imports.schema.json": "cfd04ac1a6f864d788f963cf3f0bc643ec88d3de2339885f08137e8800ccc5ea",
+    "schemas/evaluations.schema.json": "1a02d8a3043a64e31623e73b9ac4b011fb5a3b805cf9ddf26c74984fdffa1c52",
+    "EVALUATOR.md": "bccdd257b25fa2cde188c4cdc5c4dbf057081cc7c617e1e36848f65acbe3c6ae"
   }
 }

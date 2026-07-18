@@ -25,7 +25,7 @@ function claim(overrides: Record<string, unknown>) {
   };
 }
 
-describe("stage 1 — quote-grounded extraction", () => {
+describe("stage 1, quote-grounded extraction", () => {
   it("grounds a claim whose quote is a verbatim substring and quarantines one that is not", async () => {
     const client = new FakeExtractor({
       claims: [
@@ -79,7 +79,7 @@ describe("stage 1 — quote-grounded extraction", () => {
     expect(text.slice(spans[0]!.start, spans[0]!.end)).not.toContain("balanced diet");
     expect(text.slice(spans[0]!.start, spans[0]!.end)).not.toContain("handwashing");
 
-    // A model that faithfully quotes ALL three sentences — including the injected payload.
+    // A model that faithfully quotes ALL three sentences, including the injected payload.
     const client = new FakeExtractor({
       claims: [
         claim({ statement: "A balanced diet supports health.", quote: "A balanced diet supports health.", intervention: "balanced diet", outcome: "health", modality: "causal" }),
@@ -132,13 +132,13 @@ describe("stage 1 — quote-grounded extraction", () => {
   });
 
   it("locates quotes tolerantly (whitespace runs, typographic quotes/dashes) but stores source bytes", async () => {
-    const text = "The trial — dubbed “PREDIMED” — reduced   cardiovascular\nevents by 28% in adults.";
+    const text = "The trial \u2014 dubbed “PREDIMED” \u2014 reduced   cardiovascular\nevents by 28% in adults.";
 
     // Exact match still wins.
     expect(locateQuote(text, "reduced   cardiovascular\nevents")).toEqual({
       start: text.indexOf("reduced"), end: text.indexOf("events") + "events".length,
     });
-    // Model normalised the whitespace and punctuation — still locates the original span.
+    // Model normalised the whitespace and punctuation, still locates the original span.
     const loc = locateQuote(text, 'The trial - dubbed "PREDIMED" - reduced cardiovascular events by 28% in adults.');
     expect(loc).toBeDefined();
     expect(text.slice(loc!.start, loc!.end)).toBe(text); // matched the full original, source bytes intact
@@ -155,7 +155,7 @@ describe("stage 1 — quote-grounded extraction", () => {
     expect(stats.grounded).toBe(1);
     expect(stats.quarantined).toBe(0);
     const passage = builder.build().passages[0]!;
-    expect(passage.verbatimText).toBe("dubbed “PREDIMED” — reduced   cardiovascular\nevents");
+    expect(passage.verbatimText).toBe("dubbed “PREDIMED” \u2014 reduced   cardiovascular\nevents");
     expect(text.slice((passage.locator as { start: number }).start, (passage.locator as { end: number }).end)).toBe(passage.verbatimText);
   });
 });

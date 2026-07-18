@@ -17,7 +17,7 @@ let dir: string;
 beforeEach(async () => { dir = await mkdtemp(join(tmpdir(), "egit-scrape-")); });
 afterEach(async () => { await rm(dir, { recursive: true, force: true }); });
 
-describe("scrapeUrl — native", () => {
+describe("scrapeUrl, native", () => {
   it("fetches and reduces HTML to readable text", async () => {
     const fetchImpl = async () => res("<html><body><p>Hello world. " + "x".repeat(300) + "</p></body></html>");
     const out = await scrapeUrl("https://example.org/a", { scraper: "native", cacheDir: dir, fetchImpl });
@@ -41,7 +41,7 @@ describe("scrapeUrl — native", () => {
   });
 });
 
-describe("scrapeUrl — firecrawl", () => {
+describe("scrapeUrl, firecrawl", () => {
   const env = { FIRECRAWL_API_KEY: "fc-test" };
 
   it("posts to /v1/search-free scrape endpoint and returns markdown", async () => {

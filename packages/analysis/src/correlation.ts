@@ -1,11 +1,11 @@
 import type { Bundle } from "@epistemic-git/protocol";
 
 /**
- * Deterministic correlation detection — the "counted as independent but isn't" detector.
+ * Deterministic correlation detection, the "counted as independent but isn't" detector.
  *
  * The Rootclaim error is treating evidence that shares a common origin (same dataset, same authors,
  * one paper re-citing another) as if it were independent confirmation. This finds such structure from
- * source metadata alone — no LLM — and returns candidate correlation groups. It stays PURE (no crypto,
+ * source metadata alone (no LLM) and returns candidate correlation groups. It stays PURE (no crypto,
  * no network) so it runs in the browser; the pipeline turns candidates into content-addressed
  * CorrelationGroup nodes (see deriveCorrelationGroups in @epistemic-git/pipeline).
  */
@@ -51,13 +51,13 @@ export function detectCorrelation(bundle: Bundle): CorrelationCandidate[] {
     }
   }
 
-  // shared funding — a declared common funder is a non-independence risk even when authorship and
+  // shared funding, a declared common funder is a non-independence risk even when authorship and
   // dataset differ (co-funded work shares incentives and often infrastructure). Kept explicit: we
   // only union on funders the sources themselves declared, never inferred.
   const funderLinked = new Set<string>();
   const fundersOf = new Map(
     bundle.sources.map((s) => [s.id, new Set((s.reliability?.fundingConflicts ?? []).map((f) => f.toLowerCase().trim()).filter(Boolean))]),
-  );
+);
   for (let i = 0; i < bundle.sources.length; i++) {
     for (let j = i + 1; j < bundle.sources.length; j++) {
       const a = fundersOf.get(bundle.sources[i]!.id)!;
@@ -90,12 +90,12 @@ export function detectCorrelation(bundle: Bundle): CorrelationCandidate[] {
     const titles = groupSources.map((s) => bundle.sources.find((x) => x.id === s)?.title ?? s);
     const sharedOrigin = sharedDataset ? "dataset" : commonAuthors.length ? "author" : sharedFunder ? "funder" : "publication";
     const rationale = sharedDataset
-      ? `Claims drawn from sources sharing the same dataset — not independent evidence.`
+      ? `Claims drawn from sources sharing the same dataset, not independent evidence.`
       : commonAuthors.length
-      ? `Claims from ${groupSources.length} sources by overlapping authors (${commonAuthors.join(", ")}) — not independent evidence: ${titles.map((t) => `"${truncate(t, 40)}"`).join("; ")}.`
+      ? `Claims from ${groupSources.length} sources by overlapping authors (${commonAuthors.join(", ")}) not independent evidence: ${titles.map((t) => `"${truncate(t, 40)}"`).join("; ")}.`
       : sharedFunder
-      ? `Claims from ${groupSources.length} sources sharing a declared funder${commonFunders.length ? ` (${commonFunders.join(", ")})` : ""} — a common funding source is a non-independence risk.`
-      : `Claims from linked sources — treat as correlated, not independent.`;
+      ? `Claims from ${groupSources.length} sources sharing a declared funder${commonFunders.length ? ` (${commonFunders.join(", ")})` : ""}, a common funding source is a non-independence risk.`
+      : `Claims from linked sources, treat as correlated, not independent.`;
 
     candidates.push({ memberKind: "claim", members: claims.map((c) => c.id), sharedOrigin, rationale });
   }
