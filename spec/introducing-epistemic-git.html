@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introducing Epistemic Git</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#ececec; --surface:#ffffff; --surface-2:#f4f4f4; --surface-3:#f7f7f7; --surface-ghost:#f0f0f0;
+    --ink:#171717; --ink-2:#404040; --ink-3:#525252; --muted:#737373; --muted-2:#757575; --faint:#7d7d7d; --placeholder:#a3a3a3;
+    --line:#eeeeee; --line-card:#ededed; --line-control:#e6e6e6; --line-strong:#e0e0e0;
+    --green:#22c55e; --green-text:#16a34a; --green-bg:#dcfce7;
+    --purple:#7c3aed; --purple-bg:#ede9fe;
+    --amber:#a16207; --amber-bg:#fef9c3;
+    --pink:#db2777; --pink-bg:#fce7f3;
+    --yellow:#ffe24d;
+    --sans:"Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono:"Spline Sans Mono", ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body{
+    margin:0; background:var(--canvas); color:var(--ink);
+    font-family:var(--sans); font-weight:400; font-size:10.5pt; line-height:1.62;
+    letter-spacing:-0.006em;
+  }
+
+  /* ---- page model ---- */
+  .page{
+    background:var(--surface); width:8.5in; min-height:11in;
+    margin:24px auto; padding:0.9in 0.95in 0.8in;
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 34px rgba(0,0,0,.10);
+    position:relative; display:flex; flex-direction:column;
+  }
+  .page.cover{ padding:0; overflow:hidden; }
+
+  /* ---- running header / footer ---- */
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:7.6pt; letter-spacing:.02em; color:var(--faint);
+    text-transform:none; padding-bottom:26px; margin-bottom:6px;
+  }
+  .runhead .wm{ color:var(--muted); }
+  .foot{
+    margin-top:auto; padding-top:22px;
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:7.6pt; color:var(--faint); letter-spacing:.02em;
+  }
+  .foot .pg{ color:var(--ink-3); }
+
+  /* ---- section heads ---- */
+  .kicker{ font-family:var(--mono); font-size:8pt; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px; }
+  h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-0.02em; line-height:1.08; }
+  h2.display{ font-size:30pt; font-weight:800; margin:0 0 30px; letter-spacing:-0.032em; }
+  h3.sub{ font-size:15pt; font-weight:700; margin:26px 0 12px; letter-spacing:-0.02em; }
+  p{ margin:0 0 12px; color:var(--ink-2); max-width:64ch; }
+  p.lede{ font-size:11.5pt; color:var(--ink); }
+  strong{ font-weight:700; color:var(--ink); }
+  em{ font-style:italic; }
+  a{ color:var(--ink); text-decoration:none; border-bottom:1.5px solid var(--yellow); }
+
+  /* highlight = the one true accent for "attributed / marked" */
+  mark{ background:linear-gradient(transparent 55%, var(--yellow) 55%); color:var(--ink); padding:0 .04em; }
+  .term{ font-weight:600; color:var(--ink); }
+
+  /* ---- cover ---- */
+  .cover-inner{ flex:1; display:flex; flex-direction:column; padding:0.95in 0.95in 0.85in; }
+  .cover-top{ display:flex; justify-content:space-between; align-items:center; }
+  .brand{ font-weight:800; font-size:12pt; letter-spacing:-0.02em; }
+  .brand .g{ color:var(--purple); }
+  .cover-tag{ font-family:var(--mono); font-size:8pt; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+  .cover-title{ margin-top:1.1in; }
+  .cover-title h1{ font-size:52pt; font-weight:800; letter-spacing:-0.04em; line-height:0.98; }
+  .cover-sub{ font-size:16pt; font-weight:500; color:var(--ink-2); margin-top:20px; letter-spacing:-0.02em; max-width:22ch; }
+  .cover-desc{ font-size:11pt; color:var(--muted-2); margin-top:16px; max-width:52ch; }
+  .cover-meta{ margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; font-family:var(--mono); font-size:9pt; color:var(--ink-3); letter-spacing:.01em; }
+  .cover-meta .authors{ color:var(--ink); font-weight:500; }
+
+  /* cover motif: the provenance chain, one node lit */
+  .motif{ margin-top:44px; padding:26px 0 6px; border-top:1px solid var(--line-strong); }
+  .chain{ display:flex; align-items:center; gap:0; flex-wrap:wrap; }
+  .node{ display:flex; align-items:center; }
+  .node .dot{
+    font-family:var(--mono); font-size:8.5pt; letter-spacing:.02em; color:var(--ink-3);
+    border:1.4px solid var(--line-strong); border-radius:11px; padding:7px 12px; white-space:nowrap; background:var(--surface);
+  }
+  .node .dot.lit{ color:var(--ink); border-color:var(--ink); background:var(--surface); box-shadow:inset 0 -6px 0 var(--yellow); font-weight:600; }
+  .node .arw{ color:var(--placeholder); font-family:var(--mono); padding:0 10px; font-size:10pt; }
+
+  /* ---- pipeline hero (recurring motif) ---- */
+  .pipeline{ display:flex; align-items:stretch; gap:0; margin:6px 0 30px; flex-wrap:wrap; row-gap:10px; }
+  .pstage{ display:flex; align-items:center; }
+  .pstage .lab{
+    font-family:var(--mono); font-size:8pt; letter-spacing:.02em; color:var(--muted);
+    border:1.3px solid var(--line-strong); border-radius:9px; padding:8px 11px; white-space:nowrap; background:var(--surface-3);
+  }
+  .pstage .lab.on{ color:#fff; background:var(--purple); border-color:var(--purple); font-weight:600; }
+  .pstage .sep{ color:var(--placeholder); font-family:var(--mono); padding:0 8px; }
+
+  /* mini stage strip for each step */
+  .ministrip{ display:flex; gap:5px; margin-top:9px; }
+  .ministrip i{ width:16px; height:4px; border-radius:2px; background:var(--line-strong); }
+  .ministrip i.on{ background:var(--purple); }
+
+  /* ---- two-column steps ---- */
+  .steps{ border-top:1px solid var(--line-strong); }
+  .step{ display:grid; grid-template-columns:1.55in 1fr; gap:34px; padding:22px 0; border-bottom:1px solid var(--line); }
+  .step-num{ font-family:var(--mono); font-size:8pt; color:var(--muted); letter-spacing:.06em; margin-bottom:8px; }
+  .step-label{ font-weight:700; font-size:11pt; letter-spacing:-0.015em; }
+  .step-body p{ margin:0; }
+  .step-body p + p{ margin-top:9px; }
+
+  /* ---- callouts ---- */
+  .principle{ margin:26px 0; padding:20px 22px; background:var(--surface-3); border-radius:16px; border:1px solid var(--line-card); }
+  .principle .plab{ font-family:var(--mono); font-size:8pt; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .principle .ptext{ font-size:15pt; font-weight:600; letter-spacing:-0.02em; color:var(--ink); line-height:1.25; }
+
+  .objective{ margin:0 0 26px; padding:20px 22px; border:1px solid var(--line-strong); border-radius:16px; }
+  .objective .olab{ font-weight:700; margin-bottom:8px; }
+  .objective p{ margin:0; }
+
+  .note{ margin:22px 0; padding:16px 18px; background:var(--surface-2); border-radius:14px; font-size:9.7pt; }
+  .note .nlab{ font-family:var(--mono); font-size:7.6pt; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .note p{ margin:0; color:var(--ink-3); }
+
+  /* ---- bullets ---- */
+  ul.clean{ list-style:none; margin:6px 0 14px; padding:0; }
+  ul.clean li{ position:relative; padding-left:20px; margin-bottom:9px; color:var(--ink-2); max-width:62ch; }
+  ul.clean li::before{ content:""; position:absolute; left:2px; top:.62em; width:6px; height:6px; border-radius:2px; background:var(--purple); }
+  ul.clean li b{ color:var(--ink); }
+
+  /* ---- tables ---- */
+  table{ width:100%; border-collapse:collapse; margin:8px 0 20px; font-size:9.6pt; }
+  thead th{ text-align:left; font-weight:700; font-size:8.5pt; letter-spacing:.02em; color:var(--ink); padding:0 14px 9px 0; border-bottom:1.5px solid var(--ink); vertical-align:bottom; }
+  tbody td{ padding:12px 14px 12px 0; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:1px solid var(--line-strong); }
+  td.k{ font-weight:600; color:var(--ink); width:26%; }
+  td.mono, .num{ font-family:var(--mono); font-variant-numeric:tabular-nums; }
+  .chk{ font-family:var(--mono); color:var(--placeholder); white-space:nowrap; line-height:1.9; }
+
+  /* attribution chips */
+  .chip{ display:inline-flex; align-items:center; gap:5px; font-family:var(--mono); font-size:7.4pt; letter-spacing:.03em; padding:3px 8px; border-radius:6px; font-weight:500; }
+  .chip.ai{ background:var(--purple-bg); color:var(--purple); }
+  .chip.human{ background:var(--amber-bg); color:var(--amber); }
+  .chip.src{ background:var(--surface-2); color:var(--ink-3); border:1px solid var(--line-strong); }
+  .chip.sup{ background:var(--green-bg); color:var(--green-text); }
+  .chip.att{ background:var(--pink-bg); color:var(--pink); }
+
+  /* ---- figures ---- */
+  .figure{ margin:20px 0 6px; border:1px solid var(--line-card); border-radius:16px; overflow:hidden; background:var(--surface); }
+  .figbody{ padding:22px 22px 20px; background:var(--surface-3); }
+  .figbody.shot{ padding:16px; }
+  .figimg{ display:block; width:100%; height:auto; border-radius:10px; border:1px solid var(--line-strong); background:#fff; }
+  .figimg.narrow{ max-width:340px; margin:0 auto; }
+  .caption{ padding:12px 18px; border-top:1px solid var(--line-card); font-size:8.6pt; color:var(--muted-2); }
+  .caption b{ font-family:var(--mono); font-weight:600; color:var(--ink-3); font-size:8pt; letter-spacing:.02em; text-transform:uppercase; margin-right:8px; }
+
+  /* support meter */
+  .support{ margin:10px 0; }
+  .support .srow{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+  .support .sname{ font-size:9pt; font-weight:600; color:var(--ink); }
+  .support .sval{ font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:10pt; font-weight:600; color:var(--green-text); }
+  .track{ height:9px; border-radius:5px; background:var(--donut-rest,#e2e2e2); overflow:hidden; }
+  .fill{ height:100%; border-radius:5px; background:linear-gradient(90deg, var(--green) 0%, #16a34a 100%); }
+
+  .cols2{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+
+  .crux{ margin-top:6px; }
+  .crux .cx{ display:flex; align-items:center; gap:12px; margin-bottom:9px; }
+  .crux .cxlab{ font-size:8.6pt; color:var(--ink-2); width:44%; }
+  .crux .cxlab b{ color:var(--ink); }
+  .crux .cxtrack{ flex:1; height:7px; border-radius:4px; background:var(--surface-2); overflow:hidden; }
+  .crux .cxfill{ height:100%; background:var(--ink); border-radius:4px; }
+  .crux .cxfill.soft{ background:var(--placeholder); }
+  .crux .cxpct{ font-family:var(--mono); font-size:8.4pt; color:var(--ink-3); width:38px; text-align:right; }
+
+  /* inspect schematic */
+  .inspect{ display:grid; grid-template-columns:1.35fr 1fr; gap:16px; }
+  .claimcard{ border:1.5px solid var(--ink); border-radius:14px; padding:16px; background:var(--surface); }
+  .claimcard .cc-lab{ font-family:var(--mono); font-size:7.4pt; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .claimcard .cc-claim{ font-size:10.5pt; font-weight:600; color:var(--ink); line-height:1.35; letter-spacing:-0.01em; }
+  .claimcard .cc-quote{ margin-top:12px; padding-left:12px; border-left:2px solid var(--yellow); font-size:8.8pt; color:var(--ink-3); font-style:italic; }
+  .facets{ display:flex; flex-direction:column; gap:8px; }
+  .facet{ border:1px solid var(--line-strong); border-radius:11px; padding:9px 12px; background:var(--surface); }
+  .facet .ft{ font-family:var(--mono); font-size:7.4pt; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  .facet .fv{ font-size:8.8pt; color:var(--ink-2); margin-top:3px; }
+  .chiprow{ display:flex; gap:6px; flex-wrap:wrap; margin-top:4px; }
+
+  .scoped{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:8.4pt; color:var(--ink-3); margin-bottom:14px; }
+  .scoped .tag{ padding:4px 9px; border-radius:7px; background:var(--surface-2); border:1px solid var(--line-strong); color:var(--ink-2); }
+
+  /* closing couplet */
+  .couplet{ margin:34px 0 6px; padding-top:26px; border-top:1px solid var(--line-strong); }
+  .couplet p{ font-size:17pt; font-weight:600; letter-spacing:-0.025em; line-height:1.3; color:var(--ink); max-width:none; margin:0; }
+  .couplet p.second{ margin-top:4px; }
+
+  /* references */
+  .refs{ font-size:8.7pt; line-height:1.5; }
+  .refs p{ color:var(--ink-3); margin:0 0 10px; padding-left:22px; text-indent:-22px; max-width:none; }
+  .refs a{ border-bottom:none; color:var(--muted); word-break:break-word; }
+
+  .lead-in{ font-size:8.8pt; color:var(--muted-2); font-style:italic; margin:-4px 0 16px; }
+
+  /* ---- print ---- */
+  @page{ size:Letter; margin:0; }
+  @media print{
+    body{ background:#fff; }
+    .page{ margin:0; box-shadow:none; width:auto; min-height:auto; padding:0.72in 0.8in 0.6in; page-break-after:always; }
+    .page.cover{ padding:0; }
+    .page:last-child{ page-break-after:auto; }
+    .figure, .step, .principle, table, .couplet, .objective{ break-inside:avoid; }
+    tr{ break-inside:avoid; }
+  }
+  @media screen and (max-width:900px){
+    .page{ width:100%; padding:7% 6%; }
+    h2.display{ font-size:24pt; }
+    .cover-title h1{ font-size:38pt; }
+    .step{ grid-template-columns:1fr; gap:8px; }
+    .cols2,.inspect{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <div class="cover-inner">
+    <div class="cover-top">
+      <div class="brand">Epistemic&nbsp;<span class="g">Git</span></div>
+      <div class="cover-tag">White paper · v1.0</div>
+    </div>
+
+    <div class="cover-title">
+      <h1>Introducing<br>Epistemic Git</h1>
+      <div class="cover-sub">Track how knowledge changes, not just what it says.</div>
+      <div class="cover-desc">An AI-assisted workflow and open protocol for building transparent, traceable, and contestable knowledge.</div>
+    </div>
+
+    <div class="motif">
+      <div class="chain">
+        <div class="node"><span class="dot">Source</span><span class="arw">&rarr;</span></div>
+        <div class="node"><span class="dot">Quote</span><span class="arw">&rarr;</span></div>
+        <div class="node"><span class="dot lit">Claim</span><span class="arw">&rarr;</span></div>
+        <div class="node"><span class="dot">Reasoning</span><span class="arw">&rarr;</span></div>
+        <div class="node"><span class="dot">Conclusion</span></div>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      <div class="authors">Oluwaseyi Oso &nbsp;·&nbsp; Oluwaseun Oso</div>
+      <div>July 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>v1.0</span></div>
+  <p class="kicker">Executive Summary</p>
+  <h2 class="display">Preserve the process,<br>not just the answer.</h2>
+
+  <p class="lede">Research is rarely limited by a lack of information. More often, it is limited by the difficulty of understanding how evidence fits together, why experts disagree, and what changed when new evidence appeared.</p>
+
+  <p>Today's AI systems are remarkably good at producing answers. They are far less effective at preserving the process that produced those answers. Once an investigation is compressed into a polished summary, much of its value disappears. It becomes difficult to inspect the reasoning, revisit individual claims, merge work with collaborators, or understand why one conclusion replaced another. <strong>Epistemic Git was built to preserve that process.</strong></p>
+
+  <p>It combines AI, deterministic analysis, and human judgement into a single workflow for building knowledge that remains inspectable over time. AI performs the labour-intensive work of extracting evidence, proposing claims, reconstructing reasoning, identifying weaknesses, and connecting related ideas. Deterministic algorithms validate structure, calculate support, detect shared-origin evidence, compare competing perspectives, and preserve complete version histories. Researchers remain responsible for reviewing evidence, making judgements, and deciding what to trust.</p>
+
+  <p>Rather than producing another answer, Epistemic Git produces a living record of an investigation. Every claim remains connected to the evidence behind it. Every challenge remains attached to the reasoning it questions. Every revision becomes part of the history instead of replacing it. Different interpretations can coexist within the same evidence base, making disagreement something to examine rather than something to erase.</p>
+
+  <p>This paper introduces the ideas behind Epistemic Git, explains the workflow that powers it, demonstrates the system through three case studies, and discusses both its current capabilities and its limitations. Our contribution is not another AI model. It is a practical framework for building research that can be inspected, challenged, updated, and shared without losing the reasoning that made it trustworthy.</p>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">01</span></div>
+</section>
+
+<!-- ============ THE PROBLEM ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>The Problem</span></div>
+  <p class="kicker">01 · The Problem</p>
+  <h2 class="display">A final answer is a poor<br>way to preserve research.</h2>
+
+  <p>Ask a modern AI research assistant a difficult question and you'll usually get a polished answer. It may include a clear conclusion, a few caveats, and a list of citations. Sometimes that's exactly what you need. But research rarely ends with the first answer.</p>
+
+  <p>Come back to the same investigation a week later and new questions begin to appear. Which exact passage in the seventh paper supports this claim? Which conclusions came directly from the evidence, and which were introduced by the AI or the researcher? Did two seemingly independent studies actually rely on the same dataset? If another researcher reaches a different conclusion, can those two investigations be compared without one silently replacing the other? And when new evidence appears, can we see not only what changed, but why it changed? In most cases, the answer is no.</p>
+
+  <p>Once an investigation has been compressed into a polished summary, much of the work that produced it disappears. The citations remain, but the reasoning, the uncertainty, the disagreements, and the path from evidence to conclusion become difficult to recover. This is not simply a writing problem. It is a representation problem.</p>
+
+  <p>A final answer is an excellent way to communicate a conclusion, but a poor way to preserve an investigation. It cannot easily be inspected, challenged, updated, merged with another investigation, or reused piece by piece. Research needs something more durable than a verdict. It needs a living record of how knowledge was built.</p>
+
+  <p>The Future of Life Foundation frames trustworthy AI research as three connected responsibilities: ingestion, structure, and assessment (Future of Life Foundation, 2026). Epistemic Git adopts that foundation and adds a fourth: <mark>history</mark>. It preserves not only what an investigation concludes today, but how those conclusions evolved over time.</p>
+
+  <h3 class="sub">From one citation question to five research questions</h3>
+  <p>Traditional citations answer one important question: where did this statement come from? Epistemic Git extends that idea by preserving the information researchers actually need as an investigation evolves.</p>
+
+  <table>
+    <thead><tr><th style="width:38%">What a researcher wants to know</th><th>What Epistemic Git preserves</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Where did this claim come from?</td><td>The original source, exact supporting quote, location in the source, and a fingerprint of the source version.</td></tr>
+      <tr><td class="k">What supports this claim today?</td><td>The reasoning, supporting evidence, assumptions, and their current contribution.</td></tr>
+      <tr><td class="k">How has this changed?</td><td>A complete version history with comparisons between recorded states.</td></tr>
+      <tr><td class="k">Why did it change?</td><td>The evidence, challenges, updates, or merges that changed the conclusion.</td></tr>
+      <tr><td class="k">Where do researchers disagree?</td><td>Separate perspectives over the same evidence, together with a ranked explanation of the disagreement.</td></tr>
+    </tbody>
+  </table>
+
+  <p>Traditional citations remain essential. Epistemic Git does not replace established citation standards such as APA. Instead, it extends them. When a researcher selects <span class="term">Cite this Claim</span>, the system generates a standard scholarly citation alongside a richer evidence record containing the supporting quotes, reasoning path, support breakdown, and recorded disagreements. A citation tells us where a statement came from. Epistemic Git helps us understand why that statement is currently believed.</p>
+
+  <div class="principle">
+    <div class="plab">Design Principle</div>
+    <div class="ptext">Preserve the evidence, <mark>not just the answer</mark>.</div>
+  </div>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">02</span></div>
+</section>
+
+<!-- ============ WORKFLOW ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>The Workflow</span></div>
+  <p class="kicker">02 · Why Current AI Workflows Fall Short</p>
+  <h2 class="display">Give AI the repetitive work.<br>Leave judgement to people.</h2>
+
+  <p>Research is rarely limited by a shortage of ideas. More often, it is limited by the time it takes to find relevant evidence, extract claims accurately, compare competing findings, reconstruct arguments, and keep uncertainty attached to the places where it belongs. These are exactly the kinds of tasks AI can help with, provided its role is clearly defined. Epistemic Git uses AI to assist with the work that is repetitive, time-consuming, and difficult to scale. It leaves judgement, interpretation, and final decisions to researchers.</p>
+
+  <p class="lead-in">The workflow follows eight stages, each producing structured information that can be inspected, challenged, and reused.</p>
+  <div class="pipeline">
+    <div class="pstage"><span class="lab">Documents</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Extract</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Connect</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Reconstruct</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Cross-examine</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Update</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Merge</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab">Case</span></div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div>
+        <div class="step-num">STAGE 01</div>
+        <div class="step-label">Extract claims from evidence</div>
+        <div class="ministrip"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="step-body"><p>The workflow begins with the source itself. AI identifies individual claims and links each one to the exact quotation that supports it. Where appropriate, it also records details such as the population, intervention, comparator, outcome, timeframe, modality, and magnitude. If a proposed claim cannot be traced back to a supporting quotation, it is not accepted as evidence. Instead, it is placed in <span class="term">Excluded</span>, together with a clear explanation of why it was rejected.</p></div>
+    </div>
+    <div class="step">
+      <div>
+        <div class="step-num">STAGE 02</div>
+        <div class="step-label">Connect related claims</div>
+        <div class="ministrip"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="step-body"><p>Research rarely says the same thing twice. Two studies may appear similar while answering different questions. Others may genuinely support, contradict, narrow, broaden, or complement one another. Epistemic Git records these relationships explicitly instead of collapsing them into a single statement. The claims "Eggs increase cardiovascular risk," "Eating more than one egg per day is associated with higher mortality among adults with diabetes," and "Replacing refined carbohydrates with eggs may reduce cardiovascular risk" describe different relationships. Treating them as identical would erase important scientific context.</p></div>
+    </div>
+    <div class="step">
+      <div>
+        <div class="step-num">STAGE 03</div>
+        <div class="step-label">Reconstruct the reasoning</div>
+        <div class="ministrip"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="step-body"><p>Evidence alone does not explain why a conclusion follows. The AI proposes the reasoning that connects premises to conclusions, while recording who proposed each step, the assumptions it depends on, the strength of the reasoning, and the conditions under which it would no longer hold. The system proposes reasoning. It does not declare truth.</p></div>
+    </div>
+    <div class="step">
+      <div>
+        <div class="step-num">STAGE 04</div>
+        <div class="step-label">Challenge the reasoning</div>
+        <div class="ministrip"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div>
+      </div>
+      <div class="step-body"><p>Every investigation should be able to challenge itself. Epistemic Git automatically looks for common reasoning failures, including unsupported claims, scope drift, correlation presented as causation, missing qualifications, non-independent evidence, circular citations, superseded findings, and invalid logical steps. Every challenge must point to a specific claim, reasoning step, or missing piece of evidence. Nothing is criticised in the abstract.</p></div>
+    </div>
+    <div class="step">
+      <div>
+        <div class="step-num">STAGE 05</div>
+        <div class="step-label">Update without losing history</div>
+        <div class="ministrip"><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div>
+      </div>
+      <div class="step-body"><p>Research changes over time. New evidence may strengthen a conclusion, weaken it, or change it completely. Instead of replacing earlier work, Epistemic Git records what changed, why it changed, and how the supporting evidence evolved. Earlier versions remain available, making the investigation a continuous history rather than a sequence of disconnected files.</p></div>
+    </div>
+    <div class="step">
+      <div>
+        <div class="step-num">STAGE 06</div>
+        <div class="step-label">Merge investigations</div>
+        <div class="ministrip"><i></i><i></i><i></i><i></i><i></i><i class="on"></i></div>
+      </div>
+      <div class="step-body"><p>Different researchers often investigate the same question independently. Epistemic Git identifies objects by their content rather than by where they were created. Matching claims merge automatically. New evidence is preserved. Conflicting interpretations remain visible instead of being silently overwritten. The result is a shared evidence base that can grow without forcing agreement.</p></div>
+    </div>
+  </div>
+
+  <div class="objective" style="margin-top:26px">
+    <div class="olab">Keeping responsibilities clear</div>
+    <p>AI reads documents, proposes claims, connects related ideas, reconstructs reasoning, identifies weaknesses, and explains results. Deterministic algorithms validate records, calculate support, detect shared-origin evidence, compare perspectives, preserve version history, and merge investigations. Researchers choose sources, review every proposal, interpret the evidence, and decide what should ultimately be trusted. AI accelerates research, but it never becomes the final authority.</p>
+    <div class="chiprow" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap">
+      <span class="chip ai">AI · proposes</span>
+      <span class="chip src">Deterministic · verifies</span>
+      <span class="chip human">Researcher · decides</span>
+    </div>
+  </div>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">03</span></div>
+</section>
+
+<!-- ============ THE SOLUTION ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>The Solution</span></div>
+  <p class="kicker">03 · The Solution</p>
+  <h2 class="display">Not a report.<br>A living record.</h2>
+
+  <p>The outcome of this workflow is not a report. It is a structured record of an investigation that can continue to grow over time. In Epistemic Git, every investigation is stored as a <span class="term">Case</span>. A case brings together everything needed to understand a research question: its sources, supporting quotes, claims, reasoning, challenges, perspectives, history, and excluded proposals. Internally this object is called a Bundle. Researchers never need to think about that name; it exists for the protocol, not for the user.</p>
+
+  <p class="lead-in">At its simplest, every investigation follows the same path.</p>
+  <div class="pipeline">
+    <div class="pstage"><span class="lab on">Source</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Quote</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Claim</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Reasoning Step</span><span class="sep">&rarr;</span></div>
+    <div class="pstage"><span class="lab on">Conclusion</span></div>
+  </div>
+
+  <p>Around that chain sit four additional types of information that preserve the context of an investigation:</p>
+  <ul class="clean">
+    <li><b>Challenges</b>, which record objections at the exact point where they apply.</li>
+    <li><b>Perspectives</b>, which capture different interpretations of the same evidence.</li>
+    <li><b>Connections</b>, which describe how claims relate to one another or reveal shared origins.</li>
+    <li><b>Excluded Proposals</b>, which preserve ideas the workflow rejected instead of silently discarding them.</li>
+  </ul>
+
+  <h3 class="sub">Claims preserve scientific meaning</h3>
+  <p>A claim is more than a sentence. Scientific conclusions often depend on details such as the population being studied, the intervention, the comparator, the outcome, the timeframe, the modality, and the magnitude of an effect. Epistemic Git stores these details as structured information so that claims which sound similar, but answer different questions, remain distinct. The extraction process is more demanding, but the resulting knowledge base is far more precise.</p>
+
+  <h3 class="sub">Reasoning is part of the evidence</h3>
+  <p>Evidence alone does not explain a conclusion. Someone must argue that certain premises justify a particular claim. For that reason, every reasoning step records who proposed it, why the premises support the conclusion, which assumptions it depends on, and under what conditions that reasoning should no longer be trusted. This extends Toulmin's model of argument from a way of describing reasoning into a structure that software can inspect and preserve (Toulmin, 1958).</p>
+
+  <h3 class="sub">Judgement belongs to the reader</h3>
+  <p>Accepting a claim is not a property of the claim itself. It is a property of the person interpreting it. Epistemic Git separates evidence from judgement by storing decisions inside <span class="term">Perspectives</span> rather than inside claims. Different researchers can therefore share the same evidence, quotations, and reasoning while reaching different conclusions. Within the protocol this layer is called an Overlay. Inside the product it simply appears as a Perspective.</p>
+
+  <h3 class="sub">Identity follows content</h3>
+  <p>Every durable object receives a <span class="term">SHA-256</span> identifier generated from the information that defines it. Changing incidental details, such as who imported it or when, does not create a new identity. Only changing the content itself does. This approach follows the tradition of content-addressed systems such as Merkle structures and IPFS (Merkle, 1988; Benet, 2014). It allows independently created investigations to merge naturally without requiring a central database or a single owner.</p>
+
+  <h3 class="sub">Every contribution remains attributable</h3>
+  <p>Every claim, reasoning step, connection, challenge, and explanation records where it came from. Some originate directly from source material. Some are proposed by AI. Others are created or edited by researchers. Keeping those contributions separate makes every part of an investigation traceable and open to review. This idea builds on earlier work in argument mapping and nanopublications (Groth et al., 2010; Kunz &amp; Rittel, 1970). The individual ideas are not all new. Their integration is. The result is one shared evidence base, multiple explicit interpretations, and a version history that allows knowledge to evolve without erasing disagreement.</p>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">04</span></div>
+</section>
+
+<!-- ============ DISAGREEMENT ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>Explaining Disagreement</span></div>
+  <p class="kicker">04 · How Epistemic Git Explains Disagreement</p>
+  <h2 class="display">Not which side is right.<br>What drives the disagreement.</h2>
+
+  <p>Most research tools can tell you what different people believe. Very few can explain why they disagree. Because evidence, reasoning, and judgement are stored separately, Epistemic Git can compare different interpretations of the same investigation without forcing them into a single conclusion. Rather than asking which perspective is "correct," it asks a more useful question: what exactly is driving the disagreement?</p>
+
+  <h3 class="sub">Measuring support</h3>
+  <p>For any selected perspective, Epistemic Git calculates how strongly the available evidence supports a claim. Support is built from the structure of the investigation itself. Independent lines of evidence each strengthen a conclusion without guaranteeing it. Premises that must all be true are evaluated together. Recorded challenges reduce support. Each reasoning step is weighted according to its declared strength and by what the active perspective accepts or questions. The result is shown as <mark>Support, not Confidence</mark>. Support describes how well a conclusion is backed by the current evidence and reasoning within the investigation. It is not presented as the probability that a claim is objectively true.</p>
+
+  <h3 class="sub">Avoiding double-counted evidence</h3>
+  <p>Multiple papers do not always represent multiple pieces of evidence. Different publications may analyse the same dataset, repeat the same experiment, share authorship, or rely on a common source. Treating these as independent can create the false impression that a conclusion is more strongly supported than it really is. Epistemic Git identifies these relationships as <span class="term">shared-origin evidence</span>. When the researcher enables <span class="term">Don't double-count shared evidence</span>, the system treats related evidence as a single line of support instead of counting every appearance separately. This turns a common research warning into an enforceable rule.</p>
+
+  <h3 class="sub">Finding the real disagreement</h3>
+  <p>Researchers often disagree without disagreeing about everything. Two perspectives may accept the same evidence but interpret one key assumption differently. Epistemic Git compares those perspectives one difference at a time. For each disputed judgement, the system temporarily substitutes one perspective's decision for the other's, recalculates the result, and measures how much the disagreement changes. Ranking those changes reveals the <span class="term">crux</span>: the unresolved point that contributes most to the disagreement. Resolving it would bring the two interpretations closer together than resolving any other single issue.</p>
+
+  <div class="figure">
+    <div class="figbody shot">
+      <img class="figimg" src="img/whitepaper-perspectives.png" alt="Perspectives tab comparing Mainstream physics consensus at 91.5% against Concerned skeptic at 57.0%, a 34.5% gap, with the white-dwarf and neutron-star survival argument ranked as 39.8% of the gap.">
+    </div>
+    <div class="caption"><b>Figure 1</b>The Perspectives view compares different interpretations of the same evidence and identifies the crux driving their disagreement. Here, mainstream consensus (91.5%) and a concerned skeptic (57.0%) differ by a 34.5% gap, of which the stellar-survival argument accounts for 39.8%.</div>
+  </div>
+
+  <h3 class="sub">Case study: Large Hadron Collider safety</h3>
+  <p>At first glance the debate appears to depend almost entirely on Hawking radiation, the most widely discussed part of the safety argument. The structural analysis tells a different story. The investigation contains two largely independent lines of evidence. The first is theoretical: microscopic black holes should evaporate through Hawking radiation before they can grow (Hawking, 1975). The second is empirical: naturally occurring cosmic-ray collisions have exposed Earth, white dwarfs, and neutron stars to even higher-energy collisions for billions of years, yet those objects still exist (Ellis et al., 2008; Giddings &amp; Mangano, 2008). When the Hawking-radiation premise is removed, support decreases only from 91.5% to 87.8%. The comparison shows the stellar-survival argument explains roughly 40% of the disagreement, while the Hawking-radiation premise accounts for about 11%. Epistemic Git reveals the evidence that quietly carries the conclusion, even when it receives far less attention.</p>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">05</span></div>
+</section>
+
+<!-- ============ WORKING PRODUCT ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>Working Product</span></div>
+  <p class="kicker">05 · From Workflow to Working Product</p>
+  <h2 class="display">Navigate the reasoning,<br>not the files.</h2>
+
+  <p>A workflow is only useful if researchers can use it without learning a new way of thinking. Epistemic Git was designed around the questions researchers naturally ask during an investigation, not around the internal structure of the protocol. The interface hides implementation details and instead guides users through the evidence as they build, inspect, and challenge a case.</p>
+
+  <p>The application begins with the research question, followed by <span class="term">Current Support</span>, which reflects the active Perspective. From there, the interface is organised around five simple questions:</p>
+
+  <table>
+    <thead><tr><th style="width:34%">The question a researcher asks</th><th>Where the interface answers it</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Why does this conclusion hold?</td><td class="mono">Argument</td></tr>
+      <tr><td class="k">Where do interpretations diverge?</td><td class="mono">Perspectives</td></tr>
+      <tr><td class="k">What reasons are there to doubt this?</td><td class="mono">Challenges</td></tr>
+      <tr><td class="k">Which evidence belongs together?</td><td class="mono">Connections</td></tr>
+      <tr><td class="k">What was rejected, and why?</td><td class="mono">Excluded</td></tr>
+    </tbody>
+  </table>
+
+  <p>Selecting a claim opens <span class="term">Inspect</span>, where every important detail remains attached to the same object: its source, supporting quotes, reasoning, related claims, history, recorded challenges, and competing perspectives. The interface deliberately uses familiar language so that researchers can understand the investigation without first understanding the protocol.</p>
+
+  <div class="figure">
+    <div class="figbody shot">
+      <img class="figimg narrow" src="img/whitepaper-inspect.png" alt="Inspect panel for the claim that LHC collisions pose no credible danger, marked Human-authored and predictive, with support at 91.5%, a modality and outcome row, and the Where it came from section tracing to nine quote-backed claims.">
+    </div>
+    <div class="caption"><b>Figure 2</b>The Inspect panel keeps evidence, reasoning, attribution, explanation, and disagreement connected to every claim. This conclusion is Human-authored, holds at 91.5% support, and traces down to nine quote-backed claims.</div>
+  </div>
+
+  <p>AI appears only where it accelerates research without replacing judgement. It proposes weaknesses for review, produces grounded summaries from deterministic analyses, answers questions using only evidence contained within the current case, and can draft a Perspective that researchers remain responsible for reviewing and saving. In every instance, AI assists the investigation but never becomes the final authority. Git inspired the underlying principles of identity, history, branching, and merging; the product translates those ideas into language that feels natural to researchers rather than software developers.</p>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">06</span></div>
+</section>
+
+<!-- ============ EVALUATION ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>Evaluation</span></div>
+  <p class="kicker">06 · Evaluation and Validation</p>
+  <h2 class="display">Subject the system to<br>its own scrutiny.</h2>
+
+  <p>A system designed to expose unsupported reasoning should itself be subjected to the same level of scrutiny. Epistemic Git includes an adversarial evaluation suite in which deliberately planted failures pass through the same extract, connect, reconstruct, and challenge workflow used for ordinary investigations. The objective is not to prove the system cannot fail, but to verify that common reasoning failures are detected, attributed, or preserved in ways that remain open to inspection.</p>
+
+  <table>
+    <thead><tr><th style="width:46%">Planted failure</th><th>Expected behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Prompt injection embedded in source text</td><td>Reject the instruction while preserving legitimate claims nearby</td></tr>
+      <tr><td class="k">Correlation presented as causation</td><td>Preserve the observational wording and challenge the causal leap</td></tr>
+      <tr><td class="k">Shared datasets counted twice</td><td>Record a shared origin instead of treating the evidence as independent</td></tr>
+      <tr><td class="k">Scope, population, or timeframe drift</td><td>Keep materially different claims separate</td></tr>
+      <tr><td class="k">Misleading abstract</td><td>Ground claims in the source itself and retain qualifications</td></tr>
+      <tr><td class="k">Review counted with its primary study</td><td>Detect dependency between the sources</td></tr>
+      <tr><td class="k">Quote taken out of context</td><td>Reject the misleading extraction</td></tr>
+      <tr><td class="k">Later correction or retraction</td><td>Preserve the earlier record while marking it as superseded</td></tr>
+      <tr><td class="k">Unsupported consensus claim</td><td>Exclude the unsupported assertion</td></tr>
+      <tr><td class="k">Narrow study generalised too broadly</td><td>Challenge the inappropriate generalisation</td></tr>
+    </tbody>
+  </table>
+
+  <p>The committed regression suite records all ten planted failures as successfully detected. This result applies only to the defined evaluation suite and should not be interpreted as evidence of general robustness. Its purpose is to demonstrate that the workflow behaves consistently against known failure modes while creating a permanent record of both failures and fixes.</p>
+
+  <p>One example illustrates the approach. During development, a prompt injection hidden inside a source document was incorrectly accepted as a normal claim. Rather than removing this mistake from the project's history, it became part of the regression suite. A deterministic extraction-stage defence now excludes claims originating from marked injection regions while preserving legitimate evidence from the same document. The earlier failure remains visible, because improving an epistemic system should never require rewriting its own history.</p>
+
+  <div class="note">
+    <div class="nlab">On what we do not yet claim</div>
+    <p>Before collecting results, we froze the design of a comparative evaluation spanning three research workflows, seven research tasks, and seven assessment measures. The benchmark has been specified, but the external runs, expert reviews, and human evaluation have not yet been completed. We therefore do not claim superior research performance, improved user reasoning, expert endorsement, or calibrated accuracy beyond the evidence presented here. Leaving an empty result empty is not a matter of modesty; it is part of the epistemic method.</p>
+  </div>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">07</span></div>
+</section>
+
+<!-- ============ CASE STUDIES ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>Case Studies</span></div>
+  <p class="kicker">07 · Case Studies</p>
+  <h2 class="display">One representation.<br>Three kinds of question.</h2>
+
+  <p>A workflow for trustworthy knowledge should not succeed only on one type of question. To evaluate its generality, Epistemic Git was applied to three deliberately different investigations: a technically settled scientific question, a live scientific dispute, and an everyday health question whose apparent simplicity hides substantial ambiguity.</p>
+
+  <table>
+    <thead><tr><th style="width:18%">Case</th><th style="width:32%">Why it was chosen</th><th>What the workflow reveals</th></tr></thead>
+    <tbody>
+      <tr><td class="k">LHC black holes<br><span class="num" style="font-weight:400;color:var(--green-text);font-size:8.4pt">91.5% support</span></td><td>A technically complex question widely regarded as settled</td><td>Two independent safety arguments, shared-origin evidence, and a crux showing that the empirical argument contributes more than the widely discussed Hawking-radiation premise.</td></tr>
+      <tr><td class="k">COVID-19 origins<br><span class="num" style="font-weight:400;color:var(--green-text);font-size:8.4pt">61.8% support</span></td><td>A live scientific disagreement built on overlapping evidence</td><td>Competing perspectives over a shared evidence base, contradictory claims, and a qualitative crux rather than a manufactured probability.</td></tr>
+      <tr><td class="k">Eggs and heart health<br><span class="num" style="font-weight:400;color:var(--green-text);font-size:8.4pt">46.6% support</span></td><td>A familiar question that is often asked too broadly</td><td>How population, dose, comparator, outcome, and study design change the answer instead of producing a single universal conclusion.</td></tr>
+    </tbody>
+  </table>
+
+  <p>The <strong>LHC</strong> investigation demonstrates that the most visible argument is not always the one carrying the conclusion. Structural analysis shows that the empirical evidence from naturally occurring cosmic-ray collisions contributes more to the overall safety case than the widely discussed Hawking-radiation argument.</p>
+  <p>The <strong>COVID-19</strong> investigation demonstrates that opposing interpretations do not require separate databases. Researchers with different views can share the same sources, claims, and reasoning while expressing different perspectives over a common evidence base. The workflow identifies the assumptions driving their disagreement without pretending to calculate the probability of a contested historical event.</p>
+  <p>The <strong>eggs</strong> investigation shows that many everyday research questions are underspecified rather than controversial. Rather than averaging conflicting findings into a single answer, Epistemic Git preserves those distinctions as part of the investigation.</p>
+
+  <p>Together, these case studies support a single claim: the representation is flexible enough to organise settled questions, active scientific disagreements, and ambiguous everyday research within the same workflow. They do not demonstrate that the system scales to every discipline or every evidence base, and we make no such claim.</p>
+
+  <div class="figure">
+    <div class="figbody shot">
+      <img class="figimg" src="img/whitepaper-cases.png" alt="Cases overview listing three investigations: LHC black holes at 91.5% support with 11 claims and 3 challenges, COVID origins at 61.8% with 15 claims and 6 challenges, and Eggs and heart health at 46.6% with 62 claims and 5 challenges. Each shows two perspectives.">
+    </div>
+    <div class="caption"><b>Figure 3</b>Support is always calculated within a case and from a selected Perspective; it is never a free-floating measure of truth. Across the three studies it reads 91.5% (LHC), 61.8% (COVID), and 46.6% (eggs), each over a shared evidence base with two perspectives.</div>
+  </div>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">08</span></div>
+</section>
+
+<!-- ============ LIMITATIONS + CONCLUSION ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>Limitations &amp; Conclusion</span></div>
+  <p class="kicker">08 · Limitations and Future Work</p>
+  <h2 class="display">Make reasoning transparent,<br>not uncertainty disappear.</h2>
+
+  <p>The current prototype demonstrates a practical workflow for preserving evidence, reasoning, disagreement, and history, but several important challenges remain.</p>
+  <ul class="clean">
+    <li><b>AI-generated structure is still fallible.</b> Exact quotations constrain hallucination, yet they do not guarantee that claims are correctly extracted, relationships accurately identified, or reasoning steps logically sound. Human review remains essential rather than a temporary safeguard.</li>
+    <li><b>Deterministic analysis is not objective truth.</b> Measures such as support depend on explicit assumptions, including reasoning strengths and perspective judgements. Deterministic computation makes those assumptions visible and reproducible, but cannot remove them.</li>
+    <li><b>Genuine independence is hard to establish.</b> Shared datasets, authorship, citations, and funding relationships reveal some dependencies, but others remain hidden. Improving evidence-lineage analysis is an important direction for future work.</li>
+    <li><b>Security remains active.</b> Although the extraction pipeline detects the prompt-injection attacks in the regression suite, new attack strategies will continue to emerge. Strengthening source ingestion, provenance-aware parsing, and adversarial testing remains an ongoing priority.</li>
+  </ul>
+  <p>The present evaluation is intentionally limited. The most important remaining question is not whether the system functions, but whether researchers using Epistemic Git produce more reliable, better-supported, and more transparent investigations than existing workflows. Future work will focus on completing those evaluations, expanding evidence-lineage detection, improving interoperability, strengthening collaborative workflows, and testing the protocol on larger, independently developed knowledge bases. The guiding principle will remain unchanged: AI may assist every stage of an investigation, but every conclusion must remain attributable, challengeable, and ultimately subject to human judgement.</p>
+
+  <p class="kicker" style="margin-top:30px">Conclusion</p>
+  <p>Research rarely fails because there are too few answers. More often, it fails because the path from evidence to conclusion is difficult to inspect, difficult to challenge, and difficult to continue. Epistemic Git proposes a different approach. Rather than treating a conclusion as the final product of research, it preserves the evidence, reasoning, disagreement, and history that produced it. The contribution of this work is not simply another AI research assistant. It is a workflow and open protocol for building knowledge that can be inspected, challenged, merged, and revised without losing the reasoning that made it defensible in the first place.</p>
+
+  <div class="couplet">
+    <p>A citation tells us where a statement came from.</p>
+    <p class="second">Epistemic Git preserves <mark>how it came to be believed</mark>.</p>
+  </div>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">09</span></div>
+</section>
+
+<!-- ============ REFERENCES ============ -->
+<section class="page">
+  <div class="runhead"><span class="wm">Introducing Epistemic Git</span><span>References</span></div>
+  <p class="kicker">References</p>
+  <h2 class="display" style="font-size:24pt; margin-bottom:22px">References</h2>
+  <div class="refs">
+    <p>Alexander, S. (2024, March). Practically-a-book-review: Rootclaim $100,000 lab leak debate. <em>Astral Codex Ten.</em> https://www.astralcodexten.com/p/practically-a-book-review-rootclaim</p>
+    <p>Benet, J. (2014). IPFS: Content addressed, versioned, P2P file system (arXiv:1407.3561). arXiv. https://doi.org/10.48550/arXiv.1407.3561</p>
+    <p>Débarre, F., &amp; Worobey, M. (2024a). Confirmation of the centrality of the Huanan market among early COVID-19 cases (arXiv:2403.05859). arXiv. https://doi.org/10.48550/arXiv.2403.05859</p>
+    <p>Débarre, F., &amp; Worobey, M. (2024b). No evidence of systematic proximity ascertainment bias in early COVID-19 cases: Reply to Weissman (arXiv:2405.08040). arXiv. https://doi.org/10.48550/arXiv.2405.08040</p>
+    <p>Ellis, J., Giudice, G., Mangano, M., Tkachev, I., Wiedemann, U., &amp; LHC Safety Assessment Group. (2008). Review of the safety of LHC collisions. <em>Journal of Physics G: Nuclear and Particle Physics, 35</em>(11), 115004. https://doi.org/10.1088/0954-3899/35/11/115004</p>
+    <p>Future of Life Foundation. (2026). Lab leaks, black holes, and eggs: Epistemic case study competition [Competition brief].</p>
+    <p>Giddings, S. B., &amp; Mangano, M. L. (2008). Astrophysical implications of hypothetical stable TeV-scale black holes (arXiv:0806.3381). arXiv. https://doi.org/10.48550/arXiv.0806.3381</p>
+    <p>Groth, P., Gibson, A., &amp; Velterop, J. (2010). The anatomy of a nanopublication. <em>Information Services &amp; Use, 30</em>(1-2), 51-56. https://doi.org/10.3233/ISU-2010-0613</p>
+    <p>Hawking, S. W. (1975). Particle creation by black holes. <em>Communications in Mathematical Physics, 43</em>(3), 199-220. https://doi.org/10.1007/BF02345020</p>
+    <p>Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y., Madotto, A., &amp; Fung, P. (2023). Survey of hallucination in natural language generation. <em>ACM Computing Surveys, 55</em>(12), Article 248. https://doi.org/10.1145/3571730</p>
+    <p>Kunz, W., &amp; Rittel, H. W. J. (1970). Issues as elements of information systems (Working Paper No. 131). Institute of Urban and Regional Development, University of California, Berkeley.</p>
+    <p>Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., &amp; Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. <em>Advances in Neural Information Processing Systems, 33,</em> 9459-9474.</p>
+    <p>Merkle, R. C. (1988). A digital signature based on a conventional encryption function. In C. Pomerance (Ed.), <em>Advances in Cryptology: CRYPTO '87</em> (Lecture Notes in Computer Science, Vol. 293, pp. 369-378). Springer. https://doi.org/10.1007/3-540-48184-2_32</p>
+    <p>Toulmin, S. E. (1958). <em>The uses of argument.</em> Cambridge University Press.</p>
+    <p>Weissman, M. B. (2024). Proximity ascertainment bias in early COVID case locations (arXiv:2401.08680). arXiv. https://doi.org/10.48550/arXiv.2401.08680</p>
+    <p>Egg as food. (2026). In <em>Wikipedia.</em> Retrieved July 18, 2026, from https://en.wikipedia.org/wiki/Egg_as_food</p>
+  </div>
+
+  <div class="foot"><span>Epistemic Git</span><span class="pg">10</span></div>
+</section>
+
+</body>
+</html>

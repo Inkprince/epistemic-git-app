@@ -8,8 +8,7 @@ and traceable to an exact source passage.
 > forced to share conclusions.**
 
 Entry for the Future of Life Foundation "Lab Leaks, Black Holes, and Eggs" epistemic case-study
-competition. See [plan.md](plan.md) for the full strategy and the per-deliverable plans
-([essay](plan-essay.md), [tool](plan-tool.md), [website](plan-website.md), [video](plan-video.md)).
+competition. The designed white paper is [`spec/introducing-epistemic-git.html`](spec/introducing-epistemic-git.html).
 
 ## Setup (no API key required)
 
@@ -33,17 +32,9 @@ The pre-built case bundles in `artifacts/` let everything run offline. The extra
 
 ### Official white paper
 
-The canonical paper is [`spec/whitepaper.md`](spec/whitepaper.md), with the publication
-outputs at [`spec/whitepaper.pdf`](spec/whitepaper.pdf) and
-[`spec/whitepaper.docx`](spec/whitepaper.docx). Rebuild and validate all formats from the
-same Markdown source with:
-
-```bash
-npm run build:whitepaper
-```
-
-The build creates an isolated temporary Python environment on first use and enforces the
-competition's ten-page PDF limit.
+The paper is [`spec/introducing-epistemic-git.html`](spec/introducing-epistemic-git.html), a
+self-contained, print-ready document (open in a browser; print to PDF for the ten-page limit).
+Its figures are the real app screenshots in [`spec/img/`](spec/img/).
 
 | Package | Role |
 |---|---|
