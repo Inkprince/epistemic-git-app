@@ -3,7 +3,7 @@
   "algorithm": "sha256",
   "frozenAt": "2026-07-16T00:00:00.000Z",
   "files": {
-    "config/study.json": "71eac699ee59d9ea64cbfeec36d08f39b748a079af6b5e2178e4ac11b42af4ef",
+    "config/study.json": "8ab0f3f88147d4d44a56435ec1de625147a1cd4ec258b9c8a215890eb3d23a33",
     "config/tasks.json": "317b1d3f71b5938a0163c1a58abb12234e2baf3b4886b9656a21897ba748918c",
     "prompts/common-artifact.v1.md": "75e403df4320fb34a03364aba74fcc2b59334d266322a23ca1e36d46b4344545",
     "prompts/deep-research.v1.md": "08dc703fb5d66576952f5f9e05bbf31ae0b1f62dd88f838860cb5b71c5a0c6e9",

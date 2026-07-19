@@ -36,7 +36,7 @@ From the project root:
 npm run eval:adversarial
 ```
 
-Cached mode is always the default, even if `CEREBRAS_API_KEY` is set. A committed cache hit executes
+Cached mode is always the default, even if `GROQ_API_KEY` is set. A committed cache hit executes
 normally without network access. A missing entry is reported as **not run**; it is never converted into
 a pass or a model miss. Successful and missed bundle outputs plus the generated report are written to
 `eval/adversarial/out/`. The runner does not write `eval/results.md`.
@@ -56,7 +56,7 @@ Useful options:
 --fail-on-miss               exit nonzero if an executed trap is missed
 ```
 
-Use `--live` deliberately: it requires `CEREBRAS_API_KEY`, may send the planted source text to the
+Use `--live` deliberately: it requires `GROQ_API_KEY`, may send the planted source text to the
 configured provider, and may incur provider usage. For a complete reproducible publication, record live
 cache misses once and then rerun in cached mode.
 

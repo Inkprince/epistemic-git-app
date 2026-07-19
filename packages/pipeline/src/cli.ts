@@ -30,7 +30,7 @@ function scrapeOptsFrom(flags: Record<string, string>, live: boolean) {
  *   infer    an existing bundle      → argument structure (inferences + conclusion)
  *   build    extract then infer      → a full argument bundle from one source
  *
- * Cached mode (default) needs no API key and replays the committed cache; --live calls Cerebras on a miss.
+ * Cached mode (default) needs no API key and replays the committed cache; --live calls Groq on a miss.
  */
 
 function parseArgs(argv: string[]): { cmd: string; flags: Record<string, string>; bools: Set<string>; positionals: string[] } {

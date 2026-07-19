@@ -52,7 +52,7 @@ const SOURCES = [
 ] as const;
 
 async function main() {
-  const live = Boolean(process.env["CEREBRAS_API_KEY"]);
+  const live = Boolean(process.env["GROQ_API_KEY"]);
   const client = createLlmClientFromEnv({
     mode: live ? "live" : "cached",
     cacheDir: resolve(here, "../artifacts/.cache"),

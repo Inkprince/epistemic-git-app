@@ -57,7 +57,7 @@ function deriveTitleFromUrl(url: string): string {
 
 /**
  * Dev-only live runner. Exposes POST /api/build that runs the real pipeline (extract → match →
- * infer → audit → correlate) SERVER-SIDE, so the Cerebras key (from .env) never reaches the
+ * infer → audit → correlate) SERVER-SIDE, so the Groq key (from .env) never reaches the
  * browser. The TS pipeline is loaded through Vite's SSR module graph. Absent in the static
  * production build, there the app is a pre-baked viewer (the documented dual-mode).
  */
@@ -67,7 +67,7 @@ function liveRunner(): Plugin {
     configureServer(server: ViteDevServer) {
       const env = loadEnv("development", repoRoot, "");
       for (const key of [
-        "CEREBRAS_API_KEY", "CEREBRAS_MODEL", "CEREBRAS_BASE_URL", "CEREBRAS_MAX_RETRIES", "CEREBRAS_RETRY_DELAY_MS", "CEREBRAS_TIMEOUT_MS",
+        "GROQ_API_KEY", "GROQ_MODEL", "GROQ_BASE_URL", "GROQ_MAX_RETRIES", "GROQ_RETRY_DELAY_MS", "GROQ_TIMEOUT_MS",
         "FIRECRAWL_API_KEY", "FIRECRAWL_BASE_URL",
       ]) {
         if (env[key]) process.env[key] = env[key];
@@ -238,7 +238,7 @@ function liveRunner(): Plugin {
           const llmNode = await server.ssrLoadModule("@epistemic-git/llm/node");
           const pipe = await server.ssrLoadModule("@epistemic-git/pipeline");
 
-          const live = Boolean(process.env["CEREBRAS_API_KEY"]);
+          const live = Boolean(process.env["GROQ_API_KEY"]);
           const client = llmNode.createLlmClientFromEnv({
             mode: live ? "live" : "cached",
             cacheDir: resolve(repoRoot, "artifacts", ".cache"),
@@ -400,7 +400,7 @@ function liveRunner(): Plugin {
         } catch (e) {
           const msg = e instanceof Error ? e.message : String(e);
           const friendly = /cache miss/i.test(msg) || /No API key configured/i.test(msg)
-            ? "No CEREBRAS_API_KEY configured, so live extraction on new text is unavailable. Add a key to .env (repo root) and restart the dev server."
+            ? "No GROQ_API_KEY configured, so live extraction on new text is unavailable. Add a key to .env (repo root) and restart the dev server."
             : msg;
           if (!res.headersSent) {
             // Failed before streaming began, plain JSON status.
@@ -425,7 +425,7 @@ function liveRunner(): Plugin {
         const proto = await server.ssrLoadModule("@epistemic-git/protocol");
         const llmNode = await server.ssrLoadModule("@epistemic-git/llm/node");
         const pipe = await server.ssrLoadModule("@epistemic-git/pipeline");
-        const live = Boolean(process.env["CEREBRAS_API_KEY"]);
+        const live = Boolean(process.env["GROQ_API_KEY"]);
         const client = llmNode.createLlmClientFromEnv({
           mode: live ? "live" : "cached",
           cacheDir: resolve(repoRoot, "artifacts", ".cache"),
@@ -434,7 +434,7 @@ function liveRunner(): Plugin {
         return { proto, pipe, client, live };
       };
       const noKeyHint = (feature: string) =>
-        `No CEREBRAS_API_KEY configured, live ${feature} is unavailable, and this input isn't in the cache. Add a key to .env (repo root) and restart the dev server.`;
+        `No GROQ_API_KEY configured, live ${feature} is unavailable, and this input isn't in the cache. Add a key to .env (repo root) and restart the dev server.`;
       let aiBusy = false; // AI endpoints share the fs cache + rate-limit budget, one at a time.
       const jsonSend = (res: ServerResponse, code: number, obj: unknown) => {
         if (res.writableEnded) return;

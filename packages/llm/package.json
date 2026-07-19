@@ -1,7 +1,7 @@
 {
   "name": "@epistemic-git/llm",
   "version": "0.1.0",
-  "description": "Provider-agnostic LLM adapter with a Cerebras (gpt-oss-120b) client, a content-hash cache for reproducible dual-mode runs, and a strict structured-output helper. The ONLY package that reads API keys or touches the network.",
+  "description": "Provider-agnostic LLM adapter with a Groq (gpt-oss-120b) client, a content-hash cache for reproducible dual-mode runs, and a strict structured-output helper. The ONLY package that reads API keys or touches the network.",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
