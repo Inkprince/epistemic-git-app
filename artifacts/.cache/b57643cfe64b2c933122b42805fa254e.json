@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\": []}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2645,
+    "completionTokens": 131
+  }
+}

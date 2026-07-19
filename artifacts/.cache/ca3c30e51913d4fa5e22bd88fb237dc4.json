@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Insufficient maternal iodine intake is associated with subfecundity, reduced foetal growth, and adverse pregnancy outcomes in the Norwegian Mother, Father and Child Cohort Study.\",\"claimType\":\"empirical\",\"quote\":\"Insufficient maternal iodine intake is associated with subfecundity, reduced foetal growth, and adverse pregnancy outcomes in the Norwegian Mother, Father and Child Cohort Study.\",\"entailment\":\"The quoted sentence directly states the observed association between low maternal iodine intake and the listed adverse reproductive outcomes, supporting the claim.\",\"population\":\"Norwegian Mother, Father and Child Cohort Study participants\",\"intervention\":\"Insufficient maternal iodine intake\",\"comparator\":\"\",\"outcome\":\"subfecundity, reduced foetal growth, adverse pregnancy outcomes\",\"timeframe\":\"\",\"quantifiers\":\"insufficient\",\"modality\":\"associational\"},{\"statement\":\"Suboptimal maternal iodine intake is associated with impaired child neurodevelopment at 3 years of age in the Norwegian Mother and Child Cohort Study.\",\"claimType\":\"empirical\",\"quote\":\"Suboptimal Maternal Iodine Intake Is Associated with Impaired Child Neurodevelopment at 3 Years of Age in the Norwegian Mother and Child Cohort Study.\",\"entailment\":\"The quoted sentence reports an observed link between low maternal iodine intake and poorer neurodevelopmental outcomes in children at age three, providing evidence for the claim.\",\"population\":\"Norwegian Mother and Child Cohort Study children at 3 years\",\"intervention\":\"Suboptimal maternal iodine intake\",\"comparator\":\"\",\"outcome\":\"impaired child neurodevelopment\",\"timeframe\":\"3 years of age\",\"quantifiers\":\"suboptimal\",\"modality\":\"associational\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2883,
+    "completionTokens": 507
+  }
+}

@@ -11,6 +11,7 @@ import { CaseDetailScreen } from "./components/detail/CaseDetailScreen.js";
 import { HelpModal } from "./components/HelpModal.js";
 import { ImportModal } from "./components/ImportModal.js";
 import { MergePickerModal } from "./components/MergePickerModal.js";
+import { SuggestContributionModal } from "./components/SuggestContributionModal.js";
 import { OverviewScreen } from "./components/overview/OverviewScreen.js";
 import { BuildCaseModal } from "./components/BuildCaseModal.js";
 import { Sidebar } from "./components/Sidebar.js";
@@ -34,7 +35,7 @@ export function App({ initialRoute }: { initialRoute?: Route }) {
 }
 
 function AppShell({ initialRoute }: { initialRoute?: Route }) {
-  const { cases, ready, addBuilt } = useCases();
+  const { cases, ready, addBuilt, declineSuggestion } = useCases();
   const [route, setRoute] = useState<Route>(initialRoute ?? routeFromHash());
   const [mergedView, setMergedView] = useState<{ bundle: Bundle; report: MergeReport } | null>(null);
   const [query, setQuery] = useState("");
@@ -43,6 +44,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
   const [buildOpen, setBuildOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const [mergeOpen, setMergeOpen] = useState(false);
+  const [suggestOpen, setSuggestOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [authoredVersion, setAuthoredVersion] = useState(0);
@@ -142,9 +144,11 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
         { label: "excluded", value: totals.quarantined },
       ];
 
-  const recordMerge = (base: Bundle, incoming: Bundle, incomingLabel: string, caseId: string) => {
+  const recordMerge = (base: Bundle, incoming: Bundle, incomingLabel: string, caseId: string, suggestionKey?: string) => {
     const result = merge(base, incoming);
     setMergedView(result);
+    // Accepting a filed suggestion (merging it) resolves it: clear the pending record.
+    if (suggestionKey) declineSuggestion(suggestionKey);
     const baseDigest = bundleDigest(base);
     const incomingDigest = bundleDigest(incoming);
     const digest = bundleDigest(result.bundle);
@@ -215,6 +219,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
               onAuthoredChanged={() => setAuthoredVersion((v) => v + 1)}
               {...(mergedView ? { merged: mergedView.report } : {})}
               onOpenMergePicker={() => setMergeOpen(true)}
+              onOpenSuggest={() => setSuggestOpen(true)}
               onRevertMerge={() => setMergedView(null)}
               onBack={() => navigate({ screen: "cases" })}
             />
@@ -236,7 +241,16 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           currentCaseId={route.caseId}
           currentBundle={bundle}
           onClose={() => setMergeOpen(false)}
-          onPick={(incoming, label) => recordMerge(bundle, incoming, label, route.caseId)}
+          onPick={(incoming, label, suggestionKey) => recordMerge(bundle, incoming, label, route.caseId, suggestionKey)}
+        />
+)}
+      {suggestOpen && route.screen === "case" && caseEntry && bundle && (
+        <SuggestContributionModal
+          targetCaseId={route.caseId}
+          targetLabel={caseEntry.label}
+          targetQuestion={bundle.question}
+          onClose={() => setSuggestOpen(false)}
+          onFiled={() => setSuggestOpen(false)}
         />
 )}
       {buildOpen && isDev && (

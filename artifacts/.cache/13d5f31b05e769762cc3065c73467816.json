@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"The recipe provides 258 calories, 10 grams total fat, 137 milligrams cholesterol, 465 milligrams sodium, 25 grams carbohydrates, 3 grams fiber, and 17 grams protein per serving.\",\"claimType\":\"empirical\",\"quote\":\"Nutritional per serving (3-by-3.5 inch square): 258 calories, 10 grams total fat, 137 milligrams cholesterol, 465 milligrams sodium, 25 grams carbohydrates, 3 grams fiber, 17 grams protein.\",\"entailment\":\"The quoted line lists the exact amounts of calories, fat, cholesterol, sodium, carbohydrates, fiber, and protein for one serving, directly supporting the nutritional claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"258 calories, 10 grams total fat, 137 milligrams cholesterol, 465 milligrams sodium, 25 grams carbohydrates, 3 grams fiber, 17 grams protein per serving\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Anne Harguth is a dietitian in Nutrition in Waseca, Minnesota.\",\"claimType\":\"definitional\",\"quote\":\"_Anne Harguth is a dietitian in [Nutrition](https://www.mayoclinichealthsystem.org/services-and-treatments/nutrition \\\"Opens in same window.\\\") in [Waseca](https://www.mayoclinichealthsystem.org/locations/waseca \\\"Opens in same window.\\\"), Minnesota._\",\"entailment\":\"The quoted sentence explicitly states Anne Harguth’s professional role and location, confirming the claim about her being a dietitian in Nutrition in Waseca, Minnesota.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"definitional\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2060,
+    "completionTokens": 871
+  }
+}

@@ -1,7 +1,8 @@
 import { useCases } from "../cases/store.js";
+import { isSeedCase } from "../cases/seed.js";
 import type { Route } from "../App.js";
 import {
-  ChartIcon, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, DownloadIcon, FolderIcon, LogoMark, TreeElbow, XIcon, ZapIcon,
+  ChartIcon, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, DownloadIcon, FolderIcon, TreeElbow, XIcon, ZapIcon,
 } from "./icons.js";
 
 export function Sidebar({
@@ -24,8 +25,8 @@ export function Sidebar({
   return (
     <aside className={`sidebar${collapsed ? " collapsed" : ""}${mobileOpen ? " mobile-open" : ""}`}>
       <div className="logo">
-        <LogoMark size={26} />
-        <span className="word">Epistemic<em>Git</em></span>
+        <img className="logo-full" src="/logo.png" alt="Epistemic Git" />
+        <img className="logo-mark" src="/logo-mark.png" alt="Epistemic Git" />
       </div>
       <button className="side-collapse" onClick={onToggleCollapse} aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
         {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
@@ -50,18 +51,20 @@ export function Sidebar({
               <span className="tree"><TreeElbow /></span>
               <span className="lbl">{c.label}</span>
             </button>
-            <button
-              className="nav-sub-x"
-              aria-label={`Delete case ${c.label}`}
-              title="Delete this example case"
-              onClick={() => {
-                if (!confirm(`Delete “${c.label}”? In the dev server this removes its files; otherwise it is hidden and can be restored by clearing site data.`)) return;
-                deleteCase(c.id);
-                if (route.screen === "case" && route.caseId === c.id) onNavigate({ screen: "cases" });
-              }}
-            >
-              <XIcon size={11} />
-            </button>
+            {!isSeedCase(c.id) && (
+              <button
+                className="nav-sub-x"
+                aria-label={`Delete case ${c.label}`}
+                title="Delete this example case"
+                onClick={() => {
+                  if (!confirm(`Delete “${c.label}”? In the dev server this removes its files; otherwise it is hidden and can be restored by clearing site data.`)) return;
+                  deleteCase(c.id);
+                  if (route.screen === "case" && route.caseId === c.id) onNavigate({ screen: "cases" });
+                }}
+              >
+                <XIcon size={11} />
+              </button>
+            )}
           </div>
 ))}
         {casesOpen && local.map((c) => (

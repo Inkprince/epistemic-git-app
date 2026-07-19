@@ -9,6 +9,10 @@ import { defineConfig, loadEnv, type Plugin, type ViteDevServer } from "vite";
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../..");
 
+// Built-in cases that ship with the repo (git-tracked artifacts). The browser delete endpoint
+// refuses these so a stray click can't wipe committed seed data; user-imported cases stay deletable.
+const SEED_CASES = new Set(["lhc", "covid", "eggs", "lhc-addendum"]);
+
 const MAX_BODY_BYTES = 2 * 1024 * 1024; // 2 MB request ceiling
 const MAX_TEXT_CHARS = 150_000; // ~25 extraction chunks, keeps a run bounded
 const RUN_TIMEOUT_MS = 8 * 60 * 1000; // hard ceiling on a full pipeline run
@@ -157,6 +161,11 @@ function liveRunner(): Plugin {
           const slug = String(body["slug"] ?? "").trim();
           if (!/^[a-z0-9][a-z0-9-]{1,39}$/.test(slug)) {
             return send(400, { error: "Slug must be 2-40 chars of a-z, 0-9, hyphen." });
+          }
+          // Seed cases ship with the repo and are git-tracked; deleting them from the browser
+          // wipes committed artifacts. Refuse here so only user-imported cases can be removed.
+          if (SEED_CASES.has(slug)) {
+            return send(403, { error: `"${slug}" is a built-in seed case and cannot be deleted from the app. Remove it in git if you really mean to.` });
           }
           const artifactsDir = resolve(repoRoot, "artifacts");
           const jsonPath = resolve(artifactsDir, `${slug}.json`);

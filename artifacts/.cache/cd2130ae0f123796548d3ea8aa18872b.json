@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on a single source that explicitly states the egg‑color myth is unfounded, providing a clear, direct assertion that there is no nutritional difference. Because no additional evidence is offered, the support is thin and relies entirely on that one statement. Consequently, the claim’s current backing is limited to this unqualified declaration without corroborating data.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 336,
+    "completionTokens": 101
+  }
+}

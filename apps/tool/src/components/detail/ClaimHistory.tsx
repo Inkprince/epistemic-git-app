@@ -24,6 +24,7 @@ interface Step {
 /** Layer-1 labels for the event kinds (raw kinds are storage identifiers). */
 const EVENT_LABEL: Record<HistoryEvent["kind"], string> = {
   "imported": "imported", "merged": "merged", "pipeline-run": "built (AI)", "committed": "saved as case",
+  "suggested": "suggested",
 };
 
 export function ClaimHistory({

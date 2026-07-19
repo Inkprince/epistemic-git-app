@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { eventsFor, snapshotGet } from "../../cases/history.js";
 import type { HistoryEvent } from "../../cases/history.js";
 import { truncate } from "../../domain.js";
-import { CheckIcon, DownloadIcon, GitBranchIcon, MergeIcon, ZapIcon } from "../icons.js";
+import { CheckIcon, DownloadIcon, GitBranchIcon, MergeIcon, UsersIcon, ZapIcon } from "../icons.js";
 import { Badge, SectionLabel } from "../primitives.js";
 
 const KIND_META: Record<HistoryEvent["kind"], { icon: JSX.Element; label: string; bg: string }> = {
@@ -14,6 +14,7 @@ const KIND_META: Record<HistoryEvent["kind"], { icon: JSX.Element; label: string
   "merged": { icon: <MergeIcon size={15} />, label: "Merged", bg: "var(--green-bg)" },
   "pipeline-run": { icon: <ZapIcon size={15} />, label: "Built (AI)", bg: "var(--yellow)" },
   "committed": { icon: <CheckIcon size={13} />, label: "Saved as case", bg: "var(--green-bg)" },
+  "suggested": { icon: <UsersIcon size={15} />, label: "Suggested", bg: "var(--amber-bg)" },
 };
 
 function relTime(iso: string): string {

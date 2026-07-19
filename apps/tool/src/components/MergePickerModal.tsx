@@ -11,6 +11,9 @@ interface MergeSource {
   label: string;
   bundle: Bundle;
   origin: "suggested" | "committed" | "imported" | "built";
+  author?: { name: string };
+  /** Present when this row is a locally-filed pending suggestion (declinable). */
+  suggestionId?: string;
 }
 
 /**
@@ -25,15 +28,17 @@ export function MergePickerModal({
   currentCaseId: string;
   currentBundle: Bundle;
   onClose: () => void;
-  onPick: (bundle: Bundle, label: string) => void;
+  onPick: (bundle: Bundle, label: string, suggestionId?: string) => void;
 }) {
-  const { cases } = useCases();
+  const { cases, declineSuggestion } = useCases();
   const current = cases[currentCaseId];
   const [confirmedKey, setConfirmedKey] = useState<string | null>(null);
 
   const sources: MergeSource[] = [
     ...(current?.mergePairs ?? []).map((p) => ({
       key: `pair:${p.id}`, label: p.label, bundle: p.bundle, origin: "suggested" as const,
+      ...(p.author ? { author: p.author } : {}),
+      ...(p.suggestionId ? { suggestionId: p.suggestionId } : {}),
     })),
     ...Object.values(cases)
       .filter((c) => c.id !== currentCaseId)
@@ -61,12 +66,13 @@ export function MergePickerModal({
             const needsConfirm = !matches && confirmedKey !== s.key;
             return (
               <div key={s.key} className="merge-row">
-                <Avatar label={s.label} size={34} tile />
+                <Avatar label={s.author ? s.author.name.replace(/^\w+\.\s+/, "") : s.label} size={34} tile />
                 <div className="mr-main">
                   <div className="mr-title">{s.label}</div>
                   <div className="mr-sub">
+                    {s.author && <span>Suggested by {s.author.name} · </span>}
                     {s.bundle.claims.length} claims · {s.bundle.inferences.length} reasoning steps
-                    {!matches && <span style={{ color: "var(--amber)" }}> · different question</span>}
+                    {!matches && <span style={{ color: "var(--red)", fontWeight: 600 }}> · different question</span>}
                   </div>
                   {!matches && (
                     <label className="toggle-row" style={{ paddingBottom: 0 }}>
@@ -75,8 +81,8 @@ export function MergePickerModal({
                         checked={confirmedKey === s.key}
                         onChange={(e) => setConfirmedKey(e.target.checked ? s.key : null)}
                       />
-                      <span style={{ fontSize: 12.5 }}>
-                        This case asks “{s.bundle.question.length > 70 ? s.bundle.question.slice(0, 69) + "…" : s.bundle.question}” 
+                      <span style={{ fontSize: 12.5, color: "var(--red)", fontWeight: 600 }}>
+                        This case asks “{s.bundle.question.length > 70 ? s.bundle.question.slice(0, 69) + "…" : s.bundle.question}”
                         merge anyway (the claims still combine, but the conclusions may not be comparable).
                       </span>
                     </label>
@@ -86,11 +92,20 @@ export function MergePickerModal({
                   <Badge tone={s.origin === "suggested" ? "amber" : s.origin === "built" ? "green" : s.origin === "imported" ? "purple" : "neutral"}>
                     {s.origin === "committed" ? "saved" : s.origin === "imported" ? "local" : s.origin === "built" ? "built" : "suggested"}
                   </Badge>
+                  {s.suggestionId && (
+                    <button
+                      className="btn-ghost btn-sm"
+                      title="Decline this suggestion"
+                      onClick={() => declineSuggestion(s.suggestionId!)}
+                    >
+                      Decline
+                    </button>
+)}
                   <button
                     className="btn-outline btn-sm"
                     disabled={needsConfirm}
                     title={needsConfirm ? "Confirm the different-question checkbox first" : `Merge ${s.label}`}
-                    onClick={() => { onPick(s.bundle, s.label); onClose(); }}
+                    onClick={() => { onPick(s.bundle, s.label, s.suggestionId); onClose(); }}
                   >
                     <MergeIcon size={15} /> Merge
                   </button>

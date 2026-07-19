@@ -8,8 +8,9 @@
       "mergePairs": [
         {
           "id": "lhc-addendum",
-          "label": "investigator B, 2024 neutron-star re-derivation",
-          "file": "lhc-addendum.json"
+          "label": "2024 neutron-star re-derivation",
+          "file": "lhc-addendum.json",
+          "author": { "name": "Dr. Lena Ostrova" }
         }
       ]
     },
@@ -22,11 +23,6 @@
       "id": "eggs",
       "label": "Eggs & heart health",
       "file": "eggs.json"
-    },
-    {
-      "id": "lhc-bundle-1",
-      "label": "lhc.bundle (1)",
-      "file": "lhc-bundle-1.json"
     }
   ]
 }

@@ -10,7 +10,7 @@ import { idbDelete, idbGet, idbKeys, idbPut } from "./idb.js";
 export interface HistoryEvent {
   id: string;
   caseId: string;
-  kind: "imported" | "merged" | "pipeline-run" | "committed";
+  kind: "imported" | "merged" | "pipeline-run" | "committed" | "suggested";
   at: string; // ISO timestamp
   digest: string;
   parents: string[];

@@ -6,7 +6,8 @@ import { appendEvent, deleteHistory } from "./history.js";
 import { hideCase, loadHidden } from "./hidden.js";
 import { idbDelete, idbGetAllEntries, idbPut } from "./idb.js";
 import { loadCommittedCases } from "./manifest.js";
-import type { CaseEntry } from "./types.js";
+import { isSeedCase } from "./seed.js";
+import type { CaseEntry, PendingSuggestion } from "./types.js";
 
 export type ImportResult =
   | { ok: true; id: string; alreadyImported: boolean; warnings: ValidationIssue[] }
@@ -27,6 +28,14 @@ interface CasesApi {
    */
   deleteCase(id: string): void;
   renameImported(id: string, label: string): void;
+  /**
+   * File a contribution against a case: persists a pending suggestion locally and folds it into the
+   * target case's mergePairs so it surfaces (box, badge, merge picker) like a seeded suggestion.
+   * Idempotent per (target case, bundle). Returns the suggestion key.
+   */
+  addSuggestion(targetCaseId: string, bundle: Bundle, opts: { label?: string; author: string }): string;
+  /** Remove a pending suggestion (decline, or accepted-and-merged). No-op for seeded suggestions. */
+  declineSuggestion(key: string): void;
 }
 
 const CasesContext = createContext<CasesApi | null>(null);
@@ -49,16 +58,21 @@ export function CasesProvider({ children }: { children: ReactNode }) {
   const [hidden, setHidden] = useState<Set<string>>(() => loadHidden());
   const committed = useMemo(() => allCommitted.filter((c) => !hidden.has(c.id)), [allCommitted, hidden]);
   const [imported, setImported] = useState<CaseEntry[]>([]);
+  const [suggestions, setSuggestions] = useState<PendingSuggestion[]>([]);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    idbGetAllEntries<StoredImport>("imports")
-      .then((entries) => {
+    Promise.all([
+      idbGetAllEntries<StoredImport>("imports"),
+      idbGetAllEntries<PendingSuggestion>("suggestions"),
+    ])
+      .then(([importEntries, suggestionEntries]) => {
         if (cancelled) return;
-        setImported(entries.map(([id, v]) => ({
+        setImported(importEntries.map(([id, v]) => ({
           id, label: v.label, origin: v.origin ?? ("imported" as const), bundle: v.bundle, digest: v.digest,
         })));
+        setSuggestions(suggestionEntries.map(([, v]) => v));
         setReady(true);
       })
       .catch(() => setReady(true));
@@ -69,6 +83,17 @@ export function CasesProvider({ children }: { children: ReactNode }) {
     const cases: Record<string, CaseEntry> = {};
     for (const c of committed) cases[c.id] = c;
     for (const c of imported) cases[c.id] = c;
+
+    // Fold locally-filed suggestions into their target case's mergePairs, so the same box, badge,
+    // and merge picker that render seeded suggestions render these too, with no separate plumbing.
+    for (const sug of suggestions) {
+      const target = cases[sug.targetCaseId];
+      if (!target) continue;
+      const pair = {
+        id: sug.id, label: sug.label, bundle: sug.bundle, author: sug.author, suggestionId: sug.key,
+      };
+      cases[sug.targetCaseId] = { ...target, mergePairs: [...(target.mergePairs ?? []), pair] };
+    }
 
     return {
       cases,
@@ -104,6 +129,9 @@ export function CasesProvider({ children }: { children: ReactNode }) {
         return id;
       },
       deleteCase(id) {
+        // Seed cases ship with the repo and are git-tracked; refuse to delete them so a stray
+        // click can't hide a curated case or wipe its committed files. The dev endpoint mirrors this.
+        if (isSeedCase(id)) return;
         const committedCase = allCommitted.some((c) => c.id === id);
         if (committedCase) {
           // Curated case: hide client-side (reversible) and, in dev, remove files + manifest entry.
@@ -132,8 +160,24 @@ export function CasesProvider({ children }: { children: ReactNode }) {
           });
         }
       },
+      addSuggestion(targetCaseId, bundle, opts) {
+        const digest = bundleDigest(bundle);
+        const id = `sug-${digest.slice(0, 8)}`;
+        const key = `${targetCaseId}:${id}`;
+        const author = { name: opts.author.trim() || "Anonymous contributor" };
+        const label = (opts.label ?? "").trim() || bundle.title || "Suggested contribution";
+        const sug: PendingSuggestion = { key, id, targetCaseId, label, author, bundle, digest };
+        setSuggestions((prev) => (prev.some((s) => s.key === key) ? prev : [...prev, sug]));
+        void idbPut<PendingSuggestion>("suggestions", key, sug);
+        appendEvent({ caseId: targetCaseId, kind: "suggested", digest, parents: [], note: `${author.name}: ${label}` });
+        return key;
+      },
+      declineSuggestion(key) {
+        setSuggestions((prev) => prev.filter((s) => s.key !== key));
+        void idbDelete("suggestions", key);
+      },
     };
-  }, [allCommitted, committed, imported, ready]);
+  }, [allCommitted, committed, imported, suggestions, ready]);
 
   return <CasesContext.Provider value={api}>{children}</CasesContext.Provider>;
 }

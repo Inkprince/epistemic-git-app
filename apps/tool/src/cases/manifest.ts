@@ -36,7 +36,9 @@ export function loadCommittedCases(): CaseEntry[] {
     const mergePairs = (row.mergePairs ?? [])
       .map((p) => {
         const pm = moduleFor(p.file);
-        return looksLikeBundle(pm) ? { id: p.id, label: p.label, bundle: pm } : undefined;
+        return looksLikeBundle(pm)
+          ? { id: p.id, label: p.label, bundle: pm, ...(p.author ? { author: p.author } : {}) }
+          : undefined;
       })
       .filter((p): p is NonNullable<typeof p> => p !== undefined);
     entries.push({

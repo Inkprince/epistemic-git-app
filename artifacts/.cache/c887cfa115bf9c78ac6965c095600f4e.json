@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Regular consumption of eggs could help support optimal weight management.\",\"claimType\":\"empirical\",\"quote\":\"regular consumption of eggs could help support optimal weight management, an important consideration given the burden of obesity and related non-communicable diseases in Western countries\",\"entailment\":\"The quoted sentence states that eating eggs regularly may aid optimal weight management, directly supporting the claim.\",\"population\":\"people in Western countries\",\"intervention\":\"regular consumption of eggs\",\"comparator\":\"\",\"outcome\":\"optimal weight management\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"conditional\"},{\"statement\":\"The balance of evidence points towards eggs being nutritious, healthy and sustainable, rather than risky.\",\"claimType\":\"empirical\",\"quote\":\"the balance of evidence points towards eggs being nutritious, healthy and sustainable, rather than risky\",\"entailment\":\"The quoted phrase summarizes the overall evidence as indicating eggs are nutritious, healthy and sustainable instead of risky, which underlies the claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"eggs are nutritious, healthy and sustainable\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2483,
+    "completionTokens": 595
+  }
+}

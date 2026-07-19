@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Egg protein supplementation improved upper body muscle strength and protein intake in community-dwelling older adult females who attended congregate meal sites or adult learning centers.\",\"claimType\":\"empirical\",\"quote\":\"Egg protein supplementation improved upper body muscle strength and protein intake in community-dwelling older adult females who attended congregate meal sites or adult learning centers: A pilot randomized controlled trial.\",\"entailment\":\"The title of the study explicitly reports that egg protein supplementation led to improvements in upper body muscle strength and protein intake among the specified population, indicating an observed effect.\",\"population\":\"community-dwelling older adult females who attended congregate meal sites or adult learning centers\",\"intervention\":\"egg protein supplementation\",\"comparator\":\"\",\"outcome\":\"upper body muscle strength and protein intake\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2779,
+    "completionTokens": 371
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Virtually any on-line chicken supply company will state the egg color of each breed supplied.\",\"claimType\":\"empirical\",\"quote\":\"Virtually any on-line chicken supply company will state the egg color of each breed supplied.\",\"entailment\":\"The quoted sentence explicitly asserts that virtually any online chicken supply company provides the egg colour information for each breed, which directly supports the claim.\",\"population\":\"online chicken supply companies\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2516,
+    "completionTokens": 311
+  }
+}

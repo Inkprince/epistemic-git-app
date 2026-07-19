@@ -27,6 +27,8 @@
   --purple-bg: #ede9fe;
   --amber: #a16207;
   --amber-bg: #fef9c3;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
   --pink: #db2777;
   --pink-bg: #fce7f3;
   --yellow: #ffe24d;
@@ -94,10 +96,11 @@ a:hover { color: var(--ink-2); }
 }
 .sidebar.collapsed { width: 76px; }
 .sidebar .logo { padding: 30px 24px 24px 26px; display: flex; align-items: center; gap: 9px; overflow: hidden; }
-.sidebar .logo .word { font-size: 21px; font-weight: 800; letter-spacing: -0.5px; white-space: nowrap; }
-.sidebar .logo .word em { font-style: normal; color: var(--muted); font-weight: 700; }
+.sidebar .logo .logo-full { height: 30px; width: auto; display: block; }
+.sidebar .logo .logo-mark { display: none; height: 26px; width: auto; }
 .sidebar.collapsed .logo { padding-left: 26px; }
-.sidebar.collapsed .logo .word { display: none; }
+.sidebar.collapsed .logo .logo-full { display: none; }
+.sidebar.collapsed .logo .logo-mark { display: block; }
 
 .side-collapse {
   position: absolute; top: 108px; right: -11px; width: 22px; height: 22px; z-index: 2;
@@ -377,13 +380,15 @@ div.nav-sub { padding: 0 6px 0 0; gap: 4px; }
 .avatar-stack .avatar { border: 2px solid var(--surface); width: 32px; height: 32px; font-size: 12px; }
 .avatar-stack .avatar + .avatar { margin-left: -11px; }
 .avatar-stack .more { background: var(--yellow); color: var(--ink); }
+/* Sources are documents, not people: paper icon on a dark tile, not initials. */
+.avatar-stack .src-doc { background: var(--ink); color: #fff; }
 
 .detail-body { display: flex; flex: 1; min-height: 0; }
 
 /* Left panel (evidence / inspect) */
 .left-panel { width: 312px; flex: none; border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
 .tab-row { display: flex; gap: 28px; padding: 0 30px; border-bottom: 1px solid var(--line); flex: none; overflow-x: auto; }
-.tab-row.main-tabs { padding: 0 34px; }
+.tab-row.main-tabs { padding: 0 34px; position: sticky; top: 0; z-index: 3; background: var(--surface); }
 .tab {
   display: flex; align-items: center; gap: 8px; padding: 14px 2px; border: 0; background: none;
   font-size: 15px; font-weight: 500; color: var(--muted-2); white-space: nowrap;
@@ -427,9 +432,11 @@ div.nav-sub { padding: 0 6px 0 0; gap: 4px; }
 .control-group { margin-bottom: 26px; }
 .control-group:last-child { margin-bottom: 0; }
 
-/* Main detail region */
-.detail-main { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
-.detail-main > .content { padding: 26px 34px 44px 34px; overflow-y: auto; }
+/* Main detail region. The whole region scrolls as one flow (AskBox → tabs → content) instead of
+   trapping the tab content in its own short window; the tab bar sticks to the top while scrolling
+   so navigation stays put and the content gets the full height. */
+.detail-main { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow-y: auto; }
+.detail-main > .content { padding: 26px 34px 44px 34px; }
 
 /* Grounded "ask this case" box */
 .askbox { flex: none; padding: 16px 34px 0 34px; }
@@ -562,6 +569,37 @@ div.nav-sub { padding: 0 6px 0 0; gap: 4px; }
 .quote.clickable:hover { background: var(--surface-2); }
 .meta-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; padding: 5px 0; border-bottom: 1px dashed var(--line); }
 .meta-row .k { color: var(--faint); }
+
+/* Suggested-contribution box (pending mergePair, surfaced on the case without opening Merge) */
+.suggest-merge {
+  display: flex; align-items: center; gap: 12px; margin: 0 34px 4px;
+  padding: 12px 16px; background: var(--amber-bg); border: 1px solid #fde68a;
+  border-radius: var(--r-task); color: var(--amber);
+}
+.suggest-merge .sm-main { flex: 1; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.suggest-merge .sm-main strong { color: var(--amber); }
+.suggest-merge .sm-actions { display: flex; gap: 8px; align-items: center; flex: none; }
+.suggest-merge .sm-decline {
+  background: none; border: 0; color: var(--amber); font-size: 13px; font-weight: 600; cursor: pointer;
+  padding: 6px 8px; border-radius: var(--r-btn);
+}
+.suggest-merge .sm-decline:hover { background: #fef3c7; }
+
+/* Suggest-a-contribution modal */
+.field-label { font-size: 12.5px; font-weight: 700; color: var(--muted); margin: 16px 0 6px; }
+.text-input {
+  width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line-control);
+  border-radius: var(--r-btn); padding: 10px 13px; font-size: 14px; font-family: inherit;
+}
+.text-input:focus { outline: none; border-color: var(--ink); }
+.sug-source {
+  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--r-task); padding: 10px 12px; cursor: pointer;
+}
+.sug-source:hover { background: var(--surface-3); }
+.sug-source.active { border-color: var(--ink); background: var(--surface-3); }
+.dropzone.sm { padding: 16px 20px; margin-top: 10px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
 
 /* Raw document viewer */
 .raw-doc-meta { margin: 2px 0 14px; display: flex; flex-direction: column; gap: 6px; }

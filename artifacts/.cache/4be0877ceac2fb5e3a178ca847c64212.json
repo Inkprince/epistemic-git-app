@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Eggs Are Healthy Perspective\",\"suggestedDescription\":\"A viewpoint that emphasizes evidence supporting eggs as a nutritious component of a healthy diet, treating any contrary or irrelevant information as uncertain or irrelevant.\",\"stances\":[{\"claimIndex\":0,\"stance\":\"skip\",\"rationale\":\"\"},{\"claimIndex\":1,\"stance\":\"accept\",\"rationale\":\"The egg’s shell color has no impact on its nutritional profile, so all eggs can be considered equally healthful.\"},{\"claimIndex\":2,\"stance\":\"accept\",\"rationale\":\"With seven grams of protein and only 80 calories, an extra‑large egg delivers a high protein‑to‑calorie ratio, underscoring its health value.\"},{\"claimIndex\":3,\"stance\":\"accept\",\"rationale\":\"Eggs provide a broad spectrum of essential vitamins and minerals, reinforcing their role as a nutrient‑dense food.\"},{\"claimIndex\":4,\"stance\":\"accept\",\"rationale\":\"Because meeting daily choline needs is difficult, eggs serve as a convenient source to help achieve that requirement.\"},{\"claimIndex\":5,\"stance\":\"skip\",\"rationale\":\"\"},{\"claimIndex\":6,\"stance\":\"accept\",\"rationale\":\"Eggs are explicitly described as a nutritious food suitable for inclusion in a balanced diet.\"},{\"claimIndex\":7,\"stance\":\"skip\",\"rationale\":\"\"},{\"claimIndex\":8,\"stance\":\"skip\",\"rationale\":\"\"},{\"claimIndex\":9,\"stance\":\"uncertain\",\"rationale\":\"While the dietitian promotes plant foods, this does not directly negate the health benefits of eggs, leaving the impact ambiguous.\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 783,
+    "completionTokens": 534
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"Blue eggs, sometimes thought as a joke, are a reality\",\"claimType\":\"empirical\",\"quote\":\"Blue eggs, sometimes thought as a joke, are a reality, as reported here , for example.\",\"entailment\":\"The quoted sentence directly asserts that blue eggs exist, which constitutes the claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Millions of eggs were removed from European shelves because of toxicity fears\",\"claimType\":\"empirical\",\"quote\":\"\\\"Millions of eggs removed from European shelves over toxicity fears\\\"\",\"entailment\":\"The quoted article title states that a large number of eggs were taken off European shelves due to concerns about toxicity, supporting the claim.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"},{\"statement\":\"Egg allergy information is provided by the Royal Prince Alfred Hospital\",\"claimType\":\"empirical\",\"quote\":\"[Egg Allergy Brochure] ... distributed by Royal Prince Alfred Hospital\",\"entailment\":\"The citation notes that the egg allergy brochure was distributed by the Royal Prince Alfred Hospital, indicating that the hospital provides egg allergy information.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"descriptive\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2493,
+    "completionTokens": 375
+  }
+}

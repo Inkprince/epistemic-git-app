@@ -6,8 +6,8 @@
  */
 
 const DB_NAME = "egit";
-const DB_VERSION = 1;
-export type StoreName = "imports" | "snapshots";
+const DB_VERSION = 2;
+export type StoreName = "imports" | "snapshots" | "suggestions";
 
 function openDb(): Promise<IDBDatabase | null> {
   if (typeof indexedDB === "undefined") return Promise.resolve(null);
@@ -17,6 +17,7 @@ function openDb(): Promise<IDBDatabase | null> {
       const db = req.result;
       if (!db.objectStoreNames.contains("imports")) db.createObjectStore("imports");
       if (!db.objectStoreNames.contains("snapshots")) db.createObjectStore("snapshots");
+      if (!db.objectStoreNames.contains("suggestions")) db.createObjectStore("suggestions");
     };
     req.onsuccess = () => resolvePromise(req.result);
     req.onerror = () => reject(req.error ?? new Error("IndexedDB open failed"));

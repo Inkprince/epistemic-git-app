@@ -1,0 +1,9 @@
+{
+  "text": "{\"suggestedLabel\":\"Skeptical Nutritionist View\",\"suggestedDescription\":\"A cautious perspective that treats health‑supporting claims about eggs as uncertain while accepting well‑established factual statements.\",\"stances\":[{\"claimIndex\":0,\"stance\":\"accept\",\"rationale\":\"Eggs have indeed been a staple of American cuisine for over a century.\"},{\"claimIndex\":1,\"stance\":\"accept\",\"rationale\":\"Shell color does not affect the egg’s nutritional content.\"},{\"claimIndex\":2,\"stance\":\"accept\",\"rationale\":\"An extra‑large egg provides roughly seven grams of protein and about 80 calories.\"},{\"claimIndex\":3,\"stance\":\"accept\",\"rationale\":\"Extra‑large eggs contain notable amounts of vitamin A, niacin, B12, biotin, pantothenic acid, iodine, selenium, and choline.\"},{\"claimIndex\":4,\"stance\":\"accept\",\"rationale\":\"Meeting the recommended daily choline intake can be difficult for many people.\"},{\"claimIndex\":5,\"stance\":\"uncertain\",\"rationale\":\"The safety window after a “sell by” date varies and is not reliably four weeks.\"},{\"claimIndex\":6,\"stance\":\"uncertain\",\"rationale\":\"While eggs have nutrients, the claim that they are broadly nutritious is not definitively proven.\"},{\"claimIndex\":7,\"stance\":\"accept\",\"rationale\":\"The statement correctly notes that the information is educational, not medical advice.\"},{\"claimIndex\":8,\"stance\":\"skip\",\"rationale\":\"\"},{\"claimIndex\":9,\"stance\":\"skip\",\"rationale\":\"\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 779,
+    "completionTokens": 530
+  }
+}

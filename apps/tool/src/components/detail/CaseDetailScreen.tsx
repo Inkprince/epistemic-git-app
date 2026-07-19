@@ -2,6 +2,7 @@ import { computeSupport, explainSupport, perspectiveDiff, valueOfInformation } f
 import type { MergeReport } from "@epistemic-git/analysis";
 import type { Bundle } from "@epistemic-git/protocol";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useCases } from "../../cases/store.js";
 import { deleteScenario, loadScenarios, saveScenario } from "../../cases/scenarios.js";
 import type { Scenario } from "../../cases/scenarios.js";
 import type { CaseOrigin } from "../../cases/types.js";
@@ -51,6 +52,7 @@ interface CaseDetailProps {
   onAuthoredChanged: () => void;
   merged?: MergeReport;
   onOpenMergePicker: () => void;
+  onOpenSuggest: () => void;
   onRevertMerge?: () => void;
   onBack: () => void;
 }
@@ -74,7 +76,7 @@ export function CaseDetailScreen(props: CaseDetailProps) {
 function CaseDetailInner({
   caseId, caseLabel, origin, bundle, query,
   params, onParamsChange, onAuthoredChanged,
-  merged, onOpenMergePicker, onRevertMerge,
+  merged, onOpenMergePicker, onOpenSuggest, onRevertMerge,
   onBack,
 }: CaseDetailProps) {
   const { conclusion, look } = useMemo(() => ({
@@ -87,6 +89,11 @@ function CaseDetailInner({
 
   const overlays = bundle.overlays;
   const overlaysMap = useMemo(() => overlaysById(bundle), [bundle]);
+
+  // Suggested contributions (mergePairs): seeded ones plus any a user filed locally, surfaced right
+  // on the case so a pending contribution is visible without opening the Merge dialog.
+  const { cases, declineSuggestion } = useCases();
+  const suggestedPairs = cases[caseId]?.mergePairs ?? [];
 
   // Initial state comes from the deep link when present.
   const initialScenario = params?.scenario ? decodeScenario(params.scenario, bundle) : null;
@@ -275,9 +282,18 @@ function CaseDetailInner({
         <div className="spacer" />
         <div className="actions">
           <div className="avatar-stack" title={`${bundle.sources.length} source(s)`}>
-            {bundle.sources.slice(0, 3).map((s) => <Avatar key={s.id} label={s.title} size={32} title={s.title} />)}
+            {bundle.sources.slice(0, 3).map((s) => (
+              <span key={s.id} className="avatar src-doc" title={s.title} aria-label={`Source: ${s.title}`}>
+                <FileTextIcon size={16} />
+              </span>
+))}
             {bundle.sources.length > 3 && <span className="avatar more" style={{ width: 32, height: 32, fontSize: 12 }}>+{bundle.sources.length - 3}</span>}
           </div>
+          {!merged && (
+            <button className="btn-outline" onClick={onOpenSuggest} title="Contribute evidence or reasoning to this case as a pending suggestion">
+              <PlusIcon size={17} /> Suggest a contribution
+            </button>
+)}
           {!merged && (
             <button className="btn-outline" onClick={onOpenMergePicker} title="Merge another case into this one">
               <MergeIcon size={18} /> Merge…
@@ -301,6 +317,36 @@ function CaseDetailInner({
 )}
         </div>
       </div>
+      {!merged && suggestedPairs.length > 0 && (() => {
+        const solo = suggestedPairs.length === 1 ? suggestedPairs[0]! : undefined;
+        const author = solo?.author;
+        return (
+          <div className="suggest-merge">
+            {author
+              ? <Avatar label={author.name.replace(/^\w+\.\s+/, "")} size={34} title={author.name} />
+              : <UsersIcon size={17} />}
+            <div className="sm-main">
+              <strong>{suggestedPairs.length} suggested contribution{suggestedPairs.length > 1 ? "s" : ""}</strong> from{" "}
+              {author ? <strong>{author.name}</strong> : "another investigator"} {suggestedPairs.length > 1 ? "are" : "is"} available to merge into this case:{" "}
+              {suggestedPairs.map((p) => p.label).join("; ")}.
+            </div>
+            <div className="sm-actions">
+              {solo?.suggestionId && (
+                <button
+                  className="sm-decline"
+                  onClick={() => { if (confirm(`Decline ${author?.name ?? "this"} contribution?`)) declineSuggestion(solo.suggestionId!); }}
+                  title="Remove this pending suggestion"
+                >
+                  Decline
+                </button>
+)}
+              <button className="btn-outline btn-sm" onClick={onOpenMergePicker} title="Review the suggested contribution">
+                <MergeIcon size={15} /> Review
+              </button>
+            </div>
+          </div>
+);
+      })()}
       {rawDocOpen && <RawDocumentModal bundle={bundle} onClose={() => setRawDocOpen(false)} />}
       {saveOpen && (
         <SaveCaseModal
@@ -389,7 +435,7 @@ function CaseDetailInner({
           distrust={distrust} onToggleDistrust={toggleDistrust} onSetDistrust={(fn) => setDistrust(fn)}
           selected={selected} onSelect={select} onLocalChange={onAuthoredChanged}
         />
-        <section className="detail-main">
+        <section className="detail-main scrl">
           <AskBox
             bundle={bundle}
             ctx={{

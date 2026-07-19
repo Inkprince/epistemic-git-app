@@ -1,0 +1,9 @@
+{
+  "text": "The claim rests on a direct quotation that explicitly states eggs have been synonymous with American eating culture for at least a century, providing straightforward textual support without any counter‑evidence. This single source underpins the claim, giving it a clear but limited evidential basis.",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 323,
+    "completionTokens": 81
+  }
+}

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useCases } from "../../cases/store.js";
+import { isSeedCase } from "../../cases/seed.js";
 import type { CaseOrigin } from "../../cases/types.js";
 import { pct, truncate } from "../../domain.js";
 import { caseMatches, supportByCase } from "../../stats.js";
@@ -74,22 +75,29 @@ export function CasesScreen({
                   <div className="nm">{c.label}</div>
                   <div className="badges">
                     {badge && <Badge tone={badge.tone}>{badge.label}</Badge>}
+                    {entry.mergePairs && entry.mergePairs.length > 0 && (
+                      <Badge tone="amber" dot>
+                        {entry.mergePairs.length} contribution{entry.mergePairs.length > 1 ? "s" : ""}
+                      </Badge>
+                    )}
                   </div>
                 </div>
-                <button
-                  className="cc-delete"
-                  aria-label={`Delete ${c.label}`}
-                  title={entry.origin === "committed" ? "Delete this example case" : "Delete this case"}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const msg = entry.origin === "committed"
-                      ? `Delete “${c.label}”? In the dev server this removes its files; otherwise it is hidden and can be restored by clearing site data.`
-                      : `Delete “${c.label}”? This removes it from this browser and can't be undone.`;
-                    if (confirm(msg)) deleteCase(c.id);
-                  }}
-                >
-                  <TrashIcon size={15} />
-                </button>
+                {!isSeedCase(entry.id) && (
+                  <button
+                    className="cc-delete"
+                    aria-label={`Delete ${c.label}`}
+                    title={entry.origin === "committed" ? "Delete this example case" : "Delete this case"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const msg = entry.origin === "committed"
+                        ? `Delete “${c.label}”? In the dev server this removes its files; otherwise it is hidden and can be restored by clearing site data.`
+                        : `Delete “${c.label}”? This removes it from this browser and can't be undone.`;
+                      if (confirm(msg)) deleteCase(c.id);
+                    }}
+                  >
+                    <TrashIcon size={15} />
+                  </button>
+                )}
               </div>
               <p className="cc-question" title={entry.bundle.question}>{truncate(entry.bundle.question, 120)}</p>
               <div className="cc-support">

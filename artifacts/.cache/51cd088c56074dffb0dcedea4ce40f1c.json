@@ -1,0 +1,9 @@
+{
+  "text": "{\"claims\":[{\"statement\":\"It was shown experimentally and documented in the book The Food Lab\",\"claimType\":\"empirical\",\"quote\":\"This was shown experimentally and documented in the book _[The Food Lab](https://en.wikipedia.org/wiki/The_Food_Lab \\\"The Food Lab\\\"): Better Home Cooking Through Science_ by J. Kenji López-Alt; published 21 September 2015 by W. W. Norton & Company, [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) \\\"ISBN (identifier)\\\") [978-0-393-08108-4](https://en.wikipedia.org/wiki/Special:BookSources/978-0-393-08108-4)\",\"entailment\":\"The quoted sentence explicitly states that the subject (unspecified) was demonstrated through experiment and recorded in the cited book, supporting the claim that it was shown experimentally and documented there.\",\"population\":\"\",\"intervention\":\"\",\"comparator\":\"\",\"outcome\":\"\",\"timeframe\":\"\",\"quantifiers\":\"\",\"modality\":\"causal\"}]}",
+  "model": "gpt-oss-120b",
+  "cached": false,
+  "usage": {
+    "promptTokens": 2612,
+    "completionTokens": 545
+  }
+}
