@@ -21,9 +21,9 @@ import esbuild from "esbuild";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = resolve(root, ".vercel/output");
-// Function wall-clock ceiling. 300s needs a Vercel Pro plan; on Hobby (60s cap) set
-// EGIT_FN_MAX_DURATION=60 in the Vercel build env, and keep pasted sources short.
-const FN_MAX_DURATION = Number(process.env["EGIT_FN_MAX_DURATION"] || 300);
+// Function wall-clock ceiling. Default 60s so the deploy succeeds on ANY plan (Hobby caps at 60).
+// On Vercel Pro, set EGIT_FN_MAX_DURATION=300 in the build env for headroom on longer sources.
+const FN_MAX_DURATION = Number(process.env["EGIT_FN_MAX_DURATION"] || 60);
 const RUNTIME = "nodejs22.x";
 const FUNCTIONS = ["build", "discover"];
 
