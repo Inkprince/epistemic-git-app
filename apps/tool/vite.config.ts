@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv, type Plugin, type ViteDevServer } from "vite";
+import { BodyError, RUN_TIMEOUT_MS, friendlyBuildError, readBody, runBuildCase } from "./server/build-case.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../..");
@@ -12,48 +13,6 @@ const repoRoot = resolve(here, "../..");
 // Built-in cases that ship with the repo (git-tracked artifacts). The browser delete endpoint
 // refuses these so a stray click can't wipe committed seed data; user-imported cases stay deletable.
 const SEED_CASES = new Set(["lhc", "covid", "eggs", "lhc-addendum"]);
-
-const MAX_BODY_BYTES = 2 * 1024 * 1024; // 2 MB request ceiling
-const MAX_TEXT_CHARS = 150_000; // ~25 extraction chunks, keeps a run bounded
-const RUN_TIMEOUT_MS = 8 * 60 * 1000; // hard ceiling on a full pipeline run
-
-class BodyError extends Error {
-  constructor(readonly code: number, message: string) { super(message); }
-}
-
-function readBody(req: IncomingMessage): Promise<Record<string, unknown>> {
-  return new Promise((resolvePromise, reject) => {
-    let data = "";
-    req.on("data", (c) => {
-      data += c;
-      if (data.length > MAX_BODY_BYTES) {
-        reject(new BodyError(413, "Request body too large (2 MB max)."));
-        req.destroy();
-      }
-    });
-    req.on("error", (e) => reject(new BodyError(400, `Could not read request: ${e.message}`)));
-    req.on("end", () => {
-      if (!data) return resolvePromise({});
-      try {
-        resolvePromise(JSON.parse(data));
-      } catch {
-        reject(new BodyError(400, "Request body must be valid JSON."));
-      }
-    });
-  });
-}
-
-/** Best-effort human title from a URL when the caller supplies none: host + last path segment. */
-function deriveTitleFromUrl(url: string): string {
-  try {
-    const u = new URL(url);
-    const seg = u.pathname.split("/").filter(Boolean).pop() ?? "";
-    const slug = decodeURIComponent(seg).replace(/[-_]+/g, " ").replace(/\.\w+$/, "").trim();
-    return slug ? `${u.hostname}: ${slug}` : u.hostname;
-  } catch {
-    return url;
-  }
-}
 
 /**
  * Dev-only live runner. Exposes POST /api/build that runs the real pipeline (extract → match →
@@ -197,6 +156,10 @@ function liveRunner(): Plugin {
         }
       });
 
+      // Dev /api/build: runs the SHARED pipeline orchestration (server/build-case.ts), the same code
+      // path the deployed Vercel function uses, with the workspace packages loaded through Vite's SSR
+      // graph. Streams NDJSON progress then a terminal done/error event (validation failures answer
+      // with a plain JSON status before any stream begins).
       server.middlewares.use("/api/build", async (req: IncomingMessage, res: ServerResponse, next) => {
         if (req.method !== "POST") return next();
         const send = (code: number, obj: unknown) => {
@@ -207,209 +170,46 @@ function liveRunner(): Plugin {
         };
         if (running) return send(429, { error: "A pipeline run is already in progress, wait for it to finish." });
         running = true;
+        // Lazy NDJSON: headers are written on the FIRST emit, so a pre-stream validation error can
+        // still answer with a JSON status (nothing has been streamed yet).
+        let streaming = false;
+        const emit = (obj: unknown) => {
+          if (!streaming) {
+            res.statusCode = 200;
+            res.setHeader("content-type", "application/x-ndjson");
+            res.setHeader("cache-control", "no-cache");
+            streaming = true;
+          }
+          if (!res.writableEnded) res.write(JSON.stringify(obj) + "\n");
+        };
         try {
           const body = await readBody(req);
-          const title = String(body["title"] ?? "Pasted source").trim() || "Pasted source";
-          const question = String(body["question"] ?? "").trim() || `What does “${title}” establish?`;
-
-          // Normalize input into a list of sources. New shape: `sources: [{ text?, url?, title? }]`.
-          // Back-compat: a bare `text`/`title` becomes a single pasted source.
-          interface SourceInput { text?: string; url?: string; title?: string }
-          const rawSources: SourceInput[] = Array.isArray(body["sources"])
-            ? (body["sources"] as SourceInput[])
-            : [{ text: String(body["text"] ?? ""), title }];
-          const sourceInputs = rawSources
-            .map((s) => ({
-              url: typeof s.url === "string" ? s.url.trim() : "",
-              text: typeof s.text === "string" ? s.text.trim() : "",
-              title: typeof s.title === "string" ? s.title.trim() : "",
-            }))
-            .filter((s) => s.url || s.text);
-          if (sourceInputs.length === 0) return send(400, { error: "Provide at least one source (pasted text or a URL)." });
-          if (sourceInputs.some((s) => s.url && !/^https?:\/\//i.test(s.url))) {
-            return send(400, { error: "Source URLs must start with http:// or https://." });
-          }
-          const pastedTotal = sourceInputs.reduce((n, s) => n + s.text.length, 0);
-          if (pastedTotal > MAX_TEXT_CHARS) {
-            return send(400, { error: `Pasted source text too long (${pastedTotal.toLocaleString()} chars; ${MAX_TEXT_CHARS.toLocaleString()} max).` });
-          }
-
-          const proto = await server.ssrLoadModule("@epistemic-git/protocol");
-          const llmNode = await server.ssrLoadModule("@epistemic-git/llm/node");
-          const pipe = await server.ssrLoadModule("@epistemic-git/pipeline");
-
-          const live = Boolean(process.env["GROQ_API_KEY"]);
-          const client = llmNode.createLlmClientFromEnv({
-            mode: live ? "live" : "cached",
+          const [proto, llmNode, pipe] = await Promise.all([
+            server.ssrLoadModule("@epistemic-git/protocol"),
+            server.ssrLoadModule("@epistemic-git/llm/node"),
+            server.ssrLoadModule("@epistemic-git/pipeline"),
+          ]);
+          const run = runBuildCase({
+            deps: { proto, llmNode, pipe },
+            body,
             cacheDir: resolve(repoRoot, "artifacts", ".cache"),
-            promptVersion: pipe.PROMPT_VERSION,
+            env: process.env,
+            log: (msg) => console.log(`[egit] ${msg}`),
+            emit,
           });
-
-          // From here on the response is a 200 NDJSON stream: progress events while the pipeline
-          // runs, then a single terminal `done` or `error` event. (Validation errors above still
-          // use plain JSON status codes; nothing has been streamed yet at that point.)
-          res.statusCode = 200;
-          res.setHeader("content-type", "application/x-ndjson");
-          res.setHeader("cache-control", "no-cache");
-          const emit = (obj: unknown) => {
-            if (!res.writableEnded) res.write(JSON.stringify(obj) + "\n");
-          };
-          const progress = (stage: string, pct: number, detail?: string) =>
-            emit({ type: "progress", stage, pct: Math.round(pct), ...(detail ? { detail } : {}) });
-
-          const run = async () => {
-            const t0 = Date.now();
-            const lap = (stage: string, from: number) =>
-              console.log(`[egit] /api/build ${stage}: ${((Date.now() - from) / 1000).toFixed(1)}s`);
-            let t = Date.now();
-            const b = new proto.BundleBuilder({ case: "live", title, question, mode: live ? "live" : "cached" });
-
-            // Stage 1, extract: retrieve each source (scrape URLs), then extract per source. The
-            // extract band (3..50%) is split evenly across sources so multi-source runs still show
-            // steady motion. Firecrawl is used when a key is present; native fetch is the fallback.
-            progress("extract", 3);
-            const cacheDir = resolve(repoRoot, "artifacts", ".cache");
-            const n = sourceInputs.length;
-            const agg = { extracted: 0, grounded: 0, quarantined: 0, chunks: 0 };
-            // The primary (first) source is the document the case started from; keep its raw text so
-            // the case can show exactly what was decomposed (capped to keep bundles reasonable).
-            let primaryDoc: { title?: string; url?: string; text: string } | undefined;
-            for (const [k, s] of sourceInputs.entries()) {
-              let text = s.text;
-              let url = s.url || undefined;
-              let srcTitle = s.title;
-              if (url) {
-                progress("extract", 3 + 47 * (k / n), `source ${k + 1}/${n}: fetching ${url}`);
-                const scraped = await pipe.scrapeUrl(url, { live: true, env: process.env, cacheDir, log: (msg: string) => console.log(`[egit] ${msg}`) });
-                text = scraped.text;
-                if (!srcTitle) srcTitle = deriveTitleFromUrl(url);
-              }
-              if (!srcTitle) srcTitle = n > 1 ? `Pasted source ${k + 1}` : title;
-              if (agg.chunks === 0 && !text) continue; // skip empties defensively
-              if (!primaryDoc && text) primaryDoc = { text: text.slice(0, 500_000), ...(srcTitle ? { title: srcTitle } : {}), ...(url ? { url } : {}) };
-              const sourceId = b.source({ type: "other", title: srcTitle, ...(url ? { url } : {}) });
-              const st = await pipe.extractInto(b, client, { sourceId, sourceTitle: srcTitle, text }, {
-                onChunk: (done: number, total: number) =>
-                  progress("extract", 3 + 47 * ((k + done / total) / n), `source ${k + 1}/${n} · passage ${done}/${total}`),
-              });
-              agg.extracted += st.extracted; agg.grounded += st.grounded;
-              agg.quarantined += st.quarantined; agg.chunks += st.chunks;
-            }
-            const exStats = agg;
-            lap(`extract (${exStats.grounded}/${exStats.extracted} grounded, ${exStats.chunks} chunks, ${n} sources)`, t);
-            let bundle = b.build();
-            t = Date.now();
-            progress("match", 50, `${exStats.grounded} claims admitted`);
-            const m = await pipe.matchClaims(bundle, client); bundle = m.bundle;
-            lap(`match (+${m.stats.added})`, t);
-            t = Date.now();
-            progress("infer", 58, `${m.stats.added} connections found`);
-            const inf = await pipe.inferArgument(bundle, client); bundle = inf.bundle;
-            lap(`infer (+${inf.stats.added})`, t);
-            t = Date.now();
-            progress("audit", 70, `${inf.stats.added} reasoning steps`);
-            const au = await pipe.auditBundle(bundle, client); bundle = au.bundle;
-            lap(`audit (+${au.stats.added})`, t);
-            progress("correlate", 80, `${au.stats.added} challenges raised`);
-            const corr = pipe.deriveCorrelationGroups(bundle); bundle = corr.bundle;
-
-            // Stages 6+7, AI embellishment: draft two opposing perspectives and narrate the top
-            // claims, so a built case reads like the curated ones. Best-effort: if a stage can't run
-            // (no key + cache miss), it is skipped and the build still succeeds.
-            let overlaysAdded = 0;
-            let narrativesAdded = 0;
-            t = Date.now();
-            const analyst = { kind: "analyst-llm" as const, ref: client.model };
-            const worldviews = [
-              { fallback: "Accepts the strongest supporting evidence", worldview: `Adopt the reading most favourable to a "yes" answer to: ${question}. Accept the claims that best support it and weight them heavily; treat contrary evidence as uncertain.` },
-              { fallback: "Weights the critical evidence", worldview: `Adopt the sceptical reading of: ${question}. Weight the contradicting, confounding, and critical claims heavily; treat the supporting evidence as uncertain.` },
-            ];
-            // Perspective band 83..93, one honest step per worldview drafted.
-            for (const [pi, wv] of worldviews.entries()) {
-              progress("perspective", 83 + 10 * (pi / worldviews.length), `perspective ${pi + 1}/${worldviews.length}`);
-              try {
-                const draft = await pipe.draftPerspective(bundle, client, { worldview: wv.worldview });
-                if (!draft.stances.length) continue;
-                const label = (draft.suggestedLabel || wv.fallback).trim();
-                if (bundle.overlays.some((o: { label: string }) => o.label.trim().toLowerCase() === label.toLowerCase())) continue;
-                const ovlId = proto.overlayId({ label, analyst });
-                const overlay = { id: ovlId, label, analyst, ...(draft.suggestedDescription ? { description: draft.suggestedDescription.trim() } : {}) };
-                const assessments = draft.stances.map((s: { claimId: string; stance: string; rationale: string }) => {
-                  const target = { kind: "claim" as const, id: s.claimId };
-                  // weight matches the curated author scripts (cases/eggs.ts) so a live-built case
-                  // feeds computeSupport identically to the committed demos.
-                  return { id: proto.assessmentId({ overlayId: ovlId, target }), overlayId: ovlId, target, stance: s.stance, weight: 0.7, ...(s.rationale ? { rationale: s.rationale } : {}) };
-                });
-                bundle = { ...bundle, overlays: [...bundle.overlays, overlay], assessments: [...bundle.assessments, ...assessments] };
-                overlaysAdded++;
-              } catch (e) {
-                console.log(`[egit] perspective skipped: ${e instanceof Error ? e.message : String(e)}`);
-              }
-            }
-            lap(`perspective (+${overlaysAdded})`, t);
-
-            t = Date.now();
-            const conclusion = bundle.claims.find((c: { derived?: boolean }) => c.derived);
-            const grounded = bundle.claims.filter((c: { derived?: boolean; passages: string[] }) => !c.derived && c.passages.length);
-            const toNarrate = [...(conclusion ? [conclusion] : []), ...grounded.slice(0, 2)];
-            const overlayId0 = bundle.overlays[0]?.id;
-            // Narrate band 93..99, one honest step per summary written.
-            for (const [ni, c] of toNarrate.entries()) {
-              progress("narrate", 93 + 6 * (ni / Math.max(1, toNarrate.length)), `summary ${ni + 1}/${toNarrate.length}`);
-              try {
-                const { bundle: nb } = await pipe.narrateClaim(bundle, client, { claimId: c.id, ...(overlayId0 ? { overlayId: overlayId0 } : {}), respectCorrelation: true });
-                if ((nb.narratives?.length ?? 0) > (bundle.narratives?.length ?? 0)) narrativesAdded++;
-                bundle = nb;
-              } catch (e) {
-                console.log(`[egit] narrate skipped: ${e instanceof Error ? e.message : String(e)}`);
-              }
-            }
-            lap(`narrate (+${narrativesAdded})`, t);
-            lap("total", t0);
-            const finalBundle = primaryDoc ? { ...bundle, sourceDocument: primaryDoc } : bundle;
-            return { bundle: finalBundle, exStats, m, inf, au, corr, overlaysAdded, narrativesAdded, sources: n };
-          };
           const timeout = new Promise<never>((_, rej) =>
-            setTimeout(() => rej(new BodyError(504, `Pipeline run exceeded ${RUN_TIMEOUT_MS / 60000} minutes and was abandoned.`)), RUN_TIMEOUT_MS),
-);
-          const { bundle, exStats, m, inf, au, corr, overlaysAdded, narrativesAdded, sources } = await Promise.race([run(), timeout]);
-
-          const check = proto.validateBundle(bundle);
-          const problems = (check.issues ?? [])
-            .filter((i: { severity: string }) => i.severity === "error")
-            .slice(0, 5)
-            .map((i: { code: string; message: string }) => `${i.code}: ${i.message}`);
-          emit({
-            type: "done",
-            ok: check.ok,
-            bundle,
-            ...(problems.length ? { problems } : {}),
-            stats: {
-              extract: exStats,
-              matches: m.stats.added,
-              inferences: inf.stats.added,
-              challenges: au.stats.added,
-              correlationGroups: corr.added,
-              perspectives: overlaysAdded,
-              narratives: narrativesAdded,
-              sources,
-              mode: live ? "live" : "cached",
-            },
-          });
+            setTimeout(() => rej(new BodyError(504, `Pipeline run exceeded ${RUN_TIMEOUT_MS / 60000} minutes and was abandoned.`)), RUN_TIMEOUT_MS));
+          const done = await Promise.race([run, timeout]);
+          emit(done);
           res.end();
         } catch (e) {
-          const msg = e instanceof Error ? e.message : String(e);
-          const friendly = /cache miss/i.test(msg) || /No API key configured/i.test(msg)
-            ? "No GROQ_API_KEY configured, so live extraction on new text is unavailable. Add a key to .env (repo root) and restart the dev server."
-            : msg;
-          if (!res.headersSent) {
-            // Failed before streaming began, plain JSON status.
+          const { message } = friendlyBuildError(e);
+          if (!streaming) {
             if (e instanceof BodyError) return send(e.code, { error: e.message });
-            return send(friendly === msg ? 500 : 503, { error: friendly });
+            return send(500, { error: message });
           }
-          // Already streaming, deliver the failure as the terminal event.
           if (!res.writableEnded) {
-            res.write(JSON.stringify({ type: "error", error: friendly }) + "\n");
+            res.write(JSON.stringify({ type: "error", error: message }) + "\n");
             res.end();
           }
         } finally {

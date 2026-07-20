@@ -56,6 +56,9 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
     });
 
   const isDev = Boolean(import.meta.env?.DEV);
+  // Build-a-case runs a server-side pipeline. Available in dev (Vite middleware) and on the deployed
+  // site when the Vercel build turned it on (VITE_LIVE_BUILD=1 → the /api/build serverless function).
+  const liveBuild = isDev || import.meta.env?.VITE_LIVE_BUILD === "1";
 
   const navigate = (r: Route) => {
     if (r.screen !== "case" || route.screen !== "case" || r.caseId !== route.caseId) {
@@ -175,7 +178,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           mobileOpen={mobileNavOpen}
           onToggleCollapse={toggleCollapsed}
           onOpenImport={() => { setMobileNavOpen(false); setImportOpen(true); }}
-          {...(isDev ? { onOpenBuildCase: () => { setMobileNavOpen(false); setBuildOpen(true); } } : {})}
+          {...(liveBuild ? { onOpenBuildCase: () => { setMobileNavOpen(false); setBuildOpen(true); } } : {})}
         />
         <div className="main-col">
           <TopBar
@@ -195,7 +198,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
               onOpenCase={(id, selectId) =>
                 navigate({ screen: "case", caseId: id, ...(selectId ? { params: { sel: idRef(selectId) } } : {}) })}
               onOpenImport={() => setImportOpen(true)}
-              {...(isDev ? { onOpenBuildCase: () => setBuildOpen(true) } : {})}
+              {...(liveBuild ? { onOpenBuildCase: () => setBuildOpen(true) } : {})}
             />
 )}
           {route.screen === "cases" && (
@@ -203,7 +206,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
               query={query}
               onOpenCase={(id) => navigate({ screen: "case", caseId: id })}
               onOpenImport={() => setImportOpen(true)}
-              {...(isDev ? { onOpenBuildCase: () => setBuildOpen(true) } : {})}
+              {...(liveBuild ? { onOpenBuildCase: () => setBuildOpen(true) } : {})}
             />
 )}
           {route.screen === "case" && caseEntry && bundle && (
@@ -253,7 +256,7 @@ function AppShell({ initialRoute }: { initialRoute?: Route }) {
           onFiled={() => setSuggestOpen(false)}
         />
 )}
-      {buildOpen && isDev && (
+      {buildOpen && liveBuild && (
         <BuildCaseModal
           onClose={() => setBuildOpen(false)}
           onResult={(b) => {
