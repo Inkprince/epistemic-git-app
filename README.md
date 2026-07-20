@@ -53,8 +53,12 @@ cp .env.example .env      # then open .env and paste in your keys
 
 | Key | Needed for | Where to get it |
 |---|---|---|
-| `GROQ_API_KEY` | **Required** to build any case (the LLM that reads your sources) | https://console.groq.com |
+| `LLM_API_KEY` | **Required** to build any case (the LLM that reads your sources). Provider-agnostic, defaults to Cerebras `gpt-oss-120b` | https://cloud.cerebras.ai (or set `LLM_BASE_URL`/`LLM_MODEL` for Groq, OpenAI, etc.) |
 | `FIRECRAWL_API_KEY` | *Optional*, only if you build from a URL that needs JS rendering | https://firecrawl.dev |
+
+Any OpenAI-compatible provider works, pick one with headroom on its free tier (Cerebras is more
+permissive than Groq's free tier, which can't fit a single extraction request). To use Groq instead,
+set `LLM_BASE_URL=https://api.groq.com/openai/v1` and `LLM_MODEL=openai/gpt-oss-120b`.
 
 **Command-line examples:**
 
@@ -100,7 +104,7 @@ The other invariants that follow from it:
 |---|---|
 | `packages/protocol` | The ledger format: the six-object schema (Source → Passage → Claim → Inference → Challenge → Assessment), content-addressed ids, validation, JSONL/JSON-Schema/Nanopublication export. |
 | `packages/analysis` | The **LLM-free** reasoning engine: support scoring, distrust-and-recompute, perspective-diff, crux ranking, correlation-aware combination, and merge. |
-| `packages/llm` | The provider-agnostic LLM adapter (default **Groq `gpt-oss-120b`**). The **only** package that reads API keys or touches the network. |
+| `packages/llm` | The provider-agnostic, OpenAI-compatible LLM adapter (default **Cerebras `gpt-oss-120b`**). The **only** package that reads API keys or touches the network. |
 | `packages/pipeline` | The `egit` pipeline and CLI: extract → match → infer → audit → correlate. This is what building a case runs. |
 | `packages/mcp-server` | A read-only **MCP server** over a bundle, so a downstream model (e.g. Claude) can interrogate a ledger and only ever get grounded, deterministic answers. |
 | `apps/tool` | The browser explorer (Vite + React): argument graph, support gauge, distrust-any-claim, perspective-diff, import/merge/branch/history, and the "Build a case" panel. |
@@ -143,7 +147,7 @@ deterministic analysis grounded in the ledger, never a fresh opinion.
 ## Status and honesty
 
 Verified today: **the full test suite is green**, and the entire extract → match → infer → audit →
-correlate chain is **live-verified on Groq `gpt-oss-120b`**, with every stage replaying from the
+correlate chain is **live-verified on `gpt-oss-120b`**, with every stage replaying from the
 committed cache with no key. The Git verbs (export → import → merge → branch → history/diff → commit)
 are real and working in the app.
 

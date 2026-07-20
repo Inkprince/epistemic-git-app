@@ -3,7 +3,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import type { CompleteParams, JsonSchemaFormat, LlmClient } from "./types.js";
 
 /**
- * Structured-output helpers. Groq strict mode constrains decoding to a JSON Schema at the token
+ * Structured-output helpers. Provider strict mode constrains decoding to a JSON Schema at the token
  * level, so extraction can be forced to emit valid ledger objects. But the provider imposes limits
  * (root object, additionalProperties:false everywhere, no string pattern/format, no minItems/maxItems,
  * ≤5000 chars, ≤10 depth), so we derive schemas from small purpose-built Zod shapes and sanitize.

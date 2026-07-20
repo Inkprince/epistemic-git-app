@@ -26,6 +26,10 @@ function liveRunner(): Plugin {
     configureServer(server: ViteDevServer) {
       const env = loadEnv("development", repoRoot, "");
       for (const key of [
+        // Provider-agnostic LLM config (legacy GROQ_*/CEREBRAS_* names still accepted).
+        "LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "LLM_MAX_TOKENS",
+        "LLM_MAX_RETRIES", "LLM_RETRY_DELAY_MS", "LLM_TIMEOUT_MS",
+        "CEREBRAS_API_KEY",
         "GROQ_API_KEY", "GROQ_MODEL", "GROQ_BASE_URL", "GROQ_MAX_RETRIES", "GROQ_RETRY_DELAY_MS", "GROQ_TIMEOUT_MS",
         "FIRECRAWL_API_KEY", "FIRECRAWL_BASE_URL",
       ]) {
@@ -225,7 +229,7 @@ function liveRunner(): Plugin {
         const proto = await server.ssrLoadModule("@epistemic-git/protocol");
         const llmNode = await server.ssrLoadModule("@epistemic-git/llm/node");
         const pipe = await server.ssrLoadModule("@epistemic-git/pipeline");
-        const live = Boolean(process.env["GROQ_API_KEY"]);
+        const live = llmNode.hasLlmKey(process.env);
         const client = llmNode.createLlmClientFromEnv({
           mode: live ? "live" : "cached",
           cacheDir: resolve(repoRoot, "artifacts", ".cache"),
@@ -234,7 +238,7 @@ function liveRunner(): Plugin {
         return { proto, pipe, client, live };
       };
       const noKeyHint = (feature: string) =>
-        `No GROQ_API_KEY configured, live ${feature} is unavailable, and this input isn't in the cache. Add a key to .env (repo root) and restart the dev server.`;
+        `No LLM_API_KEY configured, live ${feature} is unavailable, and this input isn't in the cache. Add a key to .env (repo root) and restart the dev server.`;
       let aiBusy = false; // AI endpoints share the fs cache + rate-limit budget, one at a time.
       const jsonSend = (res: ServerResponse, code: number, obj: unknown) => {
         if (res.writableEnded) return;

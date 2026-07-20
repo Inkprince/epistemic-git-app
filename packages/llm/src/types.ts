@@ -11,7 +11,7 @@ export interface LlmMessage {
 export interface JsonSchemaFormat {
   /** schema name reported to the provider (e.g. "extracted_claims"). */
   name: string;
-  /** a Groq/OpenAI-safe JSON Schema object (root object, additionalProperties:false, etc.). */
+  /** an OpenAI-compatible JSON Schema object (root object, additionalProperties:false, etc.). */
   jsonSchema: Record<string, unknown>;
 }
 

@@ -2,7 +2,7 @@
   "schemaVersion": "baseline-study/1.0",
   "studyId": "epistemic-uplift-baseline-v2",
   "frozenAt": "2026-07-16T00:00:00.000Z",
-  "versionNote": "v2 re-freezes the two baseline arms to the models actually available to run the study. The original v1 pinned OpenAI o3-deep-research and Anthropic claude-opus-4-20250514, neither runnable in this environment. v2 runs BOTH baseline arms through the Claude Code environment that FLF names as the benchmark ('a smart person using off-the-shelf deep research / top-of-range Claude Code'), model claude-opus-4-8: the deep-research arm via the Claude Code deep-research skill with web search, and the careful arm via a Claude Code tool-use investigation. This makes the comparison against the literal baseline the judges use. The Epistemic Git arm runs gpt-oss-120b on Groq. Per the study's own rule, this is a new frozen version, not an edit of v1.",
+  "versionNote": "v2 re-freezes the two baseline arms to the models actually available to run the study. The original v1 pinned OpenAI o3-deep-research and Anthropic claude-opus-4-20250514, neither runnable in this environment. v2 runs BOTH baseline arms through the Claude Code environment that FLF names as the benchmark ('a smart person using off-the-shelf deep research / top-of-range Claude Code'), model claude-opus-4-8: the deep-research arm via the Claude Code deep-research skill with web search, and the careful arm via a Claude Code tool-use investigation. This makes the comparison against the literal baseline the judges use. The Epistemic Git arm runs gpt-oss-120b via an OpenAI-compatible provider (default Cerebras). Per the study's own rule, this is a new frozen version, not an edit of v1.",
   "commonPrompt": "prompts/common-artifact.v1.md",
   "tasks": "config/tasks.json",
   "minimumRatersPerResponse": 2,
@@ -41,7 +41,7 @@
       "id": "epistemic-git",
       "administratorLabel": "Epistemic Git",
       "modelId": "gpt-oss-120b",
-      "provider": "Groq",
+      "provider": "Cerebras",
       "armPrompt": "prompts/epistemic-git.v1.md",
       "configuration": {
         "interface": "Epistemic Git extract-match-infer-audit-correlate pipeline",
@@ -64,6 +64,7 @@
       "Gemini",
       "Deep Research",
       "Epistemic Git",
+      "Cerebras",
       "Groq",
       "gpt-oss"
     ],

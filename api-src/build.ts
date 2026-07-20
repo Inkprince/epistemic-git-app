@@ -5,10 +5,11 @@
  * .vercel/output function, because the workspace packages are raw TypeScript and Vercel's own
  * compiler can't resolve their .js-extension ESM imports.
  *
- * Requires GROQ_API_KEY in the deployment environment (Vercel → Project → Settings → Environment
- * Variables). The committed static site needs no key; only this endpoint does. The key is spent by
- * anyone who can reach the endpoint, so treat it as public-facing (see the same-origin guard below
- * and the source-size cap in build-case.ts).
+ * Requires LLM_API_KEY in the deployment environment (Vercel → Project → Settings → Environment
+ * Variables); provider-agnostic, defaults to Cerebras (set LLM_BASE_URL/LLM_MODEL for another). The
+ * committed static site needs no key; only this endpoint does. The key is spent by anyone who can
+ * reach the endpoint, so treat it as public-facing (see the same-origin guard below and the
+ * source-size cap in build-case.ts).
  */
 
 import { mkdir } from "node:fs/promises";

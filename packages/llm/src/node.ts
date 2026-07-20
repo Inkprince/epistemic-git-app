@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { type CacheStore, CachedLlmClient } from "./cache.js";
-import { GroqClient, NullClient } from "./groq.js";
+import { OpenAiCompatClient, NullClient } from "./openai-compat.js";
 import type { CompleteResult, LlmClient } from "./types.js";
 
 /** Filesystem-backed cache (Node only). One JSON file per key; commit the directory for dual-mode. */
@@ -24,13 +24,33 @@ export class FileCacheStore implements CacheStore {
 }
 
 /**
- * Build the pipeline's LLM client from environment. In "cached" mode (default) a key is optional,
- * cache hits need no network, and a miss throws a helpful error. In "live" mode a key is required.
- * Env: GROQ_API_KEY, GROQ_MODEL (API model id sent to Groq; default openai/gpt-oss-120b),
- * GROQ_BASE_URL, GROQ_MAX_RETRIES, GROQ_RETRY_DELAY_MS, GROQ_TIMEOUT_MS.
+ * The live LLM API key, resolved provider-agnostically: `LLM_API_KEY` first, then the legacy
+ * `CEREBRAS_API_KEY` / `GROQ_API_KEY` aliases so older `.env` files keep working.
+ */
+export function llmApiKey(env: Record<string, string | undefined> = process.env): string | undefined {
+  return env["LLM_API_KEY"] ?? env["CEREBRAS_API_KEY"] ?? env["GROQ_API_KEY"];
+}
+
+/** True when a live LLM key is configured (any of the accepted names). Used to pick live vs cached. */
+export function hasLlmKey(env: Record<string, string | undefined> = process.env): boolean {
+  return Boolean(llmApiKey(env));
+}
+
+/**
+ * Build the pipeline's LLM client from environment. Provider-agnostic and OpenAI-compatible, so it
+ * talks to any provider by base URL + routing model id; the defaults target Cerebras gpt-oss-120b.
+ * In "cached" mode (default) a key is optional (cache hits need no network, a miss throws a helpful
+ * error); in "live" mode a key is required.
  *
- * Note: the cache key + attribution use the provider-independent family label "gpt-oss-120b" (not the
- * Groq routing id), so the committed cache recorded before the provider swap still replays.
+ * Env (all optional except the key for live runs):
+ *   LLM_API_KEY      the key (aliases: CEREBRAS_API_KEY, GROQ_API_KEY)
+ *   LLM_BASE_URL     OpenAI-compatible base URL (default https://api.cerebras.ai/v1)
+ *   LLM_MODEL        routing model id sent to the provider (default gpt-oss-120b; Groq: openai/gpt-oss-120b)
+ *   LLM_MAX_TOKENS   completion-token ceiling (default 8192; raise on higher-limit tiers)
+ *   LLM_MAX_RETRIES, LLM_RETRY_DELAY_MS, LLM_TIMEOUT_MS   (legacy GROQ_* aliases still read)
+ *
+ * The cache key + attribution use the provider-independent family label "gpt-oss-120b" (not the
+ * routing id), so the committed cache replays regardless of which provider produced it.
  */
 export function createLlmClientFromEnv(opts: {
   mode: "cached" | "live";
@@ -40,28 +60,34 @@ export function createLlmClientFromEnv(opts: {
 }): LlmClient {
   const env = opts.env ?? process.env;
   const model = "gpt-oss-120b"; // family label: cache key + attribution, provider-independent
-  const apiModel = env["GROQ_MODEL"] ?? "openai/gpt-oss-120b"; // routing id sent to Groq
-  const apiKey = env["GROQ_API_KEY"];
-  const intEnv = (name: string): number | undefined => {
-    const n = Number(env[name]);
-    return Number.isFinite(n) && n > 0 ? n : undefined;
+  const apiModel = env["LLM_MODEL"] ?? env["GROQ_MODEL"] ?? "gpt-oss-120b"; // routing id sent to the provider
+  const apiKey = llmApiKey(env);
+  const baseUrl = env["LLM_BASE_URL"] ?? env["GROQ_BASE_URL"];
+  const intEnv = (...names: string[]): number | undefined => {
+    for (const name of names) {
+      const n = Number(env[name]);
+      if (Number.isFinite(n) && n > 0) return n;
+    }
+    return undefined;
   };
 
   let inner: LlmClient;
   if (apiKey) {
-    const maxRetries = intEnv("GROQ_MAX_RETRIES");
-    const retryDelayMs = intEnv("GROQ_RETRY_DELAY_MS");
-    const timeoutMs = intEnv("GROQ_TIMEOUT_MS");
-    inner = new GroqClient({
+    const maxTokens = intEnv("LLM_MAX_TOKENS");
+    const maxRetries = intEnv("LLM_MAX_RETRIES", "GROQ_MAX_RETRIES");
+    const retryDelayMs = intEnv("LLM_RETRY_DELAY_MS", "GROQ_RETRY_DELAY_MS");
+    const timeoutMs = intEnv("LLM_TIMEOUT_MS", "GROQ_TIMEOUT_MS");
+    inner = new OpenAiCompatClient({
       apiKey, model, apiModel,
-      ...(env["GROQ_BASE_URL"] ? { baseUrl: env["GROQ_BASE_URL"] } : {}),
+      ...(baseUrl ? { baseUrl } : {}),
+      ...(maxTokens !== undefined ? { maxTokens } : {}),
       ...(maxRetries !== undefined ? { maxRetries } : {}),
       ...(retryDelayMs !== undefined ? { retryDelayMs } : {}),
       ...(timeoutMs !== undefined ? { timeoutMs } : {}),
     });
   } else {
     if (opts.mode === "live") {
-      throw new Error("GROQ_API_KEY is required for --live runs. Set it, or run in cached mode.");
+      throw new Error("LLM_API_KEY is required for --live runs. Set it, or run in cached mode.");
     }
     inner = new NullClient(model); // never called on cache hits; a miss throws CacheMissError first
   }

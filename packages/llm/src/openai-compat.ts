@@ -1,18 +1,17 @@
 import type { CompleteParams, CompleteResult, LlmClient, LlmMessage } from "./types.js";
 
 /**
- * Groq client (gpt-oss-120b by default). OpenAI-compatible, so this is a thin fetch wrapper, no SDK
- * dependency. The transport is injectable so the cache and structured-output logic can be unit-tested
- * with no network and no API key.
+ * OpenAI-compatible chat client (gpt-oss-120b by default, on Cerebras by default). A thin fetch
+ * wrapper, no SDK dependency, so it points at ANY OpenAI-compatible endpoint (Cerebras, Groq, OpenAI,
+ * a local server) by base URL + routing model id. The transport is injectable so the cache and
+ * structured-output logic can be unit-tested with no network and no API key.
  *
  * Two model strings, on purpose:
  *   - `model` is the provider-INDEPENDENT family label ("gpt-oss-120b"). It is what the content-hash
  *     cache keys on and what gets recorded as the analyst attribution in bundles. Keeping it stable
- *     means the committed `artifacts/.cache/` (recorded before the provider swap) still replays
- *     bit-for-bit.
- *   - `apiModel` is what we actually POST to Groq ("openai/gpt-oss-120b"), which routes the same model
- *     under Groq's `openai/` namespace.
- * They are the same underlying model; only the routing id differs between providers.
+ *     means the committed `artifacts/.cache/` replays bit-for-bit no matter which provider is live.
+ *   - `apiModel` is the routing id actually POSTed to the provider. It differs per provider
+ *     (Cerebras: "gpt-oss-120b"; Groq: "openai/gpt-oss-120b"), but selects the same underlying model.
  */
 
 export interface HttpResponse {
@@ -27,15 +26,17 @@ export type FetchLike = (
   init: { method: string; headers: Record<string, string>; body: string; signal?: AbortSignal },
 ) => Promise<HttpResponse>;
 
-export interface GroqOptions {
+export interface OpenAiCompatOptions {
   apiKey: string;
   /** Family label used for the cache key + attribution; default "gpt-oss-120b". */
   model?: string;
-  /** Model id actually sent to Groq; default "openai/gpt-oss-120b". */
+  /** Routing model id actually sent to the provider; default "gpt-oss-120b" (Cerebras). */
   apiModel?: string;
   baseUrl?: string;
   fetchImpl?: FetchLike;
-  /** retries on 429/5xx (free tier is rate-limited); default 5. */
+  /** default ceiling on completion (incl. reasoning) tokens; overridable per call. */
+  maxTokens?: number;
+  /** retries on 429/5xx (free tiers are rate-limited); default 5. */
   maxRetries?: number;
   /** base backoff in ms between retries; default 12000 (tokens/min buckets refill within ~60s). */
   retryDelayMs?: number;
@@ -46,28 +47,31 @@ export interface GroqOptions {
 }
 
 const DEFAULT_MODEL = "gpt-oss-120b";
-const DEFAULT_API_MODEL = "openai/gpt-oss-120b";
-const DEFAULT_BASE_URL = "https://api.groq.com/openai/v1";
-/** Generous completion ceiling so long structured outputs don't get provider-default truncated. */
-const DEFAULT_MAX_COMPLETION_TOKENS = 16384;
+const DEFAULT_API_MODEL = "gpt-oss-120b";
+const DEFAULT_BASE_URL = "https://api.cerebras.ai/v1";
+/** Completion ceiling. Kept moderate so a single request stays under tokens-per-minute limits on
+ *  free tiers (providers count reserved output against the TPM budget); raise via LLM_MAX_TOKENS. */
+const DEFAULT_MAX_COMPLETION_TOKENS = 8192;
 
-export class GroqClient implements LlmClient {
+export class OpenAiCompatClient implements LlmClient {
   readonly model: string;
   private readonly apiModel: string;
   private readonly baseUrl: string;
   private readonly apiKey: string;
   private readonly fetchImpl: FetchLike;
+  private readonly maxTokens: number;
   private readonly maxRetries: number;
   private readonly retryDelayMs: number;
   private readonly timeoutMs: number;
   private readonly sleep: (ms: number) => Promise<void>;
 
-  constructor(opts: GroqOptions) {
+  constructor(opts: OpenAiCompatOptions) {
     this.apiKey = opts.apiKey;
     this.model = opts.model ?? DEFAULT_MODEL;
     this.apiModel = opts.apiModel ?? DEFAULT_API_MODEL;
     this.baseUrl = (opts.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, "");
     this.fetchImpl = opts.fetchImpl ?? ((url, init) => fetch(url, init) as unknown as Promise<HttpResponse>);
+    this.maxTokens = opts.maxTokens ?? DEFAULT_MAX_COMPLETION_TOKENS;
     this.maxRetries = opts.maxRetries ?? 5;
     this.retryDelayMs = opts.retryDelayMs ?? 12000;
     this.timeoutMs = opts.timeoutMs ?? 120_000;
@@ -82,7 +86,7 @@ export class GroqClient implements LlmClient {
 
     const body: Record<string, unknown> = { model: this.apiModel, messages };
     if (params.temperature !== undefined) body["temperature"] = params.temperature;
-    body["max_completion_tokens"] = params.maxTokens ?? DEFAULT_MAX_COMPLETION_TOKENS;
+    body["max_completion_tokens"] = params.maxTokens ?? this.maxTokens;
     if (params.seed !== undefined) body["seed"] = params.seed;
     if (params.reasoningEffort !== undefined) body["reasoning_effort"] = params.reasoningEffort;
     if (params.schema) {
@@ -112,7 +116,7 @@ export class GroqClient implements LlmClient {
           const why = e instanceof Error && e.name === "AbortError"
             ? `request timed out after ${this.timeoutMs}ms`
             : e instanceof Error ? e.message : String(e);
-          throw new Error(`Groq API unreachable: ${why}`);
+          throw new Error(`LLM API unreachable: ${why}`);
         }
         await this.sleep(this.backoff(attempt));
         continue;
@@ -123,7 +127,7 @@ export class GroqClient implements LlmClient {
       // Retry on rate limits (429) and transient server errors (5xx); fail fast otherwise.
       const retriable = res.status === 429 || res.status >= 500;
       if (!retriable || attempt >= this.maxRetries) {
-        throw new Error(`Groq API error ${res.status}: ${raw.slice(0, 500)}`);
+        throw new Error(`LLM API error ${res.status}: ${raw.slice(0, 500)}`);
       }
       const retryAfter = res.headers?.get("retry-after");
       const hinted = retryAfter ? Number(retryAfter) * 1000 : NaN;
@@ -134,10 +138,10 @@ export class GroqClient implements LlmClient {
     try {
       json = JSON.parse(raw) as typeof json;
     } catch {
-      throw new Error(`Groq API returned non-JSON response (HTTP 200): ${raw.slice(0, 200)}`);
+      throw new Error(`LLM API returned non-JSON response (HTTP 200): ${raw.slice(0, 200)}`);
     }
     const text = json.choices?.[0]?.message?.content ?? "";
-    if (!text) throw new Error("Groq API returned an empty completion.");
+    if (!text) throw new Error("LLM API returned an empty completion.");
     return {
       text,
       model: this.model,
@@ -157,6 +161,6 @@ export class GroqClient implements LlmClient {
 export class NullClient implements LlmClient {
   constructor(readonly model: string) {}
   async complete(): Promise<CompleteResult> {
-    throw new Error("No API key configured; cannot make a live LLM call. Run in cached mode or set GROQ_API_KEY.");
+    throw new Error("No API key configured; cannot make a live LLM call. Run in cached mode or set LLM_API_KEY.");
   }
 }

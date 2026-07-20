@@ -18,7 +18,7 @@ live in their respective directories.
 | COVID opposed review | identical neutral packet for opposed prior stances | none | ≥1 reviewer from each specified stance |
 | Eggs expert review | nutrition/epidemiology packet and grounded targets | none | ≥1 qualified reviewer |
 
-No OpenAI, Anthropic, or Groq credentials were available during implementation. The absent external
+No OpenAI, Anthropic, or gpt-oss (Cerebras/Groq) credentials were available during implementation. The absent external
 runs therefore remain `none`/`not run`; they are not encoded as losses, zeroes, or passes.
 
 ## Adversarial replay
@@ -47,7 +47,7 @@ matches a fixed, inspectable vocabulary of injection markers, and a novel or par
 still slip past it. The trap stays in the suite as a regression guard.
 
 Run `npm run eval:adversarial` for exact generated details. Use `--live` only deliberately: it needs a
-Groq key, sends planted source text to the provider, may incur usage, and records cache entries.
+LLM key, sends planted source text to the provider, may incur usage, and records cache entries.
 
 ## Readiness commands
 

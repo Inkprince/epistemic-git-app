@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import {
-  CacheMissError, CachedLlmClient, GroqClient, type CompleteParams, type CompleteResult,
+  CacheMissError, CachedLlmClient, OpenAiCompatClient, type CompleteParams, type CompleteResult,
   type FetchLike, type LlmClient, MemoryCacheStore, completeStructured, sanitizeJsonSchema, toResponseFormat,
 } from "../src/index.js";
 
@@ -42,12 +42,12 @@ describe("content-hash cache", () => {
   });
 });
 
-describe("Groq client", () => {
+describe("OpenAI-compatible client", () => {
   it("builds an OpenAI-style request with strict json_schema and parses the response", async () => {
     const fake: FetchLike = vi.fn(async (_url, init) => {
       const body = JSON.parse(init.body) as Record<string, unknown>;
-      // assert we send the structured-output request shape, with Groq's routing model id
-      expect(body["model"]).toBe("openai/gpt-oss-120b");
+      // assert we send the structured-output request shape, with the default (Cerebras) routing model id
+      expect(body["model"]).toBe("gpt-oss-120b");
       expect((body["response_format"] as any).type).toBe("json_schema");
       expect((body["response_format"] as any).json_schema.strict).toBe(true);
       return {
@@ -58,7 +58,7 @@ describe("Groq client", () => {
         }),
       };
     });
-    const client = new GroqClient({ apiKey: "k", fetchImpl: fake });
+    const client = new OpenAiCompatClient({ apiKey: "k", fetchImpl: fake });
     const res = await client.complete({ prompt: "hi", schema: { name: "s", jsonSchema: { type: "object" } } });
     expect(res.text).toBe('{"ok":true}');
     // the recorded model is the provider-independent family label, not the routing id
@@ -68,13 +68,13 @@ describe("Groq client", () => {
 
   it("throws on a non-retriable error", async () => {
     const fake: FetchLike = async () => ({ ok: false, status: 400, text: async () => "bad request" });
-    const client = new GroqClient({ apiKey: "k", fetchImpl: fake });
+    const client = new OpenAiCompatClient({ apiKey: "k", fetchImpl: fake });
     await expect(client.complete({ prompt: "hi" })).rejects.toThrow(/400/);
   });
 
   it("gives up on a persistent 429 after maxRetries", async () => {
     const fake: FetchLike = async () => ({ ok: false, status: 429, text: async () => "rate limited" });
-    const client = new GroqClient({ apiKey: "k", fetchImpl: fake, maxRetries: 0, sleep: async () => {} });
+    const client = new OpenAiCompatClient({ apiKey: "k", fetchImpl: fake, maxRetries: 0, sleep: async () => {} });
     await expect(client.complete({ prompt: "hi" })).rejects.toThrow(/429/);
   });
 
@@ -86,7 +86,7 @@ describe("Groq client", () => {
         ? { ok: false, status: 429, text: async () => "rate limited" }
         : { ok: true, status: 200, text: async () => JSON.stringify({ choices: [{ message: { content: "ok" } }] }) };
     };
-    const client = new GroqClient({ apiKey: "k", fetchImpl: fake, sleep: async () => {} });
+    const client = new OpenAiCompatClient({ apiKey: "k", fetchImpl: fake, sleep: async () => {} });
     const res = await client.complete({ prompt: "hi" });
     expect(res.text).toBe("ok");
     expect(n).toBe(2);

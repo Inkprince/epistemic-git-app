@@ -109,7 +109,9 @@ export async function runBuildCase(opts: {
   const log = opts.log ?? (() => {});
   const { title, question, sources: sourceInputs } = normalizeBuild(opts.body);
 
-  const live = Boolean(env["GROQ_API_KEY"]);
+  // Provider-agnostic key check, inlined (this module must not import the llm package: it is loaded
+  // by the Vite config loader, which can't resolve the packages' .js->.ts imports).
+  const live = Boolean(env["LLM_API_KEY"] || env["CEREBRAS_API_KEY"] || env["GROQ_API_KEY"]);
   const client = llmNode.createLlmClientFromEnv({
     mode: live ? "live" : "cached",
     cacheDir,
@@ -251,7 +253,7 @@ export function friendlyBuildError(e: unknown): { message: string; noKey: boolea
   return {
     noKey,
     message: noKey
-      ? "No GROQ_API_KEY is configured on the server, so live extraction on new text is unavailable. Set GROQ_API_KEY in the deployment environment (or in .env for local dev)."
+      ? "No LLM_API_KEY is configured on the server, so live extraction on new text is unavailable. Set LLM_API_KEY in the deployment environment (or in .env for local dev)."
       : msg,
   };
 }

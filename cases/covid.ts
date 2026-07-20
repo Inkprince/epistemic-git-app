@@ -7,7 +7,7 @@ import {
   type Overlay, type Assessment, type Attribution, type Stance, type Inference,
 } from "@epistemic-git/protocol";
 import { writeBundleFile } from "@epistemic-git/protocol/node";
-import { createLlmClientFromEnv } from "@epistemic-git/llm/node";
+import { createLlmClientFromEnv, hasLlmKey } from "@epistemic-git/llm/node";
 import { auditBundle, deriveCorrelationGroups, extractInto, inferArgument, matchClaims, PROMPT_VERSION } from "@epistemic-git/pipeline";
 
 /**
@@ -52,7 +52,7 @@ const SOURCES = [
 ] as const;
 
 async function main() {
-  const live = Boolean(process.env["GROQ_API_KEY"]);
+  const live = hasLlmKey(process.env);
   const client = createLlmClientFromEnv({
     mode: live ? "live" : "cached",
     cacheDir: resolve(here, "../artifacts/.cache"),
